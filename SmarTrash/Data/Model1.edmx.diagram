@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="818c6fd5f7584f01974fd4d3a571d1d4" Name="Diagram1">
+        <EntityTypeShape EntityType="SmarTrashModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblBinType" Width="1.5" PointX="0.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblCategory" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblCity" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblCurrentThrow" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblGift" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblGiftCompetition" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblOrder" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblProduct" Width="1.5" PointX="6" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblScanProduct" Width="1.5" PointX="8.25" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblSpecificBin" Width="1.5" PointX="3" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblUser" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblWeight" Width="1.5" PointX="0.75" PointY="21.625" IsExpanded="true" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblProduc__BinTy__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblSpecif__BinTy__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblGift__GiftCat__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblGiftCo__CityI__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblOrder__City__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblUser__CityId__21B6055D" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblCurren__BinQR__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblCurren__UserE__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblGiftCo__GiftI__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblOrder__GiftCo__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblGiftCo__UserE__3D5E1FD2" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblOrder__UserEm__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblScanPr__Produ__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblScanPr__UserE__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblSpecif__Weigh__412EB0B6" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
