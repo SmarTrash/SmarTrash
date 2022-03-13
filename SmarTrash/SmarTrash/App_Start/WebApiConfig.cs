@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace SmarTrash
 {
@@ -10,9 +11,12 @@ namespace SmarTrash
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
-            // Web API routes
+            EnableCorsAttribute cors = new EnableCorsAttribute("*","*","*");
+            config.EnableCors(cors);
+           // Web API routes
             config.MapHttpAttributeRoutes();
+
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
