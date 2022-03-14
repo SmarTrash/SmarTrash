@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SmarTrashModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SmarTrashModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -133,6 +133,7 @@
           <Property Name="StreetNameAndNumber" Type="nvarchar" MaxLength="255" />
           <Property Name="LastGameDate" Type="date" />
           <Property Name="CityId" Type="int" />
+          <Property Name="UserImg" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="tblWeight">
           <Key>
@@ -396,8 +397,7 @@
             <End Role="tblUser" EntitySet="tblUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SmarTrashModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -558,6 +558,7 @@
           <NavigationProperty Name="tblGiftCompetition" Relationship="Self.FK__tblGiftCo__UserE__3D5E1FD2" FromRole="tblUser" ToRole="tblGiftCompetition" />
           <NavigationProperty Name="tblOrder" Relationship="Self.FK__tblOrder__UserEm__2A4B4B5E" FromRole="tblUser" ToRole="tblOrder" />
           <NavigationProperty Name="tblScanProduct" Relationship="Self.FK__tblScanPr__UserE__30F848ED" FromRole="tblUser" ToRole="tblScanProduct" />
+          <Property Name="UserImg" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblWeight">
           <Key>
@@ -950,6 +951,7 @@
           <EntitySetMapping Name="tblUser">
             <EntityTypeMapping TypeName="SmarTrashModel.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
+                <ScalarProperty Name="UserImg" ColumnName="UserImg" />
                 <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
