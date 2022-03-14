@@ -36,6 +36,7 @@ namespace Data
         public string StreetNameAndNumber { get; set; }
         public Nullable<System.DateTime> LastGameDate { get; set; }
         public Nullable<int> CityId { get; set; }
+        public string UserImg { get; set; }
     
         public virtual tblCity tblCity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

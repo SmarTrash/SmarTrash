@@ -38,6 +38,7 @@ namespace SmarTrash.Controllers
             newUser.Password = value.Password;
             newUser.StreetNameAndNumber = value.StreetNameAndNumber;
             newUser.CityId = value.CityId;
+            newUser.UserImg = value.UserImg;
 
             db.tblUser.Add(newUser);
             db.SaveChanges();
