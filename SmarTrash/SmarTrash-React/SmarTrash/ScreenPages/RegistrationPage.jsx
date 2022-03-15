@@ -57,7 +57,6 @@ export default function RegistrationPage() {
           onPress={onPressRadioButton}
           layout="row"
         />
-        <CityList Cities={Cities} />
        
 
         <TextInput
