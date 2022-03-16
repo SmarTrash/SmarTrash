@@ -1,18 +1,18 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import RegistrationPage from './ScreenPages/RegistrationPage';
-import SignInPage from './ScreenPages/SignInPage';
-
-const Stack = createNativeStackNavigator();
+import { View, Text,StyleSheet } from 'react-native'
+import React from 'react'
+import SignInScreen from './src/screens/SignInScreen'
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="RegistrationPage">
-        <Stack.Screen name="RegistrationPage" component={RegistrationPage} />
-        <Stack.Screen name="SignInPage" component={SignInPage} />
-    
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+    <View style={styles.root} >
+      <SignInScreen/>
+    </View>
+  )
 }
 
+const styles=StyleSheet.create({
+  root:{
+    flex:1,
+    backgroundColor: '#F9FBFC'
+
+  }
+})

@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function SignInPage() {
+export default function RegistrationPage() {
   return (
     <View>
-      <Text>SignInPage</Text>
+      <Text>RegistrationPage</Text>
     </View>
   )
 }

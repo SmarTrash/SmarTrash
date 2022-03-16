@@ -4,31 +4,47 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
+using Data;
 namespace SmarTrash.Controllers
 {
     public class SignInController : ApiController
     {
-        // GET: api/SignIn
+        //// GET: api/SignIn
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET: api/SignIn/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+
+
+        //public bool Get(string u)
+        //{
+
+
+
+        //}
 
         // POST: api/SignIn
-        public void Post([FromBody]string value)
+        [Route("api/SignIn")]
+        public bool Post([FromBody] tblUser u)
         {
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail && x.Password == u.Password).First();
+            if (user == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         // PUT: api/SignIn/5
         public void Put(int id, [FromBody]string value)
         {
+
         }
 
         // DELETE: api/SignIn/5
