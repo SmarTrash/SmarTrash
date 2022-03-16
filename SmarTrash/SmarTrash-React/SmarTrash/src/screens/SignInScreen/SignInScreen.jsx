@@ -19,14 +19,6 @@ const SignInScreen = () => {
     console.warn("Forgot Password?");
   }
 
-  const onSignInFacebookPressed = () => {
-    console.warn("facebook");
-  }
-
-  const onSignInGooglePressed = () => {
-    console.warn("google");
-  }
-
   const onSignUpPressed = () => {
     console.warn("sign up");
   }

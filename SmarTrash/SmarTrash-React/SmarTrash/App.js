@@ -1,7 +1,5 @@
 import { View, Text,StyleSheet } from 'react-native'
 import React from 'react'
-import SignInScreen from './src/screens/SignInScreen'
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignUpScreen from './src/screens/SignUpScreen';
 import NewGiftPage from './src/screens/GiftScreen/NewGiftPage';
