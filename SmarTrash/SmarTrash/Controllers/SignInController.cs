@@ -30,7 +30,7 @@ namespace SmarTrash.Controllers
         public bool Post([FromBody] tblUser u)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
-            tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail && x.Password == u.Password).First();
+            tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail && x.Password == u.Password).FirstOrDefault();
             if (user == null)
             {
                 return false;
