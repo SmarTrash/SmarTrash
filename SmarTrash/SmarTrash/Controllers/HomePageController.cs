@@ -18,25 +18,26 @@ namespace SmarTrash.Controllers
         }
 
         // GET: api/HomePage/5
-        public dynamic Get(string email)
+        [Route("api/HomePage")]
+        public dynamic Get([FromBody] tblUser u)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
-        
-            dynamic tblUser = db.tblUser.Select(x => new
+
+            dynamic userDetails = db.tblUser.Where(x => x.UserEmail == u.UserEmail).Select(y => new
             {
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                UserImg = x.UserImg
+                First = y.FirstName,
+                Last = y.LastName,
+                Img = y.UserImg
             }).ToList();
 
-            return tblUser;
+            return userDetails;
 
         }
 
-        // POST: api/HomePage
-        public void Post([FromBody]string value)
-        {
-        }
+        //// POST: api/HomePage
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
         // PUT: api/HomePage/5
         public void Put(int id, [FromBody]string value)
