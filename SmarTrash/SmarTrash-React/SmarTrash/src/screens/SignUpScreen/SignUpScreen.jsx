@@ -22,12 +22,7 @@ const SignUpScreen = () => {
     console.warn("Sign up");
   }
 
-  const onForgotPasswordPressed = () => {
-    console.warn("Forgot Password?");
-  }
-
-  
-  const onSignUpPressed = () => {
+  const onSignInPressed = () => {
     console.warn("sign up");
   }
 
@@ -56,6 +51,12 @@ const SignUpScreen = () => {
         />
 
         <CustomInput
+          placeholder="שם משפחה"
+          value={lastName}
+          setValue={setLastName}
+        />
+
+        <CustomInput
           placeholder="מין"
           value={gender}
           setValue={setGender}
@@ -65,11 +66,6 @@ const SignUpScreen = () => {
           placeholder="תאריך לידה"
           value={birthDate}
           setValue={setBirthDate}
-        />
-        <CustomInput
-          placeholder="שם משפחה"
-          value={lastName}
-          setValue={setLastName}
         />
 
         <CustomInput
@@ -95,10 +91,10 @@ const SignUpScreen = () => {
           onPress={onSignUPPressed}
         />
 
-      <SocialSignInButtons/>
+        <SocialSignInButtons />
         <CustonButton
-          text="Don't have an account? Create one"
-          onPress={onSignUpPressed}
+          text="Have an account? Sign In"
+          onPress={onSignInPressed}
           type="TERTIARY"
         />
       </View>
@@ -112,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20
   },
- 
+
   title: {
     fontSize: 24,
     fontWeight: 'bold',
