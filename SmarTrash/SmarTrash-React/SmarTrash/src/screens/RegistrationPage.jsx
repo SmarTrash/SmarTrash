@@ -1,5 +1,6 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import React, { useState } from 'react'
+import { FAB, TextInput } from 'react-native-paper'
 
 export default function RegistrationPage() {
   return (

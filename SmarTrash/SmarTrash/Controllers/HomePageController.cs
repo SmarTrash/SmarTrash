@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Data;
+
 
 namespace SmarTrash.Controllers
 {
@@ -16,9 +18,19 @@ namespace SmarTrash.Controllers
         }
 
         // GET: api/HomePage/5
-        public string Get(int id)
+        public dynamic Get(string email)
         {
-            return "value";
+            SmarTrashDBContext db = new SmarTrashDBContext();
+        
+            dynamic tblUser = db.tblUser.Select(x => new
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                UserImg = x.UserImg
+            }).ToList();
+
+            return tblUser;
+
         }
 
         // POST: api/HomePage
