@@ -1,11 +1,12 @@
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
+import { View, Image, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import logo from '../../../assets/images/logo.jpg'
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
 import CustomInput from '../../Components/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
+import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
 
-export default function SignInPage() {
+const SignInScreen = () => {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const { height } = useWindowDimensions();
@@ -35,23 +36,30 @@ export default function SignInPage() {
       <View style={styles.root}>
         <Image source={logo} style={[styles.logo, { height: height * 0.3 }]} resizeMode="contain" />
 
-        <CustomInput placeholder="מייל" value={userEmail} setValue={setUserEmail} />
-        <CustomInput placeholder="סיסמה" value={password} setValue={setPassword} secureTextEntry={true} />
-        <CustonButton text="הרשמה" onPress={onSignInPressed} />
-        <CustonButton text="Forgot Password" onPress={onForgotPasswordPressed} type="TERTIARY" />
+        <CustomInput
+          placeholder="אימייל"
+          value={userEmail}
+          setValue={setUserEmail}
+        />
 
-        <CustonButton
-          text="Sign in with Facebook"
-          onPress={onSignInFacebookPressed}
-          bgColor="#E7EAF4"
-          fgColor="#4765A9"
+        <CustomInput
+          placeholder="סיסמה"
+          value={password}
+          setValue={setPassword}
+          secureTextEntry={true}
         />
         <CustonButton
-          text="Sign in with Google"
-          onPress={onSignInGooglePressed}
-          bgColor="#E7EAF4"
-          fgColor="#DD4D44"
+          text="התחברות"
+          onPress={onSignInPressed}
         />
+        <CustonButton
+          text="Forgot Password"
+          onPress={onForgotPasswordPressed}
+          type="TERTIARY"
+        />
+
+        <SocialSignInButtons />
+
         <CustonButton
           text="Don't have an account? Create one"
           onPress={onSignUpPressed}
@@ -61,7 +69,7 @@ export default function SignInPage() {
     </ScrollView>
   )
 }
-
+export default SignInScreen;
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
