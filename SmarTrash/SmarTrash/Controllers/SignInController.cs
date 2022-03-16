@@ -16,16 +16,10 @@ namespace SmarTrash.Controllers
         }
 
         // GET: api/SignIn/5
-
-
-        //public bool Get(string u)
-        //{
-
-
-
-        //}
+        //public bool Get(string u){}
 
         // POST: api/SignIn
+        //מקבל מייל וסיסמא ובודק שהמשתמש קיים במערכת והפרטים תקינים. מחזיר אמת/ שקר
         [Route("api/SignIn")]
         public bool Post([FromBody] tblUser u)
         {

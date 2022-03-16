@@ -11,6 +11,7 @@ namespace SmarTrash.Controllers
     public class RegistrationController : ApiController
     {
         // GET: api/Registration
+        //מביא את כל רשימת הערים כדי שהמשתמש שנבחר יבחר אחת
         public dynamic Get()
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
@@ -19,12 +20,13 @@ namespace SmarTrash.Controllers
         }
 
         // GET: api/Registration/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST: api/Registration
+        //הוספה ושמירת משתמש חדש בדאטהבייס.
         public void Post([FromBody] tblUser value)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
