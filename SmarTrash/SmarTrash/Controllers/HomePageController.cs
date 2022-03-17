@@ -16,6 +16,30 @@ namespace SmarTrash.Controllers
         {
             return new string[] { "value1", "value2" };
         }
+        [HttpGet]
+        [Route("api/HomePage/Comp")]
+        //מקבל מייל ומחזיר את המקום שלו בתחרות
+        public dynamic Comp([FromBody] tblUser u)
+        {
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            //מחזיר רשימה של האימיילים ולכל אחד את הזריקות של החודש והשנה הנוכחי
+            //צריך לסכום לכל אחד את הנקודות ולקבל את המספר של המקום של האימייל הספציפי
+           
+            var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+            var sums = new Dictionary<string, object>();
+
+            foreach (var e in competitionPlaces)
+            {
+                sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
+            }
+         /////לא עובד האורדר ביי דיסנדינג !!!!
+            var userPlace = sums.OrderByDescending(x=>x.Value).Where(z => z.Key == u.UserEmail).Select(r=>r.Key.IndexOf(r.Key));
+
+            return userPlace;
+
+        }
+
+
 
         // GET: api/HomePage/5
         [Route("api/HomePage")]
@@ -23,9 +47,6 @@ namespace SmarTrash.Controllers
         public dynamic Get([FromBody] tblUser u)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
-            //מחזיר רשימה של האימיילים ולכל אחד את הזריקות של החודש והשנה הנוכחי
-            //צריך לסכום לכל אחד את הנקודות ולקבל את המספר של המקום של האימייל הספציפי
-            var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
             int lastPoints = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault().ThrowPoints;
             dynamic userDetails = db.tblUser.Where(x => x.UserEmail == u.UserEmail).Select(y => new
             {
@@ -38,8 +59,8 @@ namespace SmarTrash.Controllers
             }).ToList();
             return userDetails;
         }
-       
 
+        
         // POST: api/HomePage
         public void Post([FromBody] string value)
         {
