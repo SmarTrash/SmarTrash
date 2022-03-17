@@ -12,10 +12,37 @@ namespace SmarTrash.Controllers
     public class HomePageController : ApiController
     {
         // GET: api/HomePage
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route("api/HomePage/gift")]
+        public dynamic gift()
         {
-            return new string[] { "value1", "value2" };
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            dynamic listTop3 = GetTop3();
+
+            //foreach (var item in listTop3)
+            //{
+            //    //dynamic popularGift = db.tblGift.Where(x => x.GiftId == item.key).Select(y=>new { 
+
+
+            //    //});
+            //    var p = item.key;
+            //}
+
+            return listTop3;
         }
+
+        public dynamic GetTop3()
+        {
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            dynamic p = db.tblOrder.GroupBy(x => x.GiftCode).Select(y => new
+            {
+                giftcode = y.Key,
+                count = y.Count()
+            }).OrderByDescending(y => y.count).Take(3);
+
+            return p;
+        }
+
         [HttpGet]
         [Route("api/HomePage/Comp")]
         //מקבל מייל ומחזיר את המקום שלו בתחרות
