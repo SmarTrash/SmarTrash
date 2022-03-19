@@ -18,17 +18,24 @@ namespace SmarTrash.Controllers
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             dynamic listTop3 = GetTop3();
+            dynamic popularGift="";
+            List<dynamic> gifts=new List<dynamic>();
+            foreach (var item in listTop3)
+            {
+               int z= item.giftcode;
 
-            //foreach (var item in listTop3)
-            //{
-            //    //dynamic popularGift = db.tblGift.Where(x => x.GiftId == item.key).Select(y=>new { 
+                popularGift = db.tblGift.Where(x => x.GiftId == z).Select(y => new
+                {
+                    GiftName = y.GiftName,
+                    GiftDescription=y.GiftDescription,
+                    Brand=y.Brand,
+                    Price=y.Price
 
+                }).ToList();
+                gifts.Add(popularGift);
+            }
 
-            //    //});
-            //    var p = item.key;
-            //}
-
-            return listTop3;
+            return gifts;
         }
 
         public dynamic GetTop3()
@@ -42,6 +49,7 @@ namespace SmarTrash.Controllers
 
             return p;
         }
+
 
         [HttpGet]
         [Route("api/HomePage/Comp")]
@@ -87,7 +95,7 @@ namespace SmarTrash.Controllers
             return userDetails;
         }
 
-        
+
         // POST: api/HomePage
         public void Post([FromBody] string value)
         {
