@@ -13,35 +13,46 @@ namespace SmarTrash.Controllers
     {
         // GET: api/HomePage
         [HttpGet]
-        [Route("api/HomePage/gift")]
-        public dynamic gift()
+        [Route("api/HomePage/HomePageGifts")]
+        public dynamic HomePageGifts()
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             dynamic listTop3 = GetTop3();
+            dynamic popularGift="";
+            List<dynamic> gifts=new List<dynamic>();
 
-            //foreach (var item in listTop3)
-            //{
-            //    //dynamic popularGift = db.tblGift.Where(x => x.GiftId == item.key).Select(y=>new { 
+            foreach (var item in listTop3)
+            {
+               int z= item.giftcode;
 
+                popularGift = db.tblGift.Where(x => x.GiftId == z).Select(y => new
+                {
+                    GiftName = y.GiftName,
+                    GiftDescription=y.GiftDescription,
+                    Brand=y.Brand,
+                    Price=y.Price,
+                    Image=y.GiftImage
 
-            //    //});
-            //    var p = item.key;
-            //}
+                }).ToList();
+                gifts.Add(popularGift);
+            }
 
-            return listTop3;
+            return gifts;
         }
 
         public dynamic GetTop3()
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
-            dynamic p = db.tblOrder.GroupBy(x => x.GiftCode).Select(y => new
+
+            dynamic top3Gifts = db.tblOrder.GroupBy(x => x.GiftCode).Select(y => new
             {
                 giftcode = y.Key,
                 count = y.Count()
             }).OrderByDescending(y => y.count).Take(3);
 
-            return p;
+            return top3Gifts;
         }
+
 
         [HttpGet]
         [Route("api/HomePage/Comp")]
@@ -66,12 +77,11 @@ namespace SmarTrash.Controllers
 
         }
 
-
-
         // GET: api/HomePage/5
         [Route("api/HomePage")]
+        [HttpGet]
         //מקבל מייל ומחזיר את הפרטים שלו שצריך לדף הבית
-        public dynamic Get([FromBody] tblUser u)
+        public dynamic HomePageDetails([FromBody] tblUser u)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             int lastPoints = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault().ThrowPoints;
@@ -87,20 +97,5 @@ namespace SmarTrash.Controllers
             return userDetails;
         }
 
-        
-        // POST: api/HomePage
-        public void Post([FromBody] string value)
-        {
-        }
-
-        //PUT: api/HomePage/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/HomePage/5
-        public void Delete(int id)
-        {
-        }
     }
 }

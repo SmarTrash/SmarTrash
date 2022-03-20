@@ -15,15 +15,15 @@ namespace SmarTrash.Controllers
         public dynamic Get()
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
-            dynamic c = db.tblCity.Select(x => new { CityName = x.CityName, CityId = x.CityId}).ToList();
+
+            dynamic c = db.tblCity.Select(x => new { 
+                CityName = x.CityName, 
+                CityId = x.CityId
+
+            }).ToList();
+
             return c;
         }
-
-        // GET: api/Registration/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
         // POST: api/Registration
         //הוספה ושמירת משתמש חדש בדאטהבייס.
@@ -31,6 +31,7 @@ namespace SmarTrash.Controllers
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             tblUser newUser = new tblUser();
+
             newUser.UserEmail=value.UserEmail;
             newUser.FirstName = value.FirstName;
             newUser.LastName = value.LastName;

@@ -4,7 +4,7 @@ import logo from '../../../assets/images/logo.jpg'
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
 import CustomInput from '../../Components/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
-import SocialSignInButtons from '../SocialSignInButtons/SocialSignInButtons'
+import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 
 const SignInScreen = () => {
   const [userEmail, setUserEmail] = useState('');

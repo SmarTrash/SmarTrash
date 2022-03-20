@@ -90,7 +90,7 @@ const Card = ({gifts}) => {
 
 const style = StyleSheet.create({
   safeArea: {
-    felx:1,
+    flex:1,
     paddingHorizontal:20, 
     backgroundColor:COLORS.white,
   },

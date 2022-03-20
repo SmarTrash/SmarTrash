@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import CustonButton from '../../Components/CustomButton/CustonButton'
+import CustonButton from '../CustomButton/CustonButton'
 
 const SocialSignInButtons = () => {
 
