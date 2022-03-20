@@ -7,10 +7,10 @@ import gifts from '../../consts/gifts';
 
 const width = Dimensions.get('screen').width/2-30;
 const NewGiftPage = ({navigation}) => {
-  const categories =[ 'הכל', 'נוי','בית','פנאי','ביגוד'];
-  const [categoryIndex, setCategoryIndex] = React.useState(0);
+const categories =[ 'הכל', 'נוי','בית','פנאי','ביגוד'];
+const [categoryIndex, setCategoryIndex] = React.useState(0);
 
-  const CategoryList =() => {
+const CategoryList =() => {
     return (
     <View style={style.categoryContainer}>
       {categories.map((item,index)=> (
