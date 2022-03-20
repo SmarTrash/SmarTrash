@@ -66,16 +66,19 @@ namespace SmarTrash.Controllers
             SmarTrashDBContext db = new SmarTrashDBContext();
             //מחזיר רשימה של האימיילים ולכל אחד את הזריקות של החודש והשנה הנוכחי
             //צריך לסכום לכל אחד את הנקודות ולקבל את המספר של המקום של האימייל הספציפי
-
             var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+            
             var sums = new Dictionary<string, object>();
-
+           //מיון המשתמשים לפי קוד עיר ובדיקה מה המקום שלהם בתחרות
+           //...........
+           //לולאה שעוברת על כל המשתמשים באותה העיר
+           //צריל לפתוח json עם שם העיר ובפנים לשמור את שם המשתמש ומספר הנקודות?
             foreach (var e in competitionPlaces)
             {
                 sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
             }
-            /////לא עובד האורדר ביי דיסנדינג !!!!
-            var userPlace = sums.OrderByDescending(x => x.Value).Where(z => z.Key == u.UserEmail).Select(r => r.Key.IndexOf(r.Key));
+            
+            var userPlace = sums.OrderByDescending(x => x.Value);
 
             return userPlace;
 
