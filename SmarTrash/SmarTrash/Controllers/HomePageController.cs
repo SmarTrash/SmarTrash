@@ -12,6 +12,7 @@ namespace SmarTrash.Controllers
     public class HomePageController : ApiController
     {
         // GET: api/HomePage
+        //מפעיל את הפונקציה של הטופ 3 ומביא את כל הפרטים שלהן מטבלת הטבות
         [HttpGet]
         [Route("api/HomePage/HomePageGifts")]
         public dynamic HomePageGifts()
@@ -27,19 +28,21 @@ namespace SmarTrash.Controllers
 
                 popularGift = db.tblGift.Where(x => x.GiftId == z).Select(y => new
                 {
+                    GiftId = y.GiftId,
                     GiftName = y.GiftName,
-                    GiftDescription=y.GiftDescription,
-                    Brand=y.Brand,
-                    Price=y.Price,
-                    Image=y.GiftImage
-
+                    GiftDescription = y.GiftDescription,
+                    Brand = y.Brand,
+                    Price = y.Price,
+                    Image = y.GiftImage,
+                    //בשביל בדיקה אם יש במלאי גם את המלאי
+                    Stock = y.Stock
                 }).ToList();
                 gifts.Add(popularGift);
             }
 
             return gifts;
         }
-
+        // מחזיר את שלושת ההטבות הכי נמכרות מטבלת הזמנות 
         public dynamic GetTop3()
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
@@ -48,6 +51,7 @@ namespace SmarTrash.Controllers
             {
                 giftcode = y.Key,
                 count = y.Count()
+              
             }).OrderByDescending(y => y.count).Take(3);
 
             return top3Gifts;
@@ -62,7 +66,7 @@ namespace SmarTrash.Controllers
             SmarTrashDBContext db = new SmarTrashDBContext();
             //מחזיר רשימה של האימיילים ולכל אחד את הזריקות של החודש והשנה הנוכחי
             //צריך לסכום לכל אחד את הנקודות ולקבל את המספר של המקום של האימייל הספציפי
-           
+
             var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
             var sums = new Dictionary<string, object>();
 
@@ -70,8 +74,8 @@ namespace SmarTrash.Controllers
             {
                 sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
             }
-         /////לא עובד האורדר ביי דיסנדינג !!!!
-            var userPlace = sums.OrderByDescending(x=>x.Value).Where(z => z.Key == u.UserEmail).Select(r=>r.Key.IndexOf(r.Key));
+            /////לא עובד האורדר ביי דיסנדינג !!!!
+            var userPlace = sums.OrderByDescending(x => x.Value).Where(z => z.Key == u.UserEmail).Select(r => r.Key.IndexOf(r.Key));
 
             return userPlace;
 
