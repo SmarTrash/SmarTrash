@@ -28,6 +28,7 @@ namespace Data
         public int Price { get; set; }
         public int Stock { get; set; }
         public Nullable<int> GiftCategory { get; set; }
+        public string GiftImage { get; set; }
     
         public virtual tblCategory tblCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

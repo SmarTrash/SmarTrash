@@ -9,14 +9,6 @@ namespace SmarTrash.Controllers
 {
     public class SignInController : ApiController
     {
-        //// GET: api/SignIn
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/SignIn/5
-        //public bool Get(string u){}
 
         // POST: api/SignIn
         //מקבל מייל וסיסמא ובודק שהמשתמש קיים במערכת והפרטים תקינים. מחזיר אמת/ שקר
@@ -35,15 +27,6 @@ namespace SmarTrash.Controllers
             }
         }
 
-        // PUT: api/SignIn/5
-        public void Put(int id, [FromBody]string value)
-        {
-
-        }
-
-        // DELETE: api/SignIn/5
-        public void Delete(int id)
-        {
-        }
+       
     }
 }
