@@ -5,6 +5,7 @@ import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimen
 import CustomInput from '../../Components/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
+import { LoginButton } from 'react-native-fbsdk';
 
 const SignInScreen = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -57,6 +58,7 @@ const SignInScreen = () => {
           onPress={onSignUpPressed}
           type="TERTIARY"
         />
+        <LoginButton/>
       </View>
     </ScrollView>
   )
