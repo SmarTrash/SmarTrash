@@ -58,31 +58,36 @@ namespace SmarTrash.Controllers
         }
 
 
-        [HttpGet]
-        [Route("api/HomePage/Comp")]
-        //מקבל מייל ומחזיר את המקום שלו בתחרות
-        public dynamic Comp([FromBody] tblUser u)
+       
+        public int GetUserPlaceInCompetition(string u)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             //מחזיר רשימה של האימיילים ולכל אחד את הזריקות של החודש והשנה הנוכחי
             //צריך לסכום לכל אחד את הנקודות ולקבל את המספר של המקום של האימייל הספציפי
-            var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+            var User = db.tblUser.Where(x => x.UserEmail == u).ToList();
+            var cityIdUser = User.Select(x => x.CityId).First();
+
+            //רשימה של משתמשים לפי עיר
+            var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).Select(z => z.UserEmail).ToList();
+            var competitionPlaces=db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
             
             var sums = new Dictionary<string, object>();
-           //מיון המשתמשים לפי קוד עיר ובדיקה מה המקום שלהם בתחרות
-           //...........
-           //לולאה שעוברת על כל המשתמשים באותה העיר
-           //צריל לפתוח json עם שם העיר ובפנים לשמור את שם המשתמש ומספר הנקודות?
-            foreach (var e in competitionPlaces)
-            {
-                sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
+           
+            foreach (var useriIncity in usersInCity)
+            {   
+                foreach (var e in competitionPlaces)
+                {
+                    if (e.Key== useriIncity)
+                    {
+                        sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
+                    }
+                }
             }
-            
             var userPlace = sums.OrderByDescending(x => x.Value);
-
-            return userPlace;
-
-        }
+            int id = userPlace.ToList().FindIndex(x => x.Key == u);
+            id += 1;
+            return id;
+           }
 
         // GET: api/HomePage/5
         [Route("api/HomePage")]
@@ -92,14 +97,15 @@ namespace SmarTrash.Controllers
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             int lastPoints = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault().ThrowPoints;
+           int userInComp= GetUserPlaceInCompetition(u.UserEmail);
             dynamic userDetails = db.tblUser.Where(x => x.UserEmail == u.UserEmail).Select(y => new
             {
                 First = y.FirstName,
                 Last = y.LastName,
                 Img = y.UserImg,
                 Points = y.TotalPoints,
-                lastThrow= lastPoints,
-                //competitionPlace
+                lastThrow = lastPoints,
+                competitionPlace = userInComp
             }).ToList();
             return userDetails;
         }
