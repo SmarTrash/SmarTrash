@@ -9,7 +9,7 @@ const SocialSignInButtons = () => {
   }
 
   const onSignInGooglePressed = () => {
-    console.warn("google");
+  const config = {iosClientId: '1097573340666-5jete35a7t8scdkl8oqre8k04054icgq.apps.googleusercontent.com'}
   }
 
   return (

@@ -1,12 +1,12 @@
 import { View, Text,StyleSheet } from 'react-native'
 import React from 'react'
-import SignInScreen from './src/screens/SignInScreen/SignInScreen';
+import Navigation from './src/Components/Navigation';
 
 export default function App() {
   return (
     
     <View style={styles.root} >
-      <SignInScreen/>
+      <Navigation/>
     </View>
   )
 }
