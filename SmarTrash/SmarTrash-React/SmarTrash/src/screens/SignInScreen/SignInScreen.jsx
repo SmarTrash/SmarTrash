@@ -2,9 +2,10 @@ import { View, Image, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import logo from '../../../assets/images/logo.jpg'
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
-import CustomInput from '../../Components/CustomInput'
+import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
+import { LoginButton } from 'react-native-fbsdk';
 
 const SignInScreen = () => {
   const [userEmail, setUserEmail] = useState('');
@@ -57,6 +58,7 @@ const SignInScreen = () => {
           onPress={onSignUpPressed}
           type="TERTIARY"
         />
+        <LoginButton/>
       </View>
     </ScrollView>
   )
