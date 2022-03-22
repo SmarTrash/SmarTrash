@@ -1,13 +1,13 @@
 import { View, Text,StyleSheet } from 'react-native'
 import React from 'react'
-import Navigation from './src/Components/Navigation';
-
+//import Navigation from './src/Components/Navigation';
+import Home2 from './src/screens/HomeScreen/Home2';
 
 export default function App() {
   return (
     
     <View style={styles.root} >
-      <Navigation/>
+      <Home2 />
     </View>
   )
 }
