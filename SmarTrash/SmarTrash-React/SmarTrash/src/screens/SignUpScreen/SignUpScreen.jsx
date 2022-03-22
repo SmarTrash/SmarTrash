@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
 import CustomInput from '../../Components/CustomInput/CustomInput'

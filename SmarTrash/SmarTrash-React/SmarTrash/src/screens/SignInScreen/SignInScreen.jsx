@@ -1,20 +1,64 @@
 import { View, Image, StyleSheet, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../../../assets/images/logo.jpg'
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
-import { LoginButton } from 'react-native-fbsdk';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { createIconSetFromFontello } from 'react-native-vector-icons'
+import Homepage from '../HomePage/HomePage';
+import validator from 'validator'
 
-const SignInScreen = () => {
+
+
+const SignInScreen = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const { height } = useWindowDimensions();
 
-  const onSignInPressed = () => {
-    console.warn("Sign in");
+  useEffect(() => {
+    storeData();
+  }, []);
+
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('@storage_Key', jsonValue)
+      navigation.navigate('HomePage');
+    } catch (e) {
+      // saving error
+    }
   }
+
+  const onSignInPressed = async () => {
+
+    let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+    if (reg.test(userEmail) === true) {
+      setUserEmail(userEmail);
+
+      await AsyncStorage.setItem('@storage_Key', JSON.stringify(userEmail));
+    }
+    else {
+      alert(' כתובת אימייל  לא חוקית');
+      setUserEmail(null)
+
+    }
+    if (password.length > 8) {
+      setPassword(password)
+      await AsyncStorage.setItem('@storage_Key', JSON.stringify(userEmail, password));
+    } else {
+      alert(' סיסמה לא חוקית');
+
+      setPassword(null)
+    }
+
+
+
+  }
+
+
+
 
   const onForgotPasswordPressed = () => {
     console.warn("Forgot Password?");
@@ -23,6 +67,7 @@ const SignInScreen = () => {
   const onSignUpPressed = () => {
     console.warn("sign up");
   }
+
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -33,6 +78,8 @@ const SignInScreen = () => {
           placeholder="אימייל"
           value={userEmail}
           setValue={setUserEmail}
+          icon="email"
+
         />
 
         <CustomInput
@@ -58,7 +105,7 @@ const SignInScreen = () => {
           onPress={onSignUpPressed}
           type="TERTIARY"
         />
-        <LoginButton/>
+
       </View>
     </ScrollView>
   )
