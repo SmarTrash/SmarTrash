@@ -1,22 +1,19 @@
-import { View, Image, StyleSheet, ScrollView } from 'react-native'
+import {View, StyleSheet, ScrollView, ImageBackground, Dimensions, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import logo from '../../../assets/images/logo.jpg'
+import bg from '../../../assets/bg.jpg'
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { createIconSetFromFontello } from 'react-native-vector-icons'
-import Homepage from '../HomePage/HomePage';
-import validator from 'validator'
+import {FAB,CheckBox,  ListItem } from 'react-native-elements'
 
-
-
+import Icon from 'react-native-vector-icons/Entypo';
 const SignInScreen = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const { height } = useWindowDimensions();
-
+  const [isSelected, setSelection] = useState(false);
   useEffect(() => {
     storeData();
   }, []);
@@ -25,19 +22,17 @@ const SignInScreen = ({ navigation }) => {
     try {
       const jsonValue = JSON.stringify(value)
       await AsyncStorage.setItem('@storage_Key', jsonValue)
-      navigation.navigate('HomePage');
+      navigation.navigate('ForgotPasswordScreen');
     } catch (e) {
       // saving error
     }
   }
 
-  const onSignInPressed = async () => {
+  const onSignInPressed = () => {
 
     let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
     if (reg.test(userEmail) === true) {
       setUserEmail(userEmail);
-
-      await AsyncStorage.setItem('@storage_Key', JSON.stringify(userEmail));
     }
     else {
       alert(' כתובת אימייל  לא חוקית');
@@ -46,80 +41,164 @@ const SignInScreen = ({ navigation }) => {
     }
     if (password.length > 8) {
       setPassword(password)
-      await AsyncStorage.setItem('@storage_Key', JSON.stringify(userEmail, password));
+
     } else {
       alert(' סיסמה לא חוקית');
-
       setPassword(null)
     }
+    if (password != null && userEmail != null) {
 
-
-
+      storeData(userEmail, password)
+    }
   }
-
-
-
-
   const onForgotPasswordPressed = () => {
-    console.warn("Forgot Password?");
+    navigation.navigate('ForgotPasswordScreen');
   }
 
   const onSignUpPressed = () => {
-    console.warn("sign up");
+    navigation.navigate('SignUpScreen');
+  }
+  const onRememberMePressed = () => {
+    console.warn("onRememberMePressed");
   }
 
-
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.root}>
-        <Image source={logo} style={[styles.logo, { height: height * 0.3 }]} resizeMode="contain" />
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
 
-        <CustomInput
-          placeholder="אימייל"
-          value={userEmail}
-          setValue={setUserEmail}
-          icon="email"
+      <ImageBackground source={bg} style={styles.logo} >
 
-        />
+        <View style={styles.brandView}>
 
-        <CustomInput
-          placeholder="סיסמה"
-          value={password}
-          setValue={setPassword}
-          secureTextEntry={true}
-        />
-        <CustonButton
-          text="התחברות"
-          onPress={onSignInPressed}
-        />
-        <CustonButton
-          text="Forgot Password"
-          onPress={onForgotPasswordPressed}
-          type="TERTIARY"
-        />
+          <Text style={styles.brandViewText}>SmarTrash</Text>
+        </View>
 
-        <SocialSignInButtons />
+      </ImageBackground>
+      <View style={styles.bottomView} >
+        <View style={{ padding: 40 }}>
+          <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold' }}>Welcome</Text>
+          <Text>Don't have an account?
+            <TouchableOpacity onPress={onSignUpPressed}>
+              <Text style={{ color: 'red', fontStyle: 'italic' }}
+              > {' '}Register Now</Text> 
+            </TouchableOpacity>
+          </Text>
+          <View style={{ marginTop: 30 }}>
+            <CustomInput
+              placeholder="אימייל"
+              value={userEmail}
+              setValue={setUserEmail}
+              icon="email"
+            />
+            <CustomInput
+              placeholder="סיסמה"
+              value={password}
+              setValue={setPassword}
+              secureTextEntry={true}
+            />
 
-        <CustonButton
-          text="Don't have an account? Create one"
-          onPress={onSignUpPressed}
-          type="TERTIARY"
-        />
+            <View style={styles.forgetPassView}>
+              <View style={{ flex: 1, marginLeft: -70 }}>
+                <TouchableOpacity onPress={onRememberMePressed}>
+                  <ListItem noBorder>
+                    <View style={styles.container}>
+                      <View style={styles.checkboxContainer}>
+                        <CheckBox
+                          value={isSelected}
+                          onValueChange={setSelection}
+                          style={styles.checkbox}
+                        />
+                        <Text style={{ color: '#8f9195', alignSelf: 'flex-start' }}>Remember me</Text>
+                      </View>
+                    </View>
+               
+                  </ListItem>
 
+                </TouchableOpacity>
+              </View>
+              <View style={{ flex: 1, marginRight: -90 }}>
+                <TouchableOpacity onPress={onForgotPasswordPressed}>
+                  <ListItem noBorder>
+                    <Text style={{ color: '#8f9195', alignSelf: 'flex-start' }}>Forgot Password</Text>
+                  </ListItem>
+                </TouchableOpacity>
+
+              </View>
+            </View>
+            <View
+              style={{
+                height: 100,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+              <CustonButton
+                text="התחברות"
+                onPress={onSignInPressed}
+              />
+              <View style={{ flex: 1 }}>
+                <Text style={{ textAlign: 'center', fontSize: 16 }}>or Login With</Text>
+
+              </View>
+
+            </View>
+            <SocialSignInButtons />
+          </View>
+        </View>
       </View>
     </ScrollView>
+
   )
 }
 export default SignInScreen;
 const styles = StyleSheet.create({
   root: {
-    alignItems: 'center',
-    padding: 20
+    flex: 1,
+    backgroundColor: '#ffffff'
   },
   logo: {
-    width: '70%',
-    maxWidth: 300,
-    height: 200
+    height: Dimensions.get('window').height / 2.5
+  },
+  icon: {
+    color: '#ffffff',
+    fontSize: 100
+  },
+  brandView: {
+    justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center'
+  },
+  brandViewText: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    textTransform: 'uppercase'
+  },
+  bottomView: {
+    flex: 1.5,
+    backgroundColor: '#ffffff',
+    bottom: 50,
+    borderTopStartRadius: 60,
+    borderTopEndRadius: 60
+  },
+  forgetPassView: {
+    height: 50,
+    marginTop: 0,
+    flexDirection: 'row'
+  },
+  loginBtn: {
+    alignSelf: 'center',
+    backgroundColor: '#4632A1',
+    width: Dimensions.get('window').width / 2,
+    justifyContent: 'center'
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: "center",
+  },  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   }
-
 })
