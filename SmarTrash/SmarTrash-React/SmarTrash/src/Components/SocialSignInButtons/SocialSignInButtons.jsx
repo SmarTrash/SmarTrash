@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+
 import React from 'react'
 import CustonButton from '../CustomButton/CustonButton'
 
@@ -9,7 +9,7 @@ const SocialSignInButtons = () => {
   }
 
   const onSignInGooglePressed = () => {
-  const config = {iosClientId: '1097573340666-5jete35a7t8scdkl8oqre8k04054icgq.apps.googleusercontent.com'}
+  // const config = {iosClientId: '1097573340666-5jete35a7t8scdkl8oqre8k04054icgq.apps.googleusercontent.com'}
   }
 
   return (

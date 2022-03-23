@@ -1,16 +1,21 @@
-import { View, Text, StyleSheet,TextInput } from 'react-native'
+import { View, StyleSheet,TextInput } from 'react-native'
 import React from 'react'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
-const CustomInput=({value, setValue,placeholder,secureTextEntry})=> {
+const CustomInput=({value, setValue,placeholder,secureTextEntry,icon})=> {
+  
   return (
     <View style={styles.container}>
+      <Icon 
+      name={icon}
+      style={styles.icon}/>
       <TextInput
         value={value}
         onChangeText={setValue}
         styles={styles.input}
         placeholder={placeholder} 
-        secureTextEntry={secureTextEntry}/>
+        secureTextEntry={secureTextEntry}
+        />
     </View>
   )
 }
@@ -28,6 +33,11 @@ const styles = StyleSheet.create({
     marginVertical: 10
 
   },
-  input: {}
+  input: {},
+  icon:{
+    fontSize:10,
+    color: '#e88e8e',
+    marginRight:10
+  }
 
 })
