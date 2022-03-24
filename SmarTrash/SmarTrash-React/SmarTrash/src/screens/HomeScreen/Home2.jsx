@@ -6,7 +6,6 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather, AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import SmallCard from '../../Components/Card/SmallCard';
 import gifts from '../../consts/gifts';
-import Card from '../../Components/Card/Card';
 
 
 const { width } = Dimensions.get('screen');

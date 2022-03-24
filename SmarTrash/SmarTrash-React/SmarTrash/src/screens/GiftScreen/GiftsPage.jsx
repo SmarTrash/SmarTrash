@@ -5,7 +5,6 @@ import COLORS from '../../consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Card from '../../Components/Card/Card';
 import gifts from '../../consts/gifts';
-import SmallCard from '../../Components/Card/SmallCard';
 import CardMonthGift from '../../Components/Card/CardMonthGift';
 
 
@@ -62,7 +61,7 @@ const scrollX = React.useRef(new Animated.Value(0)).current;
       </ScrollView>
     </SafeAreaView>
   );
-};S
+};
         
       
 const style = StyleSheet.create({

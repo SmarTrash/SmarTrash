@@ -4,12 +4,11 @@ import COLORS from '../../consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NumericInput from 'react-native-numeric-input'
 import { useState } from 'react';
-import { sizeWidth } from '@mui/material/node_modules/@mui/system';
 
 const SelectedGift = ({ navigation, route }) => {
 
   // const item = route.params;
-  const [amount, setAmount] = React.useState(0);
+  const [amount, setAmount] = useState(0);
 
   return (
     <ScrollView
@@ -57,13 +56,15 @@ const SelectedGift = ({ navigation, route }) => {
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}>
-
           </View>
           <View style={{ marginTop: 20, fontSize: 30 }}>
             <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-end' }}>
               {'קשים רב פעמיים ממתכת איכותית ניתנים לשטיפה במדיח'}
             </Text>
           </View>
+        </View>
+        <View>
+        <NumericInput type='up-down' onChange={value => (setAmount)} />
         </View>
         <View style={style.btn}>
           <Text style={{ color: COLORS.white, fontSize: 18, fontWeight: 'bold' }}>
