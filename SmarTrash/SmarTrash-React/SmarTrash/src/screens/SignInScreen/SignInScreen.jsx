@@ -1,6 +1,5 @@
 import { View, Image, StyleSheet, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import logo from '../../../assets/images/logo.jpg'
 import useWindowDimensions from 'react-native/Libraries/Utilities/useWindowDimensions'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
