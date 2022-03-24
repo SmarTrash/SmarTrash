@@ -1,16 +1,12 @@
 import { View, Text,StyleSheet } from 'react-native'
 import React from 'react'
-import MapScreen from './src/screens/MapScreen/Map';
-import Home2 from './src/screens/HomeScreen/Home2';
-import GiftsPage from './src/screens/GiftScreen/GiftsPage';
-import SelectedGift from './src/screens/GiftScreen/SelectedGift';
+import Navigation from './src/Components/Navigation';
 
 export default function App() {
   return (
     
     <View style={styles.root} >
-      <MapScreen />
-      <SelectedGift />
+      <Navigation/>
     </View>
   )
 }

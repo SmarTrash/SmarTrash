@@ -1,13 +1,10 @@
-import { View, Text, ScrollView,StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 
-
-const ForgotPasswordScreen = ({navigation}) => {
-
+const ResetPassword = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
-
   const onSendPressed = () => {
     navigation.navigate('ResetPassword');
   }
@@ -22,13 +19,17 @@ const ForgotPasswordScreen = ({navigation}) => {
         <Text style={styles.title}>Reset your Password</Text>
 
         <CustomInput
-          placeholder="אימייל"
+          placeholder="אימות קוד "
           value={userEmail}
           setValue={setUserEmail}
         />
-
+        <CustomInput
+          placeholder="סיסמה חדשה"
+          value={userEmail}
+          setValue={setUserEmail}
+        />
         <CustonButton
-          text="שלח"
+          text="החלף סיסמה"
           onPress={onSendPressed}
         />
 
@@ -42,8 +43,7 @@ const ForgotPasswordScreen = ({navigation}) => {
   )
 }
 
-export default ForgotPasswordScreen
-
+export default ResetPassword
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
