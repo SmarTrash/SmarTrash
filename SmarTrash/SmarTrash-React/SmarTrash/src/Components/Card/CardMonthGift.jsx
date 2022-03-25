@@ -15,10 +15,6 @@ const CardMonthGift = () => {
             zIndex: 1,
             flexDirection: 'row',
           }}>
-          <Icon name="star" size={15} color={COLORS.orange} />
-          <Text style={{color: COLORS.white, fontWeight: 'bold', fontSize: 15}}>
-            5.0
-          </Text>
         </View>
         <Image style={style.topHotelCardImage} source={{uri:'https://www.ikea.com/global/assets/navigation/images/decorative-accessories-24924.jpeg?imwidth=300'}} />
         <View style={{paddingVertical: 5, paddingHorizontal: 10}}>

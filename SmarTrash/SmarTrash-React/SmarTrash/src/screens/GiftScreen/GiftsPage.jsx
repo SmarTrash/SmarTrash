@@ -26,7 +26,7 @@ const scrollX = React.useRef(new Animated.Value(0)).current;
              הטבות
            </Text>
          </View>
-         <Icon name="person-outline" size={38} color={COLORS.grey} />
+
        </View>
        <ScrollView showsVerticalScrollIndicator={false}>
     

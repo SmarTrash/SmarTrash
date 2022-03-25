@@ -4,10 +4,10 @@ import COLORS from '../../consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import NumericInput from 'react-native-numeric-input'
 import { useState } from 'react';
-
+import { AntDesign ,FontAwesome5 } from '@expo/vector-icons'; 
 const SelectedGift = ({ navigation, route }) => {
 
-  // const item = route.params;
+  const item = route.params;
   const [amount, setAmount] = useState(0);
 
   return (
@@ -22,23 +22,22 @@ const SelectedGift = ({ navigation, route }) => {
         translucent
         backgroundColor="rgba(0,0,0,0)"
       />
-      <ImageBackground style={style.headerImage} source={{ uri: 'https://www.cristalica.de/media/image/product/89332/md/glass-straws-10-pack-with-cleaning-brush-21cmx8mm.jpg' }}>
+      <ImageBackground style={style.headerImage} source={item.img}>
         <View style={style.header}>
-          <Icon
-            name="arrow-back-ios"
+        <AntDesign
+            name="left"
             size={28}
             color={COLORS.white}
-          //   onPress={navigation.goBack}
+            onPress={navigation.goBack}
           />
-          <Icon name="bookmark-border" size={38} color={COLORS.white} />
         </View>
       </ImageBackground>
       <View>
         <View style={style.iconContainer}>
-          <Icon name="place" color={COLORS.white} size={28} />
+        <AntDesign name="hearto" size={24} color={COLORS.white} />
         </View>
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end' }}>{'קשים ממתכת'}</Text>
+          <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end' }}>{item.GiftName}</Text>
           <Text
             style={{
               fontSize: 20,
@@ -48,7 +47,7 @@ const SelectedGift = ({ navigation, route }) => {
               alignSelf: 'flex-end',
               color: COLORS.primary,
             }}>
-            {'Majestic Straw'}
+            {item.Brand}
           </Text>
           <View
             style={{
@@ -59,16 +58,23 @@ const SelectedGift = ({ navigation, route }) => {
           </View>
           <View style={{ marginTop: 20, fontSize: 30 }}>
             <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-end' }}>
-              {'קשים רב פעמיים ממתכת איכותית ניתנים לשטיפה במדיח'}
+              {item.GiftDescription}
             </Text>
           </View>
         </View>
-        <View>
+        <View style={style.amount}>
         <NumericInput type='up-down' onChange={value => (setAmount)} />
         </View>
+        <View style={style.priceTag}>
+        <FontAwesome5 style={{left:20}} name="coins" size={15} color="gold" />
+            <Text
+              style={{fontSize: 16,fontWeight: 'bold',color: COLORS.grey,marginLeft: 5,left:20 , color:'white'}}>
+              {1800}
+            </Text>
+            </View>
         <View style={style.btn}>
           <Text style={{ color: COLORS.white, fontSize: 18, fontWeight: 'bold' }}>
-            Book Now
+            רכישה
           </Text>
         </View>
       </View>
@@ -87,20 +93,23 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
   amount: {
-    left:220,
+    left:250,
+    top:30,
   },
   priceTag: {
     height: 40,
     alignItems: 'center',
-    marginLeft: 40,
+    marginLeft: 50,
     paddingLeft: 20,
     flex: 1,
-    backgroundColor: COLORS.secondary,
+    bottom:15,
+    width:150,
+    backgroundColor: '#76bfa3',
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     flexDirection: 'row',
-  },
-  num: {
+    borderBottomRightRadius:20,
+    borderTopRightRadius:20,
   },
   iconContainer: {
     position: 'absolute',
