@@ -1,10 +1,12 @@
 import React from 'react';
 import { ImageBackground, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import COLORS from '../../consts/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from "react-native-vector-icons/MaterialIcons";
 import NumericInput from 'react-native-numeric-input'
 import { useState } from 'react';
-import { AntDesign ,FontAwesome5 } from '@expo/vector-icons'; 
+import { AntDesign,FontAwesome5 } from '@expo/vector-icons'; 
+
+
 const SelectedGift = ({ navigation, route }) => {
 
   const item = route.params;
@@ -24,6 +26,7 @@ const SelectedGift = ({ navigation, route }) => {
       />
       <ImageBackground style={style.headerImage} source={item.img}>
         <View style={style.header}>
+
         <AntDesign
             name="left"
             size={28}
@@ -70,6 +73,7 @@ const SelectedGift = ({ navigation, route }) => {
             <Text
               style={{fontSize: 16,fontWeight: 'bold',color: COLORS.grey,marginLeft: 5,left:20 , color:'white'}}>
               {1800}
+
             </Text>
             </View>
         <View style={style.btn}>
@@ -95,9 +99,12 @@ const style = StyleSheet.create({
   amount: {
     left:250,
     top:30,
+   
   },
   priceTag: {
     height: 40,
+    bottom:15,
+    width:150,
     alignItems: 'center',
     marginLeft: 50,
     paddingLeft: 20,
@@ -107,9 +114,9 @@ const style = StyleSheet.create({
     backgroundColor: '#76bfa3',
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
-    flexDirection: 'row',
     borderBottomRightRadius:20,
     borderTopRightRadius:20,
+    flexDirection: 'row',
   },
   iconContainer: {
     position: 'absolute',

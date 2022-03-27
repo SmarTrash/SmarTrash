@@ -31,41 +31,33 @@ const Card = ({ gifts, index}) => {
 
   return (
     <TouchableOpacity
-      disabled={activeCardIndex != index}
-      activeOpacity={1}
-      onPress={() => { navigation.navigate('SelectedGift', gifts) }}>
-      <Animated.View style={[style.shadowProp, { ...style.card, transform: [{ scale }], marginLeft: 12 }]}>
-        <Animated.View style={{ ...style.cardOverLay, opacity }} />
-        <View style={style.priceTag}>
-          <Text
-            style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold' }}>
-            ${gifts.Price}
-          </Text>
-        </View>
-        <Image source={gifts.img} style={style.cardImage} />
-        <View style={style.cardDetails}>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 12 }}>
-            <View >
-              <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
-                {gifts.GiftName}
-              </Text>
-              <Text style={{ color: COLORS.grey, fontSize: 12, alignSelf: 'flex-end' }}>
-                {gifts.Brand}
-              </Text>
+    disabled={activeCardIndex != index}
+    activeOpacity={1}
+    onPress={() => { navigation.navigate('SelectedGift', gifts) }}>
+    <Animated.View style={[style.shadowProp, { ...style.card, transform: [{ scale }], marginLeft: 12 }]}>
+      <Animated.View style={{ ...style.cardOverLay, opacity }} />
+      <View style={style.priceTag}>
+        <Text
+          style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold' }}>
+          ${gifts.Price}
+        </Text>
+      </View>
+      <Image source={gifts.img} style={style.cardImage} />
+      <View style={style.cardDetails}>
+        <View
+          style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 12 }}>
+          <View >
+            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
+              {gifts.GiftName}
+            </Text>
+            <Text style={{ color: COLORS.grey, fontSize: 12, alignSelf: 'flex-end' }}>
+              {gifts.Brand}
+            </Text>
             </View>
-
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 10,
-            }}>
           </View>
-        </View>
-      </Animated.View>
-    </TouchableOpacity>
+          </Animated.View>
+      </TouchableOpacity>
 
   );
 };
@@ -91,7 +83,7 @@ const style = StyleSheet.create({
   },
   card: {
     height: 220,
-    width: 160,
+    width: 180,
     elevation: 15,
     marginRight: 20,
     borderRadius: 15,
@@ -117,14 +109,15 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   cardDetails: {
-    height: 70,
+    height: 80,
     borderRadius: 20,
     backgroundColor: COLORS.white,
     position: 'absolute',
     bottom: 0,
     padding: 25,
     width: '100%',
-    paddingRight: 1,
+    paddingRight:1,
+    
   },
   cardOverLay: {
     height: 280,
