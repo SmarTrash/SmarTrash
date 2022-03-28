@@ -45,7 +45,7 @@ const Card = ({ gifts, index}) => {
       <Image source={gifts.img} style={style.cardImage} />
       <View style={style.cardDetails}>
         <View
-          style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 12 }}>
+          style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 13 }}>
           <View >
             <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
               {gifts.GiftName}
