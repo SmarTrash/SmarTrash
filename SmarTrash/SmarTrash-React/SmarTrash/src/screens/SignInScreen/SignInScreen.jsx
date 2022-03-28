@@ -8,7 +8,7 @@ import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSign
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FAB, CheckBox, ListItem } from 'react-native-elements'
 
-const apiUrl = 'https://localhost:44346/api/Ingredients';
+// const apiUrl = 'https://localhost:44346/api/Ingredients';
 const SignInScreen = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -54,21 +54,21 @@ const SignInScreen = ({ navigation }) => {
     if (password != null && userEmail != null) {
       newUser.UserEmail = userEmail;
       newUser.Password = password;
-      fetch(apiUrl, {
-        method: 'POST',
-        body: JSON.stringify(newUser),
-        headers: new Headers({
-          'Content-type': 'application/json; charset=UTF-8'
-        })
-      }).then(response => { return response.json() })
-        .then(data => {
-          console.log(data);
-          setIsUserExists(data)
-        });
-      if (IsUserExists) {
-        navigation.navigate('Home');
-        storeData(userEmail, password)
-      }
+      // fetch(apiUrl, {
+      //   method: 'POST',
+      //   body: JSON.stringify(newUser),
+      //   headers: new Headers({
+      //     'Content-type': 'application/json; charset=UTF-8'
+      //   })
+      // }).then(response => { return response.json() })
+      //   .then(data => {
+      //     console.log(data);
+      //     setIsUserExists(data)
+      //   });
+      // if (IsUserExists) {
+      //   navigation.navigate('Home');
+      //   storeData(userEmail, password)
+      // }
      
     }
   }
