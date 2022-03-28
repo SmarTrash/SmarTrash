@@ -20,11 +20,11 @@ namespace SmarTrash.Controllers
             var log = db.tblUser.Where(x => x.UserEmail == u.UserEmail && x.Password == u.Password).FirstOrDefault();
             if (log == null)
             {
-                return Ok(new { status = 401, isSuccess = false, message = "Invalid User", });
+                return Ok(new { status = 401, isSuccess = false, message = "משתמש לא קיים במערכת", });
             }
             else
             {
-                return Ok(new { status = 200, isSuccess = true, message = "User Login successfully", UserDetails = log });
+                return Ok(new { status = 200, isSuccess = true, message = "ההתחברות בוצעה בהצלחה" });
             }
         }
 

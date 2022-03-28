@@ -6,33 +6,49 @@ import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { FAB, CheckBox, ListItem } from 'react-native-elements'
+import { CheckBox, ListItem } from 'react-native-elements'
 
-// const apiUrl = 'https://localhost:44346/api/Ingredients';
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
+
 const SignInScreen = ({ navigation }) => {
+
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { height } = useWindowDimensions();
-  const [isSelected, setSelection] = useState(false);
+  const [isSelected, setSelection] = useState(false);  
+  const [IsUserExists, setIsUserExists] = useState(false);
   const newUser = {
     UserEmail: "",
     Password: ""
   };
 
-  const [IsUserExists, setIsUserExists] = useState(false);
-  // useEffect(() => {
-  //   storeData();
-  // }, []);
+  useEffect(() => {
+    getData();
+  }, []);
 
-  // const storeData = async (value) => {
-  //   try {
-  //     const jsonValue = JSON.stringify(value)
-  //     await AsyncStorage.setItem('@storage_Key', jsonValue)
-  //     navigation.navigate('Home');
-  //   } catch (e) {
-  //     // saving error
-  //   }
-  // }
+  const getData = async () => {
+    try {
+      AsyncStorage.getItem('@storage_Key')
+
+        .then(value => {
+          if (value != null) {
+            navigation.navigate('Home');
+          }
+        })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+
+      await AsyncStorage.setItem('@storage_Key', jsonValue)
+
+      navigation.navigate('Home');
+    } catch (e) {
+         console.log(e);
+    }
+  }
 
   const onSignInPressed = () => {
 
@@ -54,22 +70,25 @@ const SignInScreen = ({ navigation }) => {
     if (password != null && userEmail != null) {
       newUser.UserEmail = userEmail;
       newUser.Password = password;
-      // fetch(apiUrl, {
-      //   method: 'POST',
-      //   body: JSON.stringify(newUser),
-      //   headers: new Headers({
-      //     'Content-type': 'application/json; charset=UTF-8'
-      //   })
-      // }).then(response => { return response.json() })
-      //   .then(data => {
-      //     console.log(data);
-      //     setIsUserExists(data)
-      //   });
-      // if (IsUserExists) {
-      //   navigation.navigate('Home');
-      //   storeData(userEmail, password)
-      // }
-     
+      fetch(apiUrl, {
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        headers: new Headers({
+          'Content-type': 'application/json; charset=UTF-8'
+        })
+      }).then(response => { return response.json() })
+        .then(data => {
+          console.log("dataaaaaa:", data);
+          setIsUserExists(data.isSuccess)
+          if (IsUserExists) {
+            navigation.navigate('Home');
+            storeData(newUser)
+          } else {
+            alert(data.message);
+          }
+        });
+
+
     }
   }
   const onForgotPasswordPressed = () => {

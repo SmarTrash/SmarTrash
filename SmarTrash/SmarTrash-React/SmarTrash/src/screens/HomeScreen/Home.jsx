@@ -1,45 +1,43 @@
 import { View, StyleSheet, Image, Text, Dimensions, FlatList, Animated } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather, AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import SmallCard from '../../Components/Card/SmallCard';
 import gifts from '../../Consts/gifts';
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
+export default function Home({navigation}) {
 
-export default function Home() {
-//   useEffect(() => {
-//     getData();
-// }, []);
+const [name, setName] = useState('');
+const [password, setPassword] = useState('');
 
-// const getData = async () => {
-//   try {
-//   const jsonValue = await AsyncStorage.getItem('@storage_Key')
-//   return jsonValue != null ? JSON.parse(jsonValue) : null;
-//   } catch(e) {
-//   // error reading value
-//   }
-//   }
-  
-// const [name, setName] = useState('');
-// const getData = () => {
-//     try {
-//         AsyncStorage.getItem('UserData')
-//             .then(value => {
-//                 if (value != null) {
-//                     let user = JSON.parse(value);
-//                     setName(userEmail.Name);
-//                 }
-//             })
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+  useEffect(() => {
+    getData();
+});
+
+
+const getData = async () => {
+    try {
+        AsyncStorage.getItem('@storage_Key')
+        
+            .then(value => {
+                if (value != null) {
+                  console.log("gjhjhjh:",value)
+                    let user = JSON.parse(value);
+                    setName(user.UserEmail);
+                    setPassword(user.Password);
+                    navigation.navigate('Home');
+                }
+            })
+    } catch (error) {
+        console.log(error);
+    }
+}
 // const updateData = async () => {  
 //   let reg =/[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
 //   console.log('userEmail:',userEmail)
@@ -70,8 +68,8 @@ export default function Home() {
     <SafeAreaView style={style.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={style.titleBar}>
-          <SimpleLineIcons name="logout" size={24} color='#52575D' />
-          <Ionicons name="notifications-outline" size={24} color='#52575D' />
+          <SimpleLineIcons name="logout" size={24} color='#52575D' onPress={() => navigation.navigate('SignInScreen')} />
+          <Ionicons name="notifications-outline" size={24} color='#52575D' onPress={() => navigation.navigate('Notifications')} />
         </View>
 
         <View style={{ alignSelf: 'center' }}>
@@ -108,7 +106,7 @@ export default function Home() {
         <View style={style.btnContainer}>
           <View>
             <View style={[style.sortBtn, { backgroundColor: '#557B83' }]}>
-              <FontAwesome name="trash" size={60} color="black" />
+              <FontAwesome5 name="trash" size={60} color="black" />
             </View>
             <View>
               <Text style={[style.text, style.subText, { marginLeft: 27 }]}>לאן לזרוק</Text>

@@ -8,21 +8,21 @@ import ResetPassword from '../../screens/ForgotPasswordScreen/ResetPassword';
 import Home from '../../screens/HomeScreen/Home';
 import SelectedGift from '../../screens/GiftScreen/SelectedGift';
 import GiftsPage from '../../screens/GiftScreen/GiftsPage';
-
+import Notifications from '../../screens/Notifications/Notifications'
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
-    <NavigationContainer >
-    <Stack.Navigator initialRouteName="SignInScreen" >
-      <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-      <Stack.Screen name="SignInScreen" component={SignInScreen} />
-      <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
-      <Stack.Screen name="ResetPassword" component={ResetPassword} />
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="GiftsPage" component={GiftsPage} />
-      <Stack.Screen name="SelectedGift" component={SelectedGift} />
-      
+    <NavigationContainer  >
+      <Stack.Navigator initialRouteName="SignInScreen" >
+        <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="ResetPassword" component={ResetPassword} />
+        <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
+        <Stack.Screen options={{ headerShown: false }} name="GiftsPage" component={GiftsPage} />
+        <Stack.Screen options={{ headerShown: false }} name="SelectedGift" component={SelectedGift} />
+        <Stack.Screen options={{ headerShown: false }} name="Notifications" component={Notifications} />
       </Stack.Navigator>
     </NavigationContainer>
   )
