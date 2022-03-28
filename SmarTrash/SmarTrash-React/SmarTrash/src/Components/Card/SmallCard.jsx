@@ -1,6 +1,6 @@
 import { View, Text,StyleSheet,Image } from 'react-native'
 import React from 'react'
-import COLORS from '../../consts/colors';
+import COLORS from '../../Consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const SmallCard = ({gifts}) => {

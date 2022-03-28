@@ -1,18 +1,18 @@
 import { View, StyleSheet, Image, Text, Dimensions, FlatList, Animated } from 'react-native';
 import React from 'react';
-import COLORS from '../../consts/colors';
+import COLORS from '../../Consts/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather, AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import SmallCard from '../../Components/Card/SmallCard';
-import gifts from '../../consts/gifts';
+import gifts from '../../Consts/gifts';
 
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
 
-export default function Home2() {
+export default function Home() {
 //   useEffect(() => {
 //     getData();
 // }, []);

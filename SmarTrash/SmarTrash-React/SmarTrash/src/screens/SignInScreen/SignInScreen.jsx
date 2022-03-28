@@ -22,7 +22,7 @@ const SignInScreen = ({ navigation }) => {
     try {
       const jsonValue = JSON.stringify(value)
       await AsyncStorage.setItem('@storage_Key', jsonValue)
-      navigation.navigate('ForgotPasswordScreen');
+      navigation.navigate('Home');
     } catch (e) {
       // saving error
     }

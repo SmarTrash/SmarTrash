@@ -1,7 +1,6 @@
 import React from 'react';
 import { ImageBackground, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
-import COLORS from '../../consts/colors';
-import Icon from "react-native-vector-icons/MaterialIcons";
+import COLORS from '../../Consts/colors'
 import NumericInput from 'react-native-numeric-input'
 import { useState } from 'react';
 import { AntDesign,FontAwesome5 } from '@expo/vector-icons'; 

@@ -1,10 +1,9 @@
 import {Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet ,Text ,TextInput, TouchableOpacity, View,Image, Animated,} from 'react-native';
 import React from 'react'
-import CategoryList from '../../Components/CategoryList/CategoryList';
-import COLORS from '../../consts/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import CategoryList from '../../screens/CategoryList/CategoryList';
+import COLORS from '../../Consts/colors';
 import Card from '../../Components/Card/Card';
-import gifts from '../../consts/gifts';
+import gifts from '../../Consts/gifts';
 import CardMonthGift from '../../Components/Card/CardMonthGift';
 
 

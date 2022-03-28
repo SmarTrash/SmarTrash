@@ -1,6 +1,6 @@
 import {Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet ,Text ,TextInput, TouchableOpacity, View,Image, Animated,} from 'react-native';
 import React from 'react'
-import COLORS from '../../consts/colors';
+import COLORS from '../../Consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 

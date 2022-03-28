@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View,StyleSheet} from 'react-native';
 import React from 'react'
-import COLORS from '../../consts/colors';
+import COLORS from '../../Consts/colors';
 
 const CategoryList = ({navigation}) => {
     const categories =[ 'ביגוד', 'נוי','בית','פנאי','הכל'];
