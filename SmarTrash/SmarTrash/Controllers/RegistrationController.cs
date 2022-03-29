@@ -28,28 +28,32 @@ namespace SmarTrash.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
-
         // POST: api/Registration
-        //הוספה ושמירת משתמש חדש בדאטהבייס.
-        public void Post([FromBody] tblUser value)
+        //מילוי פרטים ושמירת משתמש חדש בדאטהבייס.
+        public IHttpActionResult Post([FromBody] tblUser value)
         {
-            SmarTrashDBContext db = new SmarTrashDBContext();
-            tblUser newUser = new tblUser();
-
-            newUser.UserEmail=value.UserEmail;
-            newUser.FirstName = value.FirstName;
-            newUser.LastName = value.LastName;
-            newUser.Phone = value.Phone;
-            newUser.Gender = value.Gender;
-            newUser.BirthDate = value.BirthDate;
-            newUser.Password = value.Password;
-            newUser.StreetNameAndNumber = value.StreetNameAndNumber;
-            newUser.CityId = value.CityId;
-            newUser.UserImg = value.UserImg;
-
-            db.tblUser.Add(newUser);
-            db.SaveChanges();
-
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                tblUser newUser = new tblUser();
+                newUser.UserEmail = value.UserEmail;
+                newUser.FirstName = value.FirstName;
+                newUser.LastName = value.LastName;
+                newUser.Phone = value.Phone;
+                newUser.Gender = value.Gender;
+                newUser.BirthDate = value.BirthDate;
+                newUser.Password = value.Password;
+                newUser.StreetNameAndNumber = value.StreetNameAndNumber;
+                newUser.CityId = value.CityId;
+                newUser.UserImg = value.UserImg;
+                db.tblUser.Add(newUser);
+                db.SaveChanges();
+                return Created(new Uri(Request.RequestUri.AbsoluteUri + newUser.UserEmail), newUser);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
         }
 
         // PUT: api/Registration/5

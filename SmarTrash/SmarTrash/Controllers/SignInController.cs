@@ -11,21 +11,26 @@ namespace SmarTrash.Controllers
     {
 
         // POST: api/SignIn
-        //מקבל מייל וסיסמא ובודק שהמשתמש קיים במערכת והפרטים תקינים. מחזיר אמת/ שקר
+        /// מקבל משתמש ובודק שקיים משתמש עם מייל וסיסמא כאלה . מחזיר אמת או שקר. 
         [Route("api/SignIn")]
         [HttpPost]
         public IHttpActionResult Post([FromBody] tblUser u)
         {
-            SmarTrashDBContext db = new SmarTrashDBContext();
-            var log = db.tblUser.Where(x => x.UserEmail == u.UserEmail && x.Password == u.Password).FirstOrDefault();
-            if (log == null)
+            try
             {
-                return Ok(new { status = 401, isSuccess = false, message = "משתמש לא קיים במערכת", });
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                var log = db.tblUser.Where(x => x.UserEmail == u.UserEmail && x.Password == u.Password).FirstOrDefault();
+                if (log == null)
+                {
+                    return Ok(new { status = 404, isSuccess = false, message = "משתמש לא קיים במערכת", });
+                }
+                return Ok(new { status = 200, isSuccess = true, message = "ההתחברות בוצעה בהצלחה" }); 
             }
-            else
+            catch (Exception ex)
             {
-                return Ok(new { status = 200, isSuccess = true, message = "ההתחברות בוצעה בהצלחה" });
+                return Content(HttpStatusCode.BadRequest, ex);
             }
+           
         }
 
        
