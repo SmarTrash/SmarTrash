@@ -12,17 +12,21 @@ namespace SmarTrash.Controllers
     {
         // GET: api/Registration
         //מביא את כל רשימת הערים כדי שהמשתמש שנבחר יבחר אחת
-        public dynamic Get()
+        public IHttpActionResult Get()
         {
-            SmarTrashDBContext db = new SmarTrashDBContext();
-
-            dynamic c = db.tblCity.Select(x => new { 
-                CityName = x.CityName, 
-                CityId = x.CityId
-
-            }).ToList();
-
-            return c;
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                dynamic c = db.tblCity.Select(x => new {
+                    YeshuvName = x.YeshuvName,
+                    CityId = x.CityId
+                }).ToList();
+                return Ok(c);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
         }
 
         // POST: api/Registration

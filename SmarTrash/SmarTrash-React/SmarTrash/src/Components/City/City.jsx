@@ -2,9 +2,9 @@ import { View, Picker, StyleSheet } from 'react-native'
 import React from 'react'
 import { useState, useEffect } from 'react';
 
-const apiUrl = 'https://localhost:44391/api/Registration';
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
 
-export default function City() {
+const City=() =>{
   const [cities, setCities] = useState([]);
   const [cityId, setCityId] = useState();
   const [cityName, setCityName] = useState();
@@ -25,15 +25,14 @@ export default function City() {
     }
   }, []);
 
+ const onPressed =()=>{
 
+ }
   return (
     <View style={styles.container}>
-    <Picker
-    
-      style={{ height: 50, width: 150 }}
-     
-    >
-      <Picker.Item label={cities.CityName} value={cities.CityId} />
+    <Picker style={{ height: 50, width: 150 }}>
+
+      <Picker.Item label={cities.CityName} value={cities.CityId} onPress={onPressed} />
     
     </Picker>
   </View>
@@ -47,3 +46,4 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 })
+export default  City

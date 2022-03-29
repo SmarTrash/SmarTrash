@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import City from './City'
 
-export default function CityList() {
+const CityList=(props)=> {
   return (
     <View>
       <Text>
@@ -15,3 +15,4 @@ export default function CityList() {
     </View>
   )
 }
+export default  CityList

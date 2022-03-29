@@ -5,6 +5,7 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
+import CityList from '../../Components/City/CityList'
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
@@ -21,6 +22,7 @@ const SignUpScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
   const [city, setCity] = useState('');
+  const [selectedCity, setSelectedCity] = useState();
 
 
   const options = [
@@ -49,7 +51,7 @@ const SignUpScreen = ({ navigation }) => {
   newUser.BirthDate = birthDate;
   newUser.Password =password;
   newUser.StreetNameAndNumber = streetNum;
-  newUser.CityId = value.CityId;
+  // newUser.CityId = value.CityId;
   
   const onSignUPPressed = () => {
     fetch(apiUrl, {
@@ -167,11 +169,7 @@ const SignUpScreen = ({ navigation }) => {
           setValue={setStreetNum}
         />
 
-        <CustomInput
-          placeholder="עיר"
-          value={city}
-          setValue={setCity}
-        />
+ {/* <CityList key={city.id} name={city.name}/> */}
 
         <CustonButton
           text="הרשמה"
