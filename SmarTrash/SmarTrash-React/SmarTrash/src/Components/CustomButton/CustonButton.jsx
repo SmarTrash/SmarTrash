@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
+import COLORS from '../../Consts/colors';
 
 
 const CustonButton = ({ onPress, text, type = "Primary", bgColor, fgColor }) => {
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   container_Primary: {
-    backgroundColor: '#3B71F3',
+    backgroundColor: COLORS.primary,
   },
   container_TERTIARY: {
 

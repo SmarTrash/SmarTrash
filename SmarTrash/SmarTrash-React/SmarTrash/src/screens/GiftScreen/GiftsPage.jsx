@@ -12,7 +12,6 @@ const cardWidth = width / 1.8;
 
 const GiftsPage = () => {
 
-
 const [activeCardIndex, setActiveCardIndex] = React.useState(0);
 const scrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -21,7 +20,7 @@ const scrollX = React.useRef(new Animated.Value(0)).current;
        <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
        <View style={style.header}>
          <View style={{paddingBottom: 15}}>
-           <Text style={{fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end', left:150}}>
+           <Text style={{fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end', left:110}}>
              הטבות
            </Text>
          </View>
@@ -113,7 +112,7 @@ const style = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         padding: 20,
-        width: '100%',
+        width: cardWidth,
     },
     cardOverLay: {
         height: 280,
@@ -125,7 +124,7 @@ const style = StyleSheet.create({
     },
     topHotelCard: {
         height: 120,
-        width: 120,
+        width: cardWidth,
         backgroundColor: COLORS.white,
         elevation: 15,
         marginHorizontal: 10,
@@ -134,7 +133,7 @@ const style = StyleSheet.create({
     },
     topHotelCardImage: {
         height: 80,
-        width: '100%',
+        width: cardWidth,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10,
     },

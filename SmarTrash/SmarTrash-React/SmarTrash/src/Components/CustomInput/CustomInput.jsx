@@ -1,7 +1,8 @@
-import { View, StyleSheet, TextInput } from 'react-native'
+import { View, StyleSheet, TextInput,Dimensions } from 'react-native'
 import React from 'react'
 
-
+const { width } = Dimensions.get('screen');
+const cardWidth = width / 1.2;
 const CustomInput = ({ value, setValue, placeholder, secureTextEntry }) => {
 
   return (
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
 
   container: {
     backgroundColor: 'white',
-    width: '100%',
+    width: cardWidth,
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 5,
