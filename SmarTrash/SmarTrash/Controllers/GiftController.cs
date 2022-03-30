@@ -26,10 +26,9 @@ namespace SmarTrash.Controllers
                     Brand = x.Brand,
                     Price = x.Price,
                     Image = x.GiftImage,
-                    //בשביל בדיקה אם יש במלאי גם את המלאי
-                    Stock = x.Stock
+                    Stock = x.Stock,
                 }).ToList();
-                return Ok(g);
+            return Ok(g);
             }
             catch (Exception ex)
             {
@@ -37,8 +36,7 @@ namespace SmarTrash.Controllers
             }
         }
 
-
-
+      
         // GET api/Gift/GetGiftsByCategory
         [HttpGet]
         [Route("api/Gift/GetGiftsByCategory/{c}")]
@@ -101,30 +99,72 @@ namespace SmarTrash.Controllers
             }
         }
 
-        //לאאאא להתייחסס עדיין לא נכון!
+ 
+
+
+    // GET api/Gift/GiftOrder/{g}
+    [HttpPut]
+        [Route("api/Gift/GiftOrder/{g}")]
+        // ביצוע הזמנת הטבה. הורדה מהמלאי שלה ומהנקודות של המשתמש. 
+        public IHttpActionResult GiftOrder(int g, [FromBody] tblUser u)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();
+                gift.Stock -= 1;
+                tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();       
+                user.TotalPoints -= gift.Price;
+                db.SaveChanges();
+                return Content(HttpStatusCode.OK,"ההזמנה התבצעה בהצלחה");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+        // GET api/Gift/AbleToOrder/{g}
+        [HttpGet]
+        [Route("api/Gift/AbleToOrder/{g}")]
+        // בודק אם למשתמש יש מספיק נקודות להזמנת ההטבה
+        public bool AbleToOrder(int g, [FromBody] tblUser u)
+        {
+           
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();  
+                tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+                if (user.TotalPoints >= gift.Price)
+                {
+                    return true;
+                }
+                return false;
+        }
+
+
         // GET api/gift/GetCompGift
         [HttpGet]
         [Route("api/gift/GetCompGift")]
-        //מביא את ההטבה של התחרות החודשית בחודש הנוכחי
-        //צריך כנראה לשנות- או להוסיף טבלה או לעשות רנדום מהטבות
+        //מביא את ההטבה של התחרות החודשית לאותו החודש
         public IHttpActionResult GetCompGift()
         {
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
-                tblGiftCompetition g = db.tblGiftCompetition.SingleOrDefault(y => y.Year == DateTime.Now.Year && y.Month == DateTime.Now.Month);
-                dynamic thisMonthGift = db.tblGift.Where(j => j.GiftId == g.GiftId).Select(x => new
-                {
-                    GiftId = x.GiftId,
-                    GiftName = x.GiftName,
-                    GiftDescription = x.GiftDescription,
-                    Brand = x.Brand,
-                    Price = x.Price,
-                    Image = x.GiftImage,
-                    //בשביל בדיקה אם יש במלאי גם את המלאי
-                    Stock = x.Stock
-                });
-                return Ok(thisMonthGift);
+                var rand = new Random();
+                var gift = db.tblGift.AsEnumerable().OrderBy(r => rand.Next()).Take(1).ToList();
+
+                tblGift MGift = new tblGift();
+                MGift.GiftId = gift.First().GiftId;
+                MGift.GiftName = gift.First().GiftName;
+                MGift.GiftDescription = gift.First().GiftDescription;
+                MGift.Brand = gift.First().Brand;
+                MGift.Price = gift.First().Price;
+                MGift.Stock = gift.First().Stock;
+                MGift.GiftCategory = gift.First().GiftCategory;
+                MGift.GiftImage = gift.First().GiftImage;
+
+                return Ok(MGift);
             }
             catch (Exception ex)
             {
