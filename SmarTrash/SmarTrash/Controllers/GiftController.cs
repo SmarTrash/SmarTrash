@@ -10,6 +10,8 @@ namespace SmarTrash.Controllers
 {
     public class GiftController : ApiController
     {
+       
+
         // GET api/Gift/GetAllGifts
         [HttpGet]
         [Route("api/Gift/GetAllGifts")]

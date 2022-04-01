@@ -11,9 +11,58 @@ namespace SmarTrash.Controllers
 {
     public class HomePageController : ApiController
     {
-        // GET: api/HomePage
-        //מפעיל את הפונקציה של הטופ 3 ומביא את כל הפרטים שלהן מטבלת הטבות
+
+        //GET- רשימה של הזוכים בתחרות בסוף החודש.
+
         [HttpGet]
+        [Route("api/Homepage/GetAllWinners")]
+
+        public void GetAllWinners()
+        {
+
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            var User = db.tblUser.ToList();
+            var city = db.tblCity.Select(z=>z.CityId).ToList();
+            //    //רשימה של משתמשים לפי עיר
+            var usersInCity = new Dictionary<int, object>();
+            foreach (var c in city)
+            {
+                foreach (var u in User)
+                {
+                    if (u.CityId == c)
+                    {
+                        usersInCity.Add(c, u.UserEmail);
+
+                    }
+
+
+                }
+            }
+
+            //    var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+            //    var sums = new Dictionary<string, object>();
+            //    foreach (var useriIncity in usersInCity)
+            //    {
+            //        foreach (var e in competitionPlaces)
+            //        {
+            //            if (e.Key == useriIncity)
+            //            {
+            //                sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
+            //            }
+
+            //        }
+            //        var userPlace = sums.OrderByDescending(x => x.Value);
+            //        int id = userPlace.ToList().FindIndex(x => x.Key == u);
+            //        id += 1;
+
+
+
+        }
+    
+
+    // GET: api/HomePage
+    //מפעיל את הפונקציה של הטופ 3 ומביא את כל הפרטים שלהן מטבלת הטבות
+    [HttpGet]
         [Route("api/Homepage/HomePageGifts")]
         public IHttpActionResult HomePageGifts()
         {
@@ -34,7 +83,6 @@ namespace SmarTrash.Controllers
                         Brand = y.Brand,
                         Price = y.Price,
                         Image = y.GiftImage,
-                        //בשביל בדיקה אם יש במלאי גם את המלאי
                         Stock = y.Stock
                     }).ToList();
                     gifts.Add(popularGift);
@@ -73,41 +121,6 @@ namespace SmarTrash.Controllers
 
 
 
-        //מקבל מייל ומחזיר את המקום שלו בתחרות החודשית באזור שלו. מופעלת בפונקציה הבאה
-        public int GetUserPlaceInCompetition(string u)
-        {
-            //try
-            //{
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                var User = db.tblUser.Where(x => x.UserEmail == u).ToList();
-                var cityIdUser = User.Select(x => x.CityId).First();
-                //רשימה של משתמשים לפי עיר
-                var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).Select(z => z.UserEmail).ToList();
-                var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
-                var sums = new Dictionary<string, object>();
-                foreach (var useriIncity in usersInCity)
-                {
-                    foreach (var e in competitionPlaces)
-                    {
-                        if (e.Key == useriIncity)
-                        {
-                            sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
-                        }
-                    }
-                }
-                var userPlace = sums.OrderByDescending(x => x.Value);
-                int id = userPlace.ToList().FindIndex(x => x.Key == u);
-                id += 1;
-                return id;
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Content(HttpStatusCode.BadRequest, ex); 
-            //}
-            //איך עושים פה קאץ אם זה צריך להחזיר אינט לפונקציה הבאה 
-        }
-
-
 
         // GET: api/HomePage/5
         [Route("api/HomePage/HomePageDetails")]
@@ -137,6 +150,40 @@ namespace SmarTrash.Controllers
             }
 
         }
+        //מקבל מייל ומחזיר את המקום שלו בתחרות החודשית באזור שלו. מופעלת בפונקציה הבאה
+        public int GetUserPlaceInCompetition(string u)
+        {
+            //try
+            //{
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            var User = db.tblUser.Where(x => x.UserEmail == u).ToList();
+            var cityIdUser = User.Select(x => x.CityId).First();
+            //רשימה של משתמשים לפי עיר
+            var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).Select(z => z.UserEmail).ToList();
+            var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+            var sums = new Dictionary<string, object>();
+            foreach (var useriIncity in usersInCity)
+            {
+                foreach (var e in competitionPlaces)
+                {
+                    if (e.Key == useriIncity)
+                    {
+                        sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
+                    }
+                }
+            }
+            var userPlace = sums.OrderByDescending(x => x.Value);
+            int id = userPlace.ToList().FindIndex(x => x.Key == u);
+            id += 1;
+            return id;
+            //}
+            //catch (Exception ex)
+            //{
+            //    return Content(HttpStatusCode.BadRequest, ex); 
+            //}
+            //איך עושים פה קאץ אם זה צריך להחזיר אינט לפונקציה הבאה 
+        }
+
 
     }
 }
