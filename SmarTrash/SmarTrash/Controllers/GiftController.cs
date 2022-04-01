@@ -116,7 +116,8 @@ namespace SmarTrash.Controllers
                 tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();       
                 user.TotalPoints -= gift.Price;
                 db.SaveChanges();
-                return Content(HttpStatusCode.OK,"ההזמנה התבצעה בהצלחה");
+               
+                return Content(HttpStatusCode.OK, user.TotalPoints);
             }
             catch (Exception ex)
             {
@@ -142,15 +143,16 @@ namespace SmarTrash.Controllers
         }
 
 
-        // GET: api/HomePage/ShippingDetails
+        // GET: api/Gift/ShippingDetails/{g}
         [HttpGet]
-        [Route("api/HomePage/ShippingDetails")]
-        //מקבל מייל ומחזיר את פרטי המשלוח שלו
-        public IHttpActionResult ShippingDetails([FromBody] tblUser u)
+        [Route("api/Gift/ShippingDetails/{g}")]
+        //מקבל מייל ומחזיר את פרטי המשלוח שלו, הנקודות שלו ומחיר ההטבה
+        public IHttpActionResult ShippingDetails(int g,[FromBody] tblUser u)
         {
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
+                tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();
                 var shippingDetails = (from users in db.tblUser
                               join cities in db.tblCity
                               on users.CityId  equals cities.CityId 
@@ -159,7 +161,9 @@ namespace SmarTrash.Controllers
                               {
                                   StreetNameAndNumber = users.StreetNameAndNumber,
                                   city = cities.CityName,
-                                  Phone = users.Phone
+                                  Phone = users.Phone,
+                                  points= users.TotalPoints,
+                                  price= gift.Price
                               }).ToList();
                 return Ok(shippingDetails);
             }
@@ -192,7 +196,6 @@ namespace SmarTrash.Controllers
                 MGift.Stock = gift.First().Stock;
                 MGift.GiftCategory = gift.First().GiftCategory;
                 MGift.GiftImage = gift.First().GiftImage;
-
                 return Ok(MGift);
             }
             catch (Exception ex)
