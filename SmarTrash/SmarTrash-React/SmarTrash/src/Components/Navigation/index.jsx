@@ -9,12 +9,13 @@ import Home from '../../screens/HomeScreen/Home';
 import SelectedGift from '../../screens/GiftScreen/SelectedGift';
 import GiftsPage from '../../screens/GiftScreen/GiftsPage';
 import Notifications from '../../screens/Notifications/Notifications'
+import EditProfile from '../../screens//EditProfile/EditProfile'
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="SignUpScreen" >
+      <Stack.Navigator initialRouteName="Home" >
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
@@ -23,6 +24,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="GiftsPage" component={GiftsPage} />
         <Stack.Screen options={{ headerShown: false }} name="SelectedGift" component={SelectedGift} />
         <Stack.Screen options={{ headerShown: false }} name="Notifications" component={Notifications} />
+        <Stack.Screen options={{ headerShown: false }} name="EditProfile" component={EditProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   )

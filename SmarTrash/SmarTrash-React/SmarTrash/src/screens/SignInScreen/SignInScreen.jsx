@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ListItem } from 'react-native-elements'
 import CheckBox from "expo-checkbox";
 import COLORS from '../../Consts/colors'
+// import { CheckBox, ListItem } from 'react-native-elements'
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 

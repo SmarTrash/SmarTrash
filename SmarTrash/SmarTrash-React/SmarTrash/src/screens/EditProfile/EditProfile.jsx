@@ -1,18 +1,19 @@
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image } from 'react-native'
 import React, { useState } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
-import CityList from '../../Components/City/CityList'
+import CityList from '../../Components/City/CityList';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 
-const SignUpScreen = ({ navigation }) => {
+const EditProfile  = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -87,12 +88,30 @@ const SignUpScreen = ({ navigation }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
-        <Text style={styles.title}>Create an account</Text>
+      <Text style={styles.title}>עריכת פרטים אישיים</Text>
+
+      <View style={{ alignSelf: 'center' }}>
+          <View style={styles.profileImage}>
+            <Image
+              style={styles.image}
+              source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
+          </View>
+          <View style={styles.edit}>
+            <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
+          </View>
+        </View>
+        
 
         <CustomInput
-          placeholder="אימייל"
-          value={userEmail}
-          setValue={setUserEmail}
+          placeholder="שם פרטי"
+          value={firstName}
+          setValue={setFirstName}
+        />
+        
+        <CustomInput
+          placeholder="שם משפחה"
+          value={lastName}
+          setValue={setLastName}
         />
 
         <CustomInput
@@ -103,21 +122,20 @@ const SignUpScreen = ({ navigation }) => {
         />
 
         <CustomInput
-          placeholder="שם פרטי"
-          value={firstName}
-          setValue={setFirstName}
+          placeholder="טלפון"
+          value={phone}
+          setValue={setPhone}
         />
 
         <CustomInput
-          placeholder="שם משפחה"
-          value={lastName}
-          setValue={setLastName}
-        />
-
-
+          placeholder="רחוב ומספר בית"
+          value={streetNum}
+          setValue={setStreetNum}
+        />  
 
         <SafeAreaView style={styles.container}>
           <View style={styles.container}>
+
             <DatePicker
               style={styles.datePickerStyle}
               date={birthDate}
@@ -147,7 +165,7 @@ const SignUpScreen = ({ navigation }) => {
 
         <View >
 
-          <RadioForm style={{ flexDirection: 'row', }}
+          <RadioForm style={styles.radioBtn}
             radio_props={options}
             initial={0}
             onPress={(value) => {
@@ -157,48 +175,36 @@ const SignUpScreen = ({ navigation }) => {
           />
         </View>
 
-        <CustomInput
-          placeholder="טלפון"
-          value={phone}
-          setValue={setPhone}
-        />
 
-        <CustomInput
-          placeholder="רחוב ומספר בית"
-          value={streetNum}
-          setValue={setStreetNum}
-        />
+        <View style={styles.sortBtn}>
+              <Text style={styles.txt}>שמירה</Text>
+        </View>
 
  {/* <CityList key={city.id} name={city.name}/> */}
 
-        <CustonButton
-          text="הרשמה"
-          onPress={onSignUPPressed}
-        />
-
-        <SocialSignInButtons />
-        <CustonButton
-          text="Have an account? Sign In"
-          onPress={onSignInPressed}
-          type="TERTIARY"
-        />
       </View>
     </ScrollView>
   )
 }
 
-export default SignUpScreen;
+export default EditProfile ;
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
-    padding: 20
+    padding: 20,
+    backgroundColor:'white'
   },
 
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: "#051C60",
-    margin: 10
+    margin: 10,
+    fontFamily: 'HelveticaNeue',
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    padding: 20,
   },
   container: {
     flex: 1,
@@ -206,15 +212,57 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 20,
-  },
+  
   datePickerStyle: {
     width: cardWidth,
     marginRight: 10
   },
-
+  profileImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 100,
+    overflow: 'hidden',
+  },
+  image: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+  },
+  edit: {
+    backgroundColor: '#00C897',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 35,
+    height: 35,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 14,
+    bottom: 5
+  },
+  radioBtn:{
+      flexDirection:'row',
+  },
+  sortBtn: {
+    marginTop: 40,
+    marginRight: 12,
+    marginLeft: 10,
+    height: 50,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    backgroundColor:'#00C897'
+  },
+  txt:{
+      color:'white',
+      fontFamily: 'HelveticaNeue',
+      textAlign: 'center',
+      fontSize: 20,
+      fontWeight: 'bold',
+      justifyContent: 'center',
+    alignItems: 'center',
+      
+  },
 })

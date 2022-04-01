@@ -1,68 +1,87 @@
 import { View, StyleSheet, Image, Text, Dimensions, FlatList, Animated } from 'react-native';
 import React, { useEffect, useState } from 'react'
-import COLORS from '../../Consts/colors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather, AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import SmallCard from '../../Components/Card/SmallCard';
-import gifts from '../../Consts/gifts';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import COLORS from '../../Consts/colors'
+import { set } from 'react-hook-form';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
 
-export default function Home({navigation}) {
+export default function Home({data, navigation }) {
 
-const [name, setName] = useState('');
-const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     getData();
-});
+    onScreenLoad();
+    console.log(data)
+  });
 
 
-const getData = async () => {
+  const getData = async () => {
     try {
-        AsyncStorage.getItem('@storage_Key')
-        
-            .then(value => {
-                if (value != null) {
-                  console.log("gjhjhjh:",value)
-                    let user = JSON.parse(value);
-                    setName(user.UserEmail);
-                    setPassword(user.Password);
-                    navigation.navigate('Home');
-                }
-            })
+      AsyncStorage.getItem('@storage_Key')
+
+        .then(value => {
+          if (value != null) {
+            console.log("gjhjhjh:", value)
+            let user = JSON.parse(value);
+            setName(user.UserEmail);
+            setPassword(user.Password);
+            navigation.navigate('Home');
+          }
+        })
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
-// const updateData = async () => {  
-//   let reg =/[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
-//   console.log('userEmail:',userEmail)
-//   if (reg.test(userEmail) === true){
-//    setUserEmail(userEmail);
-//    console.log('valid:',userEmail)
-//    await AsyncStorage.mergeItem('UserData', JSON.stringify(userEmail));
-//    navigation.navigate('SignUpScreen');
-//   }
-//   else{ 
-//     console.log('email:',userEmail)
-//     alert('כתובת אימייל לא חוקית');
-//   }
-  
-// }
-// const removeData = async () => {
-//   try {
-//       await AsyncStorage.removeItem('name');
-//       navigation.navigate('SignInScreen');
-//   } catch (error) {
-//       console.log(error);
-//   }
-// }
+  }
+  // const updateData = async () => {  
+  //   let reg =/[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+  //   console.log('userEmail:',userEmail)
+  //   if (reg.test(userEmail) === true){
+  //    setUserEmail(userEmail);
+  //    console.log('valid:',userEmail)
+  //    await AsyncStorage.mergeItem('UserData', JSON.stringify(userEmail));
+  //    navigation.navigate('SignUpScreen');
+  //   }
+  //   else{ 
+  //     console.log('email:',userEmail)
+  //     alert('כתובת אימייל לא חוקית');
+  //   }
+
+  // }
+  // const removeData = async () => {
+  //   try {
+  //       await AsyncStorage.removeItem('name');
+  //       navigation.navigate('SignInScreen');
+  //   } catch (error) {
+  //       console.log(error);
+  //   }
+  // }
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
+
+  const [data, setData] = React.useState('');
+
+
+  const onScreenLoad = () => {
+    fetch(apiUrl, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        console.log("data:", data);
+        setData(data)
+      });
+  }
 
   return (
     <SafeAreaView style={style.container}>
@@ -78,13 +97,10 @@ const getData = async () => {
               style={style.image}
               source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
           </View>
-          <View style={style.edit}>
-            <MaterialCommunityIcons name="circle-edit-outline" size={20} color='#E5EFC1' style={{ marginTop: 2, marginLeft: 2 }} />
-          </View>
         </View>
 
         <View style={style.infoContainer}>
-          <MaterialCommunityIcons style={style.editInfoIcon} name="account-edit" size={24} color="#52575D" />
+          <MaterialCommunityIcons style={style.editInfoIcon} name="account-edit" size={24} color="#52575D"  onPress={() => navigation.navigate('EditProfile')}/>
           <Text style={[style.text, { fontWeight: '200', fontSize: 30, }]}>מאיה ורטיימר</Text>
         </View>
 
@@ -138,27 +154,28 @@ const getData = async () => {
           </View>
         </View>
         <View style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginHorizontal: 20, }}>
-          <Text style={[style.text, style.subText, {fontWeight: 'bold', color: COLORS.grey, top:35}]}>
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginHorizontal: 20,
+        }}>
+          <Text style={[style.text, style.subText, { fontWeight: 'bold', color: COLORS.grey, top: 35 }]}>
             ראה הכל
           </Text>
-          <Text style={[style.text, style.subText, {color: COLORS.grey,top:35}]}>הטבות נבחרות</Text>
+          <Text style={[style.text, style.subText, { color: COLORS.grey, top: 35 }]}>הטבות נבחרות</Text>
         </View>
-        
+
         <View style={style.homeCard}>
-        <FlatList
-          data={gifts}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            paddingLeft: 20,
-            marginTop: 20,
-            paddingBottom: 30,
-          }}
-          renderItem={({item}) => <SmallCard gifts={item} />}
-        />
+          <FlatList
+            data={data}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingLeft: 20,
+              marginTop: 20,
+              paddingBottom: 30,
+            }}
+            renderItem={({ item }) => <SmallCard data={item} />}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -177,8 +194,8 @@ const style = StyleSheet.create({
     marginHorizontal: 15,
     marginBottom: 10,
   },
-  homeCard:{
-top:20
+  homeCard: {
+    top: 20
   },
   profileImage: {
     width: 200,
@@ -190,19 +207,6 @@ top:20
     flex: 1,
     width: undefined,
     height: undefined,
-  },
-  edit: {
-    backgroundColor: '#557B83',
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    width: 35,
-    height: 35,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right:14,
-    bottom:5
   },
   infoContainer: {
     flexDirection: 'row',

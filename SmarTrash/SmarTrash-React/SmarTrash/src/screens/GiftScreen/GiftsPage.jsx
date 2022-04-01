@@ -15,7 +15,7 @@ const GiftsPage = () => {
 const [activeCardIndex, setActiveCardIndex] = React.useState(0);
 const scrollX = React.useRef(new Animated.Value(0)).current;
 
-   
+
     return (
        <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
        <View style={style.header}>
