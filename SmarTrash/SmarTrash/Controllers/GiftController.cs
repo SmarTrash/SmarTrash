@@ -36,8 +36,8 @@ namespace SmarTrash.Controllers
             }
         }
 
-      
-        // GET api/Gift/GetGiftsByCategory
+
+        // GET api/Gift/GetGiftsByCategory/{c}
         [HttpGet]
         [Route("api/Gift/GetGiftsByCategory/{c}")]
         // מביא את כל ההטבות של קטגוריה מסוימת
@@ -70,7 +70,7 @@ namespace SmarTrash.Controllers
         }
 
 
-        // GET api/Gift/GetGiftsByCategory
+        // GET api/Gift/GetGiftsByCategory/{gift}
         [HttpGet]
         [Route("api/Gift/GetSpecificGift/{gift}")]
         // מביא את הפרטים של הטבה מסויימת
@@ -98,8 +98,6 @@ namespace SmarTrash.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
-
- 
 
 
     // GET api/Gift/GiftOrder/{g}
@@ -139,6 +137,35 @@ namespace SmarTrash.Controllers
                     return true;
                 }
                 return false;
+        }
+
+
+        // GET: api/HomePage/ShippingDetails
+        [HttpGet]
+        [Route("api/HomePage/ShippingDetails")]
+        //מקבל מייל ומחזיר את פרטי המשלוח שלו
+        public IHttpActionResult ShippingDetails([FromBody] tblUser u)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                var shippingDetails = (from users in db.tblUser
+                              join cities in db.tblCity
+                              on users.CityId  equals cities.CityId 
+                              where users.UserEmail == u.UserEmail
+                              select new
+                              {
+                                  StreetNameAndNumber = users.StreetNameAndNumber,
+                                  city = cities.CityName,
+                                  Phone = users.Phone
+                              }).ToList();
+                return Ok(shippingDetails);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+
         }
 
 
