@@ -10,8 +10,6 @@ namespace SmarTrash.Controllers
 {
     public class GiftController : ApiController
     {
-       
-
         // GET api/Gift/GetAllGifts
         [HttpGet]
         [Route("api/Gift/GetAllGifts")]
@@ -175,6 +173,7 @@ namespace SmarTrash.Controllers
         }
 
 
+<<<<<<< Updated upstream
         // GET api/gift/GetCompGift
         [HttpGet]
         [Route("api/gift/GetCompGift")]
@@ -218,5 +217,8 @@ namespace SmarTrash.Controllers
         public void Delete(int id)
         {
         }
+=======
+       
+>>>>>>> Stashed changes
     }
 }

@@ -55,15 +55,5 @@ namespace SmarTrash.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
-
-        // PUT: api/Registration/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Registration/5
-        public void Delete(int id)
-        {
-        }
     }
 }
