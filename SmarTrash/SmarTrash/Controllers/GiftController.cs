@@ -102,8 +102,8 @@ namespace SmarTrash.Controllers
         }
 
 
-    // GET api/Gift/GiftOrder/{g}
-    [HttpPut]
+        // PUT api/Gift/GiftOrder/{g}
+        [HttpPut]
         [Route("api/Gift/GiftOrder/{g}")]
         // ביצוע הזמנת הטבה. הורדה מהמלאי שלה ומהנקודות של המשתמש. 
         public IHttpActionResult GiftOrder(int g, [FromBody] tblUser u)
