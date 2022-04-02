@@ -56,20 +56,25 @@ namespace SmarTrash.Controllers
             return ListUsersInCity;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/Competition/GetAllWinnersInCities")]
         //איך שומרים פעם החודש????
         //מחזיר את רשימת הזוכים לפי חודש (נוכחי) בכל עיר.
-        public dynamic GetAllWinnersInCities()
+        public dynamic PostAllWinnersInCities()
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             var user = db.tblUser.ToList();
             var city = db.tblCity.Select(z => z.CityId).ToList();
             var ListWinnersInCity = new Dictionary<int, object>();
             var sums = new Dictionary<string, object>();
+            tblGiftCompetition winners = new tblGiftCompetition();
+            int year = DateTime.Now.Year;
+            var month = DateTime.Now.Month;
+            GetCompGift();
             foreach (var c in city)
             {
                 sums = new Dictionary<string, object>();
+                winners = new tblGiftCompetition();
                 foreach (var u in user)
                 {
                     if (u.CityId == c)
@@ -77,7 +82,7 @@ namespace SmarTrash.Controllers
                         var User = db.tblUser.Where(x => x.UserEmail == u.UserEmail).ToList();
                         var cityIdUser = User.Select(x => x.CityId).First();
                         var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).Select(z => z.UserEmail).ToList();
-                        var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+                        var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == year && y.DateThrow.Month == month).GroupBy(i => i.UserEmail).ToList();
 
                         foreach (var useriIncity in usersInCity)
                         {
@@ -90,18 +95,19 @@ namespace SmarTrash.Controllers
                             }
                         }
                         var userPlace = sums.OrderByDescending(x => x.Value).First();
-                        //להכניס לדאטה בייס את המקומות הראשונים בתחרות בכל עיר
-                        //tblGiftCompetition winners = new tblGiftCompetition();
-                        //winners.CityId =userPlace.Key;
-                        //winners.GiftId = g;
-                        //winners.UserEmail = userPlace.Value;
+                        winners.Year =Convert.ToInt16(year);
+                        winners.Month = Convert.ToByte(month);
+                        winners.CityId =c;
+                        winners.GiftId = g;
+                        winners.UserEmail = userPlace.Key;
+                        db.tblGiftCompetition.Add(winners);
+                        db.SaveChanges();
                         ListWinnersInCity.Add(c, userPlace);
                         break;
                     }
                 }
             }
-         
-           
+
             return ListWinnersInCity;
         }
         // GET api/Competition/GetCompGift

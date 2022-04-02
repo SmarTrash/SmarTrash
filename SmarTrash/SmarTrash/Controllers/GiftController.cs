@@ -173,7 +173,7 @@ namespace SmarTrash.Controllers
         }
 
 
-<<<<<<< Updated upstream
+
         // GET api/gift/GetCompGift
         [HttpGet]
         [Route("api/gift/GetCompGift")]
@@ -217,8 +217,6 @@ namespace SmarTrash.Controllers
         public void Delete(int id)
         {
         }
-=======
-       
->>>>>>> Stashed changes
+
     }
 }

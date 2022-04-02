@@ -11,7 +11,9 @@ namespace SmarTrash.Controllers
     {
         // GET: api/BinSearch
         //GET- מקבל את המשתמש ומביא רשימת פחים בעיר שלו.
-        public IEnumerable<string> Get()
+        [HttpGet]
+        [Route(" api/BinSearch/GetBin")]
+        public IEnumerable<string> GetBin([FromBody] string value)
         {
             return new string[] { "value1", "value2" };
         }
