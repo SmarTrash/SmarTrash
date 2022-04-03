@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,10 +13,16 @@ namespace SmarTrash.Controllers
         // GET: api/BinSearch
         //GET- מקבל את המשתמש ומביא רשימת פחים בעיר שלו.
         [HttpGet]
-        [Route(" api/BinSearch/GetBin")]
-        public IEnumerable<string> GetBin([FromBody] string value)
+        [Route("api/BinSearch/GetBin")]
+        public IEnumerable<string> GetBin([FromBody] tblUser user)
         {
-            return new string[] { "value1", "value2" };
+            SmarTrashDBContext db = new SmarTrashDBContext();
+
+            var binsListInUserCity = db.tblSpecificBin.Where(x => x.CityId == user.CityId ).Select(i => i.Address).ToList();
+
+            return binsListInUserCity;
+
+
         }
 
         // GET: api/BinSearch/5

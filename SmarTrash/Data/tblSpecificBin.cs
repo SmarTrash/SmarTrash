@@ -26,10 +26,12 @@ namespace Data
         public string Address { get; set; }
         public Nullable<int> BinTypeId { get; set; }
         public Nullable<int> WeightId { get; set; }
+        public Nullable<int> CityId { get; set; }
     
         public virtual tblBinType tblBinType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCurrentThrow> tblCurrentThrow { get; set; }
         public virtual tblWeight tblWeight { get; set; }
+        public virtual tblCity tblCity { get; set; }
     }
 }

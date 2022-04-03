@@ -33,6 +33,7 @@
         <AssociationConnector Association="SmarTrashModel.FK__tblScanPr__Produ__31EC6D26" ManuallyRouted="false" />
         <AssociationConnector Association="SmarTrashModel.FK__tblScanPr__UserE__30F848ED" ManuallyRouted="false" />
         <AssociationConnector Association="SmarTrashModel.FK__tblSpecif__Weigh__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblSpecif__CityI__5165187F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

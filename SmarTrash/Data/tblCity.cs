@@ -20,6 +20,7 @@ namespace Data
             this.tblGiftCompetition = new HashSet<tblGiftCompetition>();
             this.tblOrder = new HashSet<tblOrder>();
             this.tblUser = new HashSet<tblUser>();
+            this.tblSpecificBin = new HashSet<tblSpecificBin>();
         }
     
         public int CityId { get; set; }
@@ -32,5 +33,7 @@ namespace Data
         public virtual ICollection<tblOrder> tblOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblUser> tblUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSpecificBin> tblSpecificBin { get; set; }
     }
 }
