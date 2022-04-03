@@ -5,7 +5,8 @@ import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-// import { CheckBox, ListItem } from 'react-native-elements'
+import { CheckBox, ListItem } from 'react-native-elements'
+import COLORS from '../../Consts/colors'
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 

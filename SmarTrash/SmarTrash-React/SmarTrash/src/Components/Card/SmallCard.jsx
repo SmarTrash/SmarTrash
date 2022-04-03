@@ -2,8 +2,7 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import COLORS from '../../Consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-
+import gifts from '../../Consts/gifts';
 
 const SmallCard = () => {
   return (
@@ -18,11 +17,11 @@ const SmallCard = () => {
         }}>
         <Icon name="star" size={15} color={COLORS.orange} />
       </View>
-      <Image style={style.topHotelCardImage} source={data.img} />
+      <Image style={style.topHotelCardImage} source={gifts.img} />
       <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 10, fontWeight: 'bold' }}>{data.GiftName}</Text>
+        <Text style={{ fontSize: 10, fontWeight: 'bold' }}>{gifts.GiftName}</Text>
         <Text style={{ fontSize: 7, fontWeight: 'bold', color: COLORS.grey }}>
-          {data.Brand}
+          {gifts.Brand}
         </Text>
       </View>
     </View>
