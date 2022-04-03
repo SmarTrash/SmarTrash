@@ -8,98 +8,10 @@ using System.Web.Http;
 
 namespace SmarTrash.Controllers
 {
+
     public class GiftController : ApiController
     {
-        // GET api/Gift/GetAllGifts
-        [HttpGet]
-        [Route("api/Gift/GetAllGifts")]
-        //מביא את כל ההטבות
-        public IHttpActionResult GetAllGifts()
-        {
-            try
-            {
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                dynamic g = db.tblGift.Select(x => new {
-                    GiftId = x.GiftId,
-                    GiftName = x.GiftName,
-                    GiftDescription = x.GiftDescription,
-                    Brand = x.Brand,
-                    Price = x.Price,
-                    Image = x.GiftImage,
-                    Stock = x.Stock,
-                }).ToList();
-            return Ok(g);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex);
-            }
-        }
-
-
-        // GET api/Gift/GetGiftsByCategory/{c}
-        [HttpGet]
-        [Route("api/Gift/GetGiftsByCategory/{c}")]
-        // מביא את כל ההטבות של קטגוריה מסוימת
-        public IHttpActionResult GetGiftsByCategory(int c)
-        {
-            try
-            {
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                dynamic g = db.tblGift.Where(x => x.GiftCategory == c)
-                    .Select(x => new {
-                        GiftId = x.GiftId,
-                        GiftName = x.GiftName,
-                        GiftDescription = x.GiftDescription,
-                        Brand = x.Brand,
-                        Price = x.Price,
-                        Image = x.GiftImage,
-                    //בשביל בדיקה אם יש במלאי גם את המלאי
-                    Stock = x.Stock
-                    }).ToList();
-                if (g == null)
-                {
-                    return Content(HttpStatusCode.NotFound, "אין הטבות בקטגוריה זו");
-                }
-                return Ok(g);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex);
-            }
-        }
-
-
-        // GET api/Gift/GetGiftsByCategory/{gift}
-        [HttpGet]
-        [Route("api/Gift/GetSpecificGift/{gift}")]
-        // מביא את הפרטים של הטבה מסויימת
-        public IHttpActionResult GetSpecificGift(int gift)
-        {
-            try
-            {
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                dynamic g = db.tblGift.Where(x => x.GiftId == gift)
-                    .Select(x => new
-                     {
-                         GiftId = x.GiftId,
-                         GiftName = x.GiftName,
-                         GiftDescription = x.GiftDescription,
-                         Brand = x.Brand,
-                         Price = x.Price,
-                         Image = x.GiftImage,
-                         //בשביל בדיקה אם יש במלאי גם את המלאי
-                         Stock = x.Stock
-                     }).ToList();
-                return Ok(g);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex);
-            }
-        }
-
-
+       
         // Post api/Gift/GiftOrder/{g}
         [HttpPost]
         [Route("api/Gift/GiftOrder/{g}")]
@@ -112,15 +24,16 @@ namespace SmarTrash.Controllers
                 SmarTrashDBContext db = new SmarTrashDBContext();
                 tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();
                 gift.Stock -= 1;
-                tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();       
+                tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
                 user.TotalPoints -= gift.Price;
-                //tblOrder newOrder = new tblOrder();
-                //newOrder.StreetNameAndNumber = user.StreetNameAndNumber;
-                //newOrder.OrderPhone = user.Phone;
-                //newOrder.GiftCode = g;
-                //newOrder.UserEmail = user.UserEmail;
-                //newOrder.City = user.CityId;
-                //db.tblOrder.Add(newOrder);
+                tblOrder newOrder = new tblOrder();
+                newOrder.StreetNameAndNumber = user.StreetNameAndNumber;
+                newOrder.OrderPhone = user.Phone;
+                newOrder.GiftCode = g;
+                newOrder.UserEmail = user.UserEmail;
+                newOrder.City = user.CityId;
+                newOrder.OrderNumber = 1;
+                db.tblOrder.Add(newOrder);
                 db.SaveChanges();
                 return Ok();
             }
@@ -131,60 +44,56 @@ namespace SmarTrash.Controllers
         }
 
 
-
-  
-
-        // GET api/Gift/AbleToOrder/{g}
-        [HttpGet]
-        [Route("api/Gift/AbleToOrder/{g}")]
-        // בודק אם למשתמש יש מספיק נקודות להזמנת ההטבה
-        public bool AbleToOrder(int g, [FromBody] tblUser u)
-        {
+        //[HttpPost]
+        //[Route("api/Gift/AddNewAddress")]
+        //public void AddNewAddress([FromBody] tblOrder newAddress)
+        //{
+        //    newAddr.StreetNameAndNumber = newAddress.StreetNameAndNumber;
+        //    newAddr.City = newAddress.City;
+        //    newAddr.OrderPhone = newAddress.OrderPhone;
            
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();  
-                tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
-                if (user.TotalPoints >= gift.Price)
-                {
-                    return true;
-                }
-                return false;
-        }
+        //}
 
 
-        // GET: api/Gift/ShippingDetails/{g}
-        [HttpGet]
-        [Route("api/Gift/ShippingDetails/{g}")]
-        //מקבל מייל ומחזיר את פרטי המשלוח שלו, הנקודות שלו ומחיר ההטבה
-        public IHttpActionResult ShippingDetails(int g,[FromBody] tblUser u)
-        {
-            try
-            {
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();
-                var shippingDetails = (from users in db.tblUser
-                              join cities in db.tblCity
-                              on users.CityId  equals cities.CityId 
-                              where users.UserEmail == u.UserEmail
-                              select new
-                              {
-                                  StreetNameAndNumber = users.StreetNameAndNumber,
-                                  city = cities.CityName,
-                                  Phone = users.Phone,
-                                  points= users.TotalPoints,
-                                  price= gift.Price
-                              }).ToList();
-                return Ok(shippingDetails);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex);
-            }
-
-        }
-
-
-
-
+        //// GET api/Gift/addOrderLine/{giftCode}
+        //[HttpPost]
+        //[Route("api/Gift/addOrderLine/{giftCode}")]
+        //// בודק אם למשתמש יש מספיק נקודות להזמנת ההטבה
+        //public IHttpActionResult addOrderLine(int giftCode,[FromBody] tblUser u)
+        //{
+        //    try
+        //    {
+        //        SmarTrashDBContext db = new SmarTrashDBContext();
+        //        tblGift gift = db.tblGift.Where(y => y.GiftId == giftCode).FirstOrDefault();
+        //        gift.Stock -= 1;
+        //        tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+        //        user.TotalPoints -= gift.Price;
+                
+        //        tblOrder newOrder = new tblOrder();
+        //        if (newAddr == null)
+        //        {
+        //            newOrder.StreetNameAndNumber = u.StreetNameAndNumber;
+        //            newOrder.OrderPhone = u.Phone;
+        //            newOrder.City = u.CityId;
+        //        }
+        //        else
+        //        {
+        //            newOrder.StreetNameAndNumber = newAddr.StreetNameAndNumber;
+        //            newOrder.OrderPhone = newAddr.OrderPhone;
+        //            newOrder.City = newAddr.City;
+        //        }
+        //        newOrder.GiftCode = giftCode;
+        //        newOrder.UserEmail = u.UserEmail;
+        //        db.tblOrder.Add(newOrder);
+        //        db.SaveChanges();
+        //        return Ok("ההזמנה בוצעה בהצלחה");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(HttpStatusCode.BadRequest, ex);
+        //    }
+           
+        //}
+    
     }
 }

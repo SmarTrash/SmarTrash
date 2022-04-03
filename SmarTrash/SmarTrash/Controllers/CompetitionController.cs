@@ -9,9 +9,9 @@ namespace SmarTrash.Controllers
 {
     public class CompetitionController : ApiController
     {
-        int g = 0;
+        int MonthGift = 0;
 
-        //GET- רשימה של כל המשתמשים בעיר שלי.
+        //GET-  מחזיר רשימה של כל המשתמשים בעיר שלי לפי כמות נקודות.
         [HttpGet]
         [Route("api/Competition/GetListOfUsersInMyCity")]
         public dynamic GetListOfUsersInMyCity([FromBody] tblUser selectedUser)
@@ -20,16 +20,14 @@ namespace SmarTrash.Controllers
             var ListUsersInCity = new Dictionary<int, object>();
             var sums = new Dictionary<string, object>();
 
-            var User = db.tblUser.Where(x => x.UserEmail == selectedUser.UserEmail).ToList();
-            var cityIdUser = User.Select(x => x.CityId).First();
-            var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).ToList();
+            var User = db.tblUser.Where(x => x.UserEmail == selectedUser.UserEmail).FirstOrDefault();
+            var usersInCity = db.tblUser.Where(t => t.CityId == User.CityId).ToList();
             var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
 
             foreach (var useriIncity in usersInCity)
             {
                 foreach (var e in competitionPlaces)
                 {
-
                     if (e.Key == useriIncity.UserEmail)
                     {
                         sums.Add(useriIncity.FirstName + ' ' + useriIncity.LastName, e.Sum(x => x.ThrowPoints));
@@ -38,7 +36,6 @@ namespace SmarTrash.Controllers
             }
             var userPlace = sums.OrderByDescending(x => x.Value);
 
-            //ListUsersInCity.Add(c, userPlace);
             return userPlace;
         }
 
@@ -50,9 +47,11 @@ namespace SmarTrash.Controllers
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             var user = db.tblUser.ToList();
-            var city = db.tblCity.Select(z => z.CityId).ToList();
-            var ListWinnersInCity = new Dictionary<int, object>();
+            var city = db.tblCity.ToList();
+
+            var ListWinnersInCity = new Dictionary<string, object>();
             var sums = new Dictionary<string, object>();
+
             tblGiftCompetition winners = new tblGiftCompetition();
             int year = DateTime.Now.Year;
             var month = DateTime.Now.Month;
@@ -63,11 +62,9 @@ namespace SmarTrash.Controllers
                 winners = new tblGiftCompetition();
                 foreach (var u in user)
                 {
-                    if (u.CityId == c)
+                    if (u.CityId == c.CityId)
                     {
-                        var User = db.tblUser.Where(x => x.UserEmail == u.UserEmail).ToList();
-                        var cityIdUser = User.Select(x => x.CityId).First();
-                        var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).Select(z => z.UserEmail).ToList();
+                        var usersInCity = db.tblUser.Where(t => t.CityId == c.CityId).Select(z => z.UserEmail).ToList();
                         var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == year && y.DateThrow.Month == month).GroupBy(i => i.UserEmail).ToList();
 
                         foreach (var useriIncity in usersInCity)
@@ -83,12 +80,12 @@ namespace SmarTrash.Controllers
                         var userPlace = sums.OrderByDescending(x => x.Value).First();
                         winners.Year =Convert.ToInt16(year);
                         winners.Month = Convert.ToByte(month);
-                        winners.CityId =c;
-                        winners.GiftId = g;
+                        winners.CityId =c.CityId;
+                        winners.GiftId = MonthGift;
                         winners.UserEmail = userPlace.Key;
                         db.tblGiftCompetition.Add(winners);
                         db.SaveChanges();
-                        ListWinnersInCity.Add(c, userPlace);
+                        ListWinnersInCity.Add(c.CityName, userPlace);
                         break;
                     }
                 }
@@ -96,6 +93,9 @@ namespace SmarTrash.Controllers
 
             return ListWinnersInCity;
         }
+
+
+
         // GET api/Competition/GetCompGift
         [HttpGet]
         [Route("api/Competition/GetCompGift")]
@@ -117,7 +117,7 @@ namespace SmarTrash.Controllers
                 MGift.Stock = gift.First().Stock;
                 MGift.GiftCategory = gift.First().GiftCategory;
                 MGift.GiftImage = gift.First().GiftImage;
-                g = MGift.GiftId;
+                MonthGift = MGift.GiftId;
                 return Ok(MGift);
             }
             catch (Exception ex)
