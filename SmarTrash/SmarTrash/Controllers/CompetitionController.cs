@@ -14,21 +14,21 @@ namespace SmarTrash.Controllers
         //GET- רשימה של כל המשתמשים בעיר שלי.
         [HttpGet]
         [Route("api/Competition/GetListOfUsersInMyCity")]
-        public dynamic GetListOfUsersInMyCity([FromBody]tblUser selectedUser)
+        public dynamic GetListOfUsersInMyCity([FromBody] tblUser selectedUser)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
-            //var user = db.tblUser.ToList();
-            //var usersCityId = db.tblUser.Where(x => x.UserEmail == selectedUser.UserEmail).Select(i => i.CityId == selectedUser.CityId).ToList();
-            
             var ListUsersInCity = new Dictionary<int, object>();
             var sums = new Dictionary<string, object>();
-            //רשימה של משתמשים לפי עיר
-          
-              
-                        var User = db.tblUser.Where(x => x.UserEmail == selectedUser.UserEmail).ToList();
-                        var cityIdUser = User.Select(x => x.CityId).First();
-                        var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).Select(x => new {name = x.FirstName + " " + x.LastName}).ToList();
+
+            var User = db.tblUser.Where(x => x.UserEmail == selectedUser.UserEmail).ToList();
+            var cityIdUser = User.Select(x => x.CityId).First();
+            var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).ToList();
             var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+
+            foreach (var useriIncity in usersInCity)
+            {
+                foreach (var e in competitionPlaces)
+                {
 
                     if (e.Key == useriIncity.UserEmail)
                     {
