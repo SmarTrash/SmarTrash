@@ -10,8 +10,8 @@ namespace SmarTrash.Controllers
     public class CompetitionController : ApiController
     {
         int g = 0;
+
         //GET- רשימה של כל המשתמשים בעיר שלי.
-        // GET - רשימה של כל המשתמשים בעיר שלי לפי ניקוד
         [HttpGet]
         [Route("api/Competition/GetListOfUsersInMyCity")]
         public dynamic GetListOfUsersInMyCity([FromBody]tblUser selectedUser)
@@ -34,22 +34,25 @@ namespace SmarTrash.Controllers
                         {
                             foreach (var e in competitionPlaces)
                             {
-
-                                //if (e.Key == useriIncity)
-                                //{
-                                //    sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
-                                //}
+                                if (e.Key == useriIncity)
+                                {
+                                    sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
+                                }
                             }
                         }
                         var userPlace = sums.OrderByDescending(x => x.Value);
+                        ListUsersInCity.Add(c, userPlace);
+                        break;
+                    }
+                }
+            }
 
-                        //ListUsersInCity.Add(c, userPlace);
-            return userPlace;
+            return ListUsersInCity;
         }
 
         [HttpPost]
         [Route("api/Competition/GetAllWinnersInCities")]
-        //איך שומרים פעם החודש????
+        //איך שומרים פעם בחודש????
         //מחזיר את רשימת הזוכים לפי חודש (נוכחי) בכל עיר.
         public dynamic PostAllWinnersInCities()
         {

@@ -10,19 +10,23 @@ namespace SmarTrash.Controllers
 {
     public class BinSearchController : ApiController
     {
-        // GET: api/BinSearch
+        // GET: api/BinSearch/GetBin
         //GET- מקבל את המשתמש ומביא רשימת פחים בעיר שלו.
         [HttpGet]
         [Route("api/BinSearch/GetBin")]
-        public IEnumerable<string> GetBin([FromBody] tblUser user)
+        public IHttpActionResult GetBinsInCity([FromBody] tblUser user)
         {
-            SmarTrashDBContext db = new SmarTrashDBContext();
-
-            var binsListInUserCity = db.tblSpecificBin.Where(x => x.CityId == user.CityId ).Select(i => i.Address).ToList();
-
-            return binsListInUserCity;
-
-
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                tblUser u = db.tblUser.Where(x => x.UserEmail == user.UserEmail).FirstOrDefault();
+                var binsListInUserCity = db.tblSpecificBin.Where(x => x.CityId == u.CityId).Select(i => i.Address).ToList();
+                return Ok(binsListInUserCity);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
         }
 
         // GET: api/BinSearch/5

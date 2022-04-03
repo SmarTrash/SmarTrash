@@ -15,13 +15,11 @@ namespace Data
     public partial class tblOrder
     {
         public int OrderNumber { get; set; }
-        public string StreetName { get; set; }
-        public string HouseNumber { get; set; }
-        public int PostalCode { get; set; }
         public string OrderPhone { get; set; }
         public Nullable<int> GiftCode { get; set; }
         public string UserEmail { get; set; }
         public Nullable<int> City { get; set; }
+        public string StreetNameAndNumber { get; set; }
     
         public virtual tblCity tblCity { get; set; }
         public virtual tblGift tblGift { get; set; }
