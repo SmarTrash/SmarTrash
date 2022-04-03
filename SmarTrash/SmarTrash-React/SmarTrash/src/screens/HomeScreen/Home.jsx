@@ -7,20 +7,20 @@ import SmallCard from '../../Components/Card/SmallCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import COLORS from '../../Consts/colors'
 import { set } from 'react-hook-form';
+import gifts from '../../Consts/gifts';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
 
-export default function Home({data, navigation }) {
+export default function Home({navigation }) {
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
   useEffect(() => {
     getData();
-    onScreenLoad();
-    console.log(data)
+    // onScreenLoad();
   });
 
 
@@ -67,21 +67,21 @@ export default function Home({data, navigation }) {
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
-  const [data, setData] = React.useState('');
+  // const [data, setData] = React.useState('');
 
 
-  const onScreenLoad = () => {
-    fetch(apiUrl, {
-      method: 'GET',
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-      })
-    }).then(response => { return response.json() })
-      .then(data => {
-        console.log("data:", data);
-        setData(data)
-      });
-  }
+  // const onScreenLoad = () => {
+  //   fetch(apiUrl, {
+  //     method: 'GET',
+  //     headers: new Headers({
+  //       'Content-type': 'application/json; charset=UTF-8',
+  //     })
+  //   }).then(response => { return response.json() })
+  //     .then(data => {
+  //       console.log("data:", data);
+  //       setData(data)
+  //     });
+  // }
 
   return (
     <SafeAreaView style={style.container}>
@@ -166,7 +166,7 @@ export default function Home({data, navigation }) {
 
         <View style={style.homeCard}>
           <FlatList
-            data={data}
+            data={gifts}
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
@@ -174,7 +174,7 @@ export default function Home({data, navigation }) {
               marginTop: 20,
               paddingBottom: 30,
             }}
-            renderItem={({ item }) => <SmallCard data={item} />}
+            renderItem={({ item }) => <SmallCard gifts={item} />}
           />
         </View>
       </ScrollView>

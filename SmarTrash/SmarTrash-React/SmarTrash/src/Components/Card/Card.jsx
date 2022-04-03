@@ -2,7 +2,7 @@ import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextI
 import React from 'react'
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
-
+import gifts from '../../Consts/gifts';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
@@ -32,25 +32,25 @@ const Card = ({index}) => {
     <TouchableOpacity
     disabled={activeCardIndex != index}
     activeOpacity={1}
-    onPress={() => { navigation.navigate('SelectedGift', data) }}>
+    onPress={() => { navigation.navigate('SelectedGift', gifts) }}>
     <Animated.View style={[style.shadowProp, { ...style.card, transform: [{ scale }], marginLeft: 12 }]}>
       <Animated.View style={{ ...style.cardOverLay, opacity }} />
       <View style={style.priceTag}>
         <Text
           style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold' }}>
-          ${data.Price}
+          ${gifts.Price}
         </Text>
       </View>
-      <Image source={data.img} style={style.cardImage} />
+      <Image source={gifts.img} style={style.cardImage} />
       <View style={style.cardDetails}>
         <View
           style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 13 }}>
           <View >
             <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
-              {data.GiftName}
+              {gifts.GiftName}
             </Text>
             <Text style={{ color: COLORS.grey, fontSize: 12, alignSelf: 'flex-end' }}>
-              {data.Brand}
+              {gifts.Brand}
             </Text>
             </View>
           </View>
