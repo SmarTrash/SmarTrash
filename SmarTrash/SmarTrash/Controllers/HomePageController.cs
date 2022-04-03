@@ -38,10 +38,6 @@ namespace SmarTrash.Controllers
                     }).ToList();
                     gifts.Add(popularGift);
                 }
-                if (gifts==null)
-                {
-                    return Content(HttpStatusCode.NotFound, "אין הטבות שהוזמנו עדיין");
-                }
                 return Ok(gifts);
             }
             catch (Exception ex)
@@ -96,13 +92,12 @@ namespace SmarTrash.Controllers
             {
                 return Content(HttpStatusCode.BadRequest, ex);
             }
-
         }
-        //מקבל מייל ומחזיר את המקום שלו בתחרות החודשית באזור שלו. מופעלת בפונקציה הבאה
+
+        //מקבל מייל ומחזיר את המקום שלו בתחרות החודשית באזור שלו. מופעלת בפונקציה הקודמת
         public int GetUserPlaceInCompetition(string u)
         {
-            //try
-            //{
+
             SmarTrashDBContext db = new SmarTrashDBContext();
             var User = db.tblUser.Where(x => x.UserEmail == u).ToList();
             var cityIdUser = User.Select(x => x.CityId).First();
@@ -124,12 +119,55 @@ namespace SmarTrash.Controllers
             int id = userPlace.ToList().FindIndex(x => x.Key == u);
             id += 1;
             return id;
-            //}
-            //catch (Exception ex)
-            //{
-            //    return Content(HttpStatusCode.BadRequest, ex); 
-            //}
-            //איך עושים פה קאץ אם זה צריך להחזיר אינט לפונקציה הבאה 
+        }
+
+        // PUT: api/HomePage/UpdateDetails
+        [Route("api/HomePage/UpdateDetails")]
+        [HttpPut]
+        //מקבל מייל ומחזיר את הפרטים שלו שצריך לדף הבית
+        public IHttpActionResult UpdateDetails([FromBody] tblUser u)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                tblUser userToUpdate = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+                userToUpdate.FirstName = u.FirstName;
+                userToUpdate.LastName = u.LastName;
+                userToUpdate.Phone = u.Phone;
+                userToUpdate.Gender = u.Gender;
+                userToUpdate.BirthDate = u.BirthDate;
+                userToUpdate.Password = u.Password;
+                userToUpdate.StreetNameAndNumber = u.StreetNameAndNumber;
+                userToUpdate.CityId = u.CityId;
+                userToUpdate.UserImg = u.UserImg;
+                db.SaveChanges();
+                return Ok("פרטי המשתמש עודכנו בהצלחה");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+
+        // Delete: api/HomePage/DeleteUser
+        [Route("api/HomePage/DeleteUser")]
+        [HttpDelete]
+        //מקבל מייל ומחזיר את הפרטים שלו שצריך לדף הבית
+        public IHttpActionResult DeleteUser([FromBody] tblUser u)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                tblUser userToDelete = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+                db.tblUser.Remove(userToDelete);
+                db.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
         }
     }
 }

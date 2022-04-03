@@ -100,12 +100,13 @@ namespace SmarTrash.Controllers
         }
 
 
-        // PUT api/Gift/GiftOrder/{g}
-        [HttpPut]
+        // Post api/Gift/GiftOrder/{g}
+        [HttpPost]
         [Route("api/Gift/GiftOrder/{g}")]
         // ביצוע הזמנת הטבה. הורדה מהמלאי שלה ומהנקודות של המשתמש. 
         public IHttpActionResult GiftOrder(int g, [FromBody] tblUser u)
         {
+
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
@@ -113,15 +114,25 @@ namespace SmarTrash.Controllers
                 gift.Stock -= 1;
                 tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();       
                 user.TotalPoints -= gift.Price;
+                //tblOrder newOrder = new tblOrder();
+                //newOrder.StreetNameAndNumber = user.StreetNameAndNumber;
+                //newOrder.OrderPhone = user.Phone;
+                //newOrder.GiftCode = g;
+                //newOrder.UserEmail = user.UserEmail;
+                //newOrder.City = user.CityId;
+                //db.tblOrder.Add(newOrder);
                 db.SaveChanges();
-               
-                return Content(HttpStatusCode.OK, user.TotalPoints);
+                return Ok();
             }
             catch (Exception ex)
             {
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
+
+
+
+  
 
         // GET api/Gift/AbleToOrder/{g}
         [HttpGet]
@@ -174,49 +185,6 @@ namespace SmarTrash.Controllers
 
 
 
-        // GET api/gift/GetCompGift
-        [HttpGet]
-        [Route("api/gift/GetCompGift")]
-        //מביא את ההטבה של התחרות החודשית לאותו החודש
-        public IHttpActionResult GetCompGift()
-        {
-            try
-            {
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                var rand = new Random();
-                var gift = db.tblGift.AsEnumerable().OrderBy(r => rand.Next()).Take(1).ToList();
-
-                tblGift MGift = new tblGift();
-                MGift.GiftId = gift.First().GiftId;
-                MGift.GiftName = gift.First().GiftName;
-                MGift.GiftDescription = gift.First().GiftDescription;
-                MGift.Brand = gift.First().Brand;
-                MGift.Price = gift.First().Price;
-                MGift.Stock = gift.First().Stock;
-                MGift.GiftCategory = gift.First().GiftCategory;
-                MGift.GiftImage = gift.First().GiftImage;
-                return Ok(MGift);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex);
-            }
-
-        }
-        // POST api/<controller>
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
 
     }
 }

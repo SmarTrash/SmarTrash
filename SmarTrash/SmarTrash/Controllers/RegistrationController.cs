@@ -11,14 +11,14 @@ namespace SmarTrash.Controllers
     public class RegistrationController : ApiController
     {
         // GET: api/Registration
-        //מביא את כל רשימת הערים כדי שהמשתמש שנבחר יבחר אחת
+        //מביא את כל רשימת הערים כדי שהמשתמש יבחר אחת
         public IHttpActionResult Get()
         {
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
                 dynamic c = db.tblCity.Select(x => new {
-                    YeshuvName = x.YeshuvName,
+                    CityName = x.CityName,
                     CityId = x.CityId
                 }).ToList();
                 return Ok(c);
