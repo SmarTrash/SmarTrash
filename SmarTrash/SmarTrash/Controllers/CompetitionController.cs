@@ -14,44 +14,32 @@ namespace SmarTrash.Controllers
         //GET- רשימה של כל המשתמשים בעיר שלי.
         [HttpGet]
         [Route("api/Competition/GetListOfUsersInMyCity")]
-        public dynamic GetListOfUsersInMyCity()
+        public dynamic GetListOfUsersInMyCity([FromBody] tblUser selectedUser)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
-            var user = db.tblUser.ToList();
-            var city = db.tblCity.Select(z => z.CityId).ToList();
             var ListUsersInCity = new Dictionary<int, object>();
             var sums = new Dictionary<string, object>();
-            //רשימה של משתמשים לפי עיר
-            foreach (var c in city)
-            {
-                sums = new Dictionary<string, object>();
-                foreach (var u in user)
-                {
-                    if (u.CityId == c)
-                    {
-                        var User = db.tblUser.Where(x => x.UserEmail == u.UserEmail).ToList();
-                        var cityIdUser = User.Select(x => x.CityId).First();
-                        var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).Select(z => z.UserEmail).ToList();
-                        var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
 
-                        foreach (var useriIncity in usersInCity)
-                        {
-                            foreach (var e in competitionPlaces)
-                            {
-                                if (e.Key == useriIncity)
-                                {
-                                    sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
-                                }
-                            }
-                        }
-                        var userPlace = sums.OrderByDescending(x => x.Value);
-                        ListUsersInCity.Add(c, userPlace);
-                        break;
+            var User = db.tblUser.Where(x => x.UserEmail == selectedUser.UserEmail).ToList();
+            var cityIdUser = User.Select(x => x.CityId).First();
+            var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).ToList();
+            var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+
+            foreach (var useriIncity in usersInCity)
+            {
+                foreach (var e in competitionPlaces)
+                {
+
+                    if (e.Key == useriIncity.UserEmail)
+                    {
+                        sums.Add(useriIncity.FirstName + ' ' + useriIncity.LastName, e.Sum(x => x.ThrowPoints));
                     }
                 }
             }
+            var userPlace = sums.OrderByDescending(x => x.Value);
 
-            return ListUsersInCity;
+            //ListUsersInCity.Add(c, userPlace);
+            return userPlace;
         }
 
         [HttpPost]
