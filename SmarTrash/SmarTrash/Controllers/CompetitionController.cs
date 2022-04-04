@@ -41,7 +41,7 @@ namespace SmarTrash.Controllers
 
         [HttpPost]
         [Route("api/Competition/GetAllWinnersInCities")]
-        //איך שומרים פעם בחודש????
+      
         //מחזיר את רשימת הזוכים לפי חודש (נוכחי) בכל עיר.
         public dynamic PostAllWinnersInCities()
         {

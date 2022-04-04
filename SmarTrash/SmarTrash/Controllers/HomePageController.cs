@@ -127,7 +127,7 @@ namespace SmarTrash.Controllers
         // PUT: api/HomePage/UpdateDetails
         [Route("api/HomePage/UpdateDetails")]
         [HttpPut]
-        //מקבל מייל ומחזיר את הפרטים שלו שצריך לדף הבית
+        //מקבל מייל ומעדכן את הפרטים שלו 
         public IHttpActionResult UpdateDetails([FromBody] tblUser u)
         {
             try

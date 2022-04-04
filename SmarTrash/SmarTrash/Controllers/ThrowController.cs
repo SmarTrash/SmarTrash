@@ -74,7 +74,7 @@ namespace SmarTrash.Controllers
         // GET api/Throw/RandomWeight
         [HttpGet]
         [Route("api/Throw/RandomWeight")]
-        //רנדום של משקל פסולת שנזרקה בין 0 ל15 קילו
+        //רנדום של משקל פסולת שנזרקה בין 0 ל2 קילו
         public float RandomWeight()
         {
             Random rand = new Random();
@@ -95,7 +95,7 @@ namespace SmarTrash.Controllers
         // מקבל משקל שנזרק ומחשב לו את הנקודות שנצברו
         public short CalculatePoints(float weight)
         {
-            //double throwenWeight = Math.Round(w);
+           
             double p = Math.Round(weight * 100);
             short points = ((short)p);
             return points;
