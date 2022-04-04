@@ -130,10 +130,6 @@ namespace SmarTrash.Controllers
             }
         }
 
-
-
-  
-
         // GET api/Gift/AbleToOrder/{g}
         [HttpGet]
         [Route("api/Gift/AbleToOrder/{g}")]
@@ -150,7 +146,6 @@ namespace SmarTrash.Controllers
                 }
                 return false;
         }
-
 
         // GET: api/Gift/ShippingDetails/{g}
         [HttpGet]
@@ -180,11 +175,7 @@ namespace SmarTrash.Controllers
             {
                 return Content(HttpStatusCode.BadRequest, ex);
             }
-
         }
-
-
-
 
     }
 }
