@@ -118,13 +118,15 @@ const SignInScreen = ({ navigation }) => {
       </ImageBackground>
       <View style={styles.bottomView} >
         <View style={{ padding: 40 }}>
-          <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold' }}>Welcome</Text>
-          <Text>Don't have an account?
+          
+          <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign:'center' }}>ברוכים הבאים</Text>
+          <Text style={{fontSize: 18,textAlign:'center' }}>אין לך חשבון?
             <TouchableOpacity onPress={onSignUpPressed}>
-              <Text style={{ color: COLORS.primary, fontStyle: 'italic' }}
-              > {' '}Register Now</Text>
+              <Text style={{ color: COLORS.green, fontStyle: 'italic',textAlign:'center',fontSize: 18 }}
+              > הירשם עכשיו!</Text>
             </TouchableOpacity>
           </Text>
+          
           <View style={{ marginTop: 30 }}>
             <CustomInput
               placeholder="אימייל"

@@ -20,7 +20,7 @@ export default function Home({navigation }) {
 
   useEffect(() => {
     getData();
-    // onScreenLoad();
+    onScreenLoad();
   });
 
 
@@ -67,21 +67,21 @@ export default function Home({navigation }) {
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
-  // const [data, setData] = React.useState('');
+  const [data, setData] = React.useState('');
 
 
-  // const onScreenLoad = () => {
-  //   fetch(apiUrl, {
-  //     method: 'GET',
-  //     headers: new Headers({
-  //       'Content-type': 'application/json; charset=UTF-8',
-  //     })
-  //   }).then(response => { return response.json() })
-  //     .then(data => {
-  //       console.log("data:", data);
-  //       setData(data)
-  //     });
-  // }
+  const onScreenLoad = () => {
+    fetch(apiUrl, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        setData(data)
+        console.log(data)
+      });
+  }
 
   return (
     <SafeAreaView style={style.container}>
@@ -166,7 +166,7 @@ export default function Home({navigation }) {
 
         <View style={style.homeCard}>
           <FlatList
-            data={gifts}
+            data={data}
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
@@ -174,7 +174,7 @@ export default function Home({navigation }) {
               marginTop: 20,
               paddingBottom: 30,
             }}
-            renderItem={({ item }) => <SmallCard gifts={item} />}
+            renderItem={({ item }) => <SmallCard data={item} />}
           />
         </View>
       </ScrollView>
