@@ -21,12 +21,12 @@ namespace SmarTrash.Controllers
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
                 dynamic listTop3 = GetTop3();
-                dynamic popularGift = "";
+                dynamic popularGifts = "";
                 List<dynamic> gifts = new List<dynamic>();
                 foreach (var item in listTop3)
                 {
                     int z = item.giftcode;
-                    popularGift = db.tblGift.Where(x => x.GiftId == z).Select(y => new
+                    popularGifts = db.tblGift.Where(x => x.GiftId == z).Select(y => new
                     {
                         GiftId = y.GiftId,
                         GiftName = y.GiftName,
@@ -36,7 +36,7 @@ namespace SmarTrash.Controllers
                         Image = y.GiftImage,
                         Stock = y.Stock
                     }).ToList();
-                    gifts.Add(popularGift);
+                    gifts.Add(popularGifts);
                 }
                 return Ok(gifts);
             }
@@ -55,6 +55,7 @@ namespace SmarTrash.Controllers
                 SmarTrashDBContext db = new SmarTrashDBContext();
                 dynamic top3Gifts = db.tblOrder.GroupBy(x => x.GiftCode).Select(y => new
                 {
+                    //מביא את קוד ההטבות ואת מספר הקניות שלהם
                     giftcode = y.Key,
                     count = y.Count()
                 }).OrderByDescending(y => y.count).Take(3);
@@ -75,8 +76,10 @@ namespace SmarTrash.Controllers
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
+                var User = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
                 int lastPoints = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault().ThrowPoints;
-                int userInComp = GetUserPlaceInCompetition(u.UserEmail);
+                int userInComp = GetUserPlaceInCompetition(User);
+
                 dynamic userDetails = db.tblUser.Where(x => x.UserEmail == u.UserEmail).Select(y => new
                 {
                     First = y.FirstName,
@@ -86,6 +89,7 @@ namespace SmarTrash.Controllers
                     lastThrow = lastPoints,
                     competitionPlace = userInComp
                 }).ToList();
+
                 return Ok(userDetails);
             }
             catch (Exception ex)
@@ -95,16 +99,15 @@ namespace SmarTrash.Controllers
         }
 
         //מקבל מייל ומחזיר את המקום שלו בתחרות החודשית באזור שלו. מופעלת בפונקציה הקודמת
-        public int GetUserPlaceInCompetition(string u)
+        public int GetUserPlaceInCompetition(tblUser u)
         {
 
             SmarTrashDBContext db = new SmarTrashDBContext();
-            var User = db.tblUser.Where(x => x.UserEmail == u).ToList();
-            var cityIdUser = User.Select(x => x.CityId).First();
             //  רשימה של משתמשים לפי עיר לבדוק שהחודש מעודכן בSql
-            var usersInCity = db.tblUser.Where(t => t.CityId == cityIdUser).Select(z => z.UserEmail).ToList();
+            var usersInCity = db.tblUser.Where(t => t.CityId == u.CityId).Select(z => z.UserEmail).ToList();
             var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
             var sums = new Dictionary<string, object>();
+
             foreach (var useriIncity in usersInCity)
             {
                 foreach (var e in competitionPlaces)
@@ -116,7 +119,7 @@ namespace SmarTrash.Controllers
                 }
             }
             var userPlace = sums.OrderByDescending(x => x.Value);
-            int id = userPlace.ToList().FindIndex(x => x.Key == u);
+            int id = userPlace.ToList().FindIndex(x => x.Key == u.UserEmail);
             id += 1;
             return id;
         }
@@ -153,7 +156,7 @@ namespace SmarTrash.Controllers
         // Delete: api/HomePage/DeleteUser
         [Route("api/HomePage/DeleteUser")]
         [HttpDelete]
-        //מקבל מייל ומחזיר את הפרטים שלו שצריך לדף הבית
+        //מחיקת משתמש 
         public IHttpActionResult DeleteUser([FromBody] tblUser u)
         {
             try

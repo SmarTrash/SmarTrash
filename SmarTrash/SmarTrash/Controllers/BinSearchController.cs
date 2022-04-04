@@ -29,6 +29,6 @@ namespace SmarTrash.Controllers
             }
         }
 
-       
+   
     }
 }

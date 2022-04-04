@@ -28,6 +28,8 @@ namespace SmarTrash.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
+
+
         // POST: api/Registration
         //מילוי פרטים ושמירת משתמש חדש בדאטהבייס.
         public IHttpActionResult Post([FromBody] tblUser value)

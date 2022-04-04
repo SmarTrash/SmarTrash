@@ -10,9 +10,7 @@ namespace SmarTrash.Controllers
 {
     public class ThrowController : ApiController
     {
-       
-
-       
+ 
         // POST api/Throw/ThrowGarbage
         [HttpPost]
         [Route("api/Throw/ThrowGarbage")]
@@ -72,9 +70,7 @@ namespace SmarTrash.Controllers
                 return bin;
         }
 
-
-
-        //////לנסות לעשות יותר פשוט..............................................
+        
         // GET api/Throw/RandomWeight
         [HttpGet]
         [Route("api/Throw/RandomWeight")]
@@ -105,6 +101,6 @@ namespace SmarTrash.Controllers
             return points;
         }
 
-     
+   
     }
 }
