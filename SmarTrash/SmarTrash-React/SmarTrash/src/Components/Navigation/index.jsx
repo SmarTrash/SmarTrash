@@ -15,7 +15,11 @@ const Stack = createNativeStackNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer  >
+<<<<<<< Updated upstream
       <Stack.Navigator initialRouteName="Home" >
+=======
+      <Stack.Navigator initialRouteName="SignInScreen" >
+>>>>>>> Stashed changes
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />

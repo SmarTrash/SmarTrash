@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
@@ -11,7 +11,7 @@ const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
-
+const apiUrl1 = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
 const SignUpScreen = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -24,7 +24,22 @@ const SignUpScreen = ({ navigation }) => {
   const [city, setCity] = useState('');
   const [selectedCity, setSelectedCity] = useState();
 
-
+  const [cities, setCities] = useState([]);
+  useEffect(() => {
+    fetch(apiUrl1, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json; charset-UTF-8',
+        'Accept': 'application/json; charset-UTF-8',
+      })
+    })
+      .then(response => { return response.json() })
+      .then(data => {
+        console.clear();
+        console.log(cities);
+        setCities(data)
+      });
+  }, []);
   const options = [
     { label: 'אישה', value: 'אישה' },
     { label: 'גבר', value: 'גבר' },
@@ -35,24 +50,24 @@ const SignUpScreen = ({ navigation }) => {
   const newUser = {
     UserEmail: "",
     Password: "",
-    FirstName : "",
-    LastName : "",
+    FirstName: "",
+    LastName: "",
     Phone: "",
-    Gender : "",
-    BirthDate : "",
-    StreetNameAndNumber :"",
-    CityId:"",
+    Gender: "",
+    BirthDate: "",
+    StreetNameAndNumber: "",
+    CityId: "",
   };
-  newUser.UserEmail=userEmail;
+  newUser.UserEmail = userEmail;
   newUser.FirstName = firstName;
   newUser.LastName = lastName;
   newUser.Phone = phone;
   newUser.Gender = checked;
   newUser.BirthDate = birthDate;
-  newUser.Password =password;
+  newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
   // newUser.CityId = value.CityId;
-  
+
   const onSignUPPressed = () => {
     fetch(apiUrl, {
       method: 'POST',
@@ -121,7 +136,7 @@ const SignUpScreen = ({ navigation }) => {
             <DatePicker
               style={styles.datePickerStyle}
               date={birthDate}
-              mode="date" 
+              mode="date"
               placeholder="הכנס תאריך לידה"
               format="DD-MM-YYYY"
               maxDate={d}
@@ -168,9 +183,10 @@ const SignUpScreen = ({ navigation }) => {
           value={streetNum}
           setValue={setStreetNum}
         />
+        <View style={styles.container} >
+          <CityList cities={cities} />
 
- {/* <CityList key={city.id} name={city.name}/> */}
-
+        </View>
         <CustonButton
           text="הרשמה"
           onPress={onSignUPPressed}
@@ -216,5 +232,11 @@ const styles = StyleSheet.create({
     width: cardWidth,
     marginRight: 10
   },
+  container: {
+    color: "black",
+    flex: 1,
+    paddingTop: 40,
+    alignItems: "center"
+  }
 
 })

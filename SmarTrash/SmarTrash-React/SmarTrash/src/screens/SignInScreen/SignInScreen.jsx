@@ -74,7 +74,9 @@ const SignInScreen = ({ navigation }) => {
         method: 'POST',
         body: JSON.stringify(newUser),
         headers: new Headers({
-          'Content-type': 'application/json; charset=UTF-8'
+          'Content-type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset-UTF-8'
+
         })
       }).then(response => { return response.json() })
         .then(data => {
