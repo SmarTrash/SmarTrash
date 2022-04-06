@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Text, Dimensions, FlatList, Animated } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, Text, Dimensions, FlatList, Animated } from 'react-native';
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -6,14 +6,12 @@ import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather
 import SmallCard from '../../Components/Card/SmallCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import COLORS from '../../Consts/colors'
-import { set } from 'react-hook-form';
-import gifts from '../../Consts/gifts';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
 
-export default function Home({navigation }) {
+export default function Home({ navigation }) {
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +28,6 @@ export default function Home({navigation }) {
 
         .then(value => {
           if (value != null) {
-            console.log("gjhjhjh:", value)
             let user = JSON.parse(value);
             setName(user.UserEmail);
             setPassword(user.Password);
@@ -79,7 +76,6 @@ export default function Home({navigation }) {
     }).then(response => { return response.json() })
       .then(data => {
         setData(data)
-        console.log(data)
       });
   }
 
@@ -100,7 +96,7 @@ export default function Home({navigation }) {
         </View>
 
         <View style={style.infoContainer}>
-          <MaterialCommunityIcons style={style.editInfoIcon} name="account-edit" size={24} color="#52575D"  onPress={() => navigation.navigate('EditProfile')}/>
+          <MaterialCommunityIcons style={style.editInfoIcon} name="account-edit" size={24} color="#52575D" onPress={() => navigation.navigate('EditProfile')} />
           <Text style={[style.text, { fontWeight: '200', fontSize: 30, }]}>מאיה ורטיימר</Text>
         </View>
 
@@ -158,10 +154,13 @@ export default function Home({navigation }) {
           justifyContent: 'space-between',
           marginHorizontal: 20,
         }}>
-          <Text style={[style.text, style.subText, { fontWeight: 'bold', color: COLORS.grey, top: 35 }]}>
-            ראה הכל
-          </Text>
-          <Text style={[style.text, style.subText, { color: COLORS.grey, top: 35 }]}>הטבות נבחרות</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('GiftsPage', { UserEmail: name })}>
+
+        <Text style={[style.text, style.subText, { fontWeight: 'bold', color: COLORS.grey, top: 35,fontSize:17 }]}>              ראה הכל
+
+        </Text>
+          </TouchableOpacity>
+          <Text style={[style.text, style.subText, { color: COLORS.grey, top: 35,fontSize:17 }]}>הטבות נבחרות</Text>
         </View>
 
         <View style={style.homeCard}>

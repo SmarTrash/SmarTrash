@@ -23,7 +23,7 @@ const SignInScreen = ({ navigation }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   const getData = async () => {
     try {

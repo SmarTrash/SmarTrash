@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 
-const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SendMail';
+
 const ForgotPasswordScreen = ({navigation}) => {
 
   const [userEmail, setUserEmail] = useState('');
 
-
   const onSendPressed = () => {
+    navigation.navigate('ResetPassword');
     alert('הסיסמה נשלחה אליך למייל');
     fetch(apiUrl, {
       method: 'POST',

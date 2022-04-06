@@ -10,16 +10,14 @@ import SelectedGift from '../../screens/GiftScreen/SelectedGift';
 import GiftsPage from '../../screens/GiftScreen/GiftsPage';
 import Notifications from '../../screens/Notifications/Notifications'
 import EditProfile from '../../screens//EditProfile/EditProfile'
+import Competition from '../../Components/Card/Competition';
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer  >
-<<<<<<< Updated upstream
-      <Stack.Navigator initialRouteName="Home" >
-=======
       <Stack.Navigator initialRouteName="SignInScreen" >
->>>>>>> Stashed changes
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
@@ -29,6 +27,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="SelectedGift" component={SelectedGift} />
         <Stack.Screen options={{ headerShown: false }} name="Notifications" component={Notifications} />
         <Stack.Screen options={{ headerShown: false }} name="EditProfile" component={EditProfile} />
+        <Stack.Screen options={{ headerShown: false }} name="Competition" component={Competition} />
       </Stack.Navigator>
     </NavigationContainer>
   )

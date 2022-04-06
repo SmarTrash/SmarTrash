@@ -1,5 +1,5 @@
 import {Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet ,Text ,TextInput, TouchableOpacity, View,Image, Animated,} from 'react-native';
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import CategoryList from '../../screens/CategoryList/CategoryList';
 import COLORS from '../../Consts/colors';
 import Card from '../../Components/Card/Card';
@@ -10,7 +10,27 @@ import CardMonthGift from '../../Components/Card/CardMonthGift';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
+
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllGifts';
 const GiftsPage = () => {
+
+
+const [giftData, setGiftData] = useState('');
+    fetch(apiUrl, {
+      method: 'GET',
+      body: JSON.stringify(),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+  
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        console.log("dataaaaaa:", data);
+        setGiftData(data);
+        
+      });
+ 
 
 const [activeCardIndex, setActiveCardIndex] = React.useState(0);
 const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -53,7 +73,7 @@ const scrollX = React.useRef(new Animated.Value(0)).current;
               paddingRight: cardWidth / 2 - 40,
             }}
             showsHorizontalScrollIndicator={false}
-            renderItem={({item, index}) => <Card gifts={item} index={index} />}
+             renderItem={({item, index}) => <Card gifts={item} index={index} />}
             snapToInterval={cardWidth}
           />
       </ScrollView>
