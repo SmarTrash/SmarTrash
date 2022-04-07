@@ -1,16 +1,30 @@
 import { Text, TouchableOpacity, View,StyleSheet} from 'react-native';
-import React from 'react'
+import React, {useEffect,useState}from 'react'
 import COLORS from '../../Consts/colors';
+const apiUrlGetCategory = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllCategoryGifts';
 
 const CategoryList = ({navigation}) => {
-    const categories =[ 'ביגוד', 'נוי','בית','פנאי','הכל'];
-    const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
-    
 
+    const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+
+    const [category, setCategory] = useState('');
+
+    useEffect(() => {
+    fetch(apiUrlGetCategory, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        setCategory(data)
+        console.log(data)
+      });
+    },[]);
 
     return (
-      
-        categories.map((item, index) => (
+      category.map((item, index) => (
           <TouchableOpacity
             key={index}
             activeOpacity={0.8}
@@ -30,7 +44,7 @@ const CategoryList = ({navigation}) => {
                 <View
                   style={{
                     height: 3,
-                    width: 30,
+                    width: 70,
                     backgroundColor: COLORS.primary,
                     marginTop: 2,
                   }}
@@ -49,6 +63,7 @@ const CategoryList = ({navigation}) => {
     categoryListText: {
         fontSize: 16,
         fontWeight: 'bold',
+        padding:10
     },
 });
 export default CategoryList

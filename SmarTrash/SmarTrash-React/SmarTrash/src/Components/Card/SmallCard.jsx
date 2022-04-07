@@ -1,15 +1,18 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image,TouchableOpacity } from 'react-native'
 import React from 'react'
 import COLORS from '../../Consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import { useNavigation } from '@react-navigation/native';
 
 const SmallCard = (props) => {
+  const navigation = useNavigation();
     console.log("hereee");
     console.log("2");
 
     return (
-    <View style={[style.topHotelCard, style.shadowProp]}>
+      <TouchableOpacity onPress={() => { navigation.navigate('SelectedGift', props.data[0]) }}>
+    <View
+    style={[style.topHotelCard, style.shadowProp]}>
       <View
         style={{
           position: 'absolute',
@@ -28,6 +31,7 @@ const SmallCard = (props) => {
         </Text>
       </View>
     </View>
+    </TouchableOpacity>
   );
 };
 const style = StyleSheet.create({

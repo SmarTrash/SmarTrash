@@ -42,7 +42,7 @@ const SignInScreen = ({ navigation }) => {
   const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
-
+      console.log("dataaaaaa:", value);
       await AsyncStorage.setItem('@storage_Key', jsonValue)
 
       navigation.navigate('Home');
@@ -81,10 +81,10 @@ const SignInScreen = ({ navigation }) => {
         })
       }).then(response => { return response.json() })
         .then(data => {
-          console.log("dataaaaaa:", data);
+     
           setIsUserExists(data.isSuccess)
           if (IsUserExists) {
-            navigation.navigate('Home');
+            
             console.log("hjhjhjhkljkj", isSelected)
             if (isSelected) {
               storeData(newUser)
@@ -92,6 +92,7 @@ const SignInScreen = ({ navigation }) => {
           } else {
             alert(data.message);
           }
+          navigation.navigate('Home');
         });
 
 

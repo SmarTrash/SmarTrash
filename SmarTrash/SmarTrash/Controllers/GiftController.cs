@@ -11,6 +11,23 @@ namespace SmarTrash.Controllers
 
     public class GiftController : ApiController
     {
+        // GET api/Gift/GetAllCategoryGifts
+        [HttpGet]
+        [Route("api/Gift/GetAllCategoryGifts")]
+        //מביא את כל הקטגוריות
+        public IHttpActionResult GetAllCategoryGifts()
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                var listOfCategory = db.tblCategory.Select(x => x.CategoryName).ToList();
+                return Ok(listOfCategory);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
 
         // GET api/Gift/GetAllGifts
         [HttpGet]
