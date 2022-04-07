@@ -3,7 +3,6 @@ import React,{useState,useEffect} from 'react'
 import CategoryList from '../../screens/CategoryList/CategoryList';
 import COLORS from '../../Consts/colors';
 import Card from '../../Components/Card/Card';
-import gifts from '../../Consts/gifts';
 import CardMonthGift from '../../Components/Card/CardMonthGift';
 
 
@@ -13,23 +12,24 @@ const cardWidth = width / 1.8;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllGifts';
 const GiftsPage = () => {
-
-
 const [giftData, setGiftData] = useState('');
-    fetch(apiUrl, {
-      method: 'GET',
-      body: JSON.stringify(),
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-  
-      })
-    }).then(response => { return response.json() })
-      .then(data => {
-        console.log("dataaaaaa:", data);
-        setGiftData(data);
-        
-      });
+useEffect(()=>{
+        fetch(apiUrl, {
+            method: 'GET',
+            body: JSON.stringify(),
+            headers: new Headers({
+                'Content-type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json; charset-UTF-8'
+
+            })
+        }).then(response => { return response.json() })
+            .then(data => {
+                setGiftData(data);
+
+            });
+    }
+    ,[]);
+
  
 
 const [activeCardIndex, setActiveCardIndex] = React.useState(0);
@@ -66,14 +66,14 @@ const scrollX = React.useRef(new Animated.Value(0)).current;
               {useNativeDriver: true},
             )}
             horizontal
-            data={gifts}
+            data={giftData}
             contentContainerStyle={{
               paddingVertical: 30,
               paddingLeft: 20,
               paddingRight: cardWidth / 2 - 40,
             }}
             showsHorizontalScrollIndicator={false}
-             renderItem={({item, index}) => <Card gifts={item} index={index} />}
+             renderItem={({item, index}) => <Card giftData={item} index={index}/>}
             snapToInterval={cardWidth}
           />
       </ScrollView>

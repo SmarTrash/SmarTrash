@@ -14,16 +14,17 @@ const SignInScreen = ({ navigation }) => {
 
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSelected, setSelection] = useState(false);
+  const [isSelected, setSelection] = useState(true);
   const [IsUserExists, setIsUserExists] = useState(false);
   const newUser = {
     UserEmail: "",
     Password: ""
   };
 
+
   useEffect(() => {
     getData();
-  });
+  }, []);
 
   const getData = async () => {
     try {
@@ -84,10 +85,10 @@ const SignInScreen = ({ navigation }) => {
           setIsUserExists(data.isSuccess)
           if (IsUserExists) {
             navigation.navigate('Home');
-            console.log("hjhjhjhkljkj",isSelected)
-            if(isSelected){
-            storeData(newUser)
-          }
+            console.log("hjhjhjhkljkj", isSelected)
+            if (isSelected) {
+              storeData(newUser)
+            }
           } else {
             alert(data.message);
           }
@@ -120,15 +121,15 @@ const SignInScreen = ({ navigation }) => {
       </ImageBackground>
       <View style={styles.bottomView} >
         <View style={{ padding: 40 }}>
-          
-          <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign:'center' }}>ברוכים הבאים</Text>
-          <Text style={{fontSize: 18,textAlign:'center' }}>אין לך חשבון?
+
+          <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign: 'center' }}>ברוכים הבאים</Text>
+          <Text style={{ fontSize: 18, textAlign: 'center' }}>אין לך חשבון?
             <TouchableOpacity onPress={onSignUpPressed}>
-              <Text style={{ color: COLORS.green, fontStyle: 'italic',textAlign:'center',fontSize: 18 }}
+              <Text style={{ color: COLORS.green, fontStyle: 'italic', textAlign: 'center', fontSize: 18 }}
               > הירשם עכשיו!</Text>
             </TouchableOpacity>
           </Text>
-          
+
           <View style={{ marginTop: 30 }}>
             <CustomInput
               placeholder="אימייל"
@@ -145,27 +146,27 @@ const SignInScreen = ({ navigation }) => {
 
             <View style={styles.forgetPassView}>
               <View style={{ flex: 1, marginLeft: -70 }}>
-           
-                  <ListItem noBorder>
-                    <View style={styles.container}>
-                      <View style={styles.checkboxContainer}>
-                        <CheckBox
-                          style={styles.checkbox}
-                          value={isSelected}
-                          onValueChange={setSelection}
-                          color={isSelected ? COLORS.primary : undefined}
-                        />
-                        <Text style={{ color: '#8f9195', alignSelf: 'flex-start',marginLeft:5 }}>Remember me</Text>
-                      </View>
+
+                <ListItem noBorder>
+                  <View style={styles.container}>
+                    <View style={styles.checkboxContainer}>
+                      <CheckBox
+                        style={styles.checkbox}
+                        value={isSelected}
+                        onValueChange={setSelection}
+                        color={isSelected ? COLORS.primary : undefined}
+                      />
+                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 5 }}>Remember me</Text>
                     </View>
-                  </ListItem>
-               
+                  </View>
+                </ListItem>
+
               </View>
 
               <View style={{ flex: 1, marginRight: -90 }}>
                 <TouchableOpacity onPress={onForgotPasswordPressed}>
                   <ListItem noBorder>
-                    <Text style={{ color: '#8f9195', alignSelf: 'flex-start',marginTop:-2 }}>Forgot Password</Text>
+                    <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginTop: -2 }}>Forgot Password</Text>
                   </ListItem>
                 </TouchableOpacity>
 
@@ -193,7 +194,7 @@ const SignInScreen = ({ navigation }) => {
             <SocialSignInButtons />
           </View>
         </View>
-        </View>
+      </View>
     </ScrollView >
 
   )
@@ -246,7 +247,7 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     alignSelf: "center",
-    marginLeft:30
+    marginLeft: 30
   },
   container: {
     flex: 1,

@@ -23,7 +23,7 @@ const SelectedGift = ({ navigation, route }) => {
         translucent
         backgroundColor="rgba(0,0,0,0)"
       />
-      <ImageBackground style={style.headerImage} source={item.img}>
+      <ImageBackground style={style.headerImage} source={{uri:item.Image}}>
         <View style={style.header}>
 
         <AntDesign
@@ -44,7 +44,6 @@ const SelectedGift = ({ navigation, route }) => {
             style={{
               fontSize: 20,
               fontWeight: '400',
-              color: COLORS.grey,
               marginTop: 10,
               alignSelf: 'flex-end',
               color: COLORS.primary,
@@ -70,7 +69,7 @@ const SelectedGift = ({ navigation, route }) => {
         <View style={style.priceTag}>
         <FontAwesome5 style={{left:20}} name="coins" size={15} color="gold" />
             <Text
-              style={{fontSize: 16,fontWeight: 'bold',color: COLORS.grey,marginLeft: 5,left:20 , color:'white'}}>
+              style={{fontSize: 16,fontWeight: 'bold',marginLeft: 5,left:20 , color:'white'}}>
               {1800}
 
             </Text>
@@ -102,8 +101,6 @@ const style = StyleSheet.create({
   },
   priceTag: {
     height: 40,
-    bottom:15,
-    width:150,
     alignItems: 'center',
     marginLeft: 50,
     paddingLeft: 20,

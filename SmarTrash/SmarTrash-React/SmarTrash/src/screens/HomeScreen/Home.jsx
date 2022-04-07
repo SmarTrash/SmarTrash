@@ -10,19 +10,21 @@ import COLORS from '../../Consts/colors'
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
+const userInfoUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/HomePageDetails';
 
 export default function Home({ navigation }) {
-
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const [userInfo, setUserInfo] = useState('');
 
-  useEffect(() => {
-    getData();
-    onScreenLoad();
-  });
+  useEffect(async () => {
+    await getLoginData();
+    // await getData();
+    await onScreenLoad();
+  },[]);
 
 
-  const getData = async () => {
+  const getLoginData = async () => {
     try {
       AsyncStorage.getItem('@storage_Key')
 
@@ -32,12 +34,32 @@ export default function Home({ navigation }) {
             setName(user.UserEmail);
             setPassword(user.Password);
             navigation.navigate('Home');
+            return user;
           }
+
         })
     } catch (error) {
       console.log(error);
     }
   }
+
+  // const getData = async () => {
+  //   fetch(userInfoUrl, {
+  //     method: 'GET',
+  //     body: JSON.stringify({UserEmail:name}),
+  //     headers: new Headers({
+  //       'Content-type': 'application/json; charset=UTF-8',
+  //       'Accept': 'application/json; charset-UTF-8'
+  //
+  //     })
+  //   }).then(response => {console.log("trytry", data); return response.json() })
+  //       .then(data => {
+  //         console.log("trytry", data);
+  //         setUserInfo(data);
+  //
+  //       }).catch(console.log(err));
+  //   console.log("AAAAA")
+  // }
   // const updateData = async () => {  
   //   let reg =/[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
   //   console.log('userEmail:',userEmail)
@@ -97,7 +119,7 @@ export default function Home({ navigation }) {
 
         <View style={style.infoContainer}>
           <MaterialCommunityIcons style={style.editInfoIcon} name="account-edit" size={24} color="#52575D" onPress={() => navigation.navigate('EditProfile')} />
-          <Text style={[style.text, { fontWeight: '200', fontSize: 30, }]}>מאיה ורטיימר</Text>
+          <Text style={[style.text, { fontWeight: '200', fontSize: 30, }]}>{name}</Text>
         </View>
 
         <View style={style.statusContainer}>
@@ -154,11 +176,12 @@ export default function Home({ navigation }) {
           justifyContent: 'space-between',
           marginHorizontal: 20,
         }}>
-          <TouchableOpacity onPress={() => navigation.navigate('GiftsPage', { UserEmail: name })}>
+          <Text onPress={() => {
+            navigation.navigate('GiftsPage', { UserEmail: name })}} style={[style.text, style.subText, { zIndex:1,afontWeight: 'bold', color: COLORS.grey, top: 35,fontSize:17 }]}>              ראה הכל
+          </Text>
+          <TouchableOpacity >
 
-        <Text style={[style.text, style.subText, { fontWeight: 'bold', color: COLORS.grey, top: 35,fontSize:17 }]}>              ראה הכל
 
-        </Text>
           </TouchableOpacity>
           <Text style={[style.text, style.subText, { color: COLORS.grey, top: 35,fontSize:17 }]}>הטבות נבחרות</Text>
         </View>
