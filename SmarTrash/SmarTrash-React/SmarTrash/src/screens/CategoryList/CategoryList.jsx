@@ -1,34 +1,54 @@
 import { Text, TouchableOpacity, View,StyleSheet} from 'react-native';
 import React, {useEffect,useState}from 'react'
 import COLORS from '../../Consts/colors';
+
 const apiUrlGetCategory = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllCategoryGifts';
+const apiUrlGetSpesificCategory='http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetGiftsByCategory/';
+const CategoryList = () => {
 
-const CategoryList = ({navigation}) => {
-
-    const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
-
-    const [category, setCategory] = useState('');
-
+    const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+    const [category, setCategory] = useState([]);
+    const [giftDataByCategory, setGiftDataByCategory] = useState([]);
+    const [tempData, setGtempData] = useState([]);
     useEffect(() => {
-    fetch(apiUrlGetCategory, {
-      method: 'GET',
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-      })
-    }).then(response => { return response.json() })
-      .then(data => {
-        setCategory(data)
-        console.log(data)
-      });
-    },[]);
-
+    //  GetSpesificCategory();
+      GetCategory();
+      }  ,[]);
+    const GetCategory=()=>{
+      fetch(apiUrlGetCategory,{
+        method: 'GET',
+        headers: new Headers({
+          'Content-type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset-UTF-8'
+        })
+      }).then(response => { return response.json() })
+        .then(data => {
+          setCategory(data)
+        });
+      }
+      
+    
+      const GetSpesificCategory=(index)=>{
+        fetch(apiUrlGetSpesificCategory+ index, {
+          method: 'GET',
+          headers: new Headers({
+            'Content-type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json; charset-UTF-8'
+          })
+        }).then(response => { return response.json() })
+          .then(data => {
+            setGiftDataByCategory(data)
+            console.log("noyAhabla",data)
+          });
+        
+      }
+      console.log("aaaaaaaaaa",selectedCategoryIndex)
     return (
       category.map((item, index) => (
           <TouchableOpacity
             key={index}
             activeOpacity={0.8}
-            onPress={() => setSelectedCategoryIndex(index)}>
+            onPress={() => {setSelectedCategoryIndex(index), GetSpesificCategory(index)}}>
             <View>
               <Text
                 style={{
@@ -58,7 +78,7 @@ const CategoryList = ({navigation}) => {
     
     );
   };
-
+  
   const style = StyleSheet.create({
     categoryListText: {
         fontSize: 16,

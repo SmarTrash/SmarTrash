@@ -89,16 +89,11 @@ const SignUpScreen = ({ navigation }) => {
           alert(data.message);
         }
       });
-
-
-
   }
-
   const onSignInPressed = () => {
     console.warn("sign up");
     navigation.navigate('SignInScreen');
   }
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
@@ -128,8 +123,6 @@ const SignUpScreen = ({ navigation }) => {
           value={lastName}
           setValue={setLastName}
         />
-
-
 
         <SafeAreaView style={styles.container}>
           <View style={styles.container}>
@@ -161,13 +154,11 @@ const SignUpScreen = ({ navigation }) => {
         </SafeAreaView>
 
         <View >
-
           <RadioForm style={{ flexDirection: 'row', }}
             radio_props={options}
             initial={0}
             onPress={(value) => {
               setChecked(value);
-
             }}
           />
         </View>

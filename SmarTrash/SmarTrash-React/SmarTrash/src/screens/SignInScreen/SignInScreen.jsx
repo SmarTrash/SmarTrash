@@ -84,7 +84,7 @@ const SignInScreen = ({ navigation }) => {
      
           setIsUserExists(data.isSuccess)
           if (IsUserExists) {
-            
+              navigation.navigate('Home');
             console.log("hjhjhjhkljkj", isSelected)
             if (isSelected) {
               storeData(newUser)
@@ -92,7 +92,7 @@ const SignInScreen = ({ navigation }) => {
           } else {
             alert(data.message);
           }
-          navigation.navigate('Home');
+        
         });
 
 
