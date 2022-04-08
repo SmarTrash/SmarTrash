@@ -5,9 +5,8 @@ import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { CheckBox, ListItem } from 'react-native-elements'
+import { ListItem,CheckBox  } from 'react-native-elements'
 import COLORS from '../../Consts/colors'
-
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 
 const SignInScreen = ({ navigation }) => {
@@ -16,6 +15,7 @@ const SignInScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [isSelected, setSelection] = useState(true);
   const [IsUserExists, setIsUserExists] = useState(false);
+  const [checked, setChecked] = React.useState(false);
   const newUser = {
     UserEmail: "",
     Password: ""
@@ -151,15 +151,21 @@ const SignInScreen = ({ navigation }) => {
                 <ListItem noBorder>
                   <View style={styles.container}>
                     <View style={styles.checkboxContainer}>
-                      <CheckBox
+                    <CheckBox 
                         style={styles.checkbox}
                         value={isSelected}
                         onValueChange={setSelection}
                         color={isSelected ? COLORS.primary : undefined}
+                        title={"'"}
+                        size={100}
                       />
-                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 5 }}>Remember me</Text>
+                    <View padding={-100}>
+                    <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 5,top:4}}>Remember me</Text>
                     </View>
-                  </View>
+                    </View>
+                      
+                    </View>
+                     
                 </ListItem>
 
               </View>
@@ -232,9 +238,7 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 60
   },
   forgetPassView: {
-    height: 50,
-    marginTop: 0,
-    flexDirection: 'row'
+
   },
   loginBtn: {
     alignSelf: 'center',
@@ -248,7 +252,7 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     alignSelf: "center",
-    marginLeft: 30
+    marginLeft:150,
   },
   container: {
     flex: 1,

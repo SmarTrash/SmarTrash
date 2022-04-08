@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { AntDesign,FontAwesome5 } from '@expo/vector-icons'; 
 
 
+
 const SelectedGift = ({ navigation, route }) => {
 
   const item = route.params;
