@@ -15,12 +15,10 @@ const userInfoUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/HomePag
 
 export default function Home({ navigation }) {
   const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
   const [userInfo, setUserInfo] = useState('');
-
   useEffect(async () => {
     await getLoginData();
-    // await getData();
+   // await getData();
     await onScreenLoad();
   },[]);
 
@@ -43,23 +41,26 @@ export default function Home({ navigation }) {
       console.log(error);
     }
   }
-
+  // const newUser = {
+  //   UserEmail:"" 
+  // };
   // const getData = async () => {
+  //   newUser.UserEmail=name;
   //   fetch(userInfoUrl, {
   //     method: 'GET',
-  //     body: JSON.stringify({UserEmail:name}),
+  //     body: JSON.stringify(newUser),
   //     headers: new Headers({
   //       'Content-type': 'application/json; charset=UTF-8',
   //       'Accept': 'application/json; charset-UTF-8'
-  //
+  
   //     })
-  //   }).then(response => {console.log("trytry", data); return response.json() })
-  //       .then(data => {
-  //         console.log("trytry", data);
+  //   }).then(response => { return response.json() })
+  //     .then(data => {
+  //       console.log(data)
   //         setUserInfo(data);
-  //
   //       }).catch(console.log(err));
-  //   console.log("AAAAA")
+  //       console.log(userInfo)
+    
   // }
   // const updateData = async () => {  
   //   let reg =/[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
@@ -91,15 +92,19 @@ export default function Home({ navigation }) {
 
 
   const onScreenLoad = () => {
+
     fetch(apiUrl, {
       method: 'GET',
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
       })
     }).then(response => { return response.json() })
       .then(data => {
         setData(data)
       });
+
+      
   }
 
   return (
