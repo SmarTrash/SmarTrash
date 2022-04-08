@@ -6,6 +6,7 @@ import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather
 import SmallCard from '../../Components/Card/SmallCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import COLORS from '../../Consts/colors'
+import {CheckBox  } from 'react-native-elements'
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
@@ -198,6 +199,8 @@ export default function Home({ navigation }) {
             }}
             renderItem={({ item }) => <SmallCard data={item} />}
           />
+<CheckBox/>
+          
         </View>
       </ScrollView>
     </SafeAreaView>
