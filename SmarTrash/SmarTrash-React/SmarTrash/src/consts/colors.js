@@ -9,6 +9,7 @@ const COLORS = {
   orange: '#f5a623',
   green: '#019267',
   gold: '#F0A500',
+  offwhite:'#E4EFE7',
 
 };
 

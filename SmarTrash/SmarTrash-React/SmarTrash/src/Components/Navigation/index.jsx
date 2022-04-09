@@ -15,8 +15,7 @@ import ApprovedPurchase from '../../screens/GiftScreen/ApprovedPurchase';
 import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
 import ReceptBin from '../../screens/ThrowGarbage/ReceptBin';
 import ThrowPoints from '../../screens/ThrowGarbage/ThrowPoints';
-
-
+import CompetitionList from '../../screens/Competition/CompetitionList';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +24,7 @@ const Navigation = () => {
   return (
 
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="SignUpScreen" >
+      <Stack.Navigator initialRouteName="CompetitionList" >
 
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
@@ -41,6 +40,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="ApprovedPurchase" component={ApprovedPurchase} />
         <Stack.Screen options={{ headerShown: false }} name="ReceptBin" component={ReceptBin} />
         <Stack.Screen options={{ headerShown: false }} name="ThrowPoints" component={ThrowPoints} />
+        <Stack.Screen options={{ headerShown: false }} name="CompetitionList" component={CompetitionList} />
       </Stack.Navigator>
     </NavigationContainer>
   )

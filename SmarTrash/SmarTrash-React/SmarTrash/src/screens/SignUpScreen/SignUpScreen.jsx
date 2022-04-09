@@ -162,8 +162,6 @@ newUser.UserImg="https://cdn-icons-png.flaticon.com/512/149/149071.png";
             value={streetNum}
             setValue={setStreetNum}
           />
-
-
         </View>
         <CustomInput
           placeholder="אימייל"
