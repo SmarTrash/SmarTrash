@@ -16,29 +16,35 @@ const userInfoUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/HomePag
 export default function Home({ navigation }) {
   const [name, setName] = useState('');
   const [userInfo, setUserInfo] = useState('');
-  useEffect(async () => {
-    await getLoginData();
-   // await getData();
-    await onScreenLoad();
+  useEffect( () => {
+     getLoginData();
+     onScreenLoad();
   },[]);
 
 
   const getLoginData = async () => {
     try {
-      AsyncStorage.getItem('@storage_Key')
+      const value = await AsyncStorage.getItem('@storage_Key')
+      if (value != null) {
+        let user = JSON.parse(value);
+        setName(user.UserEmail);
+        await fetch(userInfoUrl, {
+            method: 'POST',
+            body: JSON.stringify({UserEmail:user.UserEmail}),
+            headers: new Headers({
+              'Content-type': 'application/json; charset=UTF-8',
+              'Accept': 'application/json; charset-UTF-8'
 
-        .then(value => {
-          if (value != null) {
-            let user = JSON.parse(value);
-            setName(user.UserEmail);
-            setPassword(user.Password);
-            navigation.navigate('Home');
-            return user;
-          }
+            })
+          }).then(response => response.json())
+            .then(data => {
+              setUserInfo(data[0]);
+      });
 
-        })
-    } catch (error) {
-      console.log(error);
+
+      }
+    }catch(err){
+      console.log(err);
     }
   }
   // const newUser = {
@@ -46,21 +52,14 @@ export default function Home({ navigation }) {
   // };
   // const getData = async () => {
   //   newUser.UserEmail=name;
-  //   fetch(userInfoUrl, {
-  //     method: 'GET',
-  //     body: JSON.stringify(newUser),
-  //     headers: new Headers({
-  //       'Content-type': 'application/json; charset=UTF-8',
-  //       'Accept': 'application/json; charset-UTF-8'
-  
-  //     })
+
   //   }).then(response => { return response.json() })
   //     .then(data => {
   //       console.log(data)
   //         setUserInfo(data);
   //       }).catch(console.log(err));
   //       console.log(userInfo)
-    
+  //
   // }
   // const updateData = async () => {  
   //   let reg =/[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
@@ -106,7 +105,6 @@ export default function Home({ navigation }) {
 
       
   }
-
   return (
     <SafeAreaView style={style.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -119,26 +117,26 @@ export default function Home({ navigation }) {
           <View style={style.profileImage}>
             <Image
               style={style.image}
-              source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
+              source={{ uri: userInfo.Img }} />
           </View>
         </View>
 
         <View style={style.infoContainer}>
           <MaterialCommunityIcons style={style.editInfoIcon} name="account-edit" size={24} color="#52575D" onPress={() => navigation.navigate('EditProfile')} />
-          <Text style={[style.text, { fontWeight: '200', fontSize: 30, }]}>{name}</Text>
+          <Text style={[style.text, { fontWeight: '200', fontSize: 30, }]}>{userInfo.First + " " + userInfo.Last}</Text>
         </View>
 
         <View style={style.statusContainer}>
           <View style={style.statusBox}>
-            <Text style={[style.text, { fontSize: 24, }]}>60</Text>
+            <Text style={[style.text, { fontSize: 24, }]}>{userInfo.lastThrow}</Text>
             <Text style={[style.text, style.subText]}>צבירה אחרונה</Text>
           </View>
           <View style={[style.statusBox, { borderColor: '#DFD8C8', borderLeftWidth: 1, borderRightWidth: 1 }]}>
-            <Text style={[style.text, { fontSize: 24, }]}>5000</Text>
+            <Text style={[style.text, { fontSize: 24, }]}>{userInfo.Points}</Text>
             <Text style={[style.text, style.subText]}>סה"כ נקודות</Text>
           </View>
           <View style={style.statusBox}>
-            <Text style={[style.text, { fontSize: 24, }]}>3</Text>
+            <Text style={[style.text, { fontSize: 24, }]}>{userInfo.competitionPlace}</Text>
             <Text style={[style.text, style.subText]}>מקומך בתחרות</Text>
           </View>
         </View>
@@ -304,3 +302,4 @@ const style = StyleSheet.create({
     flexDirection: 'row-reverse',
   },
 });
+

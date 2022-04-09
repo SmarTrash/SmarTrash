@@ -154,7 +154,7 @@ namespace SmarTrash.Controllers
         }
 
         // GET api/Gift/AbleToOrder/{g}
-        [HttpGet]
+        [HttpPost]
         [Route("api/Gift/AbleToOrder/{g}")]
         // בודק אם למשתמש יש מספיק נקודות להזמנת ההטבה
         public bool AbleToOrder(int g, [FromBody] tblUser u)
@@ -171,7 +171,7 @@ namespace SmarTrash.Controllers
         }
 
         // GET: api/Gift/ShippingDetails/{g}
-        [HttpGet]
+        [HttpPost]
         [Route("api/Gift/ShippingDetails/{g}")]
         //מקבל מייל ומחזיר את פרטי המשלוח שלו, הנקודות שלו ומחיר ההטבה
         public IHttpActionResult ShippingDetails(int g,[FromBody] tblUser u)
@@ -190,7 +190,7 @@ namespace SmarTrash.Controllers
                                   city = cities.CityName,
                                   Phone = users.Phone,
                                   points= users.TotalPoints,
-                                  price= gift.Price
+                                  price= gift.Price,
                               }).ToList();
                 return Ok(shippingDetails);
             }

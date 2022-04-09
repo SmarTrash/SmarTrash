@@ -9,29 +9,28 @@ const ForgotPasswordScreen = ({navigation}) => {
 
   const [userEmail, setUserEmail] = useState([]);
    const newUser = {
-       UserEmail:"" 
+       UserEmail:"noy8383@walla.com"
      };
   const onSendPressed = () => {
-   newUser.UserEmail=userEmail;
-     console.log(newUser)
+   //newUser.UserEmail=userEmail;
+     console.log("user before sending", newUser);
     fetch(apiUrl, {
       method: 'POST',
       body: JSON.stringify(newUser),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
-
       })
-    }).then(response => { return response.json(),console.log("res:",response.status)  })
+    }).then(response =>  { console.log("response: "); console.log(response); return response.json()  })
       .then(data => {
-         console.log("data:",data.status)
+         console.log("data:",data)
         // if (IsUserExists) {
         //   navigation.navigate('SignInScreen');
           
         // }
       
         navigation.navigate('ResetPassword');
-    alert('הסיסמה נשלחה אליך למייל');
+        alert('הסיסמה נשלחה אליך למייל');
       });
 
 

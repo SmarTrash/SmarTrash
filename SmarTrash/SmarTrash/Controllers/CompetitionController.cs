@@ -12,7 +12,7 @@ namespace SmarTrash.Controllers
         int MonthGift = 0;
 
         //GET-  מחזיר רשימה של כל המשתמשים בעיר שלי לפי כמות נקודות.
-        [HttpGet]
+        [HttpPost]
         [Route("api/Competition/GetListOfUsersInMyCity")]
         public dynamic GetListOfUsersInMyCity([FromBody] tblUser selectedUser)
         {

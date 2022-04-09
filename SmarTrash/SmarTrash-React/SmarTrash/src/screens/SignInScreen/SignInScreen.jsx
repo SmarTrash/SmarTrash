@@ -23,7 +23,7 @@ const SignInScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-    getData();
+   // getData();
   }, []);
 
   const getData = async () => {
@@ -52,22 +52,23 @@ const SignInScreen = ({ navigation }) => {
   }
 
   const onSignInPressed = () => {
-
-    let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
-    if (reg.test(userEmail) === true) {
-      setUserEmail(userEmail);
-    }
-    else {
-      alert(' כתובת אימייל  לא חוקית');
-      setUserEmail(null)
-    }
-    if (password.length > 8) {
-      setPassword(password)
-
-    } else {
-      alert(' סיסמה לא חוקית');
-      setPassword(null)
-    }
+    // let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+    // if (reg.test(userEmail) === true) {
+    //   setUserEmail(userEmail);
+    // }
+    // else {
+    //   alert(' כתובת אימייל  לא חוקית');
+    //   setUserEmail(null)
+    // }
+    // if (password.length > 8) {
+    //   setPassword(password)
+    //
+    // } else {
+    //   alert(' סיסמה לא חוקית');
+    //   setPassword(null)
+    // }
+    console.log(userEmail);
+    console.log(password);
     if (password != null && userEmail != null) {
       newUser.UserEmail = userEmail;
       newUser.Password = password;
@@ -83,9 +84,8 @@ const SignInScreen = ({ navigation }) => {
         .then(data => {
      
           setIsUserExists(data.isSuccess)
-          if (IsUserExists) {
+          if (data.isSuccess) {
               navigation.navigate('Home');
-            console.log("hjhjhjhkljkj", isSelected)
             if (isSelected) {
               storeData(newUser)
             }
@@ -94,7 +94,8 @@ const SignInScreen = ({ navigation }) => {
           }
         
         });
-
+    }else{
+      alert("אנא מלא את שם המשתמש והסיסמא");
 
     }
   }
@@ -110,99 +111,93 @@ const SignInScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
 
-      <ImageBackground source={bg} style={styles.logo} >
+        <ImageBackground source={bg} style={styles.logo} >
 
-        <View style={styles.brandView}>
+          <View style={styles.brandView}>
 
-          <Text style={styles.brandViewText}>SmarTrash</Text>
-        </View>
+            <Text style={styles.brandViewText}>SmarTrash</Text>
+          </View>
 
-      </ImageBackground>
-      <View style={styles.bottomView} >
-        <View style={{ padding: 40 }}>
+        </ImageBackground>
+        <View style={styles.bottomView} >
+          <View style={{ padding:40 }}>
 
-          <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign: 'center' }}>ברוכים הבאים</Text>
-          <Text style={{ fontSize: 18, textAlign: 'center' }}>אין לך חשבון?
-            <TouchableOpacity onPress={onSignUpPressed}>
-              <Text style={{ color: COLORS.green, fontStyle: 'italic', textAlign: 'center', fontSize: 18 }}
+            <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign: 'center' }}>ברוכים הבאים</Text>
+            <Text style={{ fontSize: 18, textAlign:'justify'}}>אין לך חשבון?
+
+              <Text  onPress={onSignUpPressed} style={{ color: COLORS.green, fontStyle: 'italic', textAlign:'justify', fontSize: 18}}
               > הירשם עכשיו!</Text>
-            </TouchableOpacity>
-          </Text>
 
-          <View style={{ marginTop: 30 }}>
-            <CustomInput
-              placeholder="אימייל"
-              value={userEmail}
-              setValue={setUserEmail}
-              icon="email"
-            />
-            <CustomInput
-              placeholder="סיסמה"
-              value={password}
-              setValue={setPassword}
-              secureTextEntry={true}
-            />
+            </Text>
 
-            <View style={styles.forgetPassView}>
-              <View style={{ flex: 1, marginLeft: -70 }}>
-
-                <ListItem noBorder>
-                  <View style={styles.container}>
-                    <View style={styles.checkboxContainer}>
-                    <CheckBox 
-                        style={styles.checkbox}
-                        value={isSelected}
-                        onValueChange={setSelection}
-                        color={isSelected ? COLORS.primary : undefined}
-                        title={"'"}
-                        size={100}
-                      />
-                    <View padding={-100}>
-                    <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 5,top:4}}>Remember me</Text>
-                    </View>
-                    </View>
-                      
-                    </View>
-                     
-                </ListItem>
-
-              </View>
-
-              <View style={{ flex: 1, marginRight: -90 }}>
-                <TouchableOpacity onPress={onForgotPasswordPressed}>
-                  <ListItem noBorder>
-                    <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginTop: -2 }}>Forgot Password</Text>
-                  </ListItem>
-                </TouchableOpacity>
-
-              </View>
-            </View>
-
-
-
-            <View
-              style={{
-                height: 100,
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
-              <CustonButton
-                text="התחברות"
-                onPress={onSignInPressed}
+            <View style={{ marginTop: 30 }}>
+              <CustomInput
+                  placeholder="אימייל"
+                  value={userEmail}
+                  setValue={setUserEmail}
+                  icon="email"
               />
-              <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: 'center', fontSize: 16 }}>or Login With</Text>
+              <CustomInput
+                  placeholder="סיסמה"
+                  value={password}
+                  setValue={setPassword}
+                  secureTextEntry={true}
+              />
 
+              <View style={styles.forgetPassView}>
+                <View style={{ flex: 1, marginLeft: -130 }}>
+
+                  <ListItem noBorder>
+                    <View style={styles.container}>
+                      <View style={styles.checkboxContainer}>
+                        <CheckBox
+                            style={styles.checkbox}
+                            value={isSelected}
+                            onValueChange={setSelection}
+                            color={isSelected ? COLORS.primary : undefined}
+                        />
+                        <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 5, marginTop:2 }}>Remember me</Text>
+                      </View>
+                    </View>
+                  </ListItem>
+
+                </View>
+
+                <View style={{ flex: 1, marginRight: -170 }}>
+                  <TouchableOpacity onPress={onForgotPasswordPressed}>
+                    <ListItem noBorder>
+                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginTop: -2 }}>Forgot Password</Text>
+                    </ListItem>
+                  </TouchableOpacity>
+
+                </View>
               </View>
 
+
+
+              <View
+                  style={{
+                    height: 100,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                <CustonButton
+                    text="התחברות"
+                    onPress={onSignInPressed}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={{ textAlign: 'center', fontSize: 16 }}>or Login With</Text>
+
+                </View>
+
+              </View>
+              <SocialSignInButtons />
             </View>
-            <SocialSignInButtons />
           </View>
         </View>
-      </View>
-    </ScrollView >
+      </ScrollView >
 
   )
 }
@@ -238,7 +233,9 @@ const styles = StyleSheet.create({
     borderTopEndRadius: 60
   },
   forgetPassView: {
-
+    height: 50,
+    marginTop: 0,
+    flexDirection: 'row'
   },
   loginBtn: {
     alignSelf: 'center',
@@ -252,7 +249,7 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     alignSelf: "center",
-    marginLeft:150,
+    marginLeft: 30,
   },
   container: {
     flex: 1,

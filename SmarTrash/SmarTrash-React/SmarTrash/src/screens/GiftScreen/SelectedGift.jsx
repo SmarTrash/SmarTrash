@@ -1,87 +1,89 @@
 import React from 'react';
-import { ImageBackground, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, ScrollView, StatusBar, StyleSheet, Text, View,TouchableOpacity } from 'react-native';
 import COLORS from '../../Consts/colors'
 import NumericInput from 'react-native-numeric-input'
 import { useState } from 'react';
-import { AntDesign,FontAwesome5 } from '@expo/vector-icons'; 
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 
 
 
-const SelectedGift = ({ navigation, route }) => {
+const SelectedGift = ({ navigation, route}) => {
 
   const item = route.params;
   const [amount, setAmount] = useState(0);
-
+  console.log("item=" + item.GiftId)
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        backgroundColor: COLORS.white,
-        paddingBottom: 20,
-      }}>
-      <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="rgba(0,0,0,0)"
-      />
-      <ImageBackground style={style.headerImage} source={{uri:item.Image}}>
-        <View style={style.header}>
+      <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            backgroundColor: COLORS.white,
+            paddingBottom: 20,
+          }}>
+        <StatusBar
+            barStyle="light-content"
+            translucent
+            backgroundColor="rgba(0,0,0,0)"
+        />
+        <ImageBackground style={style.headerImage} source={{ uri: item.Image }}>
+          <View style={style.header}>
 
-        <AntDesign
-            name="left"
-            size={28}
-            color={COLORS.white}
-            onPress={navigation.goBack}
-          />
-        </View>
-      </ImageBackground>
-      <View>
-        <View style={style.iconContainer}>
-        <AntDesign name="hearto" size={24} color={COLORS.white} />
-        </View>
-        <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end' }}>{item.GiftName}</Text>
-          <Text
-            style={{
-              fontSize: 20,
-              fontWeight: '400',
-              marginTop: 10,
-              alignSelf: 'flex-end',
-              color: COLORS.primary,
-            }}>
-            {item.Brand}
-          </Text>
-          <View
-            style={{
-              marginTop: 10,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
+            <AntDesign
+                name="left"
+                size={28}
+                color={COLORS.white}
+                onPress={navigation.goBack}
+            />
           </View>
-          <View style={{ marginTop: 20, fontSize: 30 }}>
-            <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-end' }}>
-              {item.GiftDescription}
-            </Text>
+        </ImageBackground>
+        <View>
+          <View style={style.iconContainer}>
+            <AntDesign name="hearto" size={24} color={COLORS.white} />
           </View>
-        </View>
-        <View style={style.amount}>
-        <NumericInput type='up-down' onChange={value => (setAmount)} />
-        </View>
-        <View style={style.priceTag}>
-        <FontAwesome5 style={{left:20}} name="coins" size={15} color="gold" />
+          <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
+            <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end' }}>{item.Name}</Text>
             <Text
-              style={{fontSize: 16,fontWeight: 'bold',marginLeft: 5,left:20 , color:'white'}}>
+                style={{
+                  fontSize: 20,
+                  fontWeight: '400',
+                  marginTop: 10,
+                  alignSelf: 'flex-end',
+                  color: COLORS.primary,
+                }}>
+              {item.Brand}
+            </Text>
+            <View
+                style={{
+                  marginTop: 10,
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+            </View>
+            <View style={{ marginTop: 20, fontSize: 30 }}>
+              <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-end' }}>
+                {item.GiftDescription}
+              </Text>
+            </View>
+          </View>
+          <View style={style.amount}>
+            <NumericInput type='up-down' onChange={value => (setAmount)} />
+          </View>
+          <View style={style.priceTag}>
+            <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
+            <Text
+                style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 5, left: 20, color: 'white' }}>
               {1800}
 
             </Text>
+          </View>
+          <TouchableOpacity onPress={() => { navigation.navigate('GiftPurchase', item.GiftId) }}>
+            <View style={style.btn}>
+              <Text style={{ color: COLORS.white, fontSize: 18, fontWeight: 'bold' }}>
+                רכישה
+              </Text>
             </View>
-        <View style={style.btn}>
-          <Text style={{ color: COLORS.white, fontSize: 18, fontWeight: 'bold' }}>
-            רכישה
-          </Text>
+          </TouchableOpacity>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
   );
 };
 
@@ -96,9 +98,9 @@ const style = StyleSheet.create({
     borderRadius: 10,
   },
   amount: {
-    left:250,
-    top:30,
-   
+    left: 250,
+    top: 30,
+
   },
   priceTag: {
     height: 40,
@@ -106,13 +108,13 @@ const style = StyleSheet.create({
     marginLeft: 50,
     paddingLeft: 20,
     flex: 1,
-    bottom:15,
-    width:150,
+    bottom: 15,
+    width: 150,
     backgroundColor: '#76bfa3',
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
-    borderBottomRightRadius:20,
-    borderTopRightRadius:20,
+    borderBottomRightRadius: 20,
+    borderTopRightRadius: 20,
     flexDirection: 'row',
   },
   iconContainer: {

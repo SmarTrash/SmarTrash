@@ -7,26 +7,29 @@ import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList'
 
+
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
-const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
-const apiUrl1 = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
+const apiUrlGetCities = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
+
 const SignUpScreen = ({ navigation }) => {
+
   const [userEmail, setUserEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
-  const [checked, setChecked] = useState('אישה');
+  const [checked, setChecked] = useState('F');
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
   const [city, setCity] = useState('');
-  const [selectedCity, setSelectedCity] = useState();
+  const [selectedCity, setSelectedCity] = useState(0);
 
   const [cities, setCities] = useState([]);
   useEffect(() => {
-    fetch(apiUrl1, {
+    fetch(apiUrlGetCities, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json; charset-UTF-8',
@@ -36,16 +39,19 @@ const SignUpScreen = ({ navigation }) => {
       .then(response => { return response.json() })
       .then(data => {
         console.clear();
-        console.log(cities);
         setCities(data)
       });
   }, []);
   const options = [
-    { label: 'אישה', value: 'אישה' },
-    { label: 'גבר', value: 'גבר' },
+    { label: '  נקבה', value: 'F' },
+    { label: '  זכר', value: 'M' },
   ];
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
+
+  function handleChange(newValue) {
+    setSelectedCity(newValue);
+  }
 
   const newUser = {
     UserEmail: "",
@@ -57,6 +63,7 @@ const SignUpScreen = ({ navigation }) => {
     BirthDate: "",
     StreetNameAndNumber: "",
     CityId: "",
+    UserImg:""
   };
   newUser.UserEmail = userEmail;
   newUser.FirstName = firstName;
@@ -66,21 +73,26 @@ const SignUpScreen = ({ navigation }) => {
   newUser.BirthDate = birthDate;
   newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
-  // newUser.CityId = value.CityId;
-
+  newUser.CityId = selectedCity;
+newUser.UserImg="https://a7.org/pictures/1063/1063931.jpg";
+ 
   const onSignUPPressed = () => {
+    { console.log(newUser) }
     fetch(apiUrl, {
       method: 'POST',
       body: JSON.stringify(newUser),
       headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
       })
     }).then(response => { return response.json() })
       .then(data => {
+         
         console.log("dataaaaaa:", data);
-        setIsUserExists(data.isSuccess)
+        setIsUserExists(data.isSuccess) 
+     
         if (IsUserExists) {
-          navigation.navigate('Home');
+         
           console.log("hjhjhjhkljkj", isSelected)
           if (isSelected) {
             storeData(newUser)
@@ -89,6 +101,7 @@ const SignUpScreen = ({ navigation }) => {
           alert(data.message);
         }
       });
+      navigation.navigate('Home');
   }
   const onSignInPressed = () => {
     console.warn("sign up");
@@ -99,18 +112,7 @@ const SignUpScreen = ({ navigation }) => {
       <View style={styles.root}>
         <Text style={styles.title}>Create an account</Text>
 
-        <CustomInput
-          placeholder="אימייל"
-          value={userEmail}
-          setValue={setUserEmail}
-        />
 
-        <CustomInput
-          placeholder="סיסמה"
-          value={password}
-          setValue={setPassword}
-          secureTextEntry={true}
-        />
 
         <CustomInput
           placeholder="שם פרטי"
@@ -154,7 +156,7 @@ const SignUpScreen = ({ navigation }) => {
         </SafeAreaView>
 
         <View >
-          <RadioForm style={{ flexDirection: 'row', }}
+          <RadioForm style={{ flexDirection: 'row' }}
             radio_props={options}
             initial={0}
             onPress={(value) => {
@@ -163,21 +165,37 @@ const SignUpScreen = ({ navigation }) => {
           />
         </View>
 
-        <CustomInput
-          placeholder="טלפון"
-          value={phone}
-          setValue={setPhone}
-        />
-
-        <CustomInput
-          placeholder="רחוב ומספר בית"
-          value={streetNum}
-          setValue={setStreetNum}
-        />
         <View style={styles.container} >
-          <CityList cities={cities} />
+          <CityList cities={cities} onChange={handleChange} />
+
+          {console.log("ggggg", selectedCity)}
+
+          <CustomInput
+            placeholder="טלפון"
+            value={phone}
+            setValue={setPhone}
+          />
+
+          <CustomInput
+            placeholder="רחוב ומספר בית"
+            value={streetNum}
+            setValue={setStreetNum}
+          />
+
 
         </View>
+        <CustomInput
+          placeholder="אימייל"
+          value={userEmail}
+          setValue={setUserEmail}
+        />
+
+        <CustomInput
+          placeholder="סיסמה"
+          value={password}
+          setValue={setPassword}
+          secureTextEntry={true}
+        />
         <CustonButton
           text="הרשמה"
           onPress={onSignUPPressed}
@@ -200,19 +218,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20
   },
-
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: "#051C60",
-    margin: 10
-  },
-  container: {
-    flex: 1,
-    padding: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   title: {
     textAlign: 'center',
     fontSize: 20,
@@ -221,12 +226,14 @@ const styles = StyleSheet.create({
   },
   datePickerStyle: {
     width: cardWidth,
-    marginRight: 10
+    marginRight: 10,
+
   },
   container: {
     color: "black",
     flex: 1,
-    paddingTop: 40,
+    paddingTop: 10,
+    paddingBottom: 10,
     alignItems: "center"
   }
 
