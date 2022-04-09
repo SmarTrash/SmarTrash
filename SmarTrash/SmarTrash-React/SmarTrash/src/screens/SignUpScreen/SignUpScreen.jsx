@@ -1,21 +1,23 @@
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList'
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+
 
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
-const apiUrlGetCities = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
 
 const SignUpScreen = ({ navigation }) => {
-
+  
+ const {setCities,cities,selectedCity} = useContext(GlobalContext);
   const [userEmail, setUserEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -24,24 +26,9 @@ const SignUpScreen = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
-  const [city, setCity] = useState('');
-  const [selectedCity, setSelectedCity] = useState(0);
+  // const [selectedCity, setSelectedCity] = useState(0);
 
-  const [cities, setCities] = useState([]);
-  useEffect(() => {
-    fetch(apiUrlGetCities, {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'application/json; charset-UTF-8',
-        'Accept': 'application/json; charset-UTF-8',
-      })
-    })
-      .then(response => { return response.json() })
-      .then(data => {
-        console.clear();
-        setCities(data)
-      });
-  }, []);
+
   const options = [
     { label: '  נקבה', value: 'F' },
     { label: '  זכר', value: 'M' },
@@ -49,9 +36,9 @@ const SignUpScreen = ({ navigation }) => {
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
 
-  function handleChange(newValue) {
-    setSelectedCity(newValue);
-  }
+  // function handleChange(newValue) {
+  //   setSelectedCity(newValue);
+  // }
 
   const newUser = {
     UserEmail: "",
@@ -74,7 +61,7 @@ const SignUpScreen = ({ navigation }) => {
   newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
   newUser.CityId = selectedCity;
-newUser.UserImg="https://a7.org/pictures/1063/1063931.jpg";
+newUser.UserImg="https://cdn-icons-png.flaticon.com/512/149/149071.png";
  
   const onSignUPPressed = () => {
     { console.log(newUser) }
@@ -101,7 +88,7 @@ newUser.UserImg="https://a7.org/pictures/1063/1063931.jpg";
           alert(data.message);
         }
       });
-      navigation.navigate('Home');
+      navigation.navigate('SignInScreen');
   }
   const onSignInPressed = () => {
     console.warn("sign up");
@@ -166,9 +153,7 @@ newUser.UserImg="https://a7.org/pictures/1063/1063931.jpg";
         </View>
 
         <View style={styles.container} >
-          <CityList cities={cities} onChange={handleChange} />
-
-          {console.log("ggggg", selectedCity)}
+          <CityList />
 
           <CustomInput
             placeholder="טלפון"
