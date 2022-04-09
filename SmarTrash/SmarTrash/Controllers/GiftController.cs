@@ -144,7 +144,8 @@ namespace SmarTrash.Controllers
                 newOrder.OrderNumber = 1;
                 db.tblOrder.Add(newOrder);
                 db.SaveChanges();
-                return Ok();
+                tblUser userAfterChange = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+                return Ok(userAfterChange.TotalPoints);
             }
             catch (Exception ex)
             {

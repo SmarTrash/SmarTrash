@@ -11,14 +11,15 @@ import GiftsPage from '../../screens/GiftScreen/GiftsPage';
 import Notifications from '../../screens/Notifications/Notifications'
 import EditProfile from '../../screens//EditProfile/EditProfile'
 import Competition from '../../Components/Card/Competition';
-import GiftPurchase from '../../screens/GiftPurchase/GiftPurchase'
+import ApprovedPurchase from '../../screens/GiftScreen/ApprovedPurchase';
+import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="GiftPurchase" >
+      <Stack.Navigator initialRouteName="ApprovedPurchase" >
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
@@ -30,6 +31,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="EditProfile" component={EditProfile} />
         <Stack.Screen options={{ headerShown: false }} name="Competition" component={Competition} />
         <Stack.Screen options={{ headerShown: false }} name="GiftPurchase" component={GiftPurchase} />
+        <Stack.Screen options={{ headerShown: false }} name="ApprovedPurchase" component={ApprovedPurchase} />
       </Stack.Navigator>
     </NavigationContainer>
   )
