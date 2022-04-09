@@ -1,5 +1,5 @@
 import { View, StyleSheet, TouchableOpacity, Image, Text, Dimensions, FlatList, Animated } from 'react-native';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather, AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import SmallCard from '../../Components/Card/SmallCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import COLORS from '../../Consts/colors'
 import {CheckBox  } from 'react-native-elements'
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
@@ -14,7 +15,7 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGift
 const userInfoUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/HomePageDetails';
 
 export default function Home({ navigation }) {
-  const [name, setName] = useState('');
+  const {userEmail} = useContext(GlobalContext);
   const [userInfo, setUserInfo] = useState('');
   useEffect( () => {
      getLoginData();
@@ -24,25 +25,17 @@ export default function Home({ navigation }) {
 
   const getLoginData = async () => {
     try {
-      const value = await AsyncStorage.getItem('@storage_Key')
-      if (value != null) {
-        let user = JSON.parse(value);
-        setName(user.UserEmail);
         await fetch(userInfoUrl, {
             method: 'POST',
-            body: JSON.stringify({UserEmail:user.UserEmail}),
+            body: JSON.stringify({UserEmail:userEmail}),
             headers: new Headers({
               'Content-type': 'application/json; charset=UTF-8',
               'Accept': 'application/json; charset-UTF-8'
-
             })
           }).then(response => response.json())
             .then(data => {
               setUserInfo(data[0]);
       });
-
-
-      }
     }catch(err){
       console.log(err);
     }
@@ -181,7 +174,7 @@ export default function Home({ navigation }) {
           marginHorizontal: 20,
         }}>
           <Text onPress={() => {
-            navigation.navigate('GiftsPage', { UserEmail: name })}} style={[style.text, style.subText, { zIndex:1,afontWeight: 'bold', color: COLORS.grey, top: 35,fontSize:17 }]}>              ראה הכל
+            navigation.navigate('GiftsPage')}} style={[style.text, style.subText, { zIndex:1,afontWeight: 'bold', color: COLORS.grey, top: 35,fontSize:17 }]}>              ראה הכל
           </Text>
           <TouchableOpacity >
 
@@ -202,8 +195,6 @@ export default function Home({ navigation }) {
             }}
             renderItem={({ item }) => <SmallCard data={item} />}
           />
-<CheckBox/>
-          
         </View>
       </ScrollView>
     </SafeAreaView>

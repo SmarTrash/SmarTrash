@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView, ImageBackground, Dimensions, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import bg from '../../../assets/bg.jpg'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
@@ -7,11 +7,13 @@ import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSign
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ListItem,CheckBox  } from 'react-native-elements'
 import COLORS from '../../Consts/colors'
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 
 const SignInScreen = ({ navigation }) => {
 
-  const [userEmail, setUserEmail] = useState('');
+  const {userEmail, setUserEmail} = useContext(GlobalContext);
   const [password, setPassword] = useState('');
   const [isSelected, setSelection] = useState(true);
   const [IsUserExists, setIsUserExists] = useState(false);

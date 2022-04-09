@@ -22,12 +22,8 @@ const Navigation = () => {
   return (
 
     <NavigationContainer  >
-<<<<<<< Updated upstream
-      <Stack.Navigator initialRouteName="ApprovedPurchase" >
+      <Stack.Navigator initialRouteName="SignInScreen" >
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
-=======
-      <Stack.Navigator initialRouteName="EditProfile" >
->>>>>>> Stashed changes
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ResetPassword" component={ResetPassword} />
@@ -36,7 +32,6 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="SelectedGift" component={SelectedGift} />
         <Stack.Screen options={{ headerShown: false }} name="Notifications" component={Notifications} />
         <Stack.Screen options={{ headerShown: false }} name="EditProfile" component={EditProfile} />
-        <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="Competition" component={Competition} />
         <Stack.Screen options={{ headerShown: false }} name="GiftPurchase" component={GiftPurchase} />
         <Stack.Screen options={{ headerShown: false }} name="ApprovedPurchase" component={ApprovedPurchase} />

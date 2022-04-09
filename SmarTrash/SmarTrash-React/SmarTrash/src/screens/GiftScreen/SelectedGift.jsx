@@ -10,7 +10,7 @@ import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 const SelectedGift = ({ navigation, route}) => {
 
   const item = route.params;
-  const [amount, setAmount] = useState(0);
+
   console.log("item=" + item.GiftId)
   return (
       <ScrollView
@@ -64,14 +64,12 @@ const SelectedGift = ({ navigation, route}) => {
               </Text>
             </View>
           </View>
-          <View style={style.amount}>
-            <NumericInput type='up-down' onChange={value => (setAmount)} />
-          </View>
+    
           <View style={style.priceTag}>
             <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
             <Text
                 style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 5, left: 20, color: 'white' }}>
-              {1800}
+              {item.Price}
 
             </Text>
           </View>
@@ -103,6 +101,7 @@ const style = StyleSheet.create({
 
   },
   priceTag: {
+    marginTop: 50,
     height: 40,
     alignItems: 'center',
     marginLeft: 50,
