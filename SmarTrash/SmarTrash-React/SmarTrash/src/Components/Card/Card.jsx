@@ -9,7 +9,7 @@ const cardWidth = width / 1.8;
 
 const Card = ({index,giftData}) => {
   const navigation = useNavigation();
-  const [activeCardIndex, setActiveCardIndex] = React.useState(0);
+
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const inputRange = [

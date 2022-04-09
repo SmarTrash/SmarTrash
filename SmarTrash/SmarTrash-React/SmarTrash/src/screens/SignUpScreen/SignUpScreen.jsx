@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native'
-import React, { useEffect, useState,useContext } from 'react'
+import React, {  useState,useContext } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
@@ -17,7 +17,7 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
 
 const SignUpScreen = ({ navigation }) => {
   
- const {setCities,cities,selectedCity} = useContext(GlobalContext);
+ const {selectedCity} = useContext(GlobalContext);
   const [userEmail, setUserEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -26,8 +26,7 @@ const SignUpScreen = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
-  // const [selectedCity, setSelectedCity] = useState(0);
-
+ 
 
   const options = [
     { label: '  נקבה', value: 'F' },
@@ -36,9 +35,6 @@ const SignUpScreen = ({ navigation }) => {
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
 
-  // function handleChange(newValue) {
-  //   setSelectedCity(newValue);
-  // }
 
   const newUser = {
     UserEmail: "",
@@ -80,7 +76,6 @@ newUser.UserImg="https://cdn-icons-png.flaticon.com/512/149/149071.png";
      
         if (IsUserExists) {
          
-          console.log("hjhjhjhkljkj", isSelected)
           if (isSelected) {
             storeData(newUser)
           }

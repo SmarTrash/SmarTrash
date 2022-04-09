@@ -6,8 +6,14 @@ const GlobalContext = createContext({});
 const Provider = ({ children }) => {
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState(0);
-    console.log("Citycontext=" , cities)
-    const GlobalContextOrginal = {cities,setCities,selectedCity, setSelectedCity}
+
+    const [userEmail, setUserEmail] = useState('');
+
+
+    const GlobalContextOrginal = {
+        cities, setCities,selectedCity, setSelectedCity,
+        userEmail, setUserEmail}
+        
     return (
         <GlobalContext.Provider value={GlobalContextOrginal}>
             {children}

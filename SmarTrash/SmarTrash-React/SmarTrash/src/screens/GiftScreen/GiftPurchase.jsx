@@ -4,15 +4,18 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../../Consts/colors';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
 const GiftPurchase = ({ route }) => {
-  const [userShippingDetails, setUserShippingDetails] = useState([]);
+  const {userEmail} = useContext(GlobalContext);
+  const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
-  const userInfo =
+  console.log("giftId",giftId);
+  console.log("userEmail",userEmail);
   useEffect(() => {
     ShippingDetails();
   }, []);
@@ -21,7 +24,7 @@ const GiftPurchase = ({ route }) => {
   const ShippingDetails = () => {
     fetch(apiUrl + giftId, {
       method: 'Post',
-      body: JSON.stringify("אביב אלוש"),
+      body: JSON.stringify({UserEmail:userEmail}),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -29,12 +32,14 @@ const GiftPurchase = ({ route }) => {
     }).then(response => { return response.json() })
         .then(data => {
           setUserShippingDetails(data);
-          console.log(userShippingDetails);
+          console.log("SHIPPING",data);
+         
         });
   }
-
+  console.log("kkk",userShippingDetails);
   return (
       <View>
+       
         <View style={{ alignSelf: 'center' }}>
           <View style={style.profileImage}>
             <Image
@@ -63,12 +68,12 @@ const GiftPurchase = ({ route }) => {
             <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 10 }}>
               {'כתובת ברירת מחדל'}
             </Text>
-            <Text style={{ fontSize: 18, fontWeight: 'bold', alignSelf: 'flex-start', margin: 5 }}>{"יוספטל 3"}</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', alignSelf: 'flex-start', margin: 5 }}>{userShippingDetails.StreetNameAndNumber}</Text>
             <Text style={{ fontSize: 15, fontWeight: 'bold', color: COLORS.grey, alignSelf: 'flex-start', margin: 5 }}>
-              {"חיפה"}
+              {userShippingDetails.city}
             </Text>
             <Text style={{ fontSize: 15, fontWeight: 'bold', color: COLORS.grey, alignSelf: 'flex-start', margin: 5 }}>
-              {"052-9589748"}
+            {userShippingDetails.Phone}
             </Text>
           </View>
 
@@ -105,7 +110,7 @@ const GiftPurchase = ({ route }) => {
               {/* {'סה"כ נקודות'} */}
               <View>
                 <Text style={[style.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 20 }]}>
-                  {5000} <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
+                  {userShippingDetails.points} <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
                 </Text>
               </View>
             </View>
@@ -120,7 +125,7 @@ const GiftPurchase = ({ route }) => {
               {/* {'מחיר הטבה'} */}
               <View>
                 <Text style={[style.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 20 }]}>
-                  {1800} <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
+                  {userShippingDetails.price} <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
                 </Text>
               </View>
             </View>
