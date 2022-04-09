@@ -1,5 +1,5 @@
 
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
@@ -9,9 +9,9 @@ import CustonButton from '../../Components/CustomButton/CustonButton';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
-export default function ReceptBin() {
+export default function ThrowPoints({ navigation }) {
   return (
-    <View style={{backgroundColor:COLORS.white}}>
+    <View style={{ backgroundColor: COLORS.white, width}}>
       <View style={{ alignSelf: 'center' }}>
         <View style={style.profileImage}>
           <Image
@@ -21,62 +21,48 @@ export default function ReceptBin() {
       </View>
 
       <View style={style.topHotelCard}>
-        <View
-          style={{
-            position: 'absolute',
-            top: 5,
-            right: 5,
-            zIndex: 1,
-            flexDirection: 'row',
-          }}>
-          <View style={{ alignItems: 'center' }} top={70}>
-            <Ionicons name="md-checkmark-circle" size={60} color={COLORS.green} />
-
-          </View>
-        </View>
-        <View style={{ paddingVertical: 3, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
-            {'העולם מוסר לך תודה מאיה!'}
-          </Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
+          {'העולם מוסר לך תודה !'}
+        </Text>
+        <View style={style.imageEarthContainer}>
+          <Image
+            style={style.imageEarth}
+            source={{ uri: 'https://m.media-amazon.com/images/I/51udbTwCXvL._SL1000_.jpg' }} />
         </View>
       </View>
 
       <View style={style.topHotelCard}>
-        <View
-          style={{
-            position: 'absolute',
-            top: 5,
-            right: 5,
-            zIndex: 1,
-            flexDirection: 'row',
-          }}>
-          <View style={{ alignItems: 'center' }} top={70}>
-            <Ionicons name="md-checkmark-circle" size={60} color={COLORS.green} />
-
-          </View>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
+          {'במיחזור זה:'}
+        </Text>
+        <View style={style.txtContainer}>
+          <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
+          <Text style={style.text}>
+            {'מיחזרת 1.32 קילו פסולת'}
+          </Text>
         </View>
-        <View style={{ paddingVertical: 3, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
-            {'העולם מוסר לך תודה מאיה!'}
+        <View style={style.txtContainer}>
+          <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
+          <Text style={style.text}>
+            {'צברת 132 נקודות'}
           </Text>
         </View>
       </View>
 
-
-
-      <View>
-        <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-          <MaterialIcons name="stars" size={24} color={COLORS.gold} margin={30} />
-          <MaterialIcons name="stars" size={24} color={COLORS.gold} />
-          <MaterialIcons name="stars" size={24} color={COLORS.gold} />
-        </View>
+      <View style={style.pointsTxt}>
+        <Text style={style.txtPoints}>
+          {'סה"כ הנקודות שלך: '}
+        </Text>
+          <Text style={[style.txtPoints, {marginRight:150}]}>
+            {'3200'}
+          </Text>
+          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
       </View>
 
-
-      <View style={{ marginTop: 300 }}>
+      <View style={{marginTop:50}}>
         <CustonButton
-          text="לחץ כאן לאחר הזריקה"
-          onPress={() => navigation.navigate('ThrowPoints')}
+          text="חזרה לדף הבית "
+          onPress={() => navigation.navigate('Home')}
         />
       </View>
 
@@ -88,7 +74,6 @@ const style = StyleSheet.create({
     width: 80,
     height: 80,
     top: 60,
-
     alignSelf: 'flex-end',
     borderRadius: 100,
     overflow: 'hidden',
@@ -103,7 +88,7 @@ const style = StyleSheet.create({
     width: cardWidth,
     backgroundColor: COLORS.white,
     elevation: 15,
-    marginHorizontal: 10,
+    margin: 15,
     borderRadius: 10,
     top: 80,
     elevation: 15,
@@ -113,16 +98,23 @@ const style = StyleSheet.create({
     shadowRadius: 8,
 
   },
-  // AddNewAddress: {
-  //   height: 70,
-  //   width: cardWidth,
-  //   backgroundColor: COLORS.white,
-  //   elevation: 15,
-  //   marginHorizontal: 10,
-  //   borderRadius: 10,
-  //   top: 80,
-  //   right: 10,
-  // },
+  imageEarthContainer: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
+    width: 75,
+    height: 75,
+    marginTop: 20
+  },
+  imageEarth: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+  },
+  txtContainer: {
+    textAlign: 'right',
+    flexDirection: 'row-reverse',
+  },
   topHotelCardImage: {
     height: 250,
     width: cardWidth,
@@ -143,7 +135,34 @@ const style = StyleSheet.create({
     borderTopRightRadius: 20,
     flexDirection: 'row',
   },
-
+  text: {
+    fontFamily: 'HelveticaNeue',
+    color: '#52575D',
+    fontSize: 18,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    margin: 10,
+    textAlign: 'center'
+  },
+  ChkdIcon: {
+    marginTop: 6
+  },
+  pointsTxt: {
+    marginTop: 150,
+    margin:15,
+    flexDirection: 'row-reverse',
+    justifyContent:'flex-start',
+  },
+  txtPoints:{
+    fontFamily: 'HelveticaNeue',
+    color: '#52575D',
+    fontSize: 16,
+    fontWeight: 'bold',
+    margin: 10,
+  },
+  pointIcon:{
+    marginTop:8,
+  },
 
 });
 

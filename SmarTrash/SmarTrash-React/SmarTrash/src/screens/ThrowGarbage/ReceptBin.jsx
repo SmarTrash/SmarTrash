@@ -9,10 +9,10 @@ import CustonButton from '../../Components/CustomButton/CustonButton';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
-export default function ReceptBin() {
+export default function ReceptBin({ navigation }) {
   return (
-    <View style={{backgroundColor:COLORS.white}}>
-      <View style={{ alignSelf: 'center' }}>
+    <View style={style.container}>
+      <View>
         <View style={style.profileImage}>
           <Image
             style={style.image}
@@ -21,31 +21,17 @@ export default function ReceptBin() {
       </View>
 
       <View style={style.topHotelCard}>
-        <View
-          style={{
-            position: 'absolute',
-            top: 5,
-            right: 5,
-            zIndex: 1,
-            flexDirection: 'row',
-          }}>
-          <View style={{ alignItems: 'center' }} top={70}>
-            <Ionicons name="md-checkmark-circle" size={60} color={COLORS.green} />
-
-          </View>
-        </View>
-        <View style={{ paddingVertical: 3, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
-            {'הפח נקלט בהצלחה !'}
-          </Text>
-        </View>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
+          {'הפח נקלט בהצלחה !'}
+        </Text>
+        <Ionicons name="md-checkmark-circle" size={60} color={COLORS.green} style={style.checkIcon} />
       </View>
 
 
       <View>
         <View style={{ marginTop: 120 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'flex-start', margin: 20 }}>
-            {'עכשיו ניתן לזרוק את הפסולת לפח ולצבור נקודות'}
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, margin: 20, textAlign:'center', marginTop:60}}>
+            {'עכשיו ניתן לזרוק את הפסולת לפח ולצבור נקודות!'}
           </Text>
         </View>
         <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
@@ -57,7 +43,7 @@ export default function ReceptBin() {
       </View>
 
 
-      <View style={{ marginTop: 300 }}>
+      <View style={{ marginTop: 200 }}>
         <CustonButton
           text="לחץ כאן לאחר הזריקה"
           onPress={() => navigation.navigate('ThrowPoints')}
@@ -68,12 +54,17 @@ export default function ReceptBin() {
   )
 }
 const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
   profileImage: {
     width: 80,
     height: 80,
     top: 60,
-
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     borderRadius: 100,
     overflow: 'hidden',
   },
@@ -126,6 +117,11 @@ const style = StyleSheet.create({
     borderBottomRightRadius: 20,
     borderTopRightRadius: 20,
     flexDirection: 'row',
+  },
+  checkIcon:{
+    justifyContent:'center',
+    textAlign:'center',
+    marginTop:20,
   },
 
 

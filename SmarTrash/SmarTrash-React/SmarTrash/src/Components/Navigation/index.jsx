@@ -28,7 +28,7 @@ const Navigation = () => {
 
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
 
-      <Stack.Navigator initialRouteName="EditProfile" >
+      <Stack.Navigator initialRouteName="SignInScreen" >
 
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />

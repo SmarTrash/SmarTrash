@@ -125,7 +125,7 @@ const SignInScreen = ({ navigation }) => {
           <View style={{ padding:40 }}>
 
             <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign: 'center' }}>ברוכים הבאים</Text>
-            <Text style={{ fontSize: 18, textAlign:'justify'}}>אין לך חשבון?
+            <Text style={{ fontSize: 18, textAlign:'center'}}>אין לך חשבון?
 
               <Text  onPress={onSignUpPressed} style={{ color: COLORS.green, fontStyle: 'italic', textAlign:'justify', fontSize: 18}}
               > הירשם עכשיו!</Text>
