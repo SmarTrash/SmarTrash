@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
@@ -7,13 +7,14 @@ import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 
-const EditProfile  = ({ navigation }) => {
+const EditProfile = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -24,7 +25,8 @@ const EditProfile  = ({ navigation }) => {
   const [streetNum, setStreetNum] = useState('');
   const [city, setCity] = useState('');
   const [selectedCity, setSelectedCity] = useState();
-
+  const {cities} = useContext(GlobalContext);
+  console.log("context=" , cities)
 
   const options = [
     { label: 'אישה', value: 'אישה' },
@@ -36,24 +38,24 @@ const EditProfile  = ({ navigation }) => {
   const newUser = {
     UserEmail: "",
     Password: "",
-    FirstName : "",
-    LastName : "",
+    FirstName: "",
+    LastName: "",
     Phone: "",
-    Gender : "",
-    BirthDate : "",
-    StreetNameAndNumber :"",
-    CityId:"",
+    Gender: "",
+    BirthDate: "",
+    StreetNameAndNumber: "",
+    CityId: "",
   };
-  newUser.UserEmail=userEmail;
+  newUser.UserEmail = userEmail;
   newUser.FirstName = firstName;
   newUser.LastName = lastName;
   newUser.Phone = phone;
   newUser.Gender = checked;
   newUser.BirthDate = birthDate;
-  newUser.Password =password;
+  newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
   // newUser.CityId = value.CityId;
-  
+
   const onSignUPPressed = () => {
     fetch(apiUrl, {
       method: 'POST',
@@ -75,9 +77,6 @@ const EditProfile  = ({ navigation }) => {
           alert(data.message);
         }
       });
-
-
-
   }
 
   const onSignInPressed = () => {
@@ -88,9 +87,9 @@ const EditProfile  = ({ navigation }) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
-      <Text style={styles.title}>עריכת פרטים אישיים</Text>
+        <Text style={styles.title}>עריכת פרטים אישיים</Text>
 
-      <View style={{ alignSelf: 'center' }}>
+        <View style={{ alignSelf: 'center' }}>
           <View style={styles.profileImage}>
             <Image
               style={styles.image}
@@ -100,14 +99,13 @@ const EditProfile  = ({ navigation }) => {
             <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
           </View>
         </View>
-        
 
         <CustomInput
           placeholder="שם פרטי"
           value={firstName}
           setValue={setFirstName}
         />
-        
+
         <CustomInput
           placeholder="שם משפחה"
           value={lastName}
@@ -131,7 +129,7 @@ const EditProfile  = ({ navigation }) => {
           placeholder="רחוב ומספר בית"
           value={streetNum}
           setValue={setStreetNum}
-        />  
+        />
 
         <SafeAreaView style={styles.container}>
           <View style={styles.container}>
@@ -139,7 +137,7 @@ const EditProfile  = ({ navigation }) => {
             <DatePicker
               style={styles.datePickerStyle}
               date={birthDate}
-              mode="date" 
+              mode="date"
               placeholder="הכנס תאריך לידה"
               format="DD-MM-YYYY"
               maxDate={d}
@@ -174,25 +172,25 @@ const EditProfile  = ({ navigation }) => {
             }}
           />
         </View>
-
+        <CityList/>
 
         <View style={styles.sortBtn}>
-              <Text style={styles.txt}>שמירה</Text>
+          <Text style={styles.txt}>שמירה</Text>
         </View>
 
- {/* <CityList key={city.id} name={city.name}/> */}
+        {/* <CityList key={city.id} name={city.name}/> */}
 
       </View>
     </ScrollView>
   )
 }
 
-export default EditProfile ;
+export default EditProfile;
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
-    backgroundColor:'white'
+    backgroundColor: 'white'
   },
 
   title: {
@@ -212,7 +210,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
+
   datePickerStyle: {
     width: cardWidth,
     marginRight: 10
@@ -241,8 +239,8 @@ const styles = StyleSheet.create({
     right: 14,
     bottom: 5
   },
-  radioBtn:{
-      flexDirection:'row',
+  radioBtn: {
+    flexDirection: 'row',
   },
   sortBtn: {
     marginTop: 40,
@@ -253,16 +251,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
-    backgroundColor:'#00C897'
+    backgroundColor: '#00C897'
   },
-  txt:{
-      color:'white',
-      fontFamily: 'HelveticaNeue',
-      textAlign: 'center',
-      fontSize: 20,
-      fontWeight: 'bold',
-      justifyContent: 'center',
+  txt: {
+    color: 'white',
+    fontFamily: 'HelveticaNeue',
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    justifyContent: 'center',
     alignItems: 'center',
-      
+
   },
 })
