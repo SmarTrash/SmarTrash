@@ -1,5 +1,5 @@
 import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Animated, } from 'react-native';
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import CategoryList from '../../screens/CategoryList/CategoryList';
 import COLORS from '../../Consts/colors';
 import Card from '../../Components/Card/Card';
@@ -12,14 +12,12 @@ const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllGifts';
 
 const GiftsPage = () => {
-
   const [giftData, setGiftData] = useState('');
 
   useEffect(() => {
 
     fetch(apiUrl, {
       method: 'GET',
-      body: JSON.stringify(),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -30,14 +28,8 @@ const GiftsPage = () => {
         setGiftData(data);
 
       });
-
-
-
-
   }
     , []);
-
-
 
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -58,7 +50,7 @@ const GiftsPage = () => {
         <CardMonthGift />
 
         <View style={style.categoryListContainer}>
-          <CategoryList />
+          <CategoryList func={setGiftData}/>
         </View>
 
 
