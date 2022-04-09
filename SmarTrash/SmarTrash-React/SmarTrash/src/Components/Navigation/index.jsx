@@ -13,6 +13,9 @@ import EditProfile from '../../screens//EditProfile/EditProfile'
 import Competition from '../../Components/Card/Competition';
 import ApprovedPurchase from '../../screens/GiftScreen/ApprovedPurchase';
 import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
+import ReceptBin from '../../screens/ThrowGarbage/ReceptBin';
+import ThrowPoints from '../../screens/ThrowGarbage/ThrowPoints';
+
 
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +38,8 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="Competition" component={Competition} />
         <Stack.Screen options={{ headerShown: false }} name="GiftPurchase" component={GiftPurchase} />
         <Stack.Screen options={{ headerShown: false }} name="ApprovedPurchase" component={ApprovedPurchase} />
+        <Stack.Screen options={{ headerShown: false }} name="ReceptBin" component={ReceptBin} />
+        <Stack.Screen options={{ headerShown: false }} name="ThrowPoints" component={ThrowPoints} />
       </Stack.Navigator>
     </NavigationContainer>
   )
