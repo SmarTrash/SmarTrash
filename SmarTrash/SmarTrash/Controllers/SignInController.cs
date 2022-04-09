@@ -52,6 +52,8 @@ namespace SmarTrash.Controllers
                 "הסיסמא שלך היא:  " + user.Password + Environment.NewLine + Environment.NewLine + Environment.NewLine + Environment.NewLine +
                 "ברוך שובך ! ההטבות הכי שוות עדיין מחכות לך.. כדאי לך למחזר במהרה כדי להשיג אותן";
                 SmtpServer.Port = 587;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
                 SmtpServer.Credentials = new System.Net.NetworkCredential("rupb912022@gmail.com", "rupb912022@smatrash");
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);

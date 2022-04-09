@@ -12,7 +12,7 @@ namespace SmarTrash.Controllers
     {
         // GET: api/BinSearch/GetBin
         //GET- מקבל את המשתמש ומביא רשימת פחים בעיר שלו.
-        [HttpGet]
+        [HttpPost]
         [Route("api/BinSearch/GetBin")]
         public IHttpActionResult GetBinsInCity([FromBody] tblUser user)
         {
