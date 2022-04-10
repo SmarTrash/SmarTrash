@@ -6,9 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const SmallCard = (props) => {
   const navigation = useNavigation();
-    console.log("hereee");
-    console.log("2");
-
+   
     return (
       <TouchableOpacity onPress={() => { navigation.navigate('SelectedGift', props.data[0]) }}>
     <View

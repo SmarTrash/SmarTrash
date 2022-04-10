@@ -6,7 +6,6 @@ import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather
 import SmallCard from '../../Components/Card/SmallCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import COLORS from '../../Consts/colors'
-import {CheckBox  } from 'react-native-elements'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
 const { width } = Dimensions.get('screen');

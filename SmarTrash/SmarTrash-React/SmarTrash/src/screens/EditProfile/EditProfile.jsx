@@ -1,21 +1,21 @@
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image } from 'react-native'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
-import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
-const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
-
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
+const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
+const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 const EditProfile = ({ navigation }) => {
-  const [userEmail, setUserEmail] = useState('');
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -23,10 +23,14 @@ const EditProfile = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
-  const [city, setCity] = useState('');
-  const [selectedCity, setSelectedCity] = useState();
-  const {cities} = useContext(GlobalContext);
-  console.log("context=" , cities)
+  const { userEmail , selectedCity, setSelectedCity } = useContext(GlobalContext);
+  const [userDetails, setUserDetails] = useState('');
+  const [changeSave, setChangeSave] = useState('');
+
+  useEffect(() => {
+    DeleteUser();
+    userDetailsPlaceHolder();
+  }, []);
 
   const options = [
     { label: 'אישה', value: 'אישה' },
@@ -46,6 +50,9 @@ const EditProfile = ({ navigation }) => {
     StreetNameAndNumber: "",
     CityId: "",
   };
+
+  // userDetails.map(item) = () => {}
+
   newUser.UserEmail = userEmail;
   newUser.FirstName = firstName;
   newUser.LastName = lastName;
@@ -54,35 +61,69 @@ const EditProfile = ({ navigation }) => {
   newUser.BirthDate = birthDate;
   newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
-  // newUser.CityId = value.CityId;
+  newUser.CityId = selectedCity;
+  newUser.Image= userDetails.UserImg;
 
-  const onSignUPPressed = () => {
+  const DeleteUser = () => {
     fetch(apiUrl, {
-      method: 'POST',
-      body: JSON.stringify(newUser),
+      method: 'DELETE',
+      body: JSON.stringify({ id: 7 }),
       headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset-UTF-8',
+        'Accept': 'application/json; charset-UTF-8',
+      })
+    })
+      .then(res => {
+        console.log('res=', res);
+        return res.json()
+      })
+      .then(
+        (result) => {
+          console.log("fetch POST= ", result);
+        },
+        (error) => {
+          console.log("err post=", error);
+        });
+  }
+
+  
+  const userDetailsPlaceHolder = () => {
+    fetch(apiUrlCurrentDetails, {
+      method: 'POST',
+      body: JSON.stringify({ UserEmail: userEmail }),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
       })
     }).then(response => { return response.json() })
       .then(data => {
-        console.log("dataaaaaa:", data);
-        setIsUserExists(data.isSuccess)
-        if (IsUserExists) {
-          navigation.navigate('Home');
-          console.log("hjhjhjhkljkj", isSelected)
-          if (isSelected) {
-            storeData(newUser)
-          }
-        } else {
-          alert(data.message);
-        }
+        data.map(st => setUserDetails(st))  
       });
   }
-
-  const onSignInPressed = () => {
-    console.warn("sign up");
-    navigation.navigate('SignInScreen');
-  }
+  const userChangeSave = () => {
+    fetch(apiUrlSaveChanges, {
+      method: 'PUT',
+      body: JSON.stringify(newUser),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => { return response.json(), console.log("statuuuuuuus:", response.status) })
+      .then(data => {
+        setChangeSave(data)
+        // console.log("דאטה",response.status)
+        // if (response.status != 400) {
+        //   alert("התבצע");
+        // } else {
+        //   alert("השמירה לא התבצעה");
+        // } 
+        
+      });
+      
+    }
+    console.log("data:",changeSave)
+    console.log("new:",newUser)
+    console.log("name",newUser.FirstName)
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -93,7 +134,7 @@ const EditProfile = ({ navigation }) => {
           <View style={styles.profileImage}>
             <Image
               style={styles.image}
-              source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
+              source={{ uri: userDetails.UserImg }} />
           </View>
           <View style={styles.edit}>
             <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
@@ -101,32 +142,32 @@ const EditProfile = ({ navigation }) => {
         </View>
 
         <CustomInput
-          placeholder="שם פרטי"
+          placeholder={userDetails.FirstName}
           value={firstName}
           setValue={setFirstName}
         />
 
         <CustomInput
-          placeholder="שם משפחה"
+          placeholder={userDetails.LastName}
           value={lastName}
           setValue={setLastName}
         />
 
         <CustomInput
-          placeholder="סיסמה"
+          placeholder={userDetails.Password}
           value={password}
           setValue={setPassword}
           secureTextEntry={true}
         />
 
         <CustomInput
-          placeholder="טלפון"
+          placeholder={userDetails.Phone}
           value={phone}
           setValue={setPhone}
         />
 
         <CustomInput
-          placeholder="רחוב ומספר בית"
+          placeholder={userDetails.StreetNameAndNumber}
           value={streetNum}
           setValue={setStreetNum}
         />
@@ -138,7 +179,7 @@ const EditProfile = ({ navigation }) => {
               style={styles.datePickerStyle}
               date={birthDate}
               mode="date"
-              placeholder="הכנס תאריך לידה"
+              placeholder={userDetails.BirthDate}
               format="DD-MM-YYYY"
               maxDate={d}
               confirmBtnText="Confirm"
@@ -172,25 +213,38 @@ const EditProfile = ({ navigation }) => {
             }}
           />
         </View>
-        <CityList/>
+        <CityList />
 
-        <View style={styles.sortBtn}>
-          <Text style={styles.txt}>שמירה</Text>
-        </View>
-
-        {/* <CityList key={city.id} name={city.name}/> */}
+        <View>
+        <CustonButton
+          text='שמירה'
+          onPress={userChangeSave}
+        />
+      </View>
 
       </View>
     </ScrollView>
   )
 }
 
-export default EditProfile;
+export default EditProfile
+
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
     backgroundColor: 'white'
+  },
+  deletebtn: {
+    marginTop: 40,
+    marginRight: 12,
+    marginLeft: 10,
+    height: 50,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    backgroundColor: '#00C897'
   },
 
   title: {
@@ -246,8 +300,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginRight: 12,
     marginLeft: 10,
-    height: 50,
-    width: 100,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,

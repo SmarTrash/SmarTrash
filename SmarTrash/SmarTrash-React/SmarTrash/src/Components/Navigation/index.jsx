@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import SignUpScreen from '../../screens/SignUpScreen/SignUpScreen';
@@ -17,17 +17,18 @@ import ReceptBin from '../../screens/ThrowGarbage/ReceptBin';
 import ThrowPoints from '../../screens/ThrowGarbage/ThrowPoints';
 import CompetitionList from '../../screens/Competition/CompetitionList';
 
+
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
-
+ 
   return (
 
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="CompetitionList" >
-
-        <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
+      <Stack.Navigator initialRouteName="SignInScreen" >
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ResetPassword" component={ResetPassword} />
         <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />

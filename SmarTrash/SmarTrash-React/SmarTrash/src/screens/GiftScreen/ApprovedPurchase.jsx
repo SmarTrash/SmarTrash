@@ -7,8 +7,9 @@ import CustonButton from '../../Components/CustomButton/CustonButton';
 const { width } = Dimensions.get('screen');
 
 
-export default function ApprovedPurchase({navigation, route}) {
+const ApprovedPurchase=({ navigation, route })=> {
   const points = route.params;
+  console.log(points)
   return (
     <View style={styles.container}>
 
@@ -32,9 +33,8 @@ export default function ApprovedPurchase({navigation, route}) {
 
         <View style={{ marginRight: 50 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, alignSelf: 'flex-start', margin: 20 }}>
-            {3200}  <MaterialIcons name="stars" size={24} color={COLORS.gold}  style={styles.starIcon}/>
+            {points}  <MaterialIcons name="stars" size={24} color={COLORS.gold}  style={styles.starIcon}/>
           </Text>
-          {/* להכניס מהפצ' את הנקודות שנשארו (במקום 3200 לשים points) */}
         </View>
       </View>
 
@@ -49,6 +49,7 @@ export default function ApprovedPurchase({navigation, route}) {
 
   )
 }
+export default ApprovedPurchase
 const styles = StyleSheet.create({
   container: {
     flex: 1,
