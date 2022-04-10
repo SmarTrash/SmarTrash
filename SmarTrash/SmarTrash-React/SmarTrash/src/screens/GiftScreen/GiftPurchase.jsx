@@ -1,20 +1,19 @@
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity,Button } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Button } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
-import { useNavigation } from '@react-navigation/native';
-
 
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
-const GiftPurchase = ({ route }) => {
-  const navigation = useNavigation();
-  const { userEmail } = useContext(GlobalContext);
+const GiftPurchase = ({ navigation, route }) => {
+
+
+  const { userEmail, userImg } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const [pointsLeft, setPointsLeft] = useState();
   const giftId = route.params;
@@ -47,7 +46,7 @@ const GiftPurchase = ({ route }) => {
         <View style={style.profileImage}>
           <Image
             style={style.image}
-            source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
+            source={{ uri: userImg }} />
         </View>
       </View>
       <Text style={{ fontSize: 25, fontWeight: 'bold', color: COLORS.primary, alignSelf: "flex-start", top: 60, paddingRight: 20 }}>
@@ -130,22 +129,14 @@ const GiftPurchase = ({ route }) => {
               <Text style={[style.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 20 }]}>
                 {userShippingDetails.price} <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
               </Text>
+              <Button
+                title='רכישה'
+                text="רכישה"
+                onClick={() => { navigation.navigate('ApprovedPurchase') }}
+              />
             </View>
           </View>
-
-
-          <View style={{ bottom: 120 }}>
-          
-          <Button
-          title='רכישה'
-          text="רכישה"
-          onPress={() => navigation.navigate('ApprovedPurchase')}
-        />
-          </View>
-
         </View>
-
-
       </View>
     </View>
   )

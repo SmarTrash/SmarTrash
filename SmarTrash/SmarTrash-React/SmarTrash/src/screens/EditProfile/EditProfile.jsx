@@ -14,30 +14,64 @@ const cardWidth = width / 1.2;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
+
 const EditProfile = ({ navigation }) => {
+  const { userEmail, selectedCity } = useContext(GlobalContext);
+  const [userDetails, setUserDetails] = useState('');
+  const [changeSave, setChangeSave] = useState('');
+
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
-  const [checked, setChecked] = useState('אישה');
+  const [checked, setChecked] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
-  const { userEmail , selectedCity, setSelectedCity } = useContext(GlobalContext);
-  const [userDetails, setUserDetails] = useState('');
-  const [changeSave, setChangeSave] = useState('');
+  const [image, setImage] = useState('')
 
   useEffect(() => {
-    DeleteUser();
     userDetailsPlaceHolder();
   }, []);
 
   const options = [
-    { label: 'אישה', value: 'אישה' },
-    { label: 'גבר', value: 'גבר' },
+    { label: 'אישה', value: 'F' },
+    { label: 'גבר', value: 'M' },
   ];
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
+
+
+
+
+
+  const userDetailsPlaceHolder = () => {
+
+    fetch(apiUrlCurrentDetails, {
+      method: 'POST',
+      body: JSON.stringify({ UserEmail: userEmail }),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        data.map(st => setUserDetails(st), console.log("userD", userDetails))
+
+      });
+    setFirstName(userDetails.FirstName),
+      setLastName(userDetails.LastName),
+      setPhone(userDetails.Phone),
+      setChecked(userDetails.Gender),
+      setBirthDate(userDetails.BirthDate),
+      setPassword(userDetails.Password),
+      setStreetNum(userDetails.StreetNameAndNumber),
+      setImage(userDetails.UserImg)
+    setUserDetails(userDetails)
+
+  }
+
+
 
   const newUser = {
     UserEmail: "",
@@ -49,9 +83,11 @@ const EditProfile = ({ navigation }) => {
     BirthDate: "",
     StreetNameAndNumber: "",
     CityId: "",
+    Image:image
   };
 
-  // userDetails.map(item) = () => {}
+
+
 
   newUser.UserEmail = userEmail;
   newUser.FirstName = firstName;
@@ -62,12 +98,34 @@ const EditProfile = ({ navigation }) => {
   newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
   newUser.CityId = selectedCity;
-  newUser.Image= userDetails.UserImg;
+  newUser.Image = userDetails.UserImg;
 
+  const userChangeSave = () => {
+    console.log("new", newUser)
+    fetch(apiUrlSaveChanges, {
+      method: 'PUT',
+      body: JSON.stringify(newUser),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => { return response.json(), setChangeSave(response.status), console.log("statuuuuuuus:", response.status) })
+      .then(data => {
+        console.log("דאטה", changeSave)
+        if (changeSave == 200) {
+          alert("התבצע");
+          navigation.navigate('Home')
+        } else {
+          alert("השמירה לא התבצעה");
+        }
+
+      });
+
+  }
   const DeleteUser = () => {
     fetch(apiUrl, {
       method: 'DELETE',
-      body: JSON.stringify({ id: 7 }),
+      body: JSON.stringify({ UserEmail: userEmail }),
       headers: new Headers({
         'Content-Type': 'application/json; charset-UTF-8',
         'Accept': 'application/json; charset-UTF-8',
@@ -79,52 +137,13 @@ const EditProfile = ({ navigation }) => {
       })
       .then(
         (result) => {
-          console.log("fetch POST= ", result);
+          console.log("fetch del= ", result);
+          navigation.navigate("SignInScreen")
         },
         (error) => {
-          console.log("err post=", error);
+          console.log("err del=", error);
         });
   }
-
-  
-  const userDetailsPlaceHolder = () => {
-    fetch(apiUrlCurrentDetails, {
-      method: 'POST',
-      body: JSON.stringify({ UserEmail: userEmail }),
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-      })
-    }).then(response => { return response.json() })
-      .then(data => {
-        data.map(st => setUserDetails(st))  
-      });
-  }
-  const userChangeSave = () => {
-    fetch(apiUrlSaveChanges, {
-      method: 'PUT',
-      body: JSON.stringify(newUser),
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-      })
-    }).then(response => { return response.json(), console.log("statuuuuuuus:", response.status) })
-      .then(data => {
-        setChangeSave(data)
-        // console.log("דאטה",response.status)
-        // if (response.status != 400) {
-        //   alert("התבצע");
-        // } else {
-        //   alert("השמירה לא התבצעה");
-        // } 
-        
-      });
-      
-    }
-    console.log("data:",changeSave)
-    console.log("new:",newUser)
-    console.log("name",newUser.FirstName)
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
@@ -134,7 +153,7 @@ const EditProfile = ({ navigation }) => {
           <View style={styles.profileImage}>
             <Image
               style={styles.image}
-              source={{ uri: userDetails.UserImg }} />
+              source={{ uri: image}} />
           </View>
           <View style={styles.edit}>
             <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
@@ -142,32 +161,32 @@ const EditProfile = ({ navigation }) => {
         </View>
 
         <CustomInput
-          placeholder={userDetails.FirstName}
+          placeholder={firstName}
           value={firstName}
           setValue={setFirstName}
         />
 
         <CustomInput
-          placeholder={userDetails.LastName}
+          placeholder={lastName}
           value={lastName}
           setValue={setLastName}
         />
 
         <CustomInput
-          placeholder={userDetails.Password}
+          placeholder={password}
           value={password}
           setValue={setPassword}
           secureTextEntry={true}
         />
 
         <CustomInput
-          placeholder={userDetails.Phone}
+          placeholder={phone}
           value={phone}
           setValue={setPhone}
         />
 
         <CustomInput
-          placeholder={userDetails.StreetNameAndNumber}
+          placeholder={streetNum}
           value={streetNum}
           setValue={setStreetNum}
         />
@@ -179,7 +198,7 @@ const EditProfile = ({ navigation }) => {
               style={styles.datePickerStyle}
               date={birthDate}
               mode="date"
-              placeholder={userDetails.BirthDate}
+              placeholder={birthDate}
               format="DD-MM-YYYY"
               maxDate={d}
               confirmBtnText="Confirm"
@@ -216,12 +235,17 @@ const EditProfile = ({ navigation }) => {
         <CityList />
 
         <View>
-        <CustonButton
-          text='שמירה'
-          onPress={userChangeSave}
-        />
-      </View>
-
+          <CustonButton
+            text='שמירה'
+            onPress={userChangeSave}
+          />
+        </View>
+        <View>
+          <CustonButton
+            text='מחיקת משתמש'
+            onPress={DeleteUser}
+          />
+        </View>
       </View>
     </ScrollView>
   )

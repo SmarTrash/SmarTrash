@@ -8,10 +8,10 @@ const Provider = ({ children }) => {
     const [selectedCity, setSelectedCity] = useState(0);
 
     const [userEmail, setUserEmail] = useState('');
-
+    const [userImg, setUserImg] = useState('');
 
     const GlobalContextOrginal = {
-        cities, setCities,selectedCity, setSelectedCity,
+        cities, setCities,selectedCity, setSelectedCity,setUserImg,userImg,
         userEmail, setUserEmail}
         
     return (

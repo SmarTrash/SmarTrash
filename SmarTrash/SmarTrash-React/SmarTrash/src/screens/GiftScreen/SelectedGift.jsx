@@ -9,6 +9,7 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/AbleToOrder/';
 
 const SelectedGift = ({ navigation, route }) => {
+
   const [isAbleToOrder, setIsAbleToOrder] = useState(false);
   const { userEmail } = useContext(GlobalContext);
   const item = route.params;
@@ -98,7 +99,7 @@ const SelectedGift = ({ navigation, route }) => {
           title='רכישה'
           disabled={!isAbleToOrder}
           text="רכישה"
-          onPress={() => navigation.navigate('GiftPurchase', item.GiftId)}
+          onPress={() => {navigation.navigate('GiftPurchase', item.GiftId)}}
         />
 
 

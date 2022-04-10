@@ -14,8 +14,10 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGift
 const userInfoUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/HomePageDetails';
 
 export default function Home({ navigation }) {
-  const {userEmail} = useContext(GlobalContext);
+  const {userEmail,setUserImg,userImg} = useContext(GlobalContext);
   const [userInfo, setUserInfo] = useState('');
+ 
+ 
   useEffect( () => {
      getLoginData();
      onScreenLoad();
@@ -34,6 +36,8 @@ export default function Home({ navigation }) {
           }).then(response => response.json())
             .then(data => {
               setUserInfo(data[0]);
+              
+              console.log(data);
       });
     }catch(err){
       console.log(err);
@@ -76,7 +80,7 @@ export default function Home({ navigation }) {
   //       console.log(error);
   //   }
   // }
-  const [activeCardIndex, setActiveCardIndex] = React.useState(0);
+ 
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const [data, setData] = React.useState('');
@@ -95,8 +99,9 @@ export default function Home({ navigation }) {
         setData(data)
       });
 
-      
+       
   }
+  setUserImg(userInfo.Img)
   return (
     <SafeAreaView style={style.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -109,7 +114,7 @@ export default function Home({ navigation }) {
           <View style={style.profileImage}>
             <Image
               style={style.image}
-              source={{ uri: userInfo.Img }} />
+              source={{ uri:userImg }} />
           </View>
         </View>
 
@@ -173,7 +178,7 @@ export default function Home({ navigation }) {
           marginHorizontal: 20,
         }}>
           <Text onPress={() => {
-            navigation.navigate('GiftsPage')}} style={[style.text, style.subText, { zIndex:1,afontWeight: 'bold', color: COLORS.grey, top: 35,fontSize:17 }]}>              ראה הכל
+            navigation.navigate('GiftsPage')}} style={[style.text, style.subText, { zIndex:1,fontWeight: 'bold', color: COLORS.grey, top: 35,fontSize:17 }]}>              ראה הכל
           </Text>
           <TouchableOpacity >
 
