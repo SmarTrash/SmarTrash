@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image } from 'react-native'
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext,useEffect } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
@@ -12,10 +12,10 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
-const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 
 const EditProfile = ({ navigation }) => {
-  const [userEmail, setUserEmail] = useState('');
+ 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -25,8 +25,12 @@ const EditProfile = ({ navigation }) => {
   const [streetNum, setStreetNum] = useState('');
   const [city, setCity] = useState('');
   const [selectedCity, setSelectedCity] = useState();
-  const {cities} = useContext(GlobalContext);
+  const {cities, userEmail} = useContext(GlobalContext);
   console.log("context=" , cities)
+
+  useEffect( () => {
+    DeleteUser();
+ },[]);
 
   const options = [
     { label: 'אישה', value: 'אישה' },
@@ -55,6 +59,29 @@ const EditProfile = ({ navigation }) => {
   newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
   // newUser.CityId = value.CityId;
+
+  const DeleteUser = () => {
+    fetch(apiUrl, {
+      method: 'DELETE',
+      body: JSON.stringify({id:7}),
+      headers: new Headers({
+        'accept': 'application/json; charset=UTF-8'
+      })
+    })
+      .then(res => {
+        console.log('res=', res);
+        return res.json()
+      })
+      .then(
+        (result) => {
+          console.log("fetch POST= ", result);
+        },
+        (error) => {
+          console.log("err post=", error);
+        });
+
+  }
+
 
   const onSignUPPressed = () => {
     fetch(apiUrl, {
@@ -191,6 +218,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     backgroundColor: 'white'
+  },
+  deletebtn: {
+    marginTop: 40,
+    marginRight: 12,
+    marginLeft: 10,
+    height: 50,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    backgroundColor: '#00C897'
   },
 
   title: {
