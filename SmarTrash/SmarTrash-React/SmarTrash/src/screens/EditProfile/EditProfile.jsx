@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image } from 'react-native'
-import React, { useState, useContext,useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
@@ -13,9 +13,9 @@ const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
-
+const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
 const EditProfile = ({ navigation }) => {
- 
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -25,12 +25,14 @@ const EditProfile = ({ navigation }) => {
   const [streetNum, setStreetNum] = useState('');
   const [city, setCity] = useState('');
   const [selectedCity, setSelectedCity] = useState();
-  const {cities, userEmail} = useContext(GlobalContext);
-  console.log("context=" , cities)
+  const { cities, userEmail } = useContext(GlobalContext);
+  const [userDetails, setUserDetails] = useState();
+  console.log("context=", cities)
 
-  useEffect( () => {
+  useEffect(() => {
     DeleteUser();
- },[]);
+    userDetailsPlaceHolder();
+  }, []);
 
   const options = [
     { label: 'אישה', value: 'אישה' },
@@ -63,9 +65,10 @@ const EditProfile = ({ navigation }) => {
   const DeleteUser = () => {
     fetch(apiUrl, {
       method: 'DELETE',
-      body: JSON.stringify({id:7}),
+      body: JSON.stringify({ id: 7 }),
       headers: new Headers({
-        'accept': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset-UTF-8',
+        'Accept': 'application/json; charset-UTF-8',
       })
     })
       .then(res => {
@@ -79,37 +82,23 @@ const EditProfile = ({ navigation }) => {
         (error) => {
           console.log("err post=", error);
         });
-
   }
 
-
-  const onSignUPPressed = () => {
-    fetch(apiUrl, {
+console.log("userEmail = " + userEmail)
+  const userDetailsPlaceHolder = () => {
+    fetch(apiUrlCurrentDetails, {
       method: 'POST',
-      body: JSON.stringify(newUser),
+      body: JSON.stringify(userEmail),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8'
       })
     }).then(response => { return response.json() })
       .then(data => {
-        console.log("dataaaaaa:", data);
-        setIsUserExists(data.isSuccess)
-        if (IsUserExists) {
-          navigation.navigate('Home');
-          console.log("hjhjhjhkljkj", isSelected)
-          if (isSelected) {
-            storeData(newUser)
-          }
-        } else {
-          alert(data.message);
-        }
+        setUserDetails(data);
+        console.log("userDetails = " + userDetails)
       });
   }
 
-  const onSignInPressed = () => {
-    console.warn("sign up");
-    navigation.navigate('SignInScreen');
-  }
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -199,7 +188,7 @@ const EditProfile = ({ navigation }) => {
             }}
           />
         </View>
-        <CityList/>
+        <CityList />
 
         <View style={styles.sortBtn}>
           <Text style={styles.txt}>שמירה</Text>
