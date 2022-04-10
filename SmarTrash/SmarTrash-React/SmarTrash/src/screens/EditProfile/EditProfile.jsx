@@ -7,13 +7,14 @@ import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
+const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 const EditProfile = ({ navigation }) => {
 
   const [firstName, setFirstName] = useState('');
@@ -23,15 +24,14 @@ const EditProfile = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
-  const [city, setCity] = useState('');
-  const [selectedCity, setSelectedCity] = useState();
-  const { cities, userEmail } = useContext(GlobalContext);
-  const [userDetails, setUserDetails] = useState();
-  console.log("context=", cities)
+  const { userEmail , selectedCity, setSelectedCity } = useContext(GlobalContext);
+  const [userDetails, setUserDetails] = useState('');
+  const [changeSave, setChangeSave] = useState('');
 
   useEffect(() => {
     DeleteUser();
     userDetailsPlaceHolder();
+    userChangeSave();
   }, []);
 
   const options = [
@@ -52,6 +52,9 @@ const EditProfile = ({ navigation }) => {
     StreetNameAndNumber: "",
     CityId: "",
   };
+
+  // userDetails.map(item) = () => {}
+
   newUser.UserEmail = userEmail;
   newUser.FirstName = firstName;
   newUser.LastName = lastName;
@@ -60,7 +63,7 @@ const EditProfile = ({ navigation }) => {
   newUser.BirthDate = birthDate;
   newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
-  // newUser.CityId = value.CityId;
+  newUser.CityId = selectedCity;
 
   const DeleteUser = () => {
     fetch(apiUrl, {
@@ -84,21 +87,41 @@ const EditProfile = ({ navigation }) => {
         });
   }
 
-console.log("userEmail = " + userEmail)
+  
   const userDetailsPlaceHolder = () => {
     fetch(apiUrlCurrentDetails, {
       method: 'POST',
-      body: JSON.stringify(userEmail),
+      body: JSON.stringify({ UserEmail: userEmail }),
       headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8'
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
       })
     }).then(response => { return response.json() })
       .then(data => {
-        setUserDetails(data);
-        console.log("userDetails = " + userDetails)
+        data.map(st => setUserDetails(st))  
       });
   }
-
+  const userChangeSave = () => {
+    fetch(apiUrlSaveChanges, {
+      method: 'PUT',
+      body: JSON.stringify(newUser),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        console.log("סטטוס",data.Status)
+        if (data.Status != 400) {
+          alert(data.message);
+        } else {
+          alert("השמירה לא התבצעה");
+        } 
+        
+      });
+    }
+    
+  
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -109,7 +132,7 @@ console.log("userEmail = " + userEmail)
           <View style={styles.profileImage}>
             <Image
               style={styles.image}
-              source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
+              source={{ uri: userDetails.UserImg }} />
           </View>
           <View style={styles.edit}>
             <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
@@ -117,32 +140,32 @@ console.log("userEmail = " + userEmail)
         </View>
 
         <CustomInput
-          placeholder="שם פרטי"
+          placeholder={userDetails.FirstName}
           value={firstName}
           setValue={setFirstName}
         />
 
         <CustomInput
-          placeholder="שם משפחה"
+          placeholder={userDetails.LastName}
           value={lastName}
           setValue={setLastName}
         />
 
         <CustomInput
-          placeholder="סיסמה"
+          placeholder={userDetails.Password}
           value={password}
           setValue={setPassword}
           secureTextEntry={true}
         />
 
         <CustomInput
-          placeholder="טלפון"
+          placeholder={userDetails.Phone}
           value={phone}
           setValue={setPhone}
         />
 
         <CustomInput
-          placeholder="רחוב ומספר בית"
+          placeholder={userDetails.StreetNameAndNumber}
           value={streetNum}
           setValue={setStreetNum}
         />
@@ -154,7 +177,7 @@ console.log("userEmail = " + userEmail)
               style={styles.datePickerStyle}
               date={birthDate}
               mode="date"
-              placeholder="הכנס תאריך לידה"
+              placeholder={userDetails.BirthDate}
               format="DD-MM-YYYY"
               maxDate={d}
               confirmBtnText="Confirm"
@@ -190,9 +213,13 @@ console.log("userEmail = " + userEmail)
         </View>
         <CityList />
 
-        <View style={styles.sortBtn}>
-          <Text style={styles.txt}>שמירה</Text>
-        </View>
+        <View>
+        <CustonButton
+          text='שמירה'
+          onPress={() => userChangeSave()}
+        />
+      </View>
+
 
         {/* <CityList key={city.id} name={city.name}/> */}
 
@@ -202,6 +229,7 @@ console.log("userEmail = " + userEmail)
 }
 
 export default EditProfile;
+
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
@@ -273,8 +301,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginRight: 12,
     marginLeft: 10,
-    height: 50,
-    width: 100,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
