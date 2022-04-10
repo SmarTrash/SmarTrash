@@ -10,7 +10,6 @@ import SelectedGift from '../../screens/GiftScreen/SelectedGift';
 import GiftsPage from '../../screens/GiftScreen/GiftsPage';
 import Notifications from '../../screens/Notifications/Notifications'
 import EditProfile from '../../screens//EditProfile/EditProfile'
-import Competition from '../../Components/Card/Competition';
 import ApprovedPurchase from '../../screens/GiftScreen/ApprovedPurchase';
 import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
 import ReceptBin from '../../screens/ThrowGarbage/ReceptBin';
@@ -36,7 +35,6 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="SelectedGift" component={SelectedGift} />
         <Stack.Screen options={{ headerShown: false }} name="Notifications" component={Notifications} />
         <Stack.Screen options={{ headerShown: false }} name="EditProfile" component={EditProfile} />
-        <Stack.Screen options={{ headerShown: false }} name="Competition" component={Competition} />
         <Stack.Screen options={{ headerShown: false }} name="GiftPurchase" component={GiftPurchase} />
         <Stack.Screen options={{ headerShown: false }} name="ApprovedPurchase" component={ApprovedPurchase} />
         <Stack.Screen options={{ headerShown: false }} name="ReceptBin" component={ReceptBin} />

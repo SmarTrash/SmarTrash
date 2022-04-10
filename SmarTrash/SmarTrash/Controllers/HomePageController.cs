@@ -171,5 +171,38 @@ namespace SmarTrash.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
+
+        // POST: api/Homepage/PlaceHoldersEdit
+        //מפעיל את הפונקציה של הטופ 3 ומביא את כל הפרטים שלהן מטבלת הטבות
+        [HttpPost]
+        [Route("api/Homepage/PlaceHoldersEdit")]
+        public IHttpActionResult PlaceHoldersEdit([FromBody] tblUser u)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+             
+                List<dynamic> gifts = new List<dynamic>();
+                dynamic user = db.tblUser.Where(x => x.UserEmail == u.UserEmail)
+                     .Select(x => new
+                     {
+                         FirstName = x.FirstName,
+                         LastName = x.LastName,
+                         Password = x.Password,
+                         Phone = x.Phone,
+                         StreetNameAndNumber = x.StreetNameAndNumber,
+                         BirthDate = x.BirthDate,
+                         CityId = x.CityId,
+                         UserImg = x.UserImg,
+                         Gender = x.Gender,
+                      
+                     }).ToList();
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
     }
 }
