@@ -47,7 +47,7 @@ const GiftsPage = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
 
-        <CardMonthGift />
+        <CardMonthGift/>
 
         <View style={style.categoryListContainer}>
           <CategoryList func={setGiftData}/>

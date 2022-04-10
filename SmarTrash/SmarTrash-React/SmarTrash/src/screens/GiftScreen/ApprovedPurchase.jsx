@@ -32,7 +32,7 @@ export default function ApprovedPurchase({navigation, route}) {
 
         <View style={{ marginRight: 50 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, alignSelf: 'flex-start', margin: 20 }}>
-            {3200}  <MaterialIcons name="stars" size={24} color={COLORS.gold} />
+            {3200}  <MaterialIcons name="stars" size={24} color={COLORS.gold}  style={styles.starIcon}/>
           </Text>
           {/* להכניס מהפצ' את הנקודות שנשארו (במקום 3200 לשים points) */}
         </View>
@@ -56,14 +56,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     // alignItems: 'center',
     alignSelf: 'center',
-
   },
   txt: {
     fontFamily: 'HelveticaNeue',
     color: COLORS.dark,
     fontSize: 30,
     fontWeight: 'bold',
-
   },
   txtContainer: {
     marginTop: 150,
@@ -90,6 +88,8 @@ const styles = StyleSheet.create({
     margin: 10,
     textAlign: 'right',
   },
-
+  starIcon:{
+    marginTop:10,
+  },
 
 })

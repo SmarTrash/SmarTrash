@@ -7,6 +7,7 @@ import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import COLORS from '../../Consts/colors'
 
 
 
@@ -92,7 +93,7 @@ newUser.UserImg="https://cdn-icons-png.flaticon.com/512/149/149071.png";
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
-        <Text style={styles.title}>Create an account</Text>
+        <Text style={styles.title}>{'יצירת חשבון'}</Text>
 
 
 
@@ -161,8 +162,6 @@ newUser.UserImg="https://cdn-icons-png.flaticon.com/512/149/149071.png";
             value={streetNum}
             setValue={setStreetNum}
           />
-
-
         </View>
         <CustomInput
           placeholder="אימייל"
@@ -196,13 +195,16 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
-    padding: 20
+    padding: 20, 
+    backgroundColor:COLORS.white,
+
   },
   title: {
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
     padding: 20,
+    marginTop:20,
   },
   datePickerStyle: {
     width: cardWidth,

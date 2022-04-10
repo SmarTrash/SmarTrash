@@ -15,8 +15,7 @@ import ApprovedPurchase from '../../screens/GiftScreen/ApprovedPurchase';
 import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
 import ReceptBin from '../../screens/ThrowGarbage/ReceptBin';
 import ThrowPoints from '../../screens/ThrowGarbage/ThrowPoints';
-
-
+import CompetitionList from '../../screens/Competition/CompetitionList';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +26,7 @@ const Navigation = () => {
     <NavigationContainer  >
       <Stack.Navigator initialRouteName="EditProfile" >
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ResetPassword" component={ResetPassword} />
         <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
@@ -39,6 +39,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="ApprovedPurchase" component={ApprovedPurchase} />
         <Stack.Screen options={{ headerShown: false }} name="ReceptBin" component={ReceptBin} />
         <Stack.Screen options={{ headerShown: false }} name="ThrowPoints" component={ThrowPoints} />
+        <Stack.Screen options={{ headerShown: false }} name="CompetitionList" component={CompetitionList} />
       </Stack.Navigator>
     </NavigationContainer>
   )
