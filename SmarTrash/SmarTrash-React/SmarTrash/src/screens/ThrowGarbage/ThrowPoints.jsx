@@ -4,12 +4,31 @@ import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
-
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Throw/ThrowGarbage';
 
 export default function ThrowPoints({ navigation }) {
+  const {userEmail,userImg} = useContext(GlobalContext);
+  const [throwInfo, setThrowInfo] = useState('');
+  useEffect( () => {
+    fetch(apiUrl, {
+      method: 'POST',
+      body: JSON.stringify({UserEmail:userEmail}),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        data.map(st => setThrowInfo(st))
+        console.log("dataaaaaa:", data);
+        
+        
+      });
+  },[]);
   return (
     <View style={{ backgroundColor: COLORS.white, width}}>
       <View style={{ alignSelf: 'center' }}>
@@ -22,7 +41,7 @@ export default function ThrowPoints({ navigation }) {
 
       <View style={style.topHotelCard}>
         <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
-          {'העולם מוסר לך תודה !'}
+          העולם מוסר לך תודה {throwInfo.First} !
         </Text>
         <View style={style.imageEarthContainer}>
           <Image
@@ -38,13 +57,13 @@ export default function ThrowPoints({ navigation }) {
         <View style={style.txtContainer}>
           <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
           <Text style={style.text}>
-            {'מיחזרת 1.32 קילו פסולת'}
+            'מיחזרת {throwInfo.throwenWeight} קילו פסולת'
           </Text>
         </View>
         <View style={style.txtContainer}>
           <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
           <Text style={style.text}>
-            {'צברת 132 נקודות'}
+          צברת {throwInfo.gainedPoints} נקודות
           </Text>
         </View>
       </View>
@@ -53,8 +72,8 @@ export default function ThrowPoints({ navigation }) {
         <Text style={style.txtPoints}>
           {'סה"כ הנקודות שלך: '}
         </Text>
-          <Text style={[style.txtPoints, {marginRight:150}]}>
-            {'3200'}
+          <Text style={[style.txtPoints, {marginRight:100}]}>
+            {throwInfo.totalPoints}
           </Text>
           <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
       </View>
@@ -113,7 +132,8 @@ const style = StyleSheet.create({
   },
   txtContainer: {
     textAlign: 'right',
-    flexDirection: 'row-reverse',
+    marginTop:-50
+
   },
   topHotelCardImage: {
     height: 250,
@@ -145,12 +165,13 @@ const style = StyleSheet.create({
     textAlign: 'center'
   },
   ChkdIcon: {
-    marginTop: 6
+    marginTop: 30,
+      alignSelf:'flex-start',
+      
   },
   pointsTxt: {
-    marginTop: 150,
+    marginTop: 70,
     margin:15,
-    flexDirection: 'row-reverse',
     justifyContent:'flex-start',
   },
   txtPoints:{
@@ -161,7 +182,7 @@ const style = StyleSheet.create({
     margin: 10,
   },
   pointIcon:{
-    marginTop:8,
+    marginTop:-60,
   },
 
 });

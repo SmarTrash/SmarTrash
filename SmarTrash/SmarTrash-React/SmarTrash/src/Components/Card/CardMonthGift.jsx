@@ -1,7 +1,8 @@
-import { Dimensions, TouchableOpacity, StyleSheet, Text, View, Image, Animated, } from 'react-native';
+import { Dimensions, TouchableOpacity, StyleSheet, Text, View, Image } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
+
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.05;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Competition/GetCompGift';
@@ -31,7 +32,7 @@ const CardMonthGift = () => {
   }
 
   return (
-    <TouchableOpacity  onPress={() => navigation.navigate('Competition', { giftData })}>
+    <TouchableOpacity  onPress={() => navigation.navigate('CompetitionList')}>
       <View style={style.topHotelCard}>
         <View
           style={{

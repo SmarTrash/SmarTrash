@@ -43,7 +43,7 @@ export default function ReceptBin({ navigation }) {
       </View>
 
 
-      <View style={{ marginTop: 200 }}>
+      <View style={{ marginTop: 70 }}>
         <CustonButton
           text="לחץ כאן לאחר הזריקה"
           onPress={() => navigation.navigate('ThrowPoints')}

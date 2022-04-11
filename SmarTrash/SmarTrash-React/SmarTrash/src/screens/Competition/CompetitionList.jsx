@@ -1,16 +1,41 @@
-
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions,FlatList } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
-import {MaterialIcons } from '@expo/vector-icons';
-import {  ScrollView } from 'react-native-gesture-handler';
+import { MaterialIcons } from '@expo/vector-icons';
+import { ScrollView } from 'react-native-gesture-handler';
+import CompetitionCard from '../../Components/CompetitionCard/CompetitionCard';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
-
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Competition/GetListOfUsersInMyCity';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
-export default function CompetitionList({ navigation }) {
+const CompetitionList=()=> {
+  const [usersPlaces, setUsersPlaces] = useState('');
+  const {userEmail} = useContext(GlobalContext);
+ 
+  useEffect(() => {
+
+    fetch(apiUrl, {
+      method: 'POST',
+      body: JSON.stringify({UserEmail:userEmail}),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+
+      })
+    }).then(response => { return response.json() })
+      .then(data => {   console.log('gbgfgvf',data)
+        data.map(st => setUsersPlaces(st))
+     
+
+      });
+  }
+    , []);
+
+
+    console.log('usersPlaces',usersPlaces)
   return (
     <View style={{ backgroundColor: COLORS.white, flex: 1 }}>
 
@@ -22,175 +47,35 @@ export default function CompetitionList({ navigation }) {
         </View>
         <View style={style.txtTitleContainer}>
           <Text style={style.txtTitle}>{'המתחרים בעיר שלך'}</Text>
-        </View>
+          
+        </View> 
       </View>
-
-      <ScrollView style={{flex:1, paddingVertical: 20}}>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'אביב אלוש'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'32000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'ניב סולטן'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 220 }]}>
-            {'30000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'יהונתן מרגי'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'29000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'אביב אלוש'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'32000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'ניב סולטן'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 220 }]}>
-            {'30000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'יהונתן מרגי'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'29000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'אביב אלוש'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'32000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'ניב סולטן'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 220 }]}>
-            {'30000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'יהונתן מרגי'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'29000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'אביב אלוש'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'32000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'ניב סולטן'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 220 }]}>
-            {'30000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'יהונתן מרגי'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'29000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'אביב אלוש'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'32000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'ניב סולטן'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 220 }]}>
-            {'30000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-        <View style={style.topHotelCard}>
-          <Text style={style.txtCard}>
-            {'יהונתן מרגי'}
-          </Text>
-          <Text style={[style.txtCard, { marginRight: 210 }]}>
-            {'29000'}
-          </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-        </View>
-
-      </ScrollView>
-
-    </View>
+      <View>
+      <CompetitionCard   />
+          {/* <FlatList
+            data={usersPlaces}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingLeft: 20,
+              marginTop: 20,
+              paddingBottom: 30,
+            }}
+            renderItem={({ item }) => <CompetitionCard usersPlaces={item}  />}
+          /> */}
+        
+  </View>
+  </View>
   )
 }
+export default CompetitionList;
 const style = StyleSheet.create({
   topHotelCard: {
-    height: 50,
+    height: 100,
     width: cardWidth,
-    backgroundColor: COLORS.offwhite,
-    elevation: 15,
+    backgroundColor: 'black',
     margin: 10,
     borderRadius: 10,
-    top: 55,
     elevation: 15,
     shadowColor: '#171717',
     shadowOffset: { width: -2, height: 4 },
@@ -242,4 +127,3 @@ const style = StyleSheet.create({
 
 
 });
-

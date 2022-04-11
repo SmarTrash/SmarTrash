@@ -239,6 +239,12 @@ const styles = StyleSheet.create({
     marginTop: 0,
     flexDirection: 'row'
   },
+  shadowProp: {
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
   loginBtn: {
     alignSelf: 'center',
     backgroundColor: '#4632A1',

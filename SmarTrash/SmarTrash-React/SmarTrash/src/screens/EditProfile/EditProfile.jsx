@@ -42,9 +42,6 @@ const EditProfile = ({ navigation }) => {
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
 
 
-
-
-
   const userDetailsPlaceHolder = () => {
 
     fetch(apiUrlCurrentDetails, {
@@ -59,7 +56,7 @@ const EditProfile = ({ navigation }) => {
         data.map(st => setUserDetails(st), console.log("userD", userDetails))
 
       });
-    setFirstName(userDetails.FirstName),
+      setFirstName(userDetails.FirstName),
       setLastName(userDetails.LastName),
       setPhone(userDetails.Phone),
       setChecked(userDetails.Gender),
@@ -83,10 +80,8 @@ const EditProfile = ({ navigation }) => {
     BirthDate: "",
     StreetNameAndNumber: "",
     CityId: "",
-    Image:image
+    Image: image
   };
-
-
 
 
   newUser.UserEmail = userEmail;
@@ -153,7 +148,7 @@ const EditProfile = ({ navigation }) => {
           <View style={styles.profileImage}>
             <Image
               style={styles.image}
-              source={{ uri: image}} />
+              source={{ uri: image }} />
           </View>
           <View style={styles.edit}>
             <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
