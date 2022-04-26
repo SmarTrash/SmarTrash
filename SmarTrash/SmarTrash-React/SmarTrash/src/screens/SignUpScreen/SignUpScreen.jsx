@@ -71,18 +71,7 @@ newUser.UserImg="https://cdn-icons-png.flaticon.com/512/149/149071.png";
       })
     }).then(response => { return response.json() })
       .then(data => {
-         
-        console.log("dataaaaaa:", data);
-        setIsUserExists(data.isSuccess) 
-     
-        if (IsUserExists) {
-         
-          if (isSelected) {
-            storeData(newUser)
-          }
-        } else {
-          alert(data.message);
-        }
+
       });
       navigation.navigate('SignInScreen');
   }
