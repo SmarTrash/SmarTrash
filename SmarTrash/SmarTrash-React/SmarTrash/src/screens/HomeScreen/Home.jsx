@@ -21,7 +21,7 @@ export default function Home({ navigation }) {
   useEffect( () => {
      getLoginData();
      onScreenLoad();
-  },[]);
+  },[userInfo]);
 
 
   const getLoginData = async () => {
@@ -36,8 +36,7 @@ export default function Home({ navigation }) {
           }).then(response => response.json())
             .then(data => {
               setUserInfo(data[0]);
-              
-              console.log(data);
+             
       });
     }catch(err){
       console.log(err);
@@ -163,6 +162,8 @@ export default function Home({ navigation }) {
               <Text style={[style.text, style.subText, { marginLeft: 37 }]}>שחק</Text>
             </View>
           </View>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('ReceptBin')}}>
           <View>
             <View style={[style.sortBtn, { backgroundColor: '#E5EFC1' }]}>
               <FontAwesome5 name="recycle" size={60} color="black" />
@@ -171,6 +172,7 @@ export default function Home({ navigation }) {
               <Text style={[style.text, style.subText, { marginLeft: 22 }]}>מחזר ותרוויח</Text>
             </View>
           </View>
+          </TouchableOpacity>
         </View>
         <View style={{
           flexDirection: 'row',

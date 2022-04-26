@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native'
-import React, {  useState,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
@@ -17,8 +17,8 @@ const cardWidth = width / 1.2;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
 
 const SignUpScreen = ({ navigation }) => {
-  
- const {selectedCity} = useContext(GlobalContext);
+
+  const { selectedCity } = useContext(GlobalContext);
   const [userEmail, setUserEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -27,7 +27,7 @@ const SignUpScreen = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
- 
+
 
   const options = [
     { label: '  נקבה', value: 'F' },
@@ -47,7 +47,7 @@ const SignUpScreen = ({ navigation }) => {
     BirthDate: "",
     StreetNameAndNumber: "",
     CityId: "",
-    UserImg:""
+    UserImg: ""
   };
   newUser.UserEmail = userEmail;
   newUser.FirstName = firstName;
@@ -58,8 +58,8 @@ const SignUpScreen = ({ navigation }) => {
   newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
   newUser.CityId = selectedCity;
-newUser.UserImg="https://cdn-icons-png.flaticon.com/512/149/149071.png";
- 
+  newUser.UserImg = '';
+
   const onSignUPPressed = () => {
     { console.log(newUser) }
     fetch(apiUrl, {
@@ -184,8 +184,8 @@ export default SignUpScreen;
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
-    padding: 20, 
-    backgroundColor:COLORS.white,
+    padding: 20,
+    backgroundColor: COLORS.white,
 
   },
   title: {
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     padding: 20,
-    marginTop:20,
+    marginTop: 20,
   },
   datePickerStyle: {
     width: cardWidth,

@@ -50,6 +50,7 @@ namespace SmarTrash.Controllers
                 newUser.UserImg = value.UserImg;
                 db.tblUser.Add(newUser);
                 db.SaveChanges();
+                
                 return Created(new Uri(Request.RequestUri.AbsoluteUri + newUser.UserEmail), newUser);
             }
             catch (Exception ex)
