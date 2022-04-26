@@ -25,7 +25,7 @@ const Navigation = () => {
   return (
 
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="CompetitionList" >
+      <Stack.Navigator initialRouteName="SignInScreen" >
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />

@@ -1,23 +1,23 @@
 import { View, StyleSheet, ScrollView, ImageBackground, Dimensions, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState,useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import bg from '../../../assets/bg.jpg'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ListItem,CheckBox  } from 'react-native-elements'
+import { ListItem } from 'react-native-elements'
 import COLORS from '../../Consts/colors'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import Checkbox from 'react-native-bouncy-checkbox'
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 
 const SignInScreen = ({ navigation }) => {
 
-  const {userEmail, setUserEmail} = useContext(GlobalContext);
+  const { userEmail, setUserEmail } = useContext(GlobalContext);
   const [password, setPassword] = useState('');
-  const [isSelected, setSelection] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [IsUserExists, setIsUserExists] = useState(false);
-  const [checked, setChecked] = React.useState(false);
   const newUser = {
     UserEmail: "",
     Password: ""
@@ -25,9 +25,18 @@ const SignInScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-   // getData();
-  }, []);
+   // getData()
 
+
+  }, []);
+  const removeData = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key');
+      navigation.navigate('SignInScreen');
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const getData = async () => {
     try {
       AsyncStorage.getItem('@storage_Key')
@@ -84,19 +93,19 @@ const SignInScreen = ({ navigation }) => {
         })
       }).then(response => { return response.json() })
         .then(data => {
-     
+
           setIsUserExists(data.isSuccess)
           if (data.isSuccess) {
-              navigation.navigate('Home');
+            navigation.navigate('Home');
             if (isSelected) {
               storeData(newUser)
             }
           } else {
             alert(data.message);
           }
-        
+
         });
-    }else{
+    } else {
       alert("אנא מלא את שם המשתמש והסיסמא");
 
     }
@@ -109,97 +118,108 @@ const SignInScreen = ({ navigation }) => {
     navigation.navigate('SignUpScreen');
   }
   const onRememberMePressed = () => {
-    console.warn("onRememberMePressed");
+    setChecked(!checked);
   }
 
   return (
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
 
-        <ImageBackground source={bg} style={styles.logo} >
+      <ImageBackground source={bg} style={styles.logo} >
 
-          <View style={styles.brandView}>
+        <View style={styles.brandView}>
 
-            <Text style={styles.brandViewText}>SmarTrash</Text>
-          </View>
+          <Text style={styles.brandViewText}>SmarTrash</Text>
+        </View>
 
-        </ImageBackground>
-        <View style={styles.bottomView} >
-          <View style={{ padding:40 }}>
+      </ImageBackground>
+      <View style={styles.bottomView} >
+        <View style={{ padding: 40 }}>
 
-            <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign: 'center' }}>ברוכים הבאים</Text>
-            <Text style={{ fontSize: 18, textAlign:'center'}}>אין לך חשבון?
+          <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign: 'center' }}>ברוכים הבאים</Text>
+          <Text style={{ fontSize: 18, textAlign: 'center' }}>אין לך חשבון?
 
-              <Text  onPress={onSignUpPressed} style={{ color: COLORS.green, fontStyle: 'italic', textAlign:'justify', fontSize: 18}}
-              > הירשם עכשיו!</Text>
+            <Text onPress={onSignUpPressed} style={{ color: COLORS.green, fontStyle: 'italic', textAlign: 'justify', fontSize: 18 }}
+            > הירשם עכשיו!</Text>
 
-            </Text>
+          </Text>
 
-            <View style={{ marginTop: 30 }}>
-              <CustomInput
-                  placeholder="אימייל"
-                  value={userEmail}
-                  setValue={setUserEmail}
-                  icon="email"
-              />
-              <CustomInput
-                  placeholder="סיסמה"
-                  value={password}
-                  setValue={setPassword}
-                  secureTextEntry={true}
-              />
+          <View style={{ marginTop: 30 }}>
+            <CustomInput
+              placeholder="אימייל"
+              value={userEmail}
+              setValue={setUserEmail}
+              icon="email"
+            />
+            <CustomInput
+              placeholder="סיסמה"
+              value={password}
+              setValue={setPassword}
+              secureTextEntry={true}
+            />
 
-              <View style={styles.forgetPassView}>
-                <View style={{ flex: 1, marginLeft: -130 }}>
-
+            <View style={styles.forgetPassView}>
+              <View style={{ flex: 1, marginRight: 100 }}>
+                <TouchableOpacity onPress={onForgotPasswordPressed}>
                   <ListItem noBorder>
-                    <View style={styles.container}>
-                      <View style={styles.checkboxContainer}>
-                        <CheckBox
-                            style={styles.checkbox}
-                            value={isSelected}
-                            onValueChange={setSelection}
-                            color={isSelected ? COLORS.primary : undefined}
-                        />
-                        <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 5, marginTop:2 }}>Remember me</Text>
-                      </View>
-                    </View>
+                    <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginTop: 0 }}>Forgot Password</Text>
                   </ListItem>
+                </TouchableOpacity>
 
-                </View>
+              </View>
 
-                <View style={{ flex: 1, marginRight: -170 }}>
-                  <TouchableOpacity onPress={onForgotPasswordPressed}>
-                    <ListItem noBorder>
-                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginTop: -2 }}>Forgot Password</Text>
-                    </ListItem>
-                  </TouchableOpacity>
+              <View style={{ flex: 1, marginLeft: -130 }}>
 
-                </View>
+                <ListItem noBorder>
+                  <View style={styles.container}>
+                    <View>
+                      <Checkbox
+                        status={checked ? 'checked' : 'unchecked'}
+                        onPress={() => {
+                          setChecked(!checked);
+                          if (checked) {
+                            storeData();
+                          }
+                          else {
+                            removeData()
+                          }
+
+                        }}
+                        fillColor={COLORS.primary}
+                      />
+                      {console.log("isSelected:", checked)}
+                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 30, marginTop: -23 }}>Remember me</Text>
+                    </View>
+                  </View>
+                </ListItem>
+
               </View>
 
 
-
-              <View
-                  style={{
-                    height: 100,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}>
-                <CustonButton
-                    text="התחברות"
-                    onPress={onSignInPressed}
-                />
-                <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'center', fontSize: 16 }}>or Login With</Text>
-
-                </View>
-
-              </View>
-              <SocialSignInButtons />
             </View>
+
+
+
+            <View
+              style={{
+                height: 100,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+              <CustonButton
+                text="התחברות"
+                onPress={onSignInPressed}
+              />
+              <View style={{ flex: 1 }}>
+                <Text style={{ textAlign: 'center', fontSize: 16 }}>or Login With</Text>
+
+              </View>
+
+            </View>
+            <SocialSignInButtons />
           </View>
         </View>
-      </ScrollView >
+      </View>
+    </ScrollView >
 
   )
 }
@@ -251,14 +271,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width / 2,
     justifyContent: 'center'
   },
-  checkboxContainer: {
-    flexDirection: "row",
-    marginBottom: 20,
-  },
-  checkbox: {
-    alignSelf: "center",
-    marginLeft: 30,
-  },
+
+
   container: {
     flex: 1,
     alignItems: "center",
