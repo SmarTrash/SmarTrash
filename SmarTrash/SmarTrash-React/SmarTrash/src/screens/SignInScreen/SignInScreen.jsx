@@ -14,9 +14,8 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 
 const SignInScreen = ({ navigation }) => {
 
-  const { userEmail, setUserEmail } = useContext(GlobalContext);
+  const { userEmail, setUserEmail,checked, setChecked } = useContext(GlobalContext);
   const [password, setPassword] = useState('');
-  const [checked, setChecked] = useState(false);
   const [IsUserExists, setIsUserExists] = useState(false);
   const newUser = {
     UserEmail: "",
@@ -25,18 +24,11 @@ const SignInScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-   // getData()
+    getData()
 
 
   }, []);
-  const removeData = async () => {
-    try {
-      await AsyncStorage.removeItem('@storage_Key');
-      navigation.navigate('SignInScreen');
-    } catch (error) {
-      console.log(error);
-    }
-  }
+ 
   const getData = async () => {
     try {
       AsyncStorage.getItem('@storage_Key')
@@ -50,17 +42,17 @@ const SignInScreen = ({ navigation }) => {
       console.log(error);
     }
   }
-  const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value)
-      console.log("dataaaaaa:", value);
-      await AsyncStorage.setItem('@storage_Key', jsonValue)
+  // const storeData = async (value) => {
+  //   try {
+  //     const jsonValue = JSON.stringify(value)
+  //     console.log("dataaaaaa:", value);
+  //     await AsyncStorage.setItem('@storage_Key', jsonValue)
 
-      navigation.navigate('Home');
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  //     navigation.navigate('Home');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
 
   const onSignInPressed = () => {
     // let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
@@ -97,9 +89,7 @@ const SignInScreen = ({ navigation }) => {
           setIsUserExists(data.isSuccess)
           if (data.isSuccess) {
             navigation.navigate('Home');
-            if (isSelected) {
-              storeData(newUser)
-            }
+        
           } else {
             alert(data.message);
           }
@@ -115,6 +105,7 @@ const SignInScreen = ({ navigation }) => {
   }
 
   const onSignUpPressed = () => {
+   
     navigation.navigate('SignUpScreen');
   }
   const onRememberMePressed = () => {
@@ -176,17 +167,12 @@ const SignInScreen = ({ navigation }) => {
                         status={checked ? 'checked' : 'unchecked'}
                         onPress={() => {
                           setChecked(!checked);
-                          if (checked) {
-                            storeData();
-                          }
-                          else {
-                            removeData()
-                          }
-
+                         
                         }}
                         fillColor={COLORS.primary}
                       />
                       {console.log("isSelected:", checked)}
+                      
                       <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 30, marginTop: -23 }}>Remember me</Text>
                     </View>
                   </View>

@@ -10,9 +10,11 @@ const Provider = ({ children }) => {
     const [userEmail, setUserEmail] = useState('');
     const [userImg, setUserImg] = useState('');
 
+    const [checked, setChecked] = useState(false);
+
     const GlobalContextOrginal = {
         cities, setCities,selectedCity, setSelectedCity,setUserImg,userImg,
-        userEmail, setUserEmail}
+        userEmail, setUserEmail,checked, setChecked}
         
     return (
         <GlobalContext.Provider value={GlobalContextOrginal}>
