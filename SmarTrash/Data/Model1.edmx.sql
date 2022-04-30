@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/30/2022 13:18:44
--- Generated from EDMX file: C:\Users\USER\Desktop\לימודים\שנה ג'\סמסטר א'\פרוייקט גמר\SmarTrash\SmarTrash\SmarTrash\Data\Model1.edmx
+-- Date Created: 04/30/2022 15:41:59
+-- Generated from EDMX file: C:\Users\noy\Desktop\SmarTrash\SmarTrash\SmarTrash\Data\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -53,8 +53,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK__tblScanPr__UserE__30F848ED]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblScanProduct] DROP CONSTRAINT [FK__tblScanPr__UserE__30F848ED];
 GO
-IF OBJECT_ID(N'[dbo].[FK__tblSelect__IdMon__59063A47]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblSelectedMonthGift] DROP CONSTRAINT [FK__tblSelect__IdMon__59063A47];
+IF OBJECT_ID(N'[dbo].[FK__tblSelect__IdMon__5EBF139D]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblSelectedMonthGift] DROP CONSTRAINT [FK__tblSelect__IdMon__5EBF139D];
 GO
 IF OBJECT_ID(N'[dbo].[FK__tblSpecif__BinTy__403A8C7D]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblSpecificBin] DROP CONSTRAINT [FK__tblSpecif__BinTy__403A8C7D];
@@ -258,7 +258,8 @@ GO
 -- Creating table 'tblSelectedMonthGift'
 CREATE TABLE [dbo].[tblSelectedMonthGift] (
     [IdMonthGift] int  NOT NULL,
-    [MonthGift] tinyint  NOT NULL
+    [MonthGift] tinyint  NOT NULL,
+    [YearGift] int  NOT NULL
 );
 GO
 

@@ -22,23 +22,34 @@ namespace SmarTrash
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //timer.Interval = 1000 * 60 * 60 * 24;
-            timer.Interval = 1000;
+            timer.Interval = 1000 * 60 * 60 * 24;
             timer.Elapsed += tm_Tick;
+
+            timer.Enabled = true;
+            timer.AutoReset = true;
+            timer.Start();
+
             path = Server.MapPath("/");
         }
         //code for timer
         private void tm_Tick(object sender, ElapsedEventArgs e)
         {
-
-            DateTime date = DateTime.Now;
-            int lastDayInMonth = DateTime.DaysInMonth(date.Year, date.Month);
-            if (DateTime.Now.Day == lastDayInMonth)
+             
+            if (DateTime.Now.Day == 1)
             {
                 SmarTrash.Models.TimerServices.DoSomethingWithtimer(path);
             }
         }
+        //private void tm_Tick(object sender, ElapsedEventArgs e)
+        //{
+        //    DateTime date = DateTime.Now;
+        //    int lastDayInMonth = DateTime.DaysInMonth(date.Year, date.Month);
 
+        //    if (DateTime.Now.Day == lastDayInMonth)
+        //    {
+        //        SmarTrash.Models.TimerServices.DoSomethingWithtimer(path);
+        //    }
+        //}
         //code for timer
         public static void StartTimer()
         {

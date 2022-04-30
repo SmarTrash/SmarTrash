@@ -27,6 +27,8 @@ namespace SmarTrash.Models
            
             MGift.MonthGift = ((byte)m);
             MGift.YearGift = y;
+            db.tblSelectedMonthGift.Add(MGift);
+            db.SaveChanges();
         }
     }
 }

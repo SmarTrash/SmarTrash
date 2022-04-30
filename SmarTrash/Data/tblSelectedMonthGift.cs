@@ -16,7 +16,7 @@ namespace Data
     {
         public int IdMonthGift { get; set; }
         public byte MonthGift { get; set; }
-        public Nullable<int> YearGift { get; set; }
+        public int YearGift { get; set; }
     
         public virtual tblGift tblGift { get; set; }
     }
