@@ -34,22 +34,19 @@ namespace SmarTrash
         //code for timer
         private void tm_Tick(object sender, ElapsedEventArgs e)
         {
-             
+            DateTime date = DateTime.Now;
+            int lastDayInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+
             if (DateTime.Now.Day == 1)
             {
                 SmarTrash.Models.TimerServices.DoSomethingWithtimer(path);
             }
-        }
-        //private void tm_Tick(object sender, ElapsedEventArgs e)
-        //{
-        //    DateTime date = DateTime.Now;
-        //    int lastDayInMonth = DateTime.DaysInMonth(date.Year, date.Month);
-
-        //    if (DateTime.Now.Day == lastDayInMonth)
-        //    {
-        //        SmarTrash.Models.TimerServices.DoSomethingWithtimer(path);
-        //    }
-        //}
+            else if (DateTime.Now.Day == lastDayInMonth)
+            {
+                SmarTrash.Models.TimerServices.PostAllWinnersInCities(path);
+            }
+    }
+        
         //code for timer
         public static void StartTimer()
         {
