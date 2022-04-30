@@ -15,8 +15,12 @@ import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
 import ReceptBin from '../../screens/ThrowGarbage/ReceptBin';
 import ThrowPoints from '../../screens/ThrowGarbage/ThrowPoints';
 import CompetitionList from '../../screens/Competition/CompetitionList';
+<<<<<<< Updated upstream
 import CameraScreen from '../../screens/CameraScreen/CameraScreen';
 
+=======
+import Map from '../../screens/MapScreen/Map';
+>>>>>>> Stashed changes
 
 
 const Stack = createNativeStackNavigator();
@@ -41,7 +45,11 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="ReceptBin" component={ReceptBin} />
         <Stack.Screen options={{ headerShown: false }} name="ThrowPoints" component={ThrowPoints} />
         <Stack.Screen options={{ headerShown: false }} name="CompetitionList" component={CompetitionList} />
+<<<<<<< Updated upstream
         <Stack.Screen options={{ headerShown: false }} name="CameraScreen" component={CameraScreen} />
+=======
+        <Stack.Screen options={{ headerShown: true }} name="Map" component={Map} />
+>>>>>>> Stashed changes
       </Stack.Navigator>
     </NavigationContainer>
   )

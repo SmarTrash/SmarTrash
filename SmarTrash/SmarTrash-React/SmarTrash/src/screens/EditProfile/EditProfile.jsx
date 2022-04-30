@@ -19,15 +19,35 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 
+<<<<<<< Updated upstream
 const EditProfile = ({ navigation,route }) => {
 
   const newImage = route.params;
 
   const { userEmail, selectedCity } = useContext(GlobalContext);
+=======
+const EditProfile = ({ navigation }) => {
+  const { userEmail, selectedCity,
+
+    setUserImg, setChecked,
+    setUserFirstName,
+    setUserLastName,
+    setUserGender, userGender,
+    setUserPhone,userPhone,
+    setUserBirthDate, userBirthDate,
+    setUserStreetNameAndNumber, userStreetNameAndNumber,
+    userImg,
+    userCityId,
+    password, setPassword,
+    userFirstName,
+    userLastName,
+  } = useContext(GlobalContext);
+>>>>>>> Stashed changes
   const [userDetails, setUserDetails] = useState('');
   const [changeSave, setChangeSave] = useState('');
 
 
+<<<<<<< Updated upstream
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
@@ -37,8 +57,12 @@ const EditProfile = ({ navigation,route }) => {
   const [streetNum, setStreetNum] = useState('');
   const [image, setImage] = useState('');
   const [show, setShow] = useState(false)
+=======
+
+
+>>>>>>> Stashed changes
   useEffect(() => {
-    userDetailsPlaceHolder();
+    //userDetailsPlaceHolder();
   }, []);
 
   const options = [
@@ -49,6 +73,7 @@ const EditProfile = ({ navigation,route }) => {
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
 
 
+<<<<<<< Updated upstream
   const userDetailsPlaceHolder = () => {
 
     fetch(apiUrlCurrentDetails, {
@@ -96,12 +121,53 @@ const EditProfile = ({ navigation,route }) => {
   newUser.StreetNameAndNumber = streetNum;
   newUser.CityId = selectedCity;
   newUser.Image = userDetails.UserImg;
+=======
+  // const userDetailsPlaceHolder = () => {
+
+  //   fetch(apiUrlCurrentDetails, {
+  //     method: 'POST',
+  //     body: JSON.stringify({ UserEmail: userEmail }),
+  //     headers: new Headers({
+  //       'Content-type': 'application/json; charset=UTF-8',
+  //       'Accept': 'application/json; charset-UTF-8'
+  //     })
+  //   }).then(response => { return response.json() })
+  //     .then(data => {
+  //       data.map(st => setUserDetails(st), console.log("userD", userDetails))
+
+  //     });
+  //     setFirstName(userFirstName),
+  //     setLastName(userLastName),
+  //     setPhone(userDetails.Phone),
+  //     setChecked(userDetails.Gender),
+  //     setBirthDate(userDetails.BirthDate),
+  //     setPassword(userDetails.Password),
+  //     setStreetNum(userDetails.StreetNameAndNumber),
+  //     setImage(userDetails.UserImg)
+  //     setUserGender()
+  //   setUserDetails(userDetails)
+
+  // }
+>>>>>>> Stashed changes
 
   const userChangeSave = () => {
-    console.log("new", newUser)
+    const newUser = {
+      UserEmail: userEmail,
+      Password: password,
+      Img: userImg,
+      Gender: userGender,
+      First: userFirstName,
+      Last: userLastName,
+      Phone: userPhone,
+      CityId:userCityId,
+      setStreetNum:userStreetNameAndNumber,
+      BirthDate:userBirthDate
+    }
+    console.log("hhhhhhhhh",newUser)
     fetch(apiUrlSaveChanges, {
+      
       method: 'PUT',
-      body: JSON.stringify(newUser),
+      body: JSON.stringify( newUser),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -149,6 +215,7 @@ const EditProfile = ({ navigation,route }) => {
     <ScrollView showsVerticalScrollIndicator={false}> 
       <View style={styles.root}>
         <Text style={styles.title}>עריכת פרטים אישיים</Text>
+<<<<<<< Updated upstream
          
           <View style={{ alignSelf: 'center' }}>
           <TouchableOpacity onPress={() => setShow(true)}>
@@ -167,18 +234,29 @@ const EditProfile = ({ navigation,route }) => {
                 setShow(false);
               }}
             ></BottomSheet>
+=======
+
+        <View style={{ alignSelf: 'center' }}>
+          <View style={styles.profileImage}>
+            <Image
+              style={styles.image}
+              source={{ uri: userImg }} />
+          </View>
+          <View style={styles.edit}>
+            <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
+>>>>>>> Stashed changes
           </View>
        
         <CustomInput
-          placeholder={firstName}
-          value={firstName}
-          setValue={setFirstName}
+          placeholder={userFirstName}
+          value={userFirstName}
+          setValue={setUserFirstName}
         />
 
         <CustomInput
-          placeholder={lastName}
-          value={lastName}
-          setValue={setLastName}
+          placeholder={userLastName}
+          value={userLastName}
+          setValue={setUserLastName}
         />
 
         <CustomInput
@@ -189,14 +267,14 @@ const EditProfile = ({ navigation,route }) => {
         />
 
         <CustomInput
-          placeholder={phone}
-          value={phone}
-          setValue={setPhone}
+          placeholder={userPhone}
+          value={userPhone}
+          setValue={setUserPhone}
         />
         <CustomInput
-          placeholder={streetNum}
-          value={streetNum}
-          setValue={setStreetNum}
+          placeholder={userStreetNameAndNumber}
+          value={userStreetNameAndNumber}
+          setValue={setUserStreetNameAndNumber}
         />
 
         <SafeAreaView style={styles.container}>
@@ -204,9 +282,9 @@ const EditProfile = ({ navigation,route }) => {
 
             <DatePicker
               style={styles.datePickerStyle}
-              date={birthDate}
+              date={userBirthDate}
               mode="date"
-              placeholder={birthDate}
+              placeholder={userBirthDate}
               format="DD-MM-YYYY"
               maxDate={d}
               confirmBtnText="Confirm"
@@ -223,7 +301,7 @@ const EditProfile = ({ navigation,route }) => {
                 },
               }}
               onDateChange={(date) => {
-                setBirthDate(date);
+                setUserBirthDate(date);
               }}
             />
           </View>
@@ -235,7 +313,7 @@ const EditProfile = ({ navigation,route }) => {
             radio_props={options}
             initial={0}
             onPress={(value) => {
-              setChecked(value);
+              setUserGender(value);
 
             }}
           />

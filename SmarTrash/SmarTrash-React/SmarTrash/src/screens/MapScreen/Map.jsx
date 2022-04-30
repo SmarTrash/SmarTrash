@@ -6,8 +6,10 @@ import { Marker } from 'react-native-maps';
 export default function MapScreen() {
   return (
     <View style= {styles.container}>
-        <Text>Map Screen</Text>
-    <MapView style={{flex: 0.7, width: Dimensions.get('window').width - 30,}}
+       
+    <MapView 
+    showsUserLocation={true}
+    style={{flex: 1, width: Dimensions.get('window').width - 10,}}
       region = {{
           latitude: 32.157154,
           longitude: 34.843893,
@@ -15,7 +17,8 @@ export default function MapScreen() {
           longitudeDelta: 0.0121,
   }}>
     
-  <Marker coordinate={
+  <Marker 
+  coordinate={
   {
     latitude: 32.15715,
     longitude: 34.843893

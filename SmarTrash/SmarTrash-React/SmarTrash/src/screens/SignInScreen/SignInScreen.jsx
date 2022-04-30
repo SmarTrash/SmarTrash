@@ -10,52 +10,125 @@ import COLORS from '../../Consts/colors'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import Checkbox from 'react-native-bouncy-checkbox'
 
-const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/HomePageDetails';
 
 const SignInScreen = ({ navigation }) => {
 
-  const { userEmail, setUserEmail,checked, setChecked } = useContext(GlobalContext);
-  const [password, setPassword] = useState('');
-  const [IsUserExists, setIsUserExists] = useState(false);
-  const newUser = {
-    UserEmail: "",
-    Password: ""
-  };
+  const { userEmail, setUserEmail,
+    checked, setChecked,
+    setUserFirstName,
+    setUserLastName,
+    setUserCompetitionPlace,
+    setUserLastThrow,
+    setUserPoints,
+    setUserGender,
+    setUserPhone,
+    setUserBirthDate,
+    setUserCityId,
+    setUserStreetNameAndNumber,
+    setUserImg,userImg,
+    password, setPassword } = useContext(GlobalContext);
+
+
+  
 
 
   useEffect(() => {
-    getData()
-
-
+    //getData()
   }, []);
- 
-  const getData = async () => {
-    try {
-      AsyncStorage.getItem('@storage_Key')
 
-        .then(value => {
-          if (value != null) {
-            navigation.navigate('Home');
-          }
-        })
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  // const storeData = async (value) => {
+  // const getData = async () => {
   //   try {
-  //     const jsonValue = JSON.stringify(value)
-  //     console.log("dataaaaaa:", value);
-  //     await AsyncStorage.setItem('@storage_Key', jsonValue)
-
-  //     navigation.navigate('Home');
-  //   } catch (e) {
-  //     console.log(e);
+  //     AsyncStorage.getItem('@storage_Key')
+     
+  //       .then(value => { console.log(value);
+  //         if (value != null) {
+  //           navigation.navigate('Home');
+  //         }
+  //       })
+  //   } catch (error) {
+  //     console.log(error);
   //   }
   // }
-
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      console.log("dataaaaaa:", value);
+      await AsyncStorage.setItem('@storage_Key', jsonValue)
+      navigation.navigate('Home');
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  const newUser = {
+    UserEmail:userEmail,
+    Password: password,
+    Img: "",
+    Checked:"",
+    First:"",
+    Last:"",
+    CompetitionPlace:"",
+    LastThrow: "",
+    Points:"",
+  };
   const onSignInPressed = () => {
-    // let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+
+    if (password != null && userEmail != null) {
+      newUser.UserEmail = userEmail;
+      newUser.Password = password;
+      console.log("11111111111",newUser);
+      fetch(apiUrl, {
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        headers: new Headers({
+          'Content-type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset-UTF-8'
+
+        })
+      }).then(response => { return response.json() })
+        .then(data => {
+          console.log("2222222222",data);
+
+          if (data.isSuccess) {
+            console.log("333",data.message);
+            alert(data.message);
+
+          } else {
+            console.log("4444444",data);
+              setUserFirstName(data[0].First),
+              setUserLastName(data[0].Last),
+              setUserCompetitionPlace(data[0].competitionPlace),
+              setUserLastThrow(data[0].lastThrow),
+              setUserPoints(data[0].Points),
+              setUserGender(data[0].gender),
+              setUserPhone(data[0].phone),
+              setUserBirthDate(data[0].birthDate),
+              setUserCityId(data[0].cityId),
+              setUserStreetNameAndNumber(data[0].streetNum),
+              setUserImg(data[0].Img)
+              console.log("5555",data[0].phone);
+              console.log("checked:", checked)
+            // if (checked) {
+            //  newUser.Img= userImg,
+            //  newUser.Checked=checked,
+            //  newUser.First=userFirstName,
+            //  newUser.Last=userLastName,
+            //  newUser.CompetitionPlace=userCompetitionPlace,
+            //  newUser.LastThrow= userLastThrow,
+            //  newUser.Points=userPoints,
+            //   console.log("newUser:", newUser)
+            //   storeData(newUser)  
+             
+            // }
+           navigation.navigate('Home')
+          
+          }
+
+        });
+    } else {
+      alert("אנא מלא את שם המשתמש והסיסמא");
+
+    }   // let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
     // if (reg.test(userEmail) === true) {
     //   setUserEmail(userEmail);
     // }
@@ -70,47 +143,19 @@ const SignInScreen = ({ navigation }) => {
     //   alert(' סיסמה לא חוקית');
     //   setPassword(null)
     // }
-    console.log(userEmail);
-    console.log(password);
-    if (password != null && userEmail != null) {
-      newUser.UserEmail = userEmail;
-      newUser.Password = password;
-      fetch(apiUrl, {
-        method: 'POST',
-        body: JSON.stringify(newUser),
-        headers: new Headers({
-          'Content-type': 'application/json; charset=UTF-8',
-          'Accept': 'application/json; charset-UTF-8'
-
-        })
-      }).then(response => { return response.json() })
-        .then(data => {
-
-          setIsUserExists(data.isSuccess)
-          if (data.isSuccess) {
-            navigation.navigate('Home');
-        
-          } else {
-            alert(data.message);
-          }
-
-        });
-    } else {
-      alert("אנא מלא את שם המשתמש והסיסמא");
-
-    }
   }
-  const onForgotPasswordPressed = () => {
-    navigation.navigate('ForgotPasswordScreen');
-  }
+  // const removeData = async () => {
+  //   try {
+  //     await AsyncStorage.removeItem('@storage_Key');
+  //     { console.log("@storage_Key:", AsyncStorage) }
+  //     navigation.navigate('SignInScreen');
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
-  const onSignUpPressed = () => {
-   
-    navigation.navigate('SignUpScreen');
-  }
-  const onRememberMePressed = () => {
-    setChecked(!checked);
-  }
+
+
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
@@ -129,7 +174,7 @@ const SignInScreen = ({ navigation }) => {
           <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign: 'center' }}>ברוכים הבאים</Text>
           <Text style={{ fontSize: 18, textAlign: 'center' }}>אין לך חשבון?
 
-            <Text onPress={onSignUpPressed} style={{ color: COLORS.green, fontStyle: 'italic', textAlign: 'justify', fontSize: 18 }}
+            <Text onPress={() => navigation.navigate('SignUpScreen')} style={{ color: COLORS.green, fontStyle: 'italic', textAlign: 'justify', fontSize: 18 }}
             > הירשם עכשיו!</Text>
 
           </Text>
@@ -149,31 +194,31 @@ const SignInScreen = ({ navigation }) => {
             />
 
             <View style={styles.forgetPassView}>
-              <View style={{ flex: 1, marginRight: 100 }}>
-                <TouchableOpacity onPress={onForgotPasswordPressed}>
+              <View style={{ flex: 1 }}>
+                <TouchableOpacity onPress={() => navigation.navigate('ForgotPasswordScreen')}>
                   <ListItem noBorder>
-                    <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginTop: 0 }}>Forgot Password</Text>
+                    <Text style={{ color: '#8f9195', marginTop: 0 }}>Forgot Password</Text>
                   </ListItem>
                 </TouchableOpacity>
 
               </View>
 
-              <View style={{ flex: 1, marginLeft: -130 }}>
+              <View style={{ flex: 1 }}>
 
                 <ListItem noBorder>
                   <View style={styles.container}>
+
                     <View>
+                      <Text style={{ color: '#8f9195', marginRight: 50, marginTop: -50, marginTop: 0 }}>Remember me</Text>
                       <Checkbox
+                        style={{ marginLeft: 140, marginTop: -23 }}
                         status={checked ? 'checked' : 'unchecked'}
                         onPress={() => {
                           setChecked(!checked);
-                         
                         }}
                         fillColor={COLORS.primary}
                       />
                       {console.log("isSelected:", checked)}
-                      
-                      <Text style={{ color: '#8f9195', alignSelf: 'flex-start', marginLeft: 30, marginTop: -23 }}>Remember me</Text>
                     </View>
                   </View>
                 </ListItem>
