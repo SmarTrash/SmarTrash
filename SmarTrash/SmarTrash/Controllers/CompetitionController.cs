@@ -41,7 +41,7 @@ namespace SmarTrash.Controllers
 
         [HttpPost]
         [Route("api/Competition/GetAllWinnersInCities")]
-      
+
         //מחזיר את רשימת הזוכים לפי חודש (נוכחי) בכל עיר.
         public dynamic PostAllWinnersInCities()
         {
@@ -78,9 +78,9 @@ namespace SmarTrash.Controllers
                             }
                         }
                         var userPlace = sums.OrderByDescending(x => x.Value).First();
-                        winners.Year =Convert.ToInt16(year);
+                        winners.Year = Convert.ToInt16(year);
                         winners.Month = Convert.ToByte(month);
-                        winners.CityId =c.CityId;
+                        winners.CityId = c.CityId;
                         winners.GiftId = MonthGift;
                         winners.UserEmail = userPlace.Key;
                         db.tblGiftCompetition.Add(winners);
@@ -105,9 +105,8 @@ namespace SmarTrash.Controllers
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
-                var rand = new Random();
-                var gift = db.tblGift.AsEnumerable().OrderBy(r => rand.Next()).Take(1).ToList();
-
+                MonthGift = db.tblSelectedMonthGift.Where(x => x.YearGift == DateTime.Now.Year && x.MonthGift == DateTime.Now.Month).Select(i => i.MonthGift).FirstOrDefault();
+                var gift = db.tblGift.Where(x =>x.GiftId == MonthGift);
                 tblGift MGift = new tblGift();
                 MGift.GiftId = gift.First().GiftId;
                 MGift.GiftName = gift.First().GiftName;

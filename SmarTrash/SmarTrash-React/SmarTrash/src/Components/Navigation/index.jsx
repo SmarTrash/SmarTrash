@@ -15,6 +15,7 @@ import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
 import ReceptBin from '../../screens/ThrowGarbage/ReceptBin';
 import ThrowPoints from '../../screens/ThrowGarbage/ThrowPoints';
 import CompetitionList from '../../screens/Competition/CompetitionList';
+import CameraScreen from '../../screens/CameraScreen/CameraScreen';
 
 
 
@@ -25,7 +26,7 @@ const Navigation = () => {
   return (
 
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="SignInScreen" >
+      <Stack.Navigator initialRouteName="EditProfile" >
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
@@ -40,6 +41,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="ReceptBin" component={ReceptBin} />
         <Stack.Screen options={{ headerShown: false }} name="ThrowPoints" component={ThrowPoints} />
         <Stack.Screen options={{ headerShown: false }} name="CompetitionList" component={CompetitionList} />
+        <Stack.Screen options={{ headerShown: false }} name="CameraScreen" component={CameraScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

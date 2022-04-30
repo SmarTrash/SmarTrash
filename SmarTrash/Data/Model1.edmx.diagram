@@ -34,6 +34,8 @@
         <AssociationConnector Association="SmarTrashModel.FK__tblScanPr__UserE__30F848ED" ManuallyRouted="false" />
         <AssociationConnector Association="SmarTrashModel.FK__tblSpecif__Weigh__412EB0B6" ManuallyRouted="false" />
         <AssociationConnector Association="SmarTrashModel.FK__tblSpecif__CityI__5165187F" />
+        <EntityTypeShape EntityType="SmarTrashModel.tblSelectedMonthGift" Width="1.5" PointX="5.25" PointY="4.375" />
+        <AssociationConnector Association="SmarTrashModel.FK__tblSelect__IdMon__59063A47" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

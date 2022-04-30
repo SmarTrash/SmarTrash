@@ -37,6 +37,7 @@ namespace Data
         public Nullable<System.DateTime> LastGameDate { get; set; }
         public Nullable<int> CityId { get; set; }
         public string UserImg { get; set; }
+        public string UserToken { get; set; }
     
         public virtual tblCity tblCity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -104,6 +104,14 @@
           <Property Name="UserEmail" Type="varchar" MaxLength="150" />
           <Property Name="ProductCode" Type="int" />
         </EntityType>
+        <EntityType Name="tblSelectedMonthGift">
+          <Key>
+            <PropertyRef Name="IdMonthGift" />
+          </Key>
+          <Property Name="IdMonthGift" Type="int" Nullable="false" />
+          <Property Name="MonthGift" Type="int" Nullable="false" />
+          <Property Name="YearGift" Type="int" />
+        </EntityType>
         <EntityType Name="tblSpecificBin">
           <Key>
             <PropertyRef Name="BinQRId" />
@@ -134,6 +142,7 @@
           <Property Name="LastGameDate" Type="date" />
           <Property Name="CityId" Type="int" />
           <Property Name="UserImg" Type="nvarchar" MaxLength="255" />
+          <Property Name="UserToken" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="tblWeight">
           <Key>
@@ -286,6 +295,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tblSelect__IdMon__5BE2A6F2">
+          <End Role="tblGift" Type="Self.tblGift" Multiplicity="1" />
+          <End Role="tblSelectedMonthGift" Type="Self.tblSelectedMonthGift" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblGift">
+              <PropertyRef Name="GiftId" />
+            </Principal>
+            <Dependent Role="tblSelectedMonthGift">
+              <PropertyRef Name="IdMonthGift" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tblSpecif__BinTy__403A8C7D">
           <End Role="tblBinType" Type="Self.tblBinType" Multiplicity="0..1" />
           <End Role="tblSpecificBin" Type="Self.tblSpecificBin" Multiplicity="*" />
@@ -345,6 +366,7 @@
           <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblProduct" EntityType="Self.tblProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblScanProduct" EntityType="Self.tblScanProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSelectedMonthGift" EntityType="Self.tblSelectedMonthGift" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSpecificBin" EntityType="Self.tblSpecificBin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblWeight" EntityType="Self.tblWeight" Schema="dbo" store:Type="Tables" />
@@ -395,6 +417,10 @@
           <AssociationSet Name="FK__tblScanPr__UserE__30F848ED" Association="Self.FK__tblScanPr__UserE__30F848ED">
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblScanProduct" EntitySet="tblScanProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSelect__IdMon__5BE2A6F2" Association="Self.FK__tblSelect__IdMon__5BE2A6F2">
+            <End Role="tblGift" EntitySet="tblGift" />
+            <End Role="tblSelectedMonthGift" EntitySet="tblSelectedMonthGift" />
           </AssociationSet>
           <AssociationSet Name="FK__tblSpecif__BinTy__403A8C7D" Association="Self.FK__tblSpecif__BinTy__403A8C7D">
             <End Role="tblBinType" EntitySet="tblBinType" />
@@ -485,6 +511,7 @@
           <NavigationProperty Name="tblGiftCompetition" Relationship="Self.FK__tblGiftCo__GiftI__3C69FB99" FromRole="tblGift" ToRole="tblGiftCompetition" />
           <NavigationProperty Name="tblOrder" Relationship="Self.FK__tblOrder__GiftCo__29572725" FromRole="tblGift" ToRole="tblOrder" />
           <Property Name="GiftImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblSelectedMonthGift" Relationship="SmarTrashModel.FK__tblSelect__IdMon__59063A47" FromRole="tblGift" ToRole="tblSelectedMonthGift" />
         </EntityType>
         <EntityType Name="tblGiftCompetition">
           <Key>
@@ -577,6 +604,7 @@
           <NavigationProperty Name="tblOrder" Relationship="Self.FK__tblOrder__UserEm__2A4B4B5E" FromRole="tblUser" ToRole="tblOrder" />
           <NavigationProperty Name="tblScanProduct" Relationship="Self.FK__tblScanPr__UserE__30F848ED" FromRole="tblUser" ToRole="tblScanProduct" />
           <Property Name="UserImg" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserToken" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblWeight">
           <Key>
@@ -844,6 +872,11 @@
             <End Role="tblCity" EntitySet="tblCity" />
             <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
           </AssociationSet>
+          <EntitySet Name="tblSelectedMonthGift" EntityType="SmarTrashModel.tblSelectedMonthGift" />
+          <AssociationSet Name="FK__tblSelect__IdMon__59063A47" Association="SmarTrashModel.FK__tblSelect__IdMon__59063A47">
+            <End Role="tblGift" EntitySet="tblGift" />
+            <End Role="tblSelectedMonthGift" EntitySet="tblSelectedMonthGift" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK__tblSpecif__CityI__5165187F">
           <End Type="SmarTrashModel.tblCity" Role="tblCity" Multiplicity="0..1" />
@@ -854,6 +887,27 @@
             </Principal>
             <Dependent Role="tblSpecificBin">
               <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblSelectedMonthGift">
+          <Key>
+            <PropertyRef Name="IdMonthGift" />
+          </Key>
+          <Property Name="IdMonthGift" Type="Int32" Nullable="false" />
+          <Property Name="MonthGift" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="tblGift" Relationship="SmarTrashModel.FK__tblSelect__IdMon__59063A47" FromRole="tblSelectedMonthGift" ToRole="tblGift" />
+          <Property Name="YearGift" Type="Int32" />
+        </EntityType>
+        <Association Name="FK__tblSelect__IdMon__59063A47">
+          <End Type="SmarTrashModel.tblGift" Role="tblGift" Multiplicity="1" />
+          <End Type="SmarTrashModel.tblSelectedMonthGift" Role="tblSelectedMonthGift" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblGift">
+              <PropertyRef Name="GiftId" />
+            </Principal>
+            <Dependent Role="tblSelectedMonthGift">
+              <PropertyRef Name="IdMonthGift" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -999,6 +1053,7 @@
           <ScalarProperty Name="LastGameDate" ColumnName="LastGameDate" />
           <ScalarProperty Name="CityId" ColumnName="CityId" />
           <ScalarProperty Name="UserImg" ColumnName="UserImg" />
+          <ScalarProperty Name="UserToken" ColumnName="UserToken" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1007,6 +1062,15 @@
         <MappingFragment StoreEntitySet="tblWeight">
           <ScalarProperty Name="WeightId" ColumnName="WeightId" />
           <ScalarProperty Name="CurrentWeight" ColumnName="CurrentWeight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSelectedMonthGift">
+      <EntityTypeMapping TypeName="IsTypeOf(SmarTrashModel.tblSelectedMonthGift)">
+        <MappingFragment StoreEntitySet="tblSelectedMonthGift">
+          <ScalarProperty Name="YearGift" ColumnName="YearGift" />
+                <ScalarProperty Name="IdMonthGift" ColumnName="IdMonthGift" />
+          <ScalarProperty Name="MonthGift" ColumnName="MonthGift" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

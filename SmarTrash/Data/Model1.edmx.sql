@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/03/2022 20:23:53
--- Generated from EDMX file: C:\Users\lital\OneDrive\שולחן העבודה\SmarTrash\SmarTrash\Data\Model1.edmx
+-- Date Created: 04/30/2022 13:18:44
+-- Generated from EDMX file: C:\Users\USER\Desktop\לימודים\שנה ג'\סמסטר א'\פרוייקט גמר\SmarTrash\SmarTrash\SmarTrash\Data\Model1.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,11 +17,11 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK__tblProduc__BinTy__2E1BDC42]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblProduct] DROP CONSTRAINT [FK__tblProduc__BinTy__2E1BDC42];
+IF OBJECT_ID(N'[dbo].[FK__tblCurren__BinQR__440B1D61]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblCurrentThrow] DROP CONSTRAINT [FK__tblCurren__BinQR__440B1D61];
 GO
-IF OBJECT_ID(N'[dbo].[FK__tblSpecif__BinTy__403A8C7D]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblSpecificBin] DROP CONSTRAINT [FK__tblSpecif__BinTy__403A8C7D];
+IF OBJECT_ID(N'[dbo].[FK__tblCurren__UserE__44FF419A]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblCurrentThrow] DROP CONSTRAINT [FK__tblCurren__UserE__44FF419A];
 GO
 IF OBJECT_ID(N'[dbo].[FK__tblGift__GiftCat__25869641]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblGift] DROP CONSTRAINT [FK__tblGift__GiftCat__25869641];
@@ -29,29 +29,23 @@ GO
 IF OBJECT_ID(N'[dbo].[FK__tblGiftCo__CityI__3B75D760]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblGiftCompetition] DROP CONSTRAINT [FK__tblGiftCo__CityI__3B75D760];
 GO
-IF OBJECT_ID(N'[dbo].[FK__tblOrder__City__2B3F6F97]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblOrder] DROP CONSTRAINT [FK__tblOrder__City__2B3F6F97];
-GO
-IF OBJECT_ID(N'[dbo].[FK__tblUser__CityId__21B6055D]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblUser] DROP CONSTRAINT [FK__tblUser__CityId__21B6055D];
-GO
-IF OBJECT_ID(N'[dbo].[FK__tblCurren__BinQR__440B1D61]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblCurrentThrow] DROP CONSTRAINT [FK__tblCurren__BinQR__440B1D61];
-GO
-IF OBJECT_ID(N'[dbo].[FK__tblCurren__UserE__44FF419A]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblCurrentThrow] DROP CONSTRAINT [FK__tblCurren__UserE__44FF419A];
-GO
 IF OBJECT_ID(N'[dbo].[FK__tblGiftCo__GiftI__3C69FB99]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblGiftCompetition] DROP CONSTRAINT [FK__tblGiftCo__GiftI__3C69FB99];
-GO
-IF OBJECT_ID(N'[dbo].[FK__tblOrder__GiftCo__29572725]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblOrder] DROP CONSTRAINT [FK__tblOrder__GiftCo__29572725];
 GO
 IF OBJECT_ID(N'[dbo].[FK__tblGiftCo__UserE__3D5E1FD2]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblGiftCompetition] DROP CONSTRAINT [FK__tblGiftCo__UserE__3D5E1FD2];
 GO
+IF OBJECT_ID(N'[dbo].[FK__tblOrder__City__2B3F6F97]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblOrder] DROP CONSTRAINT [FK__tblOrder__City__2B3F6F97];
+GO
+IF OBJECT_ID(N'[dbo].[FK__tblOrder__GiftCo__29572725]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblOrder] DROP CONSTRAINT [FK__tblOrder__GiftCo__29572725];
+GO
 IF OBJECT_ID(N'[dbo].[FK__tblOrder__UserEm__2A4B4B5E]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblOrder] DROP CONSTRAINT [FK__tblOrder__UserEm__2A4B4B5E];
+GO
+IF OBJECT_ID(N'[dbo].[FK__tblProduc__BinTy__2E1BDC42]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblProduct] DROP CONSTRAINT [FK__tblProduc__BinTy__2E1BDC42];
 GO
 IF OBJECT_ID(N'[dbo].[FK__tblScanPr__Produ__31EC6D26]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblScanProduct] DROP CONSTRAINT [FK__tblScanPr__Produ__31EC6D26];
@@ -59,11 +53,20 @@ GO
 IF OBJECT_ID(N'[dbo].[FK__tblScanPr__UserE__30F848ED]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblScanProduct] DROP CONSTRAINT [FK__tblScanPr__UserE__30F848ED];
 GO
-IF OBJECT_ID(N'[dbo].[FK__tblSpecif__Weigh__412EB0B6]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblSpecificBin] DROP CONSTRAINT [FK__tblSpecif__Weigh__412EB0B6];
+IF OBJECT_ID(N'[dbo].[FK__tblSelect__IdMon__59063A47]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblSelectedMonthGift] DROP CONSTRAINT [FK__tblSelect__IdMon__59063A47];
+GO
+IF OBJECT_ID(N'[dbo].[FK__tblSpecif__BinTy__403A8C7D]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblSpecificBin] DROP CONSTRAINT [FK__tblSpecif__BinTy__403A8C7D];
 GO
 IF OBJECT_ID(N'[dbo].[FK__tblSpecif__CityI__5165187F]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblSpecificBin] DROP CONSTRAINT [FK__tblSpecif__CityI__5165187F];
+GO
+IF OBJECT_ID(N'[dbo].[FK__tblSpecif__Weigh__412EB0B6]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblSpecificBin] DROP CONSTRAINT [FK__tblSpecif__Weigh__412EB0B6];
+GO
+IF OBJECT_ID(N'[dbo].[FK__tblUser__CityId__21B6055D]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[tblUser] DROP CONSTRAINT [FK__tblUser__CityId__21B6055D];
 GO
 
 -- --------------------------------------------------
@@ -99,6 +102,9 @@ IF OBJECT_ID(N'[dbo].[tblProduct]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[tblScanProduct]', 'U') IS NOT NULL
     DROP TABLE [dbo].[tblScanProduct];
+GO
+IF OBJECT_ID(N'[dbo].[tblSelectedMonthGift]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[tblSelectedMonthGift];
 GO
 IF OBJECT_ID(N'[dbo].[tblSpecificBin]', 'U') IS NOT NULL
     DROP TABLE [dbo].[tblSpecificBin];
@@ -143,8 +149,7 @@ GO
 -- Creating table 'tblCity'
 CREATE TABLE [dbo].[tblCity] (
     [CityId] int IDENTITY(1,1) NOT NULL,
-    [CityName] nvarchar(255)  NULL,
-    [YeshuvName] nvarchar(50)  NULL
+    [CityName] nvarchar(255)  NULL
 );
 GO
 
@@ -185,9 +190,6 @@ GO
 -- Creating table 'tblOrder'
 CREATE TABLE [dbo].[tblOrder] (
     [OrderNumber] int IDENTITY(1,1) NOT NULL,
-    [StreetName] nvarchar(20)  NOT NULL,
-    [HouseNumber] nvarchar(10)  NOT NULL,
-    [PostalCode] int  NOT NULL,
     [OrderPhone] char(10)  NOT NULL,
     [GiftCode] int  NULL,
     [UserEmail] varchar(150)  NULL,
@@ -241,7 +243,8 @@ CREATE TABLE [dbo].[tblUser] (
     [StreetNameAndNumber] nvarchar(255)  NULL,
     [LastGameDate] datetime  NULL,
     [CityId] int  NULL,
-    [UserImg] nvarchar(255)  NULL
+    [UserImg] nvarchar(255)  NULL,
+    [UserToken] nvarchar(300)  NULL
 );
 GO
 
@@ -249,6 +252,13 @@ GO
 CREATE TABLE [dbo].[tblWeight] (
     [WeightId] int IDENTITY(1,1) NOT NULL,
     [CurrentWeight] float  NULL
+);
+GO
+
+-- Creating table 'tblSelectedMonthGift'
+CREATE TABLE [dbo].[tblSelectedMonthGift] (
+    [IdMonthGift] int  NOT NULL,
+    [MonthGift] tinyint  NOT NULL
 );
 GO
 
@@ -332,6 +342,12 @@ GO
 ALTER TABLE [dbo].[tblWeight]
 ADD CONSTRAINT [PK_tblWeight]
     PRIMARY KEY CLUSTERED ([WeightId] ASC);
+GO
+
+-- Creating primary key on [IdMonthGift] in table 'tblSelectedMonthGift'
+ALTER TABLE [dbo].[tblSelectedMonthGift]
+ADD CONSTRAINT [PK_tblSelectedMonthGift]
+    PRIMARY KEY CLUSTERED ([IdMonthGift] ASC);
 GO
 
 -- --------------------------------------------------
@@ -570,6 +586,15 @@ GO
 CREATE INDEX [IX_FK__tblSpecif__CityI__5165187F]
 ON [dbo].[tblSpecificBin]
     ([CityId]);
+GO
+
+-- Creating foreign key on [IdMonthGift] in table 'tblSelectedMonthGift'
+ALTER TABLE [dbo].[tblSelectedMonthGift]
+ADD CONSTRAINT [FK__tblSelect__IdMon__59063A47]
+    FOREIGN KEY ([IdMonthGift])
+    REFERENCES [dbo].[tblGift]
+        ([GiftId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- --------------------------------------------------

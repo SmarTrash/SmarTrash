@@ -11,6 +11,52 @@ namespace SmarTrash.Controllers
 {
     public class HomePageController : ApiController
     {
+        // GET: api/HomePage/5
+        [Route("api/HomePage/HomePageDetails")]
+        [HttpPost]
+        //מקבל מייל ומחזיר את הפרטים שלו שצריך לדף הבית
+        public IHttpActionResult HomePageDetails([FromBody] tblUser u)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                var log = db.tblUser.Where(x => x.UserEmail == u.UserEmail && x.Password == u.Password).FirstOrDefault();
+                if (log == null)
+                {
+                    return Ok(new { status = 404, isSuccess = false, message = "משתמש לא קיים במערכת", });
+                }
+                var User = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+                int lastPoints = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault().ThrowPoints;
+                int userInComp = GetUserPlaceInCompetition(User);
+
+                dynamic userDetails = db.tblUser.Where(x => x.UserEmail == u.UserEmail).Select(y => new
+                {
+                    First = y.FirstName,
+                    Last = y.LastName,
+                    birthDate = y.BirthDate,
+                    cityId = y.CityId,
+                    gender = y.Gender,
+                    phone = y.Phone,
+                    streetNum = y.StreetNameAndNumber,
+                    Img = y.UserImg,
+                    Points = y.TotalPoints,
+                    lastThrow = lastPoints,
+                    competitionPlace = userInComp
+                }).ToList();
+
+                return Ok(userDetails);
+
+
+            }
+
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+
+
         // GET: api/HomePage
         //מפעיל את הפונקציה של הטופ 3 ומביא את כל הפרטים שלהן מטבלת הטבות
         [HttpGet]
@@ -67,36 +113,6 @@ namespace SmarTrash.Controllers
             }
         }
 
-        // GET: api/HomePage/5
-        [Route("api/HomePage/HomePageDetails")]
-        [HttpPost]
-        //מקבל מייל ומחזיר את הפרטים שלו שצריך לדף הבית
-        public IHttpActionResult HomePageDetails([FromBody] tblUser u)
-        {
-            try
-            {
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                var User = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
-                int lastPoints = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault().ThrowPoints;
-                int userInComp = GetUserPlaceInCompetition(User);
-
-                dynamic userDetails = db.tblUser.Where(x => x.UserEmail == u.UserEmail).Select(y => new
-                {
-                    First = y.FirstName,
-                    Last = y.LastName,
-                    Img = y.UserImg,
-                    Points = y.TotalPoints,
-                    lastThrow = lastPoints,
-                    competitionPlace = userInComp
-                }).ToList();
-
-                return Ok(userDetails);
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex);
-            }
-        }
 
         //מקבל מייל ומחזיר את המקום שלו בתחרות החודשית באזור שלו. מופעלת בפונקציה הקודמת
         public int GetUserPlaceInCompetition(tblUser u)

@@ -56,8 +56,8 @@ namespace SmarTrash.Controllers
             }
         }
 
-                // GET api/Gift/GetGiftsByCategory/{c}
-                [HttpGet]
+        // GET api/Gift/GetGiftsByCategory/{c}
+        [HttpGet]
         [Route("api/Gift/GetGiftsByCategory/{c}")]
         // מביא את כל ההטבות של קטגוריה מסוימת
         public IHttpActionResult GetGiftsByCategory(int c)
@@ -89,8 +89,8 @@ namespace SmarTrash.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
         }
-            // GET api/Gift/GetGiftsByCategory/{gift}
-       [HttpGet]
+        // GET api/Gift/GetGiftsByCategory/{gift}
+        [HttpGet]
         [Route("api/Gift/GetSpecificGift/{gift}")]
         // מביא את הפרטים של הטבה מסויימת
         public IHttpActionResult GetSpecificGift(int gift)
@@ -117,7 +117,7 @@ namespace SmarTrash.Controllers
                 return Content(HttpStatusCode.BadRequest, ex);
             }
 
-            
+
         }
 
 
@@ -159,39 +159,39 @@ namespace SmarTrash.Controllers
         // בודק אם למשתמש יש מספיק נקודות להזמנת ההטבה
         public bool AbleToOrder(int g, [FromBody] tblUser u)
         {
-           
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();  
-                tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
-                if (user.TotalPoints >= gift.Price)
-                {
-                    return true;
-                }
-                return false;
+
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();
+            tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+            if (user.TotalPoints >= gift.Price)
+            {
+                return true;
+            }
+            return false;
         }
 
         // GET: api/Gift/ShippingDetails/{g}
         [HttpPost]
         [Route("api/Gift/ShippingDetails/{g}")]
         //מקבל מייל ומחזיר את פרטי המשלוח שלו, הנקודות שלו ומחיר ההטבה
-        public IHttpActionResult ShippingDetails(int g,[FromBody] tblUser u)
+        public IHttpActionResult ShippingDetails(int g, [FromBody] tblUser u)
         {
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
                 tblGift gift = db.tblGift.Where(y => y.GiftId == g).FirstOrDefault();
                 var shippingDetails = (from users in db.tblUser
-                              join cities in db.tblCity
-                              on users.CityId  equals cities.CityId 
-                              where users.UserEmail == u.UserEmail
-                              select new
-                              {
-                                  StreetNameAndNumber = users.StreetNameAndNumber,
-                                  city = cities.CityName,
-                                  Phone = users.Phone,
-                                  points= users.TotalPoints,
-                                  price= gift.Price,
-                              }).ToList();
+                                       join cities in db.tblCity
+                                       on users.CityId equals cities.CityId
+                                       where users.UserEmail == u.UserEmail
+                                       select new
+                                       {
+                                           StreetNameAndNumber = users.StreetNameAndNumber,
+                                           city = cities.CityName,
+                                           Phone = users.Phone,
+                                           points = users.TotalPoints,
+                                           price = gift.Price,
+                                       }).ToList();
                 return Ok(shippingDetails);
             }
             catch (Exception ex)

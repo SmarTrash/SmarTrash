@@ -1,21 +1,28 @@
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image, TouchableOpacity } from 'react-native'
 import React, { useState, useContext, useEffect } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import BottomSheet from '../../Components/BottomSheet/BottomSheet';
+import { Provider } from 'react-native-paper';
 
+BottomSheet
 const { width } = Dimensions.get('screen');
+BottomSheet
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 
-const EditProfile = ({ navigation }) => {
+const EditProfile = ({ navigation,route }) => {
+
+  const newImage = route.params;
+
   const { userEmail, selectedCity } = useContext(GlobalContext);
   const [userDetails, setUserDetails] = useState('');
   const [changeSave, setChangeSave] = useState('');
@@ -28,8 +35,8 @@ const EditProfile = ({ navigation }) => {
   const [birthDate, setBirthDate] = useState('');
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
-  const [image, setImage] = useState('')
-
+  const [image, setImage] = useState('');
+  const [show, setShow] = useState(false)
   useEffect(() => {
     userDetailsPlaceHolder();
   }, []);
@@ -56,7 +63,7 @@ const EditProfile = ({ navigation }) => {
         data.map(st => setUserDetails(st), console.log("userD", userDetails))
 
       });
-      setFirstName(userDetails.FirstName),
+    setFirstName(userDetails.FirstName),
       setLastName(userDetails.LastName),
       setPhone(userDetails.Phone),
       setChecked(userDetails.Gender),
@@ -67,9 +74,6 @@ const EditProfile = ({ navigation }) => {
     setUserDetails(userDetails)
 
   }
-
-
-
   const newUser = {
     UserEmail: "",
     Password: "",
@@ -82,8 +86,6 @@ const EditProfile = ({ navigation }) => {
     CityId: "",
     Image: image
   };
-
-
   newUser.UserEmail = userEmail;
   newUser.FirstName = firstName;
   newUser.LastName = lastName;
@@ -139,22 +141,34 @@ const EditProfile = ({ navigation }) => {
           console.log("err del=", error);
         });
   }
+  // const openOptions = () => {
+
+  // }
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+<Provider>
+    <ScrollView showsVerticalScrollIndicator={false}> 
       <View style={styles.root}>
         <Text style={styles.title}>עריכת פרטים אישיים</Text>
-
-        <View style={{ alignSelf: 'center' }}>
-          <View style={styles.profileImage}>
-            <Image
-              style={styles.image}
-              source={{ uri: image }} />
+         
+          <View style={{ alignSelf: 'center' }}>
+          <TouchableOpacity onPress={() => setShow(true)}>
+              <View style={styles.profileImage}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: 'https://i1.sndcdn.com/artworks-000354908502-csxtn2-t500x500.jpg' }} />
+              </View>
+            </TouchableOpacity >
+            <View style={styles.edit}>
+              <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
+            </View>
+            <BottomSheet
+              show={show} 
+              onDismiss={() => {
+                setShow(false);
+              }}
+            ></BottomSheet>
           </View>
-          <View style={styles.edit}>
-            <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
-          </View>
-        </View>
-
+       
         <CustomInput
           placeholder={firstName}
           value={firstName}
@@ -179,7 +193,6 @@ const EditProfile = ({ navigation }) => {
           value={phone}
           setValue={setPhone}
         />
-
         <CustomInput
           placeholder={streetNum}
           value={streetNum}
@@ -243,6 +256,7 @@ const EditProfile = ({ navigation }) => {
         </View>
       </View>
     </ScrollView>
+ </Provider>
   )
 }
 

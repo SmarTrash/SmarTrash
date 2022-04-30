@@ -28,11 +28,12 @@ export default function Home({ navigation }) {
     if (checked) {
       storeData(newUser)
     }
-    // else{
-    //   removeData(newUser)
-    // }
+    else{
+      removeData(newUser)
+    }
   
   });
+
 
   const storeData = async (value) => {
     try {
