@@ -27,8 +27,11 @@
     "directory": "^0.1.0",
     "expo": "~44.0.0",
     "expo-asset": "~8.4.6",
+    "expo-camera": "~12.1.2",
     "expo-checkbox": "~2.0.0",
     "expo-cli": "^5.3.0",
+    "expo-constants": "^13.0.2",
+    "expo-notifications": "^0.14.1",
     "expo-status-bar": "~1.2.0",
     "link": "^0.1.5",
     "react": "17.0.1",
@@ -58,8 +61,7 @@
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
-    "validator": "^13.7.0",
-    "expo-camera": "~12.1.2"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

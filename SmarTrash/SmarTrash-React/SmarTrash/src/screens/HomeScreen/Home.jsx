@@ -7,7 +7,10 @@ import SmallCard from '../../Components/Card/SmallCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import COLORS from '../../Consts/colors'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
-
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+import { Platform } from 'react-native';
+import registerForPushNotificationsAsync from '../../Components/PushNotification/PushNotification'
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
@@ -30,47 +33,14 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     onScreenLoad();
-<<<<<<< Updated upstream
-    if (checked) {
-      storeData(newUser)
-    }
-    else{
-      removeData(newUser)
-    }
-=======
-    const getData = async () => {
-        try {
-          const jsonValue = await AsyncStorage.getItem('@storage_Key')
-           jsonValue != null ? JSON.parse(jsonValue) : null;
-          console.log(jsonValue)
-              if (value != null) {
-                navigation.navigate('Home');
-              }else{
-                navigation.navigate('SignInScreen');
-              }
-              return jsonValue;
-        } catch (error) {
-          console.log(error);
-        }
-      }}
->>>>>>> Stashed changes
+    registerForPushNotificationsAsync();
+  },[]);
   
-  );
-
-<<<<<<< Updated upstream
-
-  const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value)
-      console.log("dataaaaaa:", value);
-      await AsyncStorage.setItem('@storage_Key', jsonValue)
-=======
   // const storeData = async (value) => {
   //   try {
   //     const jsonValue = JSON.stringify(value)
   //     console.log("dataaaaaa:", value);
   //     await AsyncStorage.setItem('@storage_Key', jsonValue)
->>>>>>> Stashed changes
 
   //     navigation.navigate('Home');
   //   } catch (e) {
@@ -122,7 +92,21 @@ export default function Home({ navigation }) {
   //       console.log(error);
   //   }
   // }
-
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@storage_Key')
+       jsonValue != null ? JSON.parse(jsonValue) : null;
+      console.log(jsonValue)
+          if (value != null) {
+            navigation.navigate('Home');
+          }else{
+            navigation.navigate('SignInScreen');
+          }
+          return jsonValue;
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const onScreenLoad = () => {

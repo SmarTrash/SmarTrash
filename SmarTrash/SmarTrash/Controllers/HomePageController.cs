@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Data;
-
 
 namespace SmarTrash.Controllers
 {
@@ -26,7 +28,17 @@ namespace SmarTrash.Controllers
                     return Ok(new { status = 404, isSuccess = false, message = "משתמש לא קיים במערכת", });
                 }
                 var User = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
-                int lastPoints = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault().ThrowPoints;
+                var Points = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault();
+                int lastPoints = 0;
+                if (Points==null)
+                {
+                     lastPoints = 0;
+                }
+                else
+                {
+                   lastPoints = Points.ThrowPoints;
+                }
+                
                 int userInComp = GetUserPlaceInCompetition(User);
 
                 dynamic userDetails = db.tblUser.Where(x => x.UserEmail == u.UserEmail).Select(y => new
@@ -55,8 +67,23 @@ namespace SmarTrash.Controllers
             }
         }
 
-
-
+        [Route("api/HomePage/PostToken")]
+        [HttpPost]
+        public IHttpActionResult PostToken([FromBody] tblUser u)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+               tblUser user= db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+                user.UserToken = u.UserToken;
+                db.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
         // GET: api/HomePage
         //מפעיל את הפונקציה של הטופ 3 ומביא את כל הפרטים שלהן מטבלת הטבות
         [HttpGet]
@@ -121,6 +148,7 @@ namespace SmarTrash.Controllers
             //  רשימה של משתמשים לפי עיר לבדוק שהחודש מעודכן בSql
             var usersInCity = db.tblUser.Where(t => t.CityId == u.CityId).Select(z => z.UserEmail).ToList();
             var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == DateTime.Now.Year && y.DateThrow.Month == DateTime.Now.Month).GroupBy(i => i.UserEmail).ToList();
+
             var sums = new Dictionary<string, object>();
 
             foreach (var useriIncity in usersInCity)
@@ -186,6 +214,97 @@ namespace SmarTrash.Controllers
             {
                 return Content(HttpStatusCode.BadRequest, ex);
             }
+        }
+
+
+
+        // מעלה תמונה לשרת של רופין
+        [Route("api/HomePage/uploadpicture")]
+        public Task<HttpResponseMessage> Post()
+        {
+            //SmarTrashDBContext db = new SmarTrashDBContext();
+            //tblUser userEmail = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+
+            string outputForNir = "start---";
+            List<string> savedFilePath = new List<string>();
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            //Where to put the picture on server  ...MapPath("~/TargetDir")
+            string rootPath = HttpContext.Current.Server.MapPath("~/uploadFiles");
+            var provider = new MultipartFileStreamProvider(rootPath);
+            var task = Request.Content.ReadAsMultipartAsync(provider).
+                ContinueWith<HttpResponseMessage>(t =>
+                {
+                    if (t.IsCanceled || t.IsFaulted)
+                    {
+                        Request.CreateErrorResponse(HttpStatusCode.InternalServerError, t.Exception);
+                    }
+                    foreach (MultipartFileData item in provider.FileData)
+                    {
+                        try
+                        {
+                            outputForNir += " ---here";
+                            string name = item.Headers.ContentDisposition.FileName.Replace("\"", "");
+                            outputForNir += " ---here2=" + name;
+                            string newFileName = Path.GetFileNameWithoutExtension(name) + "_" + CreateDateTimeWithValidChars() + Path.GetExtension(name);
+                            outputForNir += " ---here3" + newFileName;
+                            //delete all files begining with the same name
+                            string[] names = Directory.GetFiles(rootPath);
+                            foreach (var fileName in names)
+                            {
+                                if (Path.GetFileNameWithoutExtension(fileName).IndexOf(Path.GetFileNameWithoutExtension(name)) != -1)
+                                {
+                                    File.Delete(fileName);
+                                }
+                            }
+
+                            //File.Move(item.LocalFileName, Path.Combine(rootPath, newFileName));
+                            File.Copy(item.LocalFileName, Path.Combine(rootPath, newFileName), true);
+                            File.Delete(item.LocalFileName);
+                            outputForNir += " ---here4";
+
+                            Uri baseuri = new Uri(Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, string.Empty));
+                            outputForNir += " ---here5";
+                            string fileRelativePath = "~/uploadFiles/" + newFileName;
+                            outputForNir += " ---here6 imageName=" + fileRelativePath;
+                            Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
+                            outputForNir += " ---here7" + fileFullPath.ToString();
+                            savedFilePath.Add(fileFullPath.ToString());
+                            //SendNewPicture(userEmail, fileFullPath.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            outputForNir += " ---excption=" + ex.Message;
+                            string message = ex.Message;
+                        }
+                    }
+
+                    return Request.CreateResponse(HttpStatusCode.Created, "nirchen " + savedFilePath[0] + "!" + provider.FileData.Count + "!" + outputForNir + ":)");
+                });
+            return task;
+        }
+        //מקבל מייל ומעדכן את התמונה שלו
+        //private IHttpActionResult SendNewPicture([FromBody] tblUser u, string fileFullPath)
+        //{
+        //    try
+        //    {
+        //        SmarTrashDBContext db = new SmarTrashDBContext();
+        //        tblUser userToUpdate = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+        //        userToUpdate.UserImg = fileFullPath;
+        //        db.SaveChanges();
+        //        return Ok("התמונה שונתה בהצלחה");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Content(HttpStatusCode.BadRequest, ex);
+        //    }
+        //}
+        private string CreateDateTimeWithValidChars()
+        {
+            return DateTime.Now.ToString().Replace('/', ' ').Replace(':', '-').Replace(' ',' ');
         }
     }
 }

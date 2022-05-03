@@ -10,22 +10,14 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import { Provider } from 'react-native-paper';
 
-BottomSheet
+
 const { width } = Dimensions.get('screen');
-BottomSheet
+
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
-const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 
-<<<<<<< Updated upstream
-const EditProfile = ({ navigation,route }) => {
-
-  const newImage = route.params;
-
-  const { userEmail, selectedCity } = useContext(GlobalContext);
-=======
 const EditProfile = ({ navigation }) => {
   const { userEmail, selectedCity,
 
@@ -42,25 +34,12 @@ const EditProfile = ({ navigation }) => {
     userFirstName,
     userLastName,
   } = useContext(GlobalContext);
->>>>>>> Stashed changes
   const [userDetails, setUserDetails] = useState('');
   const [changeSave, setChangeSave] = useState('');
 
 
-<<<<<<< Updated upstream
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [checked, setChecked] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [password, setPassword] = useState('');
-  const [streetNum, setStreetNum] = useState('');
-  const [image, setImage] = useState('');
-  const [show, setShow] = useState(false)
-=======
 
 
->>>>>>> Stashed changes
   useEffect(() => {
     //userDetailsPlaceHolder();
   }, []);
@@ -73,55 +52,6 @@ const EditProfile = ({ navigation }) => {
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
 
 
-<<<<<<< Updated upstream
-  const userDetailsPlaceHolder = () => {
-
-    fetch(apiUrlCurrentDetails, {
-      method: 'POST',
-      body: JSON.stringify({ UserEmail: userEmail }),
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-      })
-    }).then(response => { return response.json() })
-      .then(data => {
-        data.map(st => setUserDetails(st), console.log("userD", userDetails))
-
-      });
-    setFirstName(userDetails.FirstName),
-      setLastName(userDetails.LastName),
-      setPhone(userDetails.Phone),
-      setChecked(userDetails.Gender),
-      setBirthDate(userDetails.BirthDate),
-      setPassword(userDetails.Password),
-      setStreetNum(userDetails.StreetNameAndNumber),
-      setImage(userDetails.UserImg)
-    setUserDetails(userDetails)
-
-  }
-  const newUser = {
-    UserEmail: "",
-    Password: "",
-    FirstName: "",
-    LastName: "",
-    Phone: "",
-    Gender: "",
-    BirthDate: "",
-    StreetNameAndNumber: "",
-    CityId: "",
-    Image: image
-  };
-  newUser.UserEmail = userEmail;
-  newUser.FirstName = firstName;
-  newUser.LastName = lastName;
-  newUser.Phone = phone;
-  newUser.Gender = checked;
-  newUser.BirthDate = birthDate;
-  newUser.Password = password;
-  newUser.StreetNameAndNumber = streetNum;
-  newUser.CityId = selectedCity;
-  newUser.Image = userDetails.UserImg;
-=======
   // const userDetailsPlaceHolder = () => {
 
   //   fetch(apiUrlCurrentDetails, {
@@ -148,7 +78,6 @@ const EditProfile = ({ navigation }) => {
   //   setUserDetails(userDetails)
 
   // }
->>>>>>> Stashed changes
 
   const userChangeSave = () => {
     const newUser = {
@@ -215,26 +144,6 @@ const EditProfile = ({ navigation }) => {
     <ScrollView showsVerticalScrollIndicator={false}> 
       <View style={styles.root}>
         <Text style={styles.title}>עריכת פרטים אישיים</Text>
-<<<<<<< Updated upstream
-         
-          <View style={{ alignSelf: 'center' }}>
-          <TouchableOpacity onPress={() => setShow(true)}>
-              <View style={styles.profileImage}>
-                <Image
-                  style={styles.image}
-                  source={{ uri: 'https://i1.sndcdn.com/artworks-000354908502-csxtn2-t500x500.jpg' }} />
-              </View>
-            </TouchableOpacity >
-            <View style={styles.edit}>
-              <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
-            </View>
-            <BottomSheet
-              show={show} 
-              onDismiss={() => {
-                setShow(false);
-              }}
-            ></BottomSheet>
-=======
 
         <View style={{ alignSelf: 'center' }}>
           <View style={styles.profileImage}>
@@ -244,9 +153,8 @@ const EditProfile = ({ navigation }) => {
           </View>
           <View style={styles.edit}>
             <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
->>>>>>> Stashed changes
           </View>
-       
+          </View>
         <CustomInput
           placeholder={userFirstName}
           value={userFirstName}
