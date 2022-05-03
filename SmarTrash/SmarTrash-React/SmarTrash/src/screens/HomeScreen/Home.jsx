@@ -30,14 +30,6 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     onScreenLoad();
-<<<<<<< Updated upstream
-    if (checked) {
-      storeData(newUser)
-    }
-    else{
-      removeData(newUser)
-    }
-=======
     const getData = async () => {
         try {
           const jsonValue = await AsyncStorage.getItem('@storage_Key')
@@ -53,24 +45,14 @@ export default function Home({ navigation }) {
           console.log(error);
         }
       }}
->>>>>>> Stashed changes
   
   );
 
-<<<<<<< Updated upstream
-
-  const storeData = async (value) => {
-    try {
-      const jsonValue = JSON.stringify(value)
-      console.log("dataaaaaa:", value);
-      await AsyncStorage.setItem('@storage_Key', jsonValue)
-=======
   // const storeData = async (value) => {
   //   try {
   //     const jsonValue = JSON.stringify(value)
   //     console.log("dataaaaaa:", value);
   //     await AsyncStorage.setItem('@storage_Key', jsonValue)
->>>>>>> Stashed changes
 
   //     navigation.navigate('Home');
   //   } catch (e) {

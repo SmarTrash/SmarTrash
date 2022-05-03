@@ -69,7 +69,6 @@ const useCamera = ({ navigation }) => {
                     style={styles.picture} />}
 
             </View>
-            <UploadImage />
         </View>
     );
 }
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
     camera: {
         //הפלקס בוחר את הגודל של המצלמה
         flex: 0.7,
-        width: 400,
+        width: 415,
     },
     buttonContainer: {
         flex: 1,

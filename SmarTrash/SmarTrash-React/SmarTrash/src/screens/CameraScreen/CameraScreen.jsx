@@ -6,47 +6,45 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
-const cardWidth = width;
+const cardWidth = width ;
 const cardHeight = height;
-
-
 
 const CameraScreen = () => {
 
   const { userImg } = useContext(GlobalContext);
 
   const uploadImage = () => {
-    console.log("the user image id: ",userImg)
+    console.log("pressed")
     imageUpload(userImg,'userPicture.jpg')
   }
-  const imageUpload = (imgUri, picName) => {
+  const imageUpload = (userImg, picName) => {
 
-    let urlAPI = "http://.../site01/uploadpicture";
+    let urlAPI = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture';
     let dataI = new FormData();
 
     dataI.append('picture', {
-      uri: imgUri,
+      uri: userImg,
       name: picName,
       type: 'image/jpg'
     });
+
     const config = {
       method: 'POST',
       body: dataI,
     }
+    
     fetch(urlAPI, config)
-      .then((res) => {
-        if (res.status == 201) { return res.json(); }
+      .then((res) => { 
+        if (res.status == 201) { return res.json(),console.log("res.status= ",res.status) ;}
         else { return "err"; }
       })
       .then((responseData) => {
+        console.log("responseData= ",responseData)
         if (responseData != "err") {
           let picNameWOExt = picName.substring(0, picName.indexOf("."));
           let imageNameWithGUID = responseData.substring(responseData.indexOf(picNameWOExt),
             responseData.indexOf(".jpg") + 4);
-          this.setState({
-            uplodedPicUri: { uri: this.uplodedPicPath + imageNameWithGUID },
-          });
-          console.log("img uploaded successfully!");
+          console.log("\n img uploaded successfully!");
         }
         else { alert('error uploding ...'); }
       })
@@ -55,7 +53,6 @@ const CameraScreen = () => {
   return (
     <View>
       <View style={styles.root}>
-        <Text>CameraScreen</Text>
         <Camera />
         <View style={styles.savePic}>
           <CustonButton
@@ -75,7 +72,6 @@ export default CameraScreen
 const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
-    padding: 20,
     backgroundColor: 'white',
     width: cardWidth,
     height: cardHeight,
