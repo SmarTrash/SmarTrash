@@ -24,7 +24,7 @@ namespace SmarTrash
 
             timer.Interval = 1000 * 60 * 60 * 24;
             timer.Elapsed += tm_Tick;
-
+            //לשאול את ניר
             timer.Enabled = true;
             timer.AutoReset = true;
             timer.Start();

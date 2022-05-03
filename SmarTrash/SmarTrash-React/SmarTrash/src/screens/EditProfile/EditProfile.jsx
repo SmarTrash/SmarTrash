@@ -10,13 +10,12 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import { Provider } from 'react-native-paper';
 
-BottomSheet
+
 const { width } = Dimensions.get('screen');
-BottomSheet
+
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
-const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 
 const EditProfile = ({ navigation }) => {
@@ -165,7 +164,7 @@ const EditProfile = ({ navigation }) => {
               }}
             ></BottomSheet>
           </View>
-       
+          </View>
         <CustomInput
           placeholder={userFirstName}
           value={userFirstName}
@@ -251,7 +250,6 @@ const EditProfile = ({ navigation }) => {
             onPress={DeleteUser}
           />
         </View>
-      </View>
     </ScrollView>
  </Provider>
   )
