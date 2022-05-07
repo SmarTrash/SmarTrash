@@ -34,34 +34,8 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     onScreenLoad();
-<<<<<<< Updated upstream
-    const getData = async () => {
-        try {
-          const jsonValue = await AsyncStorage.getItem('@storage_Key')
-           jsonValue != null ? JSON.parse(jsonValue) : null;
-          console.log(jsonValue)
-              if (value != null) {
-                navigation.navigate('Home');
-              }else{
-                navigation.navigate('SignInScreen');
-              }
-              return jsonValue;
-        } catch (error) {
-          console.log(error);
-        }
-      }}
-  
-  );
-
-  // const storeData = async (value) => {
-  //   try {
-  //     const jsonValue = JSON.stringify(value)
-  //     console.log("dataaaaaa:", value);
-  //     await AsyncStorage.setItem('@storage_Key', jsonValue)
-=======
     registerForPushNotificationsAsync();
   }, []);
->>>>>>> Stashed changes
 
    async function registerForPushNotificationsAsync() {
     let token;
