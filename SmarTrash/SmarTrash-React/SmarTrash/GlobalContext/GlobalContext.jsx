@@ -21,7 +21,8 @@ const Provider = ({ children }) => {
     const [userCityId, setUserCityId] = useState('');
     const [userStreetNameAndNumber, setUserStreetNameAndNumber] = useState('');
     const [checked, setChecked] = useState(false);
-
+    const [userToken, setUserToken] = useState('');
+    
     const GlobalContextOrginal = {
         cities, setCities,
         selectedCity, setSelectedCity,
@@ -37,7 +38,8 @@ const Provider = ({ children }) => {
         userBirthDate, setUserBirthDate,
         userCityId, setUserCityId,
         userStreetNameAndNumber, setUserStreetNameAndNumber,
-        userEmail, setUserEmail,checked, setChecked}
+        userEmail, setUserEmail,checked, setChecked,
+        userToken, setUserToken}
         
     return (
         <GlobalContext.Provider value={GlobalContextOrginal}>

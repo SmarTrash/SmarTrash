@@ -34,7 +34,7 @@ const SignInScreen = ({ navigation }) => {
 
 
   useEffect(() => {
-    //getData()
+  // getData()
   }, []);
 
   // const getData = async () => {
@@ -108,6 +108,7 @@ const SignInScreen = ({ navigation }) => {
               setUserImg(data[0].Img)
               console.log("5555",data[0].phone);
               console.log("checked:", checked)
+
             // if (checked) {
             //  newUser.Img= userImg,
             //  newUser.Checked=checked,

@@ -58,7 +58,6 @@ namespace SmarTrash.Controllers
 
                 return Ok(userDetails);
 
-
             }
 
             catch (Exception ex)
