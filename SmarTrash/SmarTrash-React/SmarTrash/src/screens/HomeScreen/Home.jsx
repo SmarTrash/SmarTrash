@@ -222,7 +222,7 @@ export default function Home({ navigation }) {
               </View>
             </View>
             <TouchableOpacity onPress={() => {
-              navigation.navigate('ReceptBin')
+              navigation.navigate('BinCameraScreen')
             }}>
               <View>
                 <View style={[style.sortBtn, { backgroundColor: '#E5EFC1' }]}>

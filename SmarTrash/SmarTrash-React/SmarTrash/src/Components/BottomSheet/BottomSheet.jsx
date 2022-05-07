@@ -1,9 +1,10 @@
 import { View, Text, Animated, Dimensions, StyleSheet, TouchableOpacity, BottomSheetModal } from 'react-native'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef,useContext } from 'react'
 import { Colors, Portal } from 'react-native-paper';
 import COLORS from '../../Consts/colors';
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
@@ -13,7 +14,7 @@ const cardHeight = height / 1;
 const BottomSheet = ({ show, onDismiss, children }) => {
     const bottomSheetHeight = Dimensions.get('window').height * 0.25;
     const deviceWidth = Dimensions.get('window').width;
-    const [open, setOpen] = useState(show)
+    const { open, setOpen } = useContext(GlobalContext);
     const bottom = useRef(new Animated.Value(-bottomSheetHeight)).current;
     const navigation = useNavigation();
 
@@ -72,7 +73,7 @@ const BottomSheet = ({ show, onDismiss, children }) => {
                     navigation.navigate("CameraScreen")
                     console.log("pressedCamera")
                     setOpen(false);
-                    setOpen(true);
+                    
                 }}>
                     <Entypo name="camera" size={100} color={COLORS.primary} style={styles.camera} />
                     <Text style={styles.textC}>מצלמה</Text>
@@ -81,8 +82,8 @@ const BottomSheet = ({ show, onDismiss, children }) => {
                 <TouchableOpacity onPress={() => {
                     //    navigation.navigate("CameraScreen") 
                     console.log("pressedGallery")
-                    // setOpen(false);
-                    // setOpen(true);
+                    setOpen(false);
+                   
                 }}>
                     <MaterialIcons name="photo-library" size={99} color={COLORS.primary} style={styles.library} />
                     <Text style={styles.textG}>גלריה</Text>

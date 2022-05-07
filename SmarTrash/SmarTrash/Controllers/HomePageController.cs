@@ -30,15 +30,15 @@ namespace SmarTrash.Controllers
                 var User = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
                 var Points = db.tblCurrentThrow.Where(y => y.UserEmail == u.UserEmail).OrderByDescending(x => x.DateThrow).FirstOrDefault();
                 int lastPoints = 0;
-                if (Points==null)
+                if (Points == null)
                 {
-                     lastPoints = 0;
+                    lastPoints = 0;
                 }
                 else
                 {
-                   lastPoints = Points.ThrowPoints;
+                    lastPoints = Points.ThrowPoints;
                 }
-                
+
                 int userInComp = GetUserPlaceInCompetition(User);
 
                 dynamic userDetails = db.tblUser.Where(x => x.UserEmail == u.UserEmail).Select(y => new
@@ -73,7 +73,7 @@ namespace SmarTrash.Controllers
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
-               tblUser user= db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+                tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
                 user.UserToken = u.UserToken;
                 db.SaveChanges();
                 return Ok();
@@ -215,11 +215,10 @@ namespace SmarTrash.Controllers
             }
         }
 
-
-
         // מעלה תמונה לשרת של רופין
         [Route("api/HomePage/uploadpicture")]
-        public Task<HttpResponseMessage> Post()
+        [HttpPost]
+        public Task<HttpResponseMessage> Post([FromBody] tblUser u)
         {
             //SmarTrashDBContext db = new SmarTrashDBContext();
             //tblUser userEmail = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
@@ -248,8 +247,11 @@ namespace SmarTrash.Controllers
                             outputForNir += " ---here";
                             string name = item.Headers.ContentDisposition.FileName.Replace("\"", "");
                             outputForNir += " ---here2=" + name;
+
+                            //need the guid because in react native in order to refresh an inamge it has to have a new name
                             string newFileName = Path.GetFileNameWithoutExtension(name) + "_" + CreateDateTimeWithValidChars() + Path.GetExtension(name);
                             outputForNir += " ---here3" + newFileName;
+
                             //delete all files begining with the same name
                             string[] names = Directory.GetFiles(rootPath);
                             foreach (var fileName in names)
@@ -273,6 +275,8 @@ namespace SmarTrash.Controllers
                             outputForNir += " ---here7" + fileFullPath.ToString();
                             savedFilePath.Add(fileFullPath.ToString());
                             //SendNewPicture(userEmail, fileFullPath.ToString());
+
+
                         }
                         catch (Exception ex)
                         {
@@ -286,24 +290,24 @@ namespace SmarTrash.Controllers
             return task;
         }
         //מקבל מייל ומעדכן את התמונה שלו
-        //private IHttpActionResult SendNewPicture([FromBody] tblUser u, string fileFullPath)
-        //{
-        //    try
-        //    {
-        //        SmarTrashDBContext db = new SmarTrashDBContext();
-        //        tblUser userToUpdate = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
-        //        userToUpdate.UserImg = fileFullPath;
-        //        db.SaveChanges();
-        //        return Ok("התמונה שונתה בהצלחה");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Content(HttpStatusCode.BadRequest, ex);
-        //    }
-        //}
+        private IHttpActionResult SendNewPicture([FromBody] tblUser u, string userNewPicture)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                tblUser userToUpdate = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+                userToUpdate.UserImg = userNewPicture;
+                db.SaveChanges();
+                return Ok("התמונה שונתה בהצלחה");
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
         private string CreateDateTimeWithValidChars()
         {
-            return DateTime.Now.ToString().Replace('/', ' ').Replace(':', '-').Replace(' ',' ');
+            return DateTime.Now.ToString().Replace('/', ' ').Replace(':', '-').Replace(' ', ' ');
         }
     }
 }

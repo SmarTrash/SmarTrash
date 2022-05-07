@@ -35,7 +35,7 @@ export default function ThrowPoints({ navigation }) {
         <View style={style.profileImage}>
           <Image
             style={style.image}
-            source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
+            source={{ uri:userImg }} />
         </View>
       </View>
 

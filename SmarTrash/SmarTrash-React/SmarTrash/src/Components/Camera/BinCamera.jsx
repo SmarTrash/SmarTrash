@@ -3,20 +3,18 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
-import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-const useCamera = ({ navigation }) => {
 
+const BinCamera = () => {
+    const navigation = useNavigation();
     const { setUserImg, userImg } = useContext(GlobalContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [camera, setCamera] = useState(null);
     const [picUri, setPicUri] = useState(userImg);
-
-
-    setUserImg(picUri);
 
     useEffect(() => {
         (async () => {
@@ -54,10 +52,8 @@ const useCamera = ({ navigation }) => {
                                 const data = await camera.takePictureAsync(null);
                                 console.log(data.uri)
                                 setPicUri(data.uri);
-
-
                             }
-                            navigation.navigate('UploadImage', { picUri })
+                            navigation.navigate('ReceptBin')
                         }}>
                         <View >
                             <Text style={styles.text}> צלם </Text>
@@ -65,18 +61,6 @@ const useCamera = ({ navigation }) => {
                     </TouchableOpacity>
                 </View>
             </Camera>
-            <View style={{ flex: 0.6, justifyContent: 'center' }}>
-                <Image
-                    source={{ uri: picUri }}
-                    style={styles.picture} />
-
-            </View>
-            {/* <View style={{ flex: 0.6, justifyContent: 'center' }}>
-                {picUri && <Image
-                    source={{ uri: picUri }}
-                    style={styles.picture} />}
-
-            </View> */}
         </View>
     );
 }
@@ -87,7 +71,7 @@ const styles = StyleSheet.create({
     },
     camera: {
         //הפלקס בוחר את הגודל של המצלמה
-        flex: 0.7,
+        flex: 1,
         width: 415,
     },
     buttonContainer: {
@@ -118,4 +102,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default useCamera
+export default BinCamera

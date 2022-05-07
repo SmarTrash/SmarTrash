@@ -38,7 +38,7 @@ const EditProfile = ({ navigation }) => {
   const [changeSave, setChangeSave] = useState('');
 
   const [image, setImage] = useState('');
-  const [show, setShow] = useState(false)
+  const { show, setShow,setOpen } = useContext(GlobalContext);
 
 
   useEffect(() => {
@@ -140,6 +140,10 @@ const EditProfile = ({ navigation }) => {
   // const openOptions = () => {
 
   // }
+  const ifPressOK =() =>{
+    setShow(true)
+    setOpen(true)
+  }
   return (
 <Provider>
     <ScrollView showsVerticalScrollIndicator={false}> 
@@ -147,11 +151,11 @@ const EditProfile = ({ navigation }) => {
         <Text style={styles.title}>עריכת פרטים אישיים</Text>
          
           <View style={{ alignSelf: 'center' }}>
-          <TouchableOpacity onPress={() => setShow(true)}>
+          <TouchableOpacity onPress={() => ifPressOK()}>
               <View style={styles.profileImage}>
                 <Image
                   style={styles.image}
-                  source={{ uri: 'https://i1.sndcdn.com/artworks-000354908502-csxtn2-t500x500.jpg' }} />
+                  source={{ uri: userImg }} />
               </View>
             </TouchableOpacity >
             <View style={styles.edit}>

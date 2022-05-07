@@ -29,10 +29,6 @@ const SignInScreen = ({ navigation }) => {
     setUserImg,userImg,
     password, setPassword } = useContext(GlobalContext);
 
-
-  
-
-
   useEffect(() => {
   // getData()
   }, []);
