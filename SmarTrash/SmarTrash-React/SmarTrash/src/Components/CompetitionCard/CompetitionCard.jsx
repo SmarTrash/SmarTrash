@@ -1,110 +1,143 @@
-import { View, Text, StyleSheet , Dimensions } from 'react-native'
+import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Animated, } from 'react-native';
 import React from 'react'
-import {MaterialIcons } from '@expo/vector-icons';
 import COLORS from '../../Consts/colors';
+
+
+
 const { width } = Dimensions.get('screen');
-const cardWidth = width / 1.06;
+const cardWidth = width / 1.8;
 
-const CompetitionCard = () => {
+const CompetitionCard = ({index,usersPlaces}) => {
+
+
+  const scrollX = React.useRef(new Animated.Value(0)).current;
+
+  const inputRange = [
+    (index - 1) * cardWidth,
+    index * cardWidth,
+    (index + 1) * cardWidth,
+  ];
+  const opacity = scrollX.interpolate({
+    inputRange,
+    outputRange: [0.1, 0.1, 0.1],
+  });
+  const scale = scrollX.interpolate({
+    inputRange,
+    outputRange: [1, 1, 1],
+  });
+
+
   return (
-       
-   <View style={[style.topHotelCard, style.shadowProp]}>
-      <View
-        style={{
-          position: 'absolute',
-          top: 5,
-          right: 5,
-          zIndex: 1,
-          flexDirection: 'row',
-        }}>
-      <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-      </View>
-      <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 10, fontWeight: 'bold' }}>נוי אהרון</Text>
-        <Text style={{ fontSize: 7, fontWeight: 'bold', color: COLORS.grey }}>
-     8000
+    
+   
+    
+    <Animated.View style={[style.shadowProp, { ...style.card, transform: [{ scale }], marginLeft: 12 }]}>
+      <Animated.View style={{ ...style.cardOverLay, opacity }} />
+      <View style={style.priceTag}>
+        <Text
+          style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold' }}>
+          ${usersPlaces["Key"]}
         </Text>
-      </View>
-      <View style={[style.topHotelCard, style.shadowProp]}>
-      <View
-        style={{
-          position: 'absolute',
-          top: 5,
-          right: 5,
-          zIndex: 1,
-          flexDirection: 'row',
-        }}>
-      <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
-      </View>
-      <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 10, fontWeight: 'bold' }}>מורן גיבלי</Text>
-        <Text style={{ fontSize: 7, fontWeight: 'bold', color: COLORS.grey }}>
-     3
-        </Text>
-      </View>
-      </View>
-      </View>
-  )
-}
-
-export default CompetitionCard
-const style = StyleSheet.create({
-  topHotelCard: {
-    height: 50,
-    width: cardWidth,
-    backgroundColor: COLORS.offwhite,
-    marginTop: 70,
-    margin:10,
-    borderRadius: 10,
-    elevation: 15,
-    shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    alignItems: 'flex-start',
+      
+        <View
+          style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 13 }}>
+          <View >
+            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
+              {usersPlaces["Value"]}
+            </Text>
+            
+            </View>
+          </View>
+          </View>
+          </Animated.View>
     
 
-  },
-  txtTitle: {
-    fontFamily: 'HelveticaNeue',
-    color: '#52575D',
-    fontSize: 24,
-    fontWeight: 'bold',
-    top: 50,
-    textAlign: 'center',
-  },
-  profileImage: {
-    width: 60,
-    height: 60,
-    top: 60,
-    borderRadius: 100,
-    overflow: 'hidden',
-    marginRight: 15,
-  },
-  image: {
-    flex: 1,
-    width: undefined,
-    height: undefined,
-  },
-  titleContainer: {
-    flexDirection: 'row-reverse',
-    marginBottom: 20,
-  },
-  txtTitleContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignContent: 'flex-end',
-  },
-  txtCard: {
-    fontFamily: 'HelveticaNeue',
-    color: '#52575D',
-    fontSize: 16,
-    fontWeight: 'bold',
-    margin: 10,
-  },
-  pointIcon: {
-    marginTop: 8,
-  },
+  );
+};
 
 
+export default CompetitionCard;
+const style = StyleSheet.create({
+  header: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+  categoryListContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginTop: 80,
+  },
+  categoryListText: {
+    fontSize: 17,
+    fontWeight: 'bold',
+  },
+  card: {
+    height: 220,
+    width: 180,
+    elevation: 15,
+    marginRight: 20,
+    borderRadius: 15,
+    backgroundColor: COLORS.white,
+
+  },
+  cardImage: {
+    height: 200,
+    width: '100%',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  priceTag: {
+    height: 35,
+    width: 80,
+    backgroundColor: COLORS.primary,
+    position: 'absolute',
+    zIndex: 1,
+    right: 0,
+    borderTopRightRadius: 15,
+    borderBottomLeftRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardDetails: {
+    height: 80,
+    borderRadius: 20,
+    backgroundColor: COLORS.white,
+    position: 'absolute',
+    bottom: 0,
+    padding: 25,
+    width: '100%',
+    paddingRight:1,
+    
+  },
+  cardOverLay: {
+    height: 280,
+    backgroundColor: COLORS.white,
+    position: 'absolute',
+    zIndex: 100,
+    width: cardWidth,
+    borderRadius: 15,
+  },
+  topHotelCard: {
+    height: 120,
+    width: 120,
+    backgroundColor: COLORS.white,
+    elevation: 15,
+    marginHorizontal: 10,
+    borderRadius: 10,
+  },
+  topHotelCardImage: {
+    height: 80,
+    width: '100%',
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  shadowProp: {
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
 });
