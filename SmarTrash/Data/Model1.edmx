@@ -4,416 +4,442 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="SmarTrashModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
-        <EntityType Name="tblBinType">
-          <Key>
-            <PropertyRef Name="BinTypeId" />
-          </Key>
-          <Property Name="BinTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BinTypeColor" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="MaxWeight" Type="float" />
-          <Property Name="Description" Type="nvarchar" MaxLength="500" />
-        </EntityType>
-        <EntityType Name="tblCategory">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tblCity">
-          <Key>
-            <PropertyRef Name="CityId" />
-          </Key>
-          <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CityName" Type="nvarchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="tblCurrentThrow">
-          <Key>
-            <PropertyRef Name="ThrowNumber" />
-          </Key>
-          <Property Name="ThrowNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DateThrow" Type="date" Nullable="false" />
-          <Property Name="ThrowWeight" Type="float" Nullable="false" />
-          <Property Name="ThrowPoints" Type="smallint" Nullable="false" />
-          <Property Name="BinQRId" Type="int" />
-          <Property Name="UserEmail" Type="varchar" MaxLength="150" />
-        </EntityType>
-        <EntityType Name="tblGift">
-          <Key>
-            <PropertyRef Name="GiftId" />
-          </Key>
-          <Property Name="GiftId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GiftName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="GiftDescription" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="Brand" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Price" Type="int" Nullable="false" />
-          <Property Name="Stock" Type="int" Nullable="false" />
-          <Property Name="GiftCategory" Type="int" />
-          <Property Name="GiftImage" Type="varchar" MaxLength="500" />
-        </EntityType>
-        <EntityType Name="tblGiftCompetition">
-          <Key>
-            <PropertyRef Name="CityId" />
-            <PropertyRef Name="GiftId" />
-            <PropertyRef Name="Year" />
-            <PropertyRef Name="Month" />
-          </Key>
-          <Property Name="CityId" Type="int" Nullable="false" />
-          <Property Name="GiftId" Type="int" Nullable="false" />
-          <Property Name="Year" Type="smallint" Nullable="false" />
-          <Property Name="Month" Type="tinyint" Nullable="false" />
-          <Property Name="UserEmail" Type="varchar" MaxLength="150" />
-        </EntityType>
-        <EntityType Name="tblOrder">
-          <Key>
-            <PropertyRef Name="OrderNumber" />
-          </Key>
-          <Property Name="OrderNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StreetNameAndNumber" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="OrderPhone" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="GiftCode" Type="int" />
-          <Property Name="UserEmail" Type="varchar" MaxLength="150" />
-          <Property Name="City" Type="int" />
-        </EntityType>
-        <EntityType Name="tblProduct">
-          <Key>
-            <PropertyRef Name="ProductCode" />
-          </Key>
-          <Property Name="ProductCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductDescription" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="ProductsImage" Type="nvarchar" MaxLength="1500" Nullable="false" />
-          <Property Name="BinTypeId" Type="int" />
-        </EntityType>
-        <EntityType Name="tblScanProduct">
-          <Key>
-            <PropertyRef Name="ScanNumber" />
-          </Key>
-          <Property Name="ScanNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DateScan" Type="date" Nullable="false" />
-          <Property Name="UserEmail" Type="varchar" MaxLength="150" />
-          <Property Name="ProductCode" Type="int" />
-        </EntityType>
-        <EntityType Name="tblSpecificBin">
-          <Key>
-            <PropertyRef Name="BinQRId" />
-          </Key>
-          <Property Name="BinQRId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Longitude" Type="float" Nullable="false" />
-          <Property Name="Latitude" Type="float" Nullable="false" />
-          <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="BinTypeId" Type="int" />
-          <Property Name="WeightId" Type="int" />
-          <Property Name="CityId" Type="int" />
-        </EntityType>
-        <EntityType Name="tblUser">
-          <Key>
-            <PropertyRef Name="UserEmail" />
-          </Key>
-          <Property Name="UserEmail" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Phone" Type="char" MaxLength="10" />
-          <Property Name="Gender" Type="char" MaxLength="1" />
-          <Property Name="BirthDate" Type="date" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="20" />
-          <Property Name="TotalPoints" Type="int" />
-          <Property Name="Longitude" Type="float" />
-          <Property Name="Latitude" Type="float" />
-          <Property Name="StreetNameAndNumber" Type="nvarchar" MaxLength="255" />
-          <Property Name="LastGameDate" Type="date" />
-          <Property Name="CityId" Type="int" />
-          <Property Name="UserImg" Type="nvarchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="tblWeight">
-          <Key>
-            <PropertyRef Name="WeightId" />
-          </Key>
-          <Property Name="WeightId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CurrentWeight" Type="float" />
-        </EntityType>
-        <Association Name="FK__tblCurren__BinQR__440B1D61">
-          <End Role="tblSpecificBin" Type="Self.tblSpecificBin" Multiplicity="0..1" />
-          <End Role="tblCurrentThrow" Type="Self.tblCurrentThrow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSpecificBin">
-              <PropertyRef Name="BinQRId" />
-            </Principal>
-            <Dependent Role="tblCurrentThrow">
-              <PropertyRef Name="BinQRId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblCurren__UserE__44FF419A">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblCurrentThrow" Type="Self.tblCurrentThrow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserEmail" />
-            </Principal>
-            <Dependent Role="tblCurrentThrow">
-              <PropertyRef Name="UserEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblGift__GiftCat__25869641">
-          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1" />
-          <End Role="tblGift" Type="Self.tblGift" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCategory">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="tblGift">
-              <PropertyRef Name="GiftCategory" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblGiftCo__CityI__3B75D760">
-          <End Role="tblCity" Type="Self.tblCity" Multiplicity="1" />
-          <End Role="tblGiftCompetition" Type="Self.tblGiftCompetition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCity">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="tblGiftCompetition">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblGiftCo__GiftI__3C69FB99">
-          <End Role="tblGift" Type="Self.tblGift" Multiplicity="1" />
-          <End Role="tblGiftCompetition" Type="Self.tblGiftCompetition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblGift">
-              <PropertyRef Name="GiftId" />
-            </Principal>
-            <Dependent Role="tblGiftCompetition">
-              <PropertyRef Name="GiftId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblGiftCo__UserE__3D5E1FD2">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblGiftCompetition" Type="Self.tblGiftCompetition" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserEmail" />
-            </Principal>
-            <Dependent Role="tblGiftCompetition">
-              <PropertyRef Name="UserEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblOrder__City__2B3F6F97">
-          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
-          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCity">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="tblOrder">
-              <PropertyRef Name="City" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblOrder__GiftCo__29572725">
-          <End Role="tblGift" Type="Self.tblGift" Multiplicity="0..1" />
-          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblGift">
-              <PropertyRef Name="GiftId" />
-            </Principal>
-            <Dependent Role="tblOrder">
-              <PropertyRef Name="GiftCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblOrder__UserEm__2A4B4B5E">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserEmail" />
-            </Principal>
-            <Dependent Role="tblOrder">
-              <PropertyRef Name="UserEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblProduc__BinTy__2E1BDC42">
-          <End Role="tblBinType" Type="Self.tblBinType" Multiplicity="0..1" />
-          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBinType">
-              <PropertyRef Name="BinTypeId" />
-            </Principal>
-            <Dependent Role="tblProduct">
-              <PropertyRef Name="BinTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblScanPr__Produ__31EC6D26">
-          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1" />
-          <End Role="tblScanProduct" Type="Self.tblScanProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblProduct">
-              <PropertyRef Name="ProductCode" />
-            </Principal>
-            <Dependent Role="tblScanProduct">
-              <PropertyRef Name="ProductCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblScanPr__UserE__30F848ED">
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
-          <End Role="tblScanProduct" Type="Self.tblScanProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblUser">
-              <PropertyRef Name="UserEmail" />
-            </Principal>
-            <Dependent Role="tblScanProduct">
-              <PropertyRef Name="UserEmail" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblSpecif__BinTy__403A8C7D">
-          <End Role="tblBinType" Type="Self.tblBinType" Multiplicity="0..1" />
-          <End Role="tblSpecificBin" Type="Self.tblSpecificBin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblBinType">
-              <PropertyRef Name="BinTypeId" />
-            </Principal>
-            <Dependent Role="tblSpecificBin">
-              <PropertyRef Name="BinTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblSpecif__CityI__5165187F">
-          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
-          <End Role="tblSpecificBin" Type="Self.tblSpecificBin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCity">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="tblSpecificBin">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblSpecif__Weigh__412EB0B6">
-          <End Role="tblWeight" Type="Self.tblWeight" Multiplicity="0..1" />
-          <End Role="tblSpecificBin" Type="Self.tblSpecificBin" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblWeight">
-              <PropertyRef Name="WeightId" />
-            </Principal>
-            <Dependent Role="tblSpecificBin">
-              <PropertyRef Name="WeightId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblUser__CityId__21B6055D">
-          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
-          <End Role="tblUser" Type="Self.tblUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCity">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="tblUser">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="SmarTrashModelStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblBinType" EntityType="Self.tblBinType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblCity" EntityType="Self.tblCity" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblCurrentThrow" EntityType="Self.tblCurrentThrow" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblGift" EntityType="Self.tblGift" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblGiftCompetition" EntityType="Self.tblGiftCompetition" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblProduct" EntityType="Self.tblProduct" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblScanProduct" EntityType="Self.tblScanProduct" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblSpecificBin" EntityType="Self.tblSpecificBin" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblWeight" EntityType="Self.tblWeight" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__tblCurren__BinQR__440B1D61" Association="Self.FK__tblCurren__BinQR__440B1D61">
-            <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
-            <End Role="tblCurrentThrow" EntitySet="tblCurrentThrow" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblCurren__UserE__44FF419A" Association="Self.FK__tblCurren__UserE__44FF419A">
-            <End Role="tblUser" EntitySet="tblUser" />
-            <End Role="tblCurrentThrow" EntitySet="tblCurrentThrow" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblGift__GiftCat__25869641" Association="Self.FK__tblGift__GiftCat__25869641">
-            <End Role="tblCategory" EntitySet="tblCategory" />
-            <End Role="tblGift" EntitySet="tblGift" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblGiftCo__CityI__3B75D760" Association="Self.FK__tblGiftCo__CityI__3B75D760">
-            <End Role="tblCity" EntitySet="tblCity" />
-            <End Role="tblGiftCompetition" EntitySet="tblGiftCompetition" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblGiftCo__GiftI__3C69FB99" Association="Self.FK__tblGiftCo__GiftI__3C69FB99">
-            <End Role="tblGift" EntitySet="tblGift" />
-            <End Role="tblGiftCompetition" EntitySet="tblGiftCompetition" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblGiftCo__UserE__3D5E1FD2" Association="Self.FK__tblGiftCo__UserE__3D5E1FD2">
-            <End Role="tblUser" EntitySet="tblUser" />
-            <End Role="tblGiftCompetition" EntitySet="tblGiftCompetition" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblOrder__City__2B3F6F97" Association="Self.FK__tblOrder__City__2B3F6F97">
-            <End Role="tblCity" EntitySet="tblCity" />
-            <End Role="tblOrder" EntitySet="tblOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblOrder__GiftCo__29572725" Association="Self.FK__tblOrder__GiftCo__29572725">
-            <End Role="tblGift" EntitySet="tblGift" />
-            <End Role="tblOrder" EntitySet="tblOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblOrder__UserEm__2A4B4B5E" Association="Self.FK__tblOrder__UserEm__2A4B4B5E">
-            <End Role="tblUser" EntitySet="tblUser" />
-            <End Role="tblOrder" EntitySet="tblOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblProduc__BinTy__2E1BDC42" Association="Self.FK__tblProduc__BinTy__2E1BDC42">
-            <End Role="tblBinType" EntitySet="tblBinType" />
-            <End Role="tblProduct" EntitySet="tblProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblScanPr__Produ__31EC6D26" Association="Self.FK__tblScanPr__Produ__31EC6D26">
-            <End Role="tblProduct" EntitySet="tblProduct" />
-            <End Role="tblScanProduct" EntitySet="tblScanProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblScanPr__UserE__30F848ED" Association="Self.FK__tblScanPr__UserE__30F848ED">
-            <End Role="tblUser" EntitySet="tblUser" />
-            <End Role="tblScanProduct" EntitySet="tblScanProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblSpecif__BinTy__403A8C7D" Association="Self.FK__tblSpecif__BinTy__403A8C7D">
-            <End Role="tblBinType" EntitySet="tblBinType" />
-            <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblSpecif__CityI__5165187F" Association="Self.FK__tblSpecif__CityI__5165187F">
-            <End Role="tblCity" EntitySet="tblCity" />
-            <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblSpecif__Weigh__412EB0B6" Association="Self.FK__tblSpecif__Weigh__412EB0B6">
-            <End Role="tblWeight" EntitySet="tblWeight" />
-            <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblUser__CityId__21B6055D" Association="Self.FK__tblUser__CityId__21B6055D">
-            <End Role="tblCity" EntitySet="tblCity" />
-            <End Role="tblUser" EntitySet="tblUser" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
+    <Schema Namespace="SmarTrashModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SmarTrashModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="SmarTrashModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblBinType" EntityType="SmarTrashModel.Store.tblBinType" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblCategory" EntityType="SmarTrashModel.Store.tblCategory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblCity" EntityType="SmarTrashModel.Store.tblCity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblCurrentThrow" EntityType="SmarTrashModel.Store.tblCurrentThrow" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblGift" EntityType="SmarTrashModel.Store.tblGift" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblGiftCompetition" EntityType="SmarTrashModel.Store.tblGiftCompetition" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblOrder" EntityType="SmarTrashModel.Store.tblOrder" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblProduct" EntityType="SmarTrashModel.Store.tblProduct" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblScanProduct" EntityType="SmarTrashModel.Store.tblScanProduct" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblSpecificBin" EntityType="SmarTrashModel.Store.tblSpecificBin" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblUser" EntityType="SmarTrashModel.Store.tblUser" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblWeight" EntityType="SmarTrashModel.Store.tblWeight" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tblSelectedMonthGift" EntityType="SmarTrashModel.Store.tblSelectedMonthGift" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__tblProduc__BinTy__2E1BDC42" Association="SmarTrashModel.Store.FK__tblProduc__BinTy__2E1BDC42">
+      <End Role="tblBinType" EntitySet="tblBinType" />
+      <End Role="tblProduct" EntitySet="tblProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSpecif__BinTy__403A8C7D" Association="SmarTrashModel.Store.FK__tblSpecif__BinTy__403A8C7D">
+      <End Role="tblBinType" EntitySet="tblBinType" />
+      <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblGift__GiftCat__25869641" Association="SmarTrashModel.Store.FK__tblGift__GiftCat__25869641">
+      <End Role="tblCategory" EntitySet="tblCategory" />
+      <End Role="tblGift" EntitySet="tblGift" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblGiftCo__CityI__3B75D760" Association="SmarTrashModel.Store.FK__tblGiftCo__CityI__3B75D760">
+      <End Role="tblCity" EntitySet="tblCity" />
+      <End Role="tblGiftCompetition" EntitySet="tblGiftCompetition" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblOrder__City__2B3F6F97" Association="SmarTrashModel.Store.FK__tblOrder__City__2B3F6F97">
+      <End Role="tblCity" EntitySet="tblCity" />
+      <End Role="tblOrder" EntitySet="tblOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblUser__CityId__21B6055D" Association="SmarTrashModel.Store.FK__tblUser__CityId__21B6055D">
+      <End Role="tblCity" EntitySet="tblCity" />
+      <End Role="tblUser" EntitySet="tblUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblCurren__BinQR__440B1D61" Association="SmarTrashModel.Store.FK__tblCurren__BinQR__440B1D61">
+      <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
+      <End Role="tblCurrentThrow" EntitySet="tblCurrentThrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblCurren__UserE__44FF419A" Association="SmarTrashModel.Store.FK__tblCurren__UserE__44FF419A">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblCurrentThrow" EntitySet="tblCurrentThrow" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblGiftCo__GiftI__3C69FB99" Association="SmarTrashModel.Store.FK__tblGiftCo__GiftI__3C69FB99">
+      <End Role="tblGift" EntitySet="tblGift" />
+      <End Role="tblGiftCompetition" EntitySet="tblGiftCompetition" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblOrder__GiftCo__29572725" Association="SmarTrashModel.Store.FK__tblOrder__GiftCo__29572725">
+      <End Role="tblGift" EntitySet="tblGift" />
+      <End Role="tblOrder" EntitySet="tblOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblGiftCo__UserE__3D5E1FD2" Association="SmarTrashModel.Store.FK__tblGiftCo__UserE__3D5E1FD2">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblGiftCompetition" EntitySet="tblGiftCompetition" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblOrder__UserEm__2A4B4B5E" Association="SmarTrashModel.Store.FK__tblOrder__UserEm__2A4B4B5E">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblOrder" EntitySet="tblOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblScanPr__Produ__31EC6D26" Association="SmarTrashModel.Store.FK__tblScanPr__Produ__31EC6D26">
+      <End Role="tblProduct" EntitySet="tblProduct" />
+      <End Role="tblScanProduct" EntitySet="tblScanProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblScanPr__UserE__30F848ED" Association="SmarTrashModel.Store.FK__tblScanPr__UserE__30F848ED">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblScanProduct" EntitySet="tblScanProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSpecif__Weigh__412EB0B6" Association="SmarTrashModel.Store.FK__tblSpecif__Weigh__412EB0B6">
+      <End Role="tblWeight" EntitySet="tblWeight" />
+      <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSpecif__CityI__5165187F" Association="SmarTrashModel.Store.FK__tblSpecif__CityI__5165187F">
+      <End Role="tblCity" EntitySet="tblCity" />
+      <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSelect__IdMon__59063A47" Association="SmarTrashModel.Store.FK__tblSelect__IdMon__59063A47">
+      <End Role="tblGift" EntitySet="tblGift" />
+      <End Role="tblSelectedMonthGift" EntitySet="tblSelectedMonthGift" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="tblBinType">
+    <Key>
+      <PropertyRef Name="BinTypeId" />
+    </Key>
+    <Property Name="BinTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BinTypeColor" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="MaxWeight" Type="float" Nullable="true" />
+    <Property Name="Description" Type="nvarchar" Nullable="true" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tblCategory">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblCity">
+    <Key>
+      <PropertyRef Name="CityId" />
+    </Key>
+    <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" Nullable="true" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tblCurrentThrow">
+    <Key>
+      <PropertyRef Name="ThrowNumber" />
+    </Key>
+    <Property Name="ThrowNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateThrow" Type="datetime" Nullable="false" />
+    <Property Name="ThrowWeight" Type="float" Nullable="false" />
+    <Property Name="ThrowPoints" Type="smallint" Nullable="false" />
+    <Property Name="BinQRId" Type="int" Nullable="true" />
+    <Property Name="UserEmail" Type="varchar" Nullable="true" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="tblGift">
+    <Key>
+      <PropertyRef Name="GiftId" />
+    </Key>
+    <Property Name="GiftId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GiftName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="GiftDescription" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Brand" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="Stock" Type="int" Nullable="false" />
+    <Property Name="GiftCategory" Type="int" Nullable="true" />
+    <Property Name="GiftImage" Type="varchar" Nullable="true" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="tblGiftCompetition">
+    <Key>
+      <PropertyRef Name="CityId" />
+      <PropertyRef Name="GiftId" />
+      <PropertyRef Name="Year" />
+      <PropertyRef Name="Month" />
+    </Key>
+    <Property Name="CityId" Type="int" Nullable="false" />
+    <Property Name="GiftId" Type="int" Nullable="false" />
+    <Property Name="Year" Type="smallint" Nullable="false" />
+    <Property Name="Month" Type="tinyint" Nullable="false" />
+    <Property Name="UserEmail" Type="varchar" Nullable="true" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="tblOrder">
+    <Key>
+      <PropertyRef Name="OrderNumber" />
+    </Key>
+    <Property Name="OrderNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderPhone" Type="char" Nullable="false" MaxLength="10" />
+    <Property Name="GiftCode" Type="int" Nullable="true" />
+    <Property Name="UserEmail" Type="varchar" Nullable="true" MaxLength="150" />
+    <Property Name="City" Type="int" Nullable="true" />
+    <Property Name="StreetNameAndNumber" Type="nvarchar" Nullable="false" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tblProduct">
+    <Key>
+      <PropertyRef Name="ProductCode" />
+    </Key>
+    <Property Name="ProductCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductDescription" Type="nvarchar" Nullable="false" MaxLength="25" />
+    <Property Name="ProductsImage" Type="nvarchar" Nullable="false" MaxLength="1500" />
+    <Property Name="BinTypeId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="tblScanProduct">
+    <Key>
+      <PropertyRef Name="ScanNumber" />
+    </Key>
+    <Property Name="ScanNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateScan" Type="datetime" Nullable="false" />
+    <Property Name="UserEmail" Type="varchar" Nullable="true" MaxLength="150" />
+    <Property Name="ProductCode" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="tblSpecificBin">
+    <Key>
+      <PropertyRef Name="BinQRId" />
+    </Key>
+    <Property Name="BinQRId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Longitude" Type="float" Nullable="false" />
+    <Property Name="Latitude" Type="float" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="BinTypeId" Type="int" Nullable="true" />
+    <Property Name="WeightId" Type="int" Nullable="true" />
+    <Property Name="CityId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="UserEmail" />
+    </Key>
+    <Property Name="UserEmail" Type="varchar" Nullable="false" MaxLength="150" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="Phone" Type="char" Nullable="true" MaxLength="10" />
+    <Property Name="Gender" Type="char" Nullable="true" MaxLength="1" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="true" MaxLength="20" />
+    <Property Name="TotalPoints" Type="int" Nullable="true" />
+    <Property Name="Longitude" Type="float" Nullable="true" />
+    <Property Name="Latitude" Type="float" Nullable="true" />
+    <Property Name="StreetNameAndNumber" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="LastGameDate" Type="datetime" Nullable="true" />
+    <Property Name="CityId" Type="int" Nullable="true" />
+    <Property Name="UserImg" Type="nvarchar" Nullable="true" MaxLength="255" />
+    <Property Name="UserToken" Type="nvarchar" Nullable="true" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="tblWeight">
+    <Key>
+      <PropertyRef Name="WeightId" />
+    </Key>
+    <Property Name="WeightId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CurrentWeight" Type="float" Nullable="true" />
+  </EntityType>
+  <EntityType Name="tblSelectedMonthGift">
+    <Key>
+      <PropertyRef Name="IdMonthGift" />
+    </Key>
+    <Property Name="IdMonthGift" Type="int" Nullable="false" />
+    <Property Name="MonthGift" Type="tinyint" Nullable="false" />
+    <Property Name="YearGift" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__tblProduc__BinTy__2E1BDC42">
+    <End Role="tblBinType" Type="SmarTrashModel.Store.tblBinType" Multiplicity="0..1" />
+    <End Role="tblProduct" Type="SmarTrashModel.Store.tblProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBinType">
+        <PropertyRef Name="BinTypeId" />
+      </Principal>
+      <Dependent Role="tblProduct">
+        <PropertyRef Name="BinTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSpecif__BinTy__403A8C7D">
+    <End Role="tblBinType" Type="SmarTrashModel.Store.tblBinType" Multiplicity="0..1" />
+    <End Role="tblSpecificBin" Type="SmarTrashModel.Store.tblSpecificBin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblBinType">
+        <PropertyRef Name="BinTypeId" />
+      </Principal>
+      <Dependent Role="tblSpecificBin">
+        <PropertyRef Name="BinTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblGift__GiftCat__25869641">
+    <End Role="tblCategory" Type="SmarTrashModel.Store.tblCategory" Multiplicity="0..1" />
+    <End Role="tblGift" Type="SmarTrashModel.Store.tblGift" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCategory">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="tblGift">
+        <PropertyRef Name="GiftCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblGiftCo__CityI__3B75D760">
+    <End Role="tblCity" Type="SmarTrashModel.Store.tblCity" Multiplicity="1" />
+    <End Role="tblGiftCompetition" Type="SmarTrashModel.Store.tblGiftCompetition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCity">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="tblGiftCompetition">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblOrder__City__2B3F6F97">
+    <End Role="tblCity" Type="SmarTrashModel.Store.tblCity" Multiplicity="0..1" />
+    <End Role="tblOrder" Type="SmarTrashModel.Store.tblOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCity">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="tblOrder">
+        <PropertyRef Name="City" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblUser__CityId__21B6055D">
+    <End Role="tblCity" Type="SmarTrashModel.Store.tblCity" Multiplicity="0..1" />
+    <End Role="tblUser" Type="SmarTrashModel.Store.tblUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCity">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="tblUser">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblCurren__BinQR__440B1D61">
+    <End Role="tblSpecificBin" Type="SmarTrashModel.Store.tblSpecificBin" Multiplicity="0..1" />
+    <End Role="tblCurrentThrow" Type="SmarTrashModel.Store.tblCurrentThrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSpecificBin">
+        <PropertyRef Name="BinQRId" />
+      </Principal>
+      <Dependent Role="tblCurrentThrow">
+        <PropertyRef Name="BinQRId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblCurren__UserE__44FF419A">
+    <End Role="tblUser" Type="SmarTrashModel.Store.tblUser" Multiplicity="0..1" />
+    <End Role="tblCurrentThrow" Type="SmarTrashModel.Store.tblCurrentThrow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserEmail" />
+      </Principal>
+      <Dependent Role="tblCurrentThrow">
+        <PropertyRef Name="UserEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblGiftCo__GiftI__3C69FB99">
+    <End Role="tblGift" Type="SmarTrashModel.Store.tblGift" Multiplicity="1" />
+    <End Role="tblGiftCompetition" Type="SmarTrashModel.Store.tblGiftCompetition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGift">
+        <PropertyRef Name="GiftId" />
+      </Principal>
+      <Dependent Role="tblGiftCompetition">
+        <PropertyRef Name="GiftId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblOrder__GiftCo__29572725">
+    <End Role="tblGift" Type="SmarTrashModel.Store.tblGift" Multiplicity="0..1" />
+    <End Role="tblOrder" Type="SmarTrashModel.Store.tblOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGift">
+        <PropertyRef Name="GiftId" />
+      </Principal>
+      <Dependent Role="tblOrder">
+        <PropertyRef Name="GiftCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblGiftCo__UserE__3D5E1FD2">
+    <End Role="tblUser" Type="SmarTrashModel.Store.tblUser" Multiplicity="0..1" />
+    <End Role="tblGiftCompetition" Type="SmarTrashModel.Store.tblGiftCompetition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserEmail" />
+      </Principal>
+      <Dependent Role="tblGiftCompetition">
+        <PropertyRef Name="UserEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblOrder__UserEm__2A4B4B5E">
+    <End Role="tblUser" Type="SmarTrashModel.Store.tblUser" Multiplicity="0..1" />
+    <End Role="tblOrder" Type="SmarTrashModel.Store.tblOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserEmail" />
+      </Principal>
+      <Dependent Role="tblOrder">
+        <PropertyRef Name="UserEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblScanPr__Produ__31EC6D26">
+    <End Role="tblProduct" Type="SmarTrashModel.Store.tblProduct" Multiplicity="0..1" />
+    <End Role="tblScanProduct" Type="SmarTrashModel.Store.tblScanProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProduct">
+        <PropertyRef Name="ProductCode" />
+      </Principal>
+      <Dependent Role="tblScanProduct">
+        <PropertyRef Name="ProductCode" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblScanPr__UserE__30F848ED">
+    <End Role="tblUser" Type="SmarTrashModel.Store.tblUser" Multiplicity="0..1" />
+    <End Role="tblScanProduct" Type="SmarTrashModel.Store.tblScanProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="UserEmail" />
+      </Principal>
+      <Dependent Role="tblScanProduct">
+        <PropertyRef Name="UserEmail" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSpecif__Weigh__412EB0B6">
+    <End Role="tblWeight" Type="SmarTrashModel.Store.tblWeight" Multiplicity="0..1" />
+    <End Role="tblSpecificBin" Type="SmarTrashModel.Store.tblSpecificBin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblWeight">
+        <PropertyRef Name="WeightId" />
+      </Principal>
+      <Dependent Role="tblSpecificBin">
+        <PropertyRef Name="WeightId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSpecif__CityI__5165187F">
+    <End Role="tblCity" Type="SmarTrashModel.Store.tblCity" Multiplicity="0..1" />
+    <End Role="tblSpecificBin" Type="SmarTrashModel.Store.tblSpecificBin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblCity">
+        <PropertyRef Name="CityId" />
+      </Principal>
+      <Dependent Role="tblSpecificBin">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSelect__IdMon__59063A47">
+    <End Role="tblGift" Type="SmarTrashModel.Store.tblGift" Multiplicity="1" />
+    <End Role="tblSelectedMonthGift" Type="SmarTrashModel.Store.tblSelectedMonthGift" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="tblGift">
+        <PropertyRef Name="GiftId" />
+      </Principal>
+      <Dependent Role="tblSelectedMonthGift">
+        <PropertyRef Name="IdMonthGift" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SmarTrashModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -485,6 +511,7 @@
           <NavigationProperty Name="tblGiftCompetition" Relationship="Self.FK__tblGiftCo__GiftI__3C69FB99" FromRole="tblGift" ToRole="tblGiftCompetition" />
           <NavigationProperty Name="tblOrder" Relationship="Self.FK__tblOrder__GiftCo__29572725" FromRole="tblGift" ToRole="tblOrder" />
           <Property Name="GiftImage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblSelectedMonthGift" Relationship="SmarTrashModel.FK__tblSelect__IdMon__59063A47" FromRole="tblGift" ToRole="tblSelectedMonthGift" />
         </EntityType>
         <EntityType Name="tblGiftCompetition">
           <Key>
@@ -577,6 +604,7 @@
           <NavigationProperty Name="tblOrder" Relationship="Self.FK__tblOrder__UserEm__2A4B4B5E" FromRole="tblUser" ToRole="tblOrder" />
           <NavigationProperty Name="tblScanProduct" Relationship="Self.FK__tblScanPr__UserE__30F848ED" FromRole="tblUser" ToRole="tblScanProduct" />
           <Property Name="UserImg" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UserToken" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tblWeight">
           <Key>
@@ -844,6 +872,11 @@
             <End Role="tblCity" EntitySet="tblCity" />
             <End Role="tblSpecificBin" EntitySet="tblSpecificBin" />
           </AssociationSet>
+          <EntitySet Name="tblSelectedMonthGift" EntityType="SmarTrashModel.tblSelectedMonthGift" />
+          <AssociationSet Name="FK__tblSelect__IdMon__59063A47" Association="SmarTrashModel.FK__tblSelect__IdMon__59063A47">
+            <End Role="tblGift" EntitySet="tblGift" />
+            <End Role="tblSelectedMonthGift" EntitySet="tblSelectedMonthGift" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK__tblSpecif__CityI__5165187F">
           <End Type="SmarTrashModel.tblCity" Role="tblCity" Multiplicity="0..1" />
@@ -854,6 +887,27 @@
             </Principal>
             <Dependent Role="tblSpecificBin">
               <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblSelectedMonthGift">
+          <Key>
+            <PropertyRef Name="IdMonthGift" />
+          </Key>
+          <Property Name="IdMonthGift" Type="Int32" Nullable="false" />
+          <Property Name="MonthGift" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="tblGift" Relationship="SmarTrashModel.FK__tblSelect__IdMon__59063A47" FromRole="tblSelectedMonthGift" ToRole="tblGift" />
+          <Property Name="YearGift" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblSelect__IdMon__59063A47">
+          <End Type="SmarTrashModel.tblGift" Role="tblGift" Multiplicity="1" />
+          <End Type="SmarTrashModel.tblSelectedMonthGift" Role="tblSelectedMonthGift" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblGift">
+              <PropertyRef Name="GiftId" />
+            </Principal>
+            <Dependent Role="tblSelectedMonthGift">
+              <PropertyRef Name="IdMonthGift" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -999,6 +1053,7 @@
           <ScalarProperty Name="LastGameDate" ColumnName="LastGameDate" />
           <ScalarProperty Name="CityId" ColumnName="CityId" />
           <ScalarProperty Name="UserImg" ColumnName="UserImg" />
+          <ScalarProperty Name="UserToken" ColumnName="UserToken" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1007,6 +1062,15 @@
         <MappingFragment StoreEntitySet="tblWeight">
           <ScalarProperty Name="WeightId" ColumnName="WeightId" />
           <ScalarProperty Name="CurrentWeight" ColumnName="CurrentWeight" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblSelectedMonthGift">
+      <EntityTypeMapping TypeName="IsTypeOf(SmarTrashModel.tblSelectedMonthGift)">
+        <MappingFragment StoreEntitySet="tblSelectedMonthGift">
+          <ScalarProperty Name="IdMonthGift" ColumnName="IdMonthGift" />
+          <ScalarProperty Name="MonthGift" ColumnName="MonthGift" />
+          <ScalarProperty Name="YearGift" ColumnName="YearGift" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -1,37 +1,48 @@
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image, TouchableOpacity } from 'react-native'
 import React, { useState, useContext, useEffect } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import BottomSheet from '../../Components/BottomSheet/BottomSheet';
+import { Provider } from 'react-native-paper';
+
 
 const { width } = Dimensions.get('screen');
+
 const cardWidth = width / 1.2;
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
-const apiUrlCurrentDetails = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PlaceHoldersEdit';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 
 const EditProfile = ({ navigation }) => {
-  const { userEmail, selectedCity } = useContext(GlobalContext);
+  const { userEmail, selectedCity,
+
+    setUserImg, setChecked,
+    setUserFirstName,
+    setUserLastName,
+    setUserGender, userGender,
+    setUserPhone,userPhone,
+    setUserBirthDate, userBirthDate,
+    setUserStreetNameAndNumber, userStreetNameAndNumber,
+    userImg,
+    userCityId,
+    password, setPassword,
+    userFirstName,
+    userLastName,
+  } = useContext(GlobalContext);
   const [userDetails, setUserDetails] = useState('');
   const [changeSave, setChangeSave] = useState('');
 
+  const [image, setImage] = useState('');
+  const { show, setShow,setOpen } = useContext(GlobalContext);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [checked, setChecked] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [password, setPassword] = useState('');
-  const [streetNum, setStreetNum] = useState('');
-  const [image, setImage] = useState('')
 
   useEffect(() => {
-    userDetailsPlaceHolder();
+    //userDetailsPlaceHolder();
   }, []);
 
   const options = [
@@ -42,64 +53,51 @@ const EditProfile = ({ navigation }) => {
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
 
 
-  const userDetailsPlaceHolder = () => {
+  // const userDetailsPlaceHolder = () => {
 
-    fetch(apiUrlCurrentDetails, {
-      method: 'POST',
-      body: JSON.stringify({ UserEmail: userEmail }),
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-      })
-    }).then(response => { return response.json() })
-      .then(data => {
-        data.map(st => setUserDetails(st), console.log("userD", userDetails))
+  //   fetch(apiUrlCurrentDetails, {
+  //     method: 'POST',
+  //     body: JSON.stringify({ UserEmail: userEmail }),
+  //     headers: new Headers({
+  //       'Content-type': 'application/json; charset=UTF-8',
+  //       'Accept': 'application/json; charset-UTF-8'
+  //     })
+  //   }).then(response => { return response.json() })
+  //     .then(data => {
+  //       data.map(st => setUserDetails(st), console.log("userD", userDetails))
 
-      });
-      setFirstName(userDetails.FirstName),
-      setLastName(userDetails.LastName),
-      setPhone(userDetails.Phone),
-      setChecked(userDetails.Gender),
-      setBirthDate(userDetails.BirthDate),
-      setPassword(userDetails.Password),
-      setStreetNum(userDetails.StreetNameAndNumber),
-      setImage(userDetails.UserImg)
-    setUserDetails(userDetails)
+  //     });
+  //     setFirstName(userFirstName),
+  //     setLastName(userLastName),
+  //     setPhone(userDetails.Phone),
+  //     setChecked(userDetails.Gender),
+  //     setBirthDate(userDetails.BirthDate),
+  //     setPassword(userDetails.Password),
+  //     setStreetNum(userDetails.StreetNameAndNumber),
+  //     setImage(userDetails.UserImg)
+  //     setUserGender()
+  //   setUserDetails(userDetails)
 
-  }
-
-
-
-  const newUser = {
-    UserEmail: "",
-    Password: "",
-    FirstName: "",
-    LastName: "",
-    Phone: "",
-    Gender: "",
-    BirthDate: "",
-    StreetNameAndNumber: "",
-    CityId: "",
-    Image: image
-  };
-
-
-  newUser.UserEmail = userEmail;
-  newUser.FirstName = firstName;
-  newUser.LastName = lastName;
-  newUser.Phone = phone;
-  newUser.Gender = checked;
-  newUser.BirthDate = birthDate;
-  newUser.Password = password;
-  newUser.StreetNameAndNumber = streetNum;
-  newUser.CityId = selectedCity;
-  newUser.Image = userDetails.UserImg;
+  // }
 
   const userChangeSave = () => {
-    console.log("new", newUser)
+    const newUser = {
+      UserEmail: userEmail,
+      Password: password,
+      Img: userImg,
+      Gender: userGender,
+      First: userFirstName,
+      Last: userLastName,
+      Phone: userPhone,
+      CityId:userCityId,
+      setStreetNum:userStreetNameAndNumber,
+      BirthDate:userBirthDate
+    }
+    console.log("hhhhhhhhh",newUser)
     fetch(apiUrlSaveChanges, {
+      
       method: 'PUT',
-      body: JSON.stringify(newUser),
+      body: JSON.stringify( newUser),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -139,32 +137,48 @@ const EditProfile = ({ navigation }) => {
           console.log("err del=", error);
         });
   }
+  // const openOptions = () => {
+
+  // }
+  const ifPressOK =() =>{
+    setShow(true)
+    setOpen(true)
+  }
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+<Provider>
+    <ScrollView showsVerticalScrollIndicator={false}> 
       <View style={styles.root}>
         <Text style={styles.title}>עריכת פרטים אישיים</Text>
-
-        <View style={{ alignSelf: 'center' }}>
-          <View style={styles.profileImage}>
-            <Image
-              style={styles.image}
-              source={{ uri: image }} />
+         
+          <View style={{ alignSelf: 'center' }}>
+          <TouchableOpacity onPress={() => ifPressOK()}>
+              <View style={styles.profileImage}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: userImg }} />
+              </View>
+            </TouchableOpacity >
+            <View style={styles.edit}>
+              <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
+            </View>
+            <BottomSheet
+              show={show} 
+              onDismiss={() => {
+                setShow(false);
+              }}
+            ></BottomSheet>
           </View>
-          <View style={styles.edit}>
-            <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
           </View>
-        </View>
-
         <CustomInput
-          placeholder={firstName}
-          value={firstName}
-          setValue={setFirstName}
+          placeholder={userFirstName}
+          value={userFirstName}
+          setValue={setUserFirstName}
         />
 
         <CustomInput
-          placeholder={lastName}
-          value={lastName}
-          setValue={setLastName}
+          placeholder={userLastName}
+          value={userLastName}
+          setValue={setUserLastName}
         />
 
         <CustomInput
@@ -175,15 +189,14 @@ const EditProfile = ({ navigation }) => {
         />
 
         <CustomInput
-          placeholder={phone}
-          value={phone}
-          setValue={setPhone}
+          placeholder={userPhone}
+          value={userPhone}
+          setValue={setUserPhone}
         />
-
         <CustomInput
-          placeholder={streetNum}
-          value={streetNum}
-          setValue={setStreetNum}
+          placeholder={userStreetNameAndNumber}
+          value={userStreetNameAndNumber}
+          setValue={setUserStreetNameAndNumber}
         />
 
         <SafeAreaView style={styles.container}>
@@ -191,9 +204,9 @@ const EditProfile = ({ navigation }) => {
 
             <DatePicker
               style={styles.datePickerStyle}
-              date={birthDate}
+              date={userBirthDate}
               mode="date"
-              placeholder={birthDate}
+              placeholder={userBirthDate}
               format="DD-MM-YYYY"
               maxDate={d}
               confirmBtnText="Confirm"
@@ -210,7 +223,7 @@ const EditProfile = ({ navigation }) => {
                 },
               }}
               onDateChange={(date) => {
-                setBirthDate(date);
+                setUserBirthDate(date);
               }}
             />
           </View>
@@ -222,7 +235,7 @@ const EditProfile = ({ navigation }) => {
             radio_props={options}
             initial={0}
             onPress={(value) => {
-              setChecked(value);
+              setUserGender(value);
 
             }}
           />
@@ -241,8 +254,8 @@ const EditProfile = ({ navigation }) => {
             onPress={DeleteUser}
           />
         </View>
-      </View>
     </ScrollView>
+ </Provider>
   )
 }
 

@@ -9,8 +9,7 @@ namespace SmarTrash.Controllers
 {
     public class CompetitionController : ApiController
     {
-        int MonthGift = 0;
-
+       
         //GET-  מחזיר רשימה של כל המשתמשים בעיר שלי לפי כמות נקודות.
         [HttpPost]
         [Route("api/Competition/GetListOfUsersInMyCity")]
@@ -39,63 +38,7 @@ namespace SmarTrash.Controllers
             return userPlace;
         }
 
-        [HttpPost]
-        [Route("api/Competition/GetAllWinnersInCities")]
-      
-        //מחזיר את רשימת הזוכים לפי חודש (נוכחי) בכל עיר.
-        public dynamic PostAllWinnersInCities()
-        {
-            SmarTrashDBContext db = new SmarTrashDBContext();
-            var user = db.tblUser.ToList();
-            var city = db.tblCity.ToList();
-
-            var ListWinnersInCity = new Dictionary<string, object>();
-            var sums = new Dictionary<string, object>();
-
-            tblGiftCompetition winners = new tblGiftCompetition();
-            int year = DateTime.Now.Year;
-            var month = DateTime.Now.Month;
-            GetCompGift();
-            foreach (var c in city)
-            {
-                sums = new Dictionary<string, object>();
-                winners = new tblGiftCompetition();
-                foreach (var u in user)
-                {
-                    if (u.CityId == c.CityId)
-                    {
-                        var usersInCity = db.tblUser.Where(t => t.CityId == c.CityId).Select(z => z.UserEmail).ToList();
-                        var competitionPlaces = db.tblCurrentThrow.Where(y => y.DateThrow.Year == year && y.DateThrow.Month == month).GroupBy(i => i.UserEmail).ToList();
-
-                        foreach (var useriIncity in usersInCity)
-                        {
-                            foreach (var e in competitionPlaces)
-                            {
-                                if (e.Key == useriIncity)
-                                {
-                                    sums.Add(e.Key, e.Sum(x => x.ThrowPoints));
-                                }
-                            }
-                        }
-                        var userPlace = sums.OrderByDescending(x => x.Value).First();
-                        winners.Year =Convert.ToInt16(year);
-                        winners.Month = Convert.ToByte(month);
-                        winners.CityId =c.CityId;
-                        winners.GiftId = MonthGift;
-                        winners.UserEmail = userPlace.Key;
-                        db.tblGiftCompetition.Add(winners);
-                        db.SaveChanges();
-                        ListWinnersInCity.Add(c.CityName, userPlace);
-                        break;
-                    }
-                }
-            }
-
-            return ListWinnersInCity;
-        }
-
-
-
+  
         // GET api/Competition/GetCompGift
         [HttpGet]
         [Route("api/Competition/GetCompGift")]
@@ -105,9 +48,8 @@ namespace SmarTrash.Controllers
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
-                var rand = new Random();
-                var gift = db.tblGift.AsEnumerable().OrderBy(r => rand.Next()).Take(1).ToList();
-
+                var MonthGift = db.tblSelectedMonthGift.Select(x => x.IdMonthGift).ToList().First();
+                var gift = db.tblGift.Where(x =>x.GiftId == MonthGift);
                 tblGift MGift = new tblGift();
                 MGift.GiftId = gift.First().GiftId;
                 MGift.GiftName = gift.First().GiftName;

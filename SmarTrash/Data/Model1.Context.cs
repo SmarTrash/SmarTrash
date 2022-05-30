@@ -38,5 +38,6 @@ namespace Data
         public virtual DbSet<tblSpecificBin> tblSpecificBin { get; set; }
         public virtual DbSet<tblUser> tblUser { get; set; }
         public virtual DbSet<tblWeight> tblWeight { get; set; }
+        public virtual DbSet<tblSelectedMonthGift> tblSelectedMonthGift { get; set; }
     }
 }

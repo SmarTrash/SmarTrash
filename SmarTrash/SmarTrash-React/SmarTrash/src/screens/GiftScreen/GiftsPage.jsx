@@ -1,5 +1,5 @@
 import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Animated, } from 'react-native';
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import CategoryList from '../../screens/CategoryList/CategoryList';
 import COLORS from '../../Consts/colors';
 import Card from '../../Components/Card/Card';
@@ -47,11 +47,14 @@ const GiftsPage = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
 
-        <CardMonthGift/>
+        <CardMonthGift />
+        
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+          <View style={style.categoryListContainer}>
+            <CategoryList func={setGiftData} />
+          </View>
+        </ScrollView>
 
-        <View style={style.categoryListContainer}>
-          <CategoryList func={setGiftData}/>
-        </View>
 
 
         <Animated.FlatList

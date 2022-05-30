@@ -4,19 +4,21 @@ import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
 export default function ReceptBin({ navigation }) {
+  const { userImg} = useContext(GlobalContext);
   return (
     <View style={style.container}>
       <View>
         <View style={style.profileImage}>
           <Image
             style={style.image}
-            source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
+            source={{ uri: userImg }} />
         </View>
       </View>
 

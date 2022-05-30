@@ -15,7 +15,10 @@ import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
 import ReceptBin from '../../screens/ThrowGarbage/ReceptBin';
 import ThrowPoints from '../../screens/ThrowGarbage/ThrowPoints';
 import CompetitionList from '../../screens/Competition/CompetitionList';
-
+import CameraScreen from '../../screens/CameraScreen/CameraScreen';
+import PushPage from '../../Components/PushNotification/PushPage';
+import BinCameraScreen from '../../screens/ThrowGarbage/BinCameraScreen';
+import Map from '../../screens/MapScreen/Map';
 
 
 const Stack = createNativeStackNavigator();
@@ -25,7 +28,7 @@ const Navigation = () => {
   return (
 
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="SignInScreen" >
+      <Stack.Navigator initialRouteName="Map" >
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
@@ -40,6 +43,10 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="ReceptBin" component={ReceptBin} />
         <Stack.Screen options={{ headerShown: false }} name="ThrowPoints" component={ThrowPoints} />
         <Stack.Screen options={{ headerShown: false }} name="CompetitionList" component={CompetitionList} />
+        <Stack.Screen options={{ headerShown: false }} name="CameraScreen" component={CameraScreen} />
+        <Stack.Screen options={{ headerShown: true }} name="Map" component={Map} />
+        <Stack.Screen options={{ headerShown: true }} name="PushPage" component={PushPage} />
+        <Stack.Screen options={{ headerShown: false }} name="BinCameraScreen" component={BinCameraScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

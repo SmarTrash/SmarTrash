@@ -35,5 +35,6 @@ namespace Data
         public virtual ICollection<tblGiftCompetition> tblGiftCompetition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblOrder> tblOrder { get; set; }
+        public virtual tblSelectedMonthGift tblSelectedMonthGift { get; set; }
     }
 }
