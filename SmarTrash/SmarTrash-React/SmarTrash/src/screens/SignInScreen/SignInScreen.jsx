@@ -10,6 +10,7 @@ import COLORS from '../../Consts/colors'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import Checkbox from 'react-native-bouncy-checkbox'
 
+
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SignIn';
 
 const SignInScreen = ({ navigation }) => {
