@@ -5,6 +5,7 @@ import COLORS from '../../Consts/colors';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import CoinIcon from '../../Components/Icon/CoinIcon';
 
 
 const { width } = Dimensions.get('screen');
@@ -37,9 +38,9 @@ export default function ReceptBin({ navigation }) {
           </Text>
         </View>
         <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-          <MaterialIcons name="stars" size={24} color={COLORS.gold} margin={30} />
-          <MaterialIcons name="stars" size={24} color={COLORS.gold} />
-          <MaterialIcons name="stars" size={24} color={COLORS.gold} />
+          <CoinIcon />
+          <CoinIcon />
+          <CoinIcon />
         </View>
 
       </View>

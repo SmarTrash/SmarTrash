@@ -1,6 +1,7 @@
 import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Animated, } from 'react-native';
 import React from 'react'
 import COLORS from '../../Consts/colors';
+import CoinIcon from '../Icon/CoinIcon';
 
 
 
@@ -45,7 +46,7 @@ const CompetitionCard = ({index,usersPlaces}) => {
             <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
               {usersPlaces["Value"]}
             </Text>
-            
+            <CoinIcon />
             </View>
           </View>
           </View>

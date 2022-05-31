@@ -216,13 +216,10 @@ namespace SmarTrash.Controllers
         }
 
         // מעלה תמונה לשרת של רופין
-        [Route("api/HomePage/uploadpicture")]
-        [HttpPost]
-        public Task<HttpResponseMessage> Post([FromBody] tblUser u)
-        {
-            //SmarTrashDBContext db = new SmarTrashDBContext();
-            //tblUser userEmail = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
 
+        [Route("api/HomePage/uploadpicture")]
+        public Task<HttpResponseMessage> Post()
+        {
             string outputForNir = "start---";
             List<string> savedFilePath = new List<string>();
             if (!Request.Content.IsMimeMultipartContent())
@@ -250,6 +247,8 @@ namespace SmarTrash.Controllers
 
                             //need the guid because in react native in order to refresh an inamge it has to have a new name
                             string newFileName = Path.GetFileNameWithoutExtension(name) + "_" + CreateDateTimeWithValidChars() + Path.GetExtension(name);
+                            //string newFileName = Path.GetFileNameWithoutExtension(name) + "_" + Guid.NewGuid() + Path.GetExtension(name);
+                            //string newFileName = name + "" + Guid.NewGuid();
                             outputForNir += " ---here3" + newFileName;
 
                             //delete all files begining with the same name
@@ -274,9 +273,6 @@ namespace SmarTrash.Controllers
                             Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
                             outputForNir += " ---here7" + fileFullPath.ToString();
                             savedFilePath.Add(fileFullPath.ToString());
-                            //SendNewPicture(userEmail, fileFullPath.ToString());
-
-
                         }
                         catch (Exception ex)
                         {
@@ -290,24 +286,29 @@ namespace SmarTrash.Controllers
             return task;
         }
         //מקבל מייל ומעדכן את התמונה שלו
-        private IHttpActionResult SendNewPicture([FromBody] tblUser u, string userNewPicture)
-        {
-            try
-            {
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                tblUser userToUpdate = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
-                userToUpdate.UserImg = userNewPicture;
-                db.SaveChanges();
-                return Ok("התמונה שונתה בהצלחה");
-            }
-            catch (Exception ex)
-            {
-                return Content(HttpStatusCode.BadRequest, ex);
-            }
-        }
+
         private string CreateDateTimeWithValidChars()
         {
             return DateTime.Now.ToString().Replace('/', ' ').Replace(':', '-').Replace(' ', ' ');
+        }
+        //מעדכן את התמנוה של המשתמש
+        
+        [Route("api/HomePage/updateUserImage/{userNewPicture}")]
+        [HttpPost] 
+        public IHttpActionResult UpdateUserImage([FromBody] tblUser u, string userNewPicture)
+        {
+            try 
+            { 
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            tblUser userToUpdate = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
+            userToUpdate.UserImg = userNewPicture;
+            db.SaveChanges();
+                return Ok();
+            }
+              catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
         }
     }
 }

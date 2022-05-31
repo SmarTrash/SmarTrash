@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const { width } = Dimensions.get('screen');
-const cardWidth = width / 1.8;
+const cardWidth = width/1.1;
 
 const Card = ({index,giftData}) => {
   const navigation = useNavigation();
@@ -31,23 +31,23 @@ const Card = ({index,giftData}) => {
     <TouchableOpacity
     activeOpacity={1}
     onPress={() => { navigation.navigate('SelectedGift', giftData) }}>
-    <Animated.View style={[style.shadowProp, { ...style.card, transform: [{ scale }], marginLeft: 12 }]}>
+    <Animated.View style={[style.shadowProp, { ...style.card, transform: [{ scale }],width:cardWidth}]}>
       <Animated.View style={{ ...style.cardOverLay, opacity }} />
       <View style={style.priceTag}>
         <Text
-          style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold' }}>
+          style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold',fontSize:17 }}>
           ${giftData.Price}
         </Text>
       </View>
       <Image source={{uri:giftData.Image}} style={style.cardImage} />
       <View style={style.cardDetails}>
         <View
-          style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 13 }}>
+          style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-start', right: 13 }}>
           <View >
-            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 17,padding:(5,5,5,5) }}>
               {giftData.GiftName}
             </Text>
-            <Text style={{ color: COLORS.grey, fontSize: 12, alignSelf: 'flex-end' }}>
+            <Text style={{ color: COLORS.grey, fontSize: 14, alignSelf: 'flex-start',paddingRight:10 }}>
               {giftData.Brand}
             </Text>
             </View>
@@ -72,19 +72,19 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    marginTop: 80,
+    marginTop: 60,
   },
   categoryListText: {
     fontSize: 17,
     fontWeight: 'bold',
+
   },
   card: {
     height: 220,
-    width: 180,
     elevation: 15,
-    marginRight: 20,
     borderRadius: 15,
     backgroundColor: COLORS.white,
+    marginTop:15
 
   },
   cardImage: {
@@ -99,7 +99,7 @@ const style = StyleSheet.create({
     backgroundColor: COLORS.primary,
     position: 'absolute',
     zIndex: 1,
-    right: 0,
+    
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
     justifyContent: 'center',

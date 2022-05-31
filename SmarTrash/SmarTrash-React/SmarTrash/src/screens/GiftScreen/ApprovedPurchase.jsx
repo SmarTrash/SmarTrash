@@ -3,6 +3,7 @@ import React from 'react'
 import COLORS from '../../Consts/colors'
 import { MaterialIcons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
+import CoinIcon from '../../Components/Icon/CoinIcon';
 
 const { width } = Dimensions.get('screen');
 
@@ -33,7 +34,7 @@ const ApprovedPurchase=({ navigation, route })=> {
 
         <View style={{ marginRight: 50 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, alignSelf: 'flex-start', margin: 20 }}>
-            {points}  <MaterialIcons name="stars" size={24} color={COLORS.gold}  style={styles.starIcon}/>
+            <CoinIcon />
           </Text>
         </View>
       </View>

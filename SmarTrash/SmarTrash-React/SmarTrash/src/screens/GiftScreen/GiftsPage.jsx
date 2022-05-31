@@ -67,11 +67,11 @@ const GiftsPage = () => {
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: true },
           )}
-          horizontal
+         
           data={giftData}
           contentContainerStyle={{
-            paddingVertical: 30,
-            paddingLeft: 20,
+            paddingVertical: 10,
+            paddingLeft: 15,
             paddingRight: cardWidth / 2 - 40,
           }}
           showsHorizontalScrollIndicator={false}

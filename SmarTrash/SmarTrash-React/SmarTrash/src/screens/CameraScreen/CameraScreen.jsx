@@ -1,5 +1,5 @@
 import { View, Dimensions, StyleSheet, Alert } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Camera from '../../Components/Camera/useCamera'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
@@ -9,11 +9,17 @@ const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
 const cardWidth = width;
 const cardHeight = height;
-
+let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture/";
 const CameraScreen = () => {
 
+
+  const [passed, setPassed] = useState(false);
   const navigation = useNavigation();
-  const { userImg, userEmail,userFirstName,userLastName,setOpen,setShow } = useContext(GlobalContext);
+  const { userImg, userEmail, userFirstName, userLastName, setOpen, setShow } = useContext(GlobalContext);
+
+  useEffect(() => {
+    ChangeImage();
+  }, [passed == true]);
 
   const uploadImage = () => {
     console.log("pressed")
@@ -23,6 +29,7 @@ const CameraScreen = () => {
   imageUpload = (userImage, picName) => {
 
     let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
+
     let dataI = new FormData();
 
     dataI.append('picture', {
@@ -38,14 +45,39 @@ const CameraScreen = () => {
     console.log("config=", config)
     console.log("userEmail=", userEmail)
 
-    const ifPressOK =() => {
+    const ifPressOK = () => {
       setShow(true)
       setOpen(true)
       navigation.navigate("EditProfile")
-  }  
-  
 
-    fetch(urlAPI, config, {
+    }
+
+
+    fetch(urlAPI, config)
+      .then((res) => {
+        if (res.status == 201) { return res.json() }
+        else { return "err"; }
+      })
+      .then((responseData) => {
+        console.log("responseData=", responseData)
+        if (responseData != "err") {
+          let picNameWOExt = picName.substring(0, picName.indexOf("."));
+          let imageNameWithGUID = responseData.substring(responseData.indexOf(picNameWOExt),
+            responseData.indexOf(".jpg") + 4);
+          console.log({ imageNameWithGUID });
+          console.log("img uploaded successfully!");
+          setPassed = true;
+          ChangeImage()
+
+        }
+        else { alert('error uploding ...'); }
+      })
+      .catch(err => { alert('err upload= ' + err); });
+  }
+
+
+  const ChangeImage = () => {
+    fetch(urlUpdateImage + userImg, {
       method: 'POST',
       body: JSON.stringify({ UserEmail: userEmail }),
       headers: new Headers({
@@ -53,36 +85,29 @@ const CameraScreen = () => {
         'Accept': 'application/json; charset-UTF-8'
       })
     }).then((res) => {
-      if (res.status == 201) { return res.json() }
+      if (res.status == 201) {
+        Alert.alert(
+          userFirstName + " " + userLastName,
+          "התמונה שונתה בהצלחה",
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => ifPressOK() }
+          ]
+        );
+      }
       else { return "err"; }
     })
-      .then((responseData) => {
-        console.log("responseData=", responseData)
-        if (responseData != "+err") {
-          let picNameWOExt = picName.substring(0, picName.indexOf("."));
-          let imageNameWithGUID = responseData.substring(responseData.indexOf(picNameWOExt),
-            responseData.indexOf(".jpg") + 4);
-          console.log({ imageNameWithGUID });
-          console.log("img uploaded successfully!");
-          
-          Alert.alert(
-            userFirstName +" "+ userLastName,
-            "התמונה שונתה בהצלחה",
-            [ 
-              {
-                text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel"
-              },
-              { text: "OK", onPress: () => ifPressOK() }
-            ]
-          );
-        }
-        else { alert('error uploding ...'); }
-      })
-      .catch(err => { alert('err upload= ' + err); });
-  }
 
+
+
+
+
+
+  }
   return (
     <View>
       <View style={styles.root}>
