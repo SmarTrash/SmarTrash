@@ -15,6 +15,7 @@ const { width } = Dimensions.get('screen');
 
 const cardWidth = width / 1.2;
 
+
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 
@@ -25,7 +26,7 @@ const EditProfile = ({ navigation }) => {
     setUserFirstName,
     setUserLastName,
     setUserGender, userGender,
-    setUserPhone,userPhone,
+    setUserPhone, userPhone,
     setUserBirthDate, userBirthDate,
     setUserStreetNameAndNumber, userStreetNameAndNumber,
     userImg,
@@ -38,7 +39,7 @@ const EditProfile = ({ navigation }) => {
   const [changeSave, setChangeSave] = useState('');
 
   const [image, setImage] = useState('');
-  const { show, setShow,setOpen } = useContext(GlobalContext);
+  const { show, setShow, setOpen } = useContext(GlobalContext);
 
 
   useEffect(() => {
@@ -89,15 +90,15 @@ const EditProfile = ({ navigation }) => {
       First: userFirstName,
       Last: userLastName,
       Phone: userPhone,
-      CityId:userCityId,
-      setStreetNum:userStreetNameAndNumber,
-      BirthDate:userBirthDate
+      CityId: userCityId,
+      setStreetNum: userStreetNameAndNumber,
+      BirthDate: userBirthDate
     }
-    console.log("hhhhhhhhh",newUser)
+    console.log("hhhhhhhhh", newUser)
     fetch(apiUrlSaveChanges, {
-      
+
       method: 'PUT',
-      body: JSON.stringify( newUser),
+      body: JSON.stringify(newUser),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -140,18 +141,19 @@ const EditProfile = ({ navigation }) => {
   // const openOptions = () => {
 
   // }
-  const ifPressOK =() =>{
+  const ifPressOK = () => {
     setShow(true)
     setOpen(true)
   }
   return (
-<Provider>
-    <ScrollView showsVerticalScrollIndicator={false}> 
-      <View style={styles.root}>
-        <Text style={styles.title}>עריכת פרטים אישיים</Text>
-         
+
+    <Provider>
+      <ScrollView showsVerticalScrollIndicator={false}>
+
+        <View style={styles.root}>
+          <Text style={styles.title}>עריכת פרטים אישיים</Text>
           <View style={{ alignSelf: 'center' }}>
-          <TouchableOpacity onPress={() => ifPressOK()}>
+            <TouchableOpacity onPress={() => ifPressOK()}>
               <View style={styles.profileImage}>
                 <Image
                   style={styles.image}
@@ -162,44 +164,48 @@ const EditProfile = ({ navigation }) => {
               <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
             </View>
             <BottomSheet
-              show={show} 
+              show={show}
               onDismiss={() => {
                 setShow(false);
               }}
             ></BottomSheet>
           </View>
-          </View>
-        <CustomInput
-          placeholder={userFirstName}
-          value={userFirstName}
-          setValue={setUserFirstName}
-        />
+        </View>
 
-        <CustomInput
-          placeholder={userLastName}
-          value={userLastName}
-          setValue={setUserLastName}
-        />
+        <View style={{ alignSelf: 'center' }}>
+          
+          <CustomInput
+            placeholder={userFirstName}
+            value={userFirstName}
+            setValue={setUserFirstName}
+          />
 
-        <CustomInput
-          placeholder={password}
-          value={password}
-          setValue={setPassword}
-          secureTextEntry={true}
-        />
+          <CustomInput
+            placeholder={userLastName}
+            value={userLastName}
+            setValue={setUserLastName}
+          />
 
-        <CustomInput
-          placeholder={userPhone}
-          value={userPhone}
-          setValue={setUserPhone}
-        />
-        <CustomInput
-          placeholder={userStreetNameAndNumber}
-          value={userStreetNameAndNumber}
-          setValue={setUserStreetNameAndNumber}
-        />
+          <CustomInput
+            placeholder={password}
+            value={password}
+            setValue={setPassword}
+            secureTextEntry={true}
+          />
 
+          <CustomInput
+            placeholder={userPhone}
+            value={userPhone}
+            setValue={setUserPhone}
+          />
+          <CustomInput
+            placeholder={userStreetNameAndNumber}
+            value={userStreetNameAndNumber}
+            setValue={setUserStreetNameAndNumber}
+          />
+        </View>
         <SafeAreaView style={styles.container}>
+        
           <View style={styles.container}>
 
             <DatePicker
@@ -228,18 +234,19 @@ const EditProfile = ({ navigation }) => {
             />
           </View>
         </SafeAreaView>
-
         <View >
-
-          <RadioForm style={styles.radioBtn}
+          <RadioForm style={styles.radioBtn} 
             radio_props={options}
             initial={0}
+            buttonColor={'black'}
+            
             onPress={(value) => {
               setUserGender(value);
 
             }}
           />
         </View>
+
         <CityList />
 
         <View>
@@ -254,8 +261,9 @@ const EditProfile = ({ navigation }) => {
             onPress={DeleteUser}
           />
         </View>
-    </ScrollView>
- </Provider>
+
+      </ScrollView>
+    </Provider>
   )
 }
 
@@ -265,7 +273,7 @@ const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   deletebtn: {
     marginTop: 40,
@@ -295,11 +303,13 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
+   
   },
 
   datePickerStyle: {
     width: cardWidth,
-    marginRight: 10
+    marginRight: 10,
+  
   },
   profileImage: {
     width: 150,
@@ -327,6 +337,8 @@ const styles = StyleSheet.create({
   },
   radioBtn: {
     flexDirection: 'row',
+    alignSelf: 'center' ,
+
   },
   sortBtn: {
     marginTop: 40,

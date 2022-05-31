@@ -16,36 +16,48 @@ const SignInScreen = ({ navigation }) => {
 
   const { userEmail, setUserEmail,
     checked, setChecked,
-    setUserFirstName,
-    setUserLastName,
-    setUserCompetitionPlace,
+    setUserFirstName,userFirstName,
+    setUserLastName,userLastName,
+    setUserCompetitionPlace,userCompetitionPlace,userLastThrow,
     setUserLastThrow,
-    setUserPoints,
+    setUserPoints,userPoints,
     setUserGender,
     setUserPhone,
     setUserBirthDate,
     setUserCityId,
     setUserStreetNameAndNumber,
-    setUserImg,userImg,
+    setUserImg, userImg,
     password, setPassword } = useContext(GlobalContext);
 
   useEffect(() => {
-  // getData()
+    const getData = async () => {
+      try {
+        AsyncStorage.getItem('@storage_Key')
+          .then(value => {
+            if (value != null) {
+              console.log("gjhjhjh:", value)
+              let jsonValue = JSON.parse(value);
+              if (jsonValue.Checked) {
+                setChecked(jsonValue.Checked)
+                setUserFirstName(jsonValue.First),
+                  setUserLastName(jsonValue.Last),
+                  setUserEmail(jsonValue.UserEmail),
+                  setUserCompetitionPlace(jsonValue.CompetitionPlace),
+                  setUserLastThrow(jsonValue.LastThrow),
+                  setUserPoints(jsonValue.Points),
+                  setUserImg(jsonValue.Img)
+                navigation.navigate('Home', jsonValue);
+              }
+            }
+          })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getData();
   }, []);
 
-  // const getData = async () => {
-  //   try {
-  //     AsyncStorage.getItem('@storage_Key')
-     
-  //       .then(value => { console.log(value);
-  //         if (value != null) {
-  //           navigation.navigate('Home');
-  //         }
-  //       })
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+
   const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
@@ -57,22 +69,22 @@ const SignInScreen = ({ navigation }) => {
     }
   }
   const newUser = {
-    UserEmail:userEmail,
+    UserEmail: userEmail,
     Password: password,
     Img: "",
-    Checked:"",
-    First:"",
-    Last:"",
-    CompetitionPlace:"",
+    Checked: "",
+    First: "",
+    Last: "",
+    CompetitionPlace: "",
     LastThrow: "",
-    Points:"",
+    Points: "",
   };
   const onSignInPressed = () => {
 
     if (password != null && userEmail != null) {
       newUser.UserEmail = userEmail;
       newUser.Password = password;
-      console.log("11111111111",newUser);
+      console.log("11111111111", newUser);
       fetch(apiUrl, {
         method: 'POST',
         body: JSON.stringify(newUser),
@@ -83,15 +95,15 @@ const SignInScreen = ({ navigation }) => {
         })
       }).then(response => { return response.json() })
         .then(data => {
-          console.log("2222222222",data);
+          console.log("2222222222", data);
 
           if (data.isSuccess) {
-            console.log("333",data.message);
+            console.log("333", data.message);
             alert(data.message);
 
           } else {
-            console.log("4444444",data);
-              setUserFirstName(data[0].First),
+            console.log("4444444", data);
+            setUserFirstName(data[0].First),
               setUserLastName(data[0].Last),
               setUserCompetitionPlace(data[0].competitionPlace),
               setUserLastThrow(data[0].lastThrow),
@@ -102,23 +114,18 @@ const SignInScreen = ({ navigation }) => {
               setUserCityId(data[0].cityId),
               setUserStreetNameAndNumber(data[0].streetNum),
               setUserImg(data[0].Img)
-              console.log("5555",data[0].phone);
-              console.log("checked:", checked)
+      
+            newUser.Img = userImg,
+            newUser.Checked = checked,
+            newUser.First = userFirstName,
+            newUser.Last = userLastName,
+            newUser.CompetitionPlace = userCompetitionPlace,
+            newUser.LastThrow = userLastThrow,
+            newUser.Points = userPoints,
+            console.log("newUser:", newUser)
+            storeData(newUser)
+            navigation.navigate('Home')
 
-            // if (checked) {
-            //  newUser.Img= userImg,
-            //  newUser.Checked=checked,
-            //  newUser.First=userFirstName,
-            //  newUser.Last=userLastName,
-            //  newUser.CompetitionPlace=userCompetitionPlace,
-            //  newUser.LastThrow= userLastThrow,
-            //  newUser.Points=userPoints,
-            //   console.log("newUser:", newUser)
-            //   storeData(newUser)  
-             
-            // }
-           navigation.navigate('Home')
-          
           }
 
         });
@@ -306,4 +313,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   }
-}) 
+})
