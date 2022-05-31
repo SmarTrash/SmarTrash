@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, SafeAreaView, Image, Dimensions,FlatList, Animated, } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
-import { MaterialIcons } from '@expo/vector-icons';
+import CoinIcon from '../../Components/Icon/CoinIcon';
 import { ScrollView } from 'react-native-gesture-handler';
 import CompetitionCard from '../../Components/CompetitionCard/CompetitionCard';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'

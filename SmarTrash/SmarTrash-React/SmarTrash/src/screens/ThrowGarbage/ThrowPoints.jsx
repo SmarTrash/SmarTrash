@@ -75,7 +75,7 @@ export default function ThrowPoints({ navigation }) {
           <Text style={[style.txtPoints, {marginRight:100}]}>
             {throwInfo.totalPoints}
           </Text>
-          <MaterialIcons name="stars" size={22} color={COLORS.gold} style={style.pointIcon} />
+          <CoinIcon />
       </View>
 
       <View style={{marginTop:50}}>
