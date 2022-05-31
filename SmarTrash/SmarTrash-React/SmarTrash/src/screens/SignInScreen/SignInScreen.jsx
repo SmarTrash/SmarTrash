@@ -46,6 +46,7 @@ const SignInScreen = ({ navigation }) => {
                   setUserLastThrow(jsonValue.LastThrow),
                   setUserPoints(jsonValue.Points),
                   setUserImg(jsonValue.Img)
+                  console.log("ddddddddddddddddddddddddd",userPoints);
                 navigation.navigate('Home', jsonValue);
               }
             }

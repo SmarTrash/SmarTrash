@@ -30,10 +30,12 @@ export default function Home({ navigation }) {
   } = useContext(GlobalContext);
 
   const [data, setData] = useState('');
-
+ 
   useEffect(() => {
     onScreenLoad();
     registerForPushNotificationsAsync();
+  
+
   }, []);
 
   async function registerForPushNotificationsAsync() {
@@ -72,7 +74,7 @@ export default function Home({ navigation }) {
     }
     return token;
   }
-
+  // console.log("userPhone",userPhone);
   // const removeData = async () => {
   //   try {
   //     await AsyncStorage.removeItem('@storage_Key');

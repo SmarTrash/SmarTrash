@@ -43,7 +43,7 @@ const EditProfile = ({ navigation }) => {
 
 
   useEffect(() => {
-    //userDetailsPlaceHolder();
+
   }, []);
 
   const options = [
@@ -138,9 +138,8 @@ const EditProfile = ({ navigation }) => {
           console.log("err del=", error);
         });
   }
-  // const openOptions = () => {
-
-  // }
+   
+ 
   const ifPressOK = () => {
     setShow(true)
     setOpen(true)
