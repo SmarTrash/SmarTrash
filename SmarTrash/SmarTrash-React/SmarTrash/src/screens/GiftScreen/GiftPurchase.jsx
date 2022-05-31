@@ -4,6 +4,7 @@ import COLORS from '../../Consts/colors';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import CoinIcon from '../../Components/Icon/CoinIcon';
 
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
@@ -112,7 +113,7 @@ const GiftPurchase = ({ navigation, route }) => {
             {/* {'סה"כ נקודות'} */}
             <View>
               <Text style={[style.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 20 }]}>
-                {userShippingDetails.points} <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
+                {userShippingDetails.points} <CoinIcon />
               </Text>
             </View>
           </View>
@@ -127,7 +128,7 @@ const GiftPurchase = ({ navigation, route }) => {
             {/* {'מחיר הטבה'} */}
             <View>
               <Text style={[style.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 20 }]}>
-                {userShippingDetails.price} <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
+                {userShippingDetails.price} <CoinIcon />
               </Text>
               <Button
                 title='רכישה'

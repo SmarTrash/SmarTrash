@@ -4,6 +4,7 @@ import COLORS from '../../Consts/colors'
 import { useEffect, useContext, useState } from 'react';
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import CoinIcon from '../../Components/Icon/CoinIcon';
 
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/AbleToOrder/';
@@ -86,7 +87,7 @@ const SelectedGift = ({ navigation, route }) => {
         </View>
 
         <View style={style.priceTag}>
-          <FontAwesome5 style={{ left: 20 }} name="coins" size={15} color="gold" />
+          <CoinIcon />
           <Text
             style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 5, left: 20, color: 'white' }}>
             {item.Price}
