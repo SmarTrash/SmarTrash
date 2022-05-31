@@ -69,9 +69,9 @@ const SignUpScreen = ({ navigation }) => {
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
       })
-    }).then(response => { return response.json() })
+    }).then(response => { return response.json(),console.log(response) })
       .then(data => {
-
+        console.log("bvvvvv",data)
       });
       navigation.navigate('SignInScreen');
   }
@@ -79,6 +79,23 @@ const SignUpScreen = ({ navigation }) => {
     console.warn("sign up");
     navigation.navigate('SignInScreen');
   }
+  
+// let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+    // if (reg.test(userEmail) === true) {
+    //   setUserEmail(userEmail);
+    // }
+    // else {
+    //   alert(' כתובת אימייל  לא חוקית');
+    //   setUserEmail(null)
+    // }
+    // if (password.length > 8) {
+    //   setPassword(password)
+    //
+    // } else {
+    //   alert(' סיסמה לא חוקית');
+    //   setPassword(null)
+    // }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>

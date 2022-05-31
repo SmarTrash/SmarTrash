@@ -1,7 +1,6 @@
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect, useRef,useContext } from 'react';
 import { Text, View, Button } from 'react-native';
-import registerForPushNotificationsAsync from './registerForPushNotificationsAsync';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
 

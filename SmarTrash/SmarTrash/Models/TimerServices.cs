@@ -34,9 +34,13 @@ namespace SmarTrash.Models
             db.SaveChanges();
         }
 
-       
-        public static void Post([FromBody] PushNotData pnd)
+
+        public static string Post(string path)
         {
+            SmarTrashDBContext db = new SmarTrashDBContext();
+            List<string> listOfToken = db.tblUser.Select(x => x.UserToken).ToList();
+            foreach (var item in listOfToken)
+            {
             // Create a request using a URL that can receive a post.
             WebRequest request = WebRequest.Create("https://exp.host/--/api/v2/push/send");
             // Set the Method property of the request to POST.
@@ -44,11 +48,11 @@ namespace SmarTrash.Models
             // Create POST data and convert it to a byte array.
             var objectToSend = new
             {
-                to = pnd.to,
-                title = pnd.title,
-                body = pnd.body,
-                badge = pnd.badge,
-                data = pnd.data//new { name = "nir", grade = 100 }
+                to = item,
+                title = "הודעה חשובה",
+                body = "מיחזור חשוב",
+               
+             //  data = pnd.data//new { name = "nir", grade = 100 }
             };
             string postData = new JavaScriptSerializer().Serialize(objectToSend);
             byte[] byteArray = Encoding.UTF8.GetBytes(postData);
@@ -80,6 +84,8 @@ namespace SmarTrash.Models
             dataStream.Close();
             response.Close();
             return "success:) --- " + responseFromServer + ", " + returnStatus;
+            }
+            return "";
         }
 
 
