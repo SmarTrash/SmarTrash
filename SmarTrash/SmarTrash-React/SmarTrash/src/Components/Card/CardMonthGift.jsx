@@ -45,10 +45,10 @@ const CardMonthGift = () => {
         </View>
         <Image style={style.topHotelCardImage} source={{ uri: giftData["GiftImage"] }} />
         <View style={{ paddingVertical: 3, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-end' }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start' }}>
             {'הטבה חודשית'}
           </Text>
-          <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf: 'flex-end' }}>{giftData["GiftDescription"]}</Text>
+          <Text style={{ fontSize: 15, fontWeight: 'bold', alignSelf: 'flex-start' }}>{giftData["GiftDescription"]}</Text>
           <Text style={{ fontSize: 12, fontWeight: 'bold', color: COLORS.grey, alignSelf: 'flex-end' }}>
             {giftData["Brand"]}
           </Text>
@@ -61,7 +61,7 @@ const CardMonthGift = () => {
 const style = StyleSheet.create({
 
   topHotelCard: {
-    height: 320,
+    height: 345,
     width: cardWidth,
     backgroundColor: COLORS.white,
     elevation: 15,
