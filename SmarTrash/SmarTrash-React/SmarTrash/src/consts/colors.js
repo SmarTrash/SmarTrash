@@ -10,6 +10,7 @@ const COLORS = {
   green: '#019267',
   gold: '#F0A500',
   offwhite:'#E4EFE7',
+  red:'rgb(200,0,0)',
 
 };
 
