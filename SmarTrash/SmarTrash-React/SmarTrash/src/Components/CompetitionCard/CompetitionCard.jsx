@@ -58,37 +58,34 @@ const CompetitionCard = ({index,usersPlaces}) => {
 
 export default CompetitionCard;
 const style = StyleSheet.create({
-  header: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-  },
-  categoryListContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
-    marginTop: 80,
-  },
-  categoryListText: {
-    fontSize: 17,
-    fontWeight: 'bold',
-  },
+  // header: {
+  //   marginTop: 20,
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   paddingHorizontal: 20,
+  // },
+
+  // categoryListText: {
+  //   fontSize: 17,
+  //   fontWeight: 'bold',
+  // },
   card: {
     height: 220,
-    width: 180,
-    elevation: 15,
-    marginRight: 20,
+    width: width/1.1,
+    // elevation: 15,
+    // marginRight: 20,
     borderRadius: 15,
     backgroundColor: COLORS.white,
-
+    // margin:10,
+    alignItems: 'center',
+   
   },
-  cardImage: {
-    height: 200,
-    width: '100%',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
+  // cardImage: {
+  //   height: 200,
+  //   width: '100%',
+  //   borderTopLeftRadius: 15,
+  //   borderTopRightRadius: 15,
+  // },
   priceTag: {
     height: 35,
     width: 80,
