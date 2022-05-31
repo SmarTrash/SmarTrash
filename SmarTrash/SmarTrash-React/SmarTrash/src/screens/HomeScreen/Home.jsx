@@ -241,8 +241,8 @@ export default function Home({ navigation }) {
       top: 20
     },
     profileImage: {
-      width: 200,
-      height: 200,
+      width: 120,
+      height: 120,
       borderRadius: 100,
       overflow: 'hidden',
     },
