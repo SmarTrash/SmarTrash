@@ -19,6 +19,7 @@ import CameraScreen from '../../screens/CameraScreen/CameraScreen';
 import PushPage from '../../Components/PushNotification/PushPage';
 import BinCameraScreen from '../../screens/ThrowGarbage/BinCameraScreen';
 import Map from '../../screens/MapScreen/Map';
+import BinListScreen from '../../screens/BinListScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -47,6 +48,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: true }} name="Map" component={Map} />
         <Stack.Screen options={{ headerShown: true }} name="PushPage" component={PushPage} />
         <Stack.Screen options={{ headerShown: false }} name="BinCameraScreen" component={BinCameraScreen} />
+        <Stack.Screen options={{ headerShown: false }} name="BinListScreen" component={BinListScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

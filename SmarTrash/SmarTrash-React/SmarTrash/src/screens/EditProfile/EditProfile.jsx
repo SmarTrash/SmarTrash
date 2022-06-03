@@ -115,7 +115,6 @@ const EditProfile = ({ navigation }) => {
         }
 
       });
-
   }
   const DeleteUser = () => {
     fetch(apiUrl, {
