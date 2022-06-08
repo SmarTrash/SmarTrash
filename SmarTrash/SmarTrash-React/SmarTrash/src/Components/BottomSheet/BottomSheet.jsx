@@ -127,28 +127,24 @@ const styles = StyleSheet.create({
         zIndex: 10,
     },
     library: {
-        bottom: 82,
-        left: 270
+        bottom: 110,
+        alignContent:'center',
+        right: 250
     },
     camera: {
-        top: 30,
-       width:cardWidth,
-       height:cardHeight,
-       right:70,
-       top:5,
+        top: 10,
+        right: 50,
         borderRadius: 5,
     },
     textG: {
-        width:cardWidth,
-        height:cardHeight,
-        top: 2,
-        right: 3,
+        bottom: 110,
+        left: 90,
         fontWeight: "bold",
         color: '#818181',
     },
     textC: {
-        width:cardWidth,
-        height:cardHeight,
+        top: 10,
+        left: 285,
         fontWeight: "bold",
         color: '#818181',
 

@@ -13,20 +13,20 @@ let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/upload
 const CameraScreen = () => {
 
 
-  const [passed, setPassed] = useState(false);
+
   const navigation = useNavigation();
-  const { userImg, userEmail, userFirstName, userLastName, setOpen, setShow } = useContext(GlobalContext);
+  const { userImg,setUserImg, userEmail, userFirstName, userLastName, setOpen, setShow } = useContext(GlobalContext);
 
   useEffect(() => {
     ChangeImage();
-  }, [passed == true]);
+  });
 
   const uploadImage = () => {
-    console.log("pressed")
     imageUpload(userImg, 'userPicture.jpg')
   }
   console.log("userImg=", userImg)
-  imageUpload = (userImage, picName) => {
+
+ const imageUpload = (userImage, picName) => {
 
     let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
@@ -37,7 +37,7 @@ const CameraScreen = () => {
       name: picName,
       type: 'image/jpg'
     });
-
+console.log({dataI});
     const config = {
       method: 'POST',
       body: dataI,
@@ -55,19 +55,16 @@ const CameraScreen = () => {
 
     fetch(urlAPI, config)
       .then((res) => {
-        if (res.status == 201) { return res.json() }
-        else { return "err"; }
+        console.log({res});
+       return res.json() 
+        // else { return "err"; }
       })
       .then((responseData) => {
         console.log("responseData=", responseData)
         if (responseData != "err") {
-          let picNameWOExt = picName.substring(0, picName.indexOf("."));
-          let imageNameWithGUID = responseData.substring(responseData.indexOf(picNameWOExt),
-            responseData.indexOf(".jpg") + 4);
-          console.log({ imageNameWithGUID });
-          console.log("img uploaded successfully!");
-          setPassed = true;
-          ChangeImage()
+          console.log("img uploaded successfully!"); 
+          setUserImg(responseData);
+          ChangeImage(url)
 
         }
         else { alert('error uploding ...'); }
@@ -75,11 +72,14 @@ const CameraScreen = () => {
       .catch(err => { alert('err upload= ' + err); });
   }
 
-
-  const ChangeImage = () => {
-    fetch(urlUpdateImage + userImg, {
+//  body  , query  , params 
+  const ChangeImage = (url) => {
+    console.log("userImg", userImg);
+    console.log("url", url);
+    fetch(urlUpdateImage, {
       method: 'POST',
-      body: JSON.stringify({ UserEmail: userEmail }),
+      body: JSON.stringify({ UserEmail: userEmail,
+                              UserImg:url}),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'

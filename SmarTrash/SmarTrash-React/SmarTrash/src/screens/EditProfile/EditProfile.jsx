@@ -41,7 +41,7 @@ const EditProfile = ({ navigation }) => {
 
   const [image, setImage] = useState('');
   const { show, setShow, setOpen } = useContext(GlobalContext);
-
+  setShow(true)
 
   useEffect(() => {
     //userDetailsPlaceHolder();
