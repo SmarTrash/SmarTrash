@@ -1,7 +1,6 @@
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import React from 'react'
 import COLORS from '../../Consts/colors'
-import { MaterialIcons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import CoinIcon from '../../Components/Icon/CoinIcon';
 
@@ -32,7 +31,7 @@ const ApprovedPurchase=({ navigation, route })=> {
           </Text>
         </View>
 
-        <View style={{ marginRight: 50 }}>
+        <View style={{ marginRight: 20 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, alignSelf: 'flex-start', margin: 20 }}>
             <CoinIcon />
           </Text>
@@ -67,6 +66,7 @@ const styles = StyleSheet.create({
   },
   txtContainer: {
     marginTop: 150,
+    marginLeft:70
 
   },
 
@@ -75,11 +75,12 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
     marginTop: 90,
+    marginLeft:60
 
 
   },
   imgContainer: {
-    width: 300,
+    width: 400,
     height: 300,
     borderRadius: 100,
     overflow: 'hidden',

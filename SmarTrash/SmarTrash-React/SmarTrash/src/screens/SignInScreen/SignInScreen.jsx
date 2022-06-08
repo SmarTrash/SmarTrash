@@ -16,13 +16,13 @@ const SignInScreen = ({ navigation }) => {
 
   const { userEmail, setUserEmail,
     checked, setChecked,
-    setUserFirstName,userFirstName,
-    setUserLastName,userLastName,
-    setUserCompetitionPlace,userCompetitionPlace,userLastThrow,
+    setUserFirstName, userFirstName,
+    setUserLastName, userLastName,
+    setUserCompetitionPlace, userCompetitionPlace, userLastThrow,
     setUserLastThrow,
-    setUserPoints,userPoints,
+    setUserPoints, userPoints,
     setUserGender,
-    setUserPhone,
+    setUserPhone, userPhone,
     setUserBirthDate,
     setUserCityId,
     setUserStreetNameAndNumber,
@@ -45,7 +45,9 @@ const SignInScreen = ({ navigation }) => {
                   setUserCompetitionPlace(jsonValue.CompetitionPlace),
                   setUserLastThrow(jsonValue.LastThrow),
                   setUserPoints(jsonValue.Points),
-                  setUserImg(jsonValue.Img)
+                  setUserImg(jsonValue.Img),
+                  setUserPhone(jsonValue.Phone),
+                  console.log("ddddddddddddddddddddddddd", userPhone);
                 navigation.navigate('Home', jsonValue);
               }
             }
@@ -78,6 +80,7 @@ const SignInScreen = ({ navigation }) => {
     CompetitionPlace: "",
     LastThrow: "",
     Points: "",
+    Phone:""
   };
   const onSignInPressed = () => {
 
@@ -114,15 +117,16 @@ const SignInScreen = ({ navigation }) => {
               setUserCityId(data[0].cityId),
               setUserStreetNameAndNumber(data[0].streetNum),
               setUserImg(data[0].Img)
-      
+            
             newUser.Img = userImg,
-            newUser.Checked = checked,
-            newUser.First = userFirstName,
-            newUser.Last = userLastName,
-            newUser.CompetitionPlace = userCompetitionPlace,
-            newUser.LastThrow = userLastThrow,
-            newUser.Points = userPoints,
-            console.log("newUser:", newUser)
+              newUser.Checked = checked,
+              newUser.First = userFirstName,
+              newUser.Last = userLastName,
+              newUser.CompetitionPlace = userCompetitionPlace,
+              newUser.LastThrow = userLastThrow,
+              newUser.Points = userPoints,
+              newUser.Phone=userPhone,
+              console.log("newUser:", newUser)
             storeData(newUser)
             navigation.navigate('Home')
 

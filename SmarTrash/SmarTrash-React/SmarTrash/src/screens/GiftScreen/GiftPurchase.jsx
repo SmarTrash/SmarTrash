@@ -2,17 +2,15 @@ import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Button } f
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CoinIcon from '../../Components/Icon/CoinIcon';
-
+import CustonButton from '../../Components/CustomButton/CustonButton'
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
 const GiftPurchase = ({ navigation, route }) => {
-
 
   const { userEmail, userImg } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
@@ -104,7 +102,7 @@ const GiftPurchase = ({ navigation, route }) => {
           </TouchableOpacity>
 
           {/* סה"כ נקודות - טקסט*/}
-          <View style={{ top: 40 }}>
+          <View style={{ top: 20 }}>
             <View>
               <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 20 }}>
                 {'סה"כ נקודות'}
@@ -119,7 +117,7 @@ const GiftPurchase = ({ navigation, route }) => {
           </View>
 
           {/* מחיר הטבה - טקסט*/}
-          <View style={{ bottom: 70 }}>
+          <View style={{ bottom: 95 }}>
             <View>
               <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 20 }}>
                 {'מחיר הטבה'}
@@ -130,11 +128,12 @@ const GiftPurchase = ({ navigation, route }) => {
               <Text style={[style.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 20 }]}>
                 {userShippingDetails.price} <CoinIcon />
               </Text>
-              <Button
-                title='רכישה'
-                text="רכישה"
-                onClick={() => { navigation.navigate('ApprovedPurchase') }}
+
+              <CustonButton
+                text='רכישה'
+                onPress={() => { navigation.navigate('ApprovedPurchase') }}
               />
+
             </View>
           </View>
         </View>

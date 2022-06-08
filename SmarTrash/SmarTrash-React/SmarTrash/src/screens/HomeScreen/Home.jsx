@@ -30,10 +30,12 @@ export default function Home({ navigation }) {
   } = useContext(GlobalContext);
 
   const [data, setData] = useState('');
-
+ 
   useEffect(() => {
     onScreenLoad();
     registerForPushNotificationsAsync();
+  console.log("password:",password);
+
   }, []);
 
   async function registerForPushNotificationsAsync() {
@@ -72,16 +74,16 @@ export default function Home({ navigation }) {
     }
     return token;
   }
-
-  // const removeData = async () => {
-  //   try {
-  //     await AsyncStorage.removeItem('@storage_Key');
-  //     {console.log("@storage_Key:",AsyncStorage)}
-  //     navigation.navigate('SignInScreen');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  // console.log("userPhone",userPhone);
+  const removeData = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key');
+      {console.log("@storage_Key:",AsyncStorage)}
+      navigation.navigate('SignInScreen');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
 
@@ -121,7 +123,7 @@ export default function Home({ navigation }) {
     <SafeAreaView style={style.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={style.titleBar}>
-          <SimpleLineIcons name="logout" size={24} color='#52575D' onPress={() => navigation.navigate('SignInScreen')} />
+          <SimpleLineIcons name="logout" size={24} color='#52575D' onPress={() => removeData()} />
           <Ionicons name="notifications-outline" size={24} color='#52575D' onPress={() => navigation.navigate('Notifications')} />
         </View>
 
@@ -163,19 +165,26 @@ export default function Home({ navigation }) {
             </View>
           </View>
           <View>
+               <TouchableOpacity onPress={() => {
+              console.log('heree');
+            navigation.navigate('Map')
+          }}>
             <View style={[style.sortBtn, { backgroundColor: '#39AEA9' }]}>
               <Feather name="map-pin" size={50} color="black" />
             </View>
             <View>
-              <Text style={[style.text, style.subText, { marginLeft: 10}]}>חיפוש פחים</Text>
+           
+              <Text style={[style.text, style.subText, { marginLeft: 10 }]}>חיפוש פחים</Text>
             </View>
+              </TouchableOpacity>
+
           </View>
           <View>
             <View style={[style.sortBtn, { backgroundColor: '#A2D5AB' }]}>
               <AntDesign name="play" size={50} color="black" />
             </View>
             <View>
-              <Text style={[style.text, style.subText, { marginLeft:28 }]}>שחק</Text>
+              <Text style={[style.text, style.subText, { marginLeft: 28 }]}>שחק</Text>
             </View>
           </View>
           <TouchableOpacity onPress={() => {
@@ -197,11 +206,11 @@ export default function Home({ navigation }) {
           marginHorizontal: 20,
         }}>
 
-          <Text style={[style.text, style.subText, { fontWeight: 'bold',color: COLORS.grey, top: 35, fontSize: 17,marginLeft:-20,padding:10 }]}>הטבות נבחרות</Text>
+          <Text style={[style.text, style.subText, { fontWeight: 'bold', color: COLORS.grey, top: 35, fontSize: 17, marginLeft: -20, padding: 10 }]}>הטבות נבחרות</Text>
 
           <Text onPress={() => {
             navigation.navigate('GiftsPage')
-          }} style={[style.text, style.subText, { zIndex: 1, color: COLORS.grey, top: 35, fontSize: 17, marginRight:-8}]}>ראה הכל
+          }} style={[style.text, style.subText, { zIndex: 1, color: COLORS.grey, top: 35, fontSize: 17, marginRight: -8 }]}>ראה הכל
           </Text>
         </View>
         <TouchableOpacity >
@@ -278,14 +287,14 @@ const style = StyleSheet.create({
     flex: 1,
   },
   subText: {
-    paddingTop:7,
+    paddingTop: 7,
     fontSize: 15,
     color: '#AEB5BC',
 
   },
   btnContainer: {
     flexDirection: 'row',
-    marginTop:15 
+    marginTop: 15
   },
   sortBtn: {
     marginTop: 40,

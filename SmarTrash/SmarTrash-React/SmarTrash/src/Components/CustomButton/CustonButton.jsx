@@ -3,14 +3,17 @@ import React from 'react'
 import COLORS from '../../Consts/colors';
 
 
-const CustonButton = ({ onPress, text, type = "Primary", bgColor, fgColor }) => {
+
+const CustonButton = ({ onPress, text, type = "Primary", bgColor, fgColor,disabled }) => {
   return (
     <Pressable
       onPress={onPress}
+      disabled={disabled}
       style={[
         styles.container,
         styles[`container_${type}`],
-        bgColor ? { backgroundColor: bgColor } : {}
+        bgColor ? { backgroundColor: bgColor } : {},
+        disabled ? { backgroundColor: COLORS.grey } : {}
       ]}>
       <Text
         style={[

@@ -5,7 +5,7 @@ import { useEffect, useContext, useState } from 'react';
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CoinIcon from '../../Components/Icon/CoinIcon';
-
+import CustonButton from '../../Components/CustomButton/CustonButton'
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/AbleToOrder/';
 
@@ -95,14 +95,12 @@ const SelectedGift = ({ navigation, route }) => {
           </Text>
         </View>
 
-
-        <Button
-          title='רכישה'
-          disabled={!isAbleToOrder}
-          text="רכישה"
-          onPress={() => {navigation.navigate('GiftPurchase', item.GiftId)}}
-        />
-
+        <CustonButton
+            text='רכישה'
+            disabled={!isAbleToOrder}
+            onPress={() => {navigation.navigate('GiftPurchase', item.GiftId)}}
+          />
+  
 
 
       </View>
