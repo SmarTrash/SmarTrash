@@ -21,15 +21,17 @@ namespace SmarTrash
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //* 60 * 60 * 24
-            timer.Interval = 1000 ;
+            //1000 * 60 * 60 * 24
+            timer.Interval = 30000 ;
+            path = Server.MapPath("/"); 
             timer.Elapsed += tm_Tick;
-            //לשאול את ניר
+           
             timer.Enabled = true;
             timer.AutoReset = true;
             timer.Start();
-
-            path = Server.MapPath("/");
+         
+           
+        
         }
         //code for timer
         private void tm_Tick(object sender, ElapsedEventArgs e)
@@ -45,7 +47,7 @@ namespace SmarTrash
             {
                 SmarTrash.Models.TimerServices.PostAllWinnersInCities(path);
             }
-            else if (DateTime.Now.Day == 22)
+            else if (DateTime.Now.Day == 8)
             {
                 SmarTrash.Models.TimerServices.Post(path);
             }

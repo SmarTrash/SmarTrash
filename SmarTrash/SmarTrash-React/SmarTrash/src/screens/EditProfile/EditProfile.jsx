@@ -21,7 +21,6 @@ const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/U
 
 const EditProfile = ({ navigation }) => {
   const { userEmail, selectedCity,
-
     setUserImg, setChecked,
     setUserFirstName,
     setUserLastName,
@@ -138,8 +137,8 @@ const EditProfile = ({ navigation }) => {
           console.log("err del=", error);
         });
   }
-   
- 
+
+
   const ifPressOK = () => {
     setShow(true)
     setOpen(true)
@@ -172,7 +171,7 @@ const EditProfile = ({ navigation }) => {
         </View>
 
         <View style={{ alignSelf: 'center' }}>
-          
+
           <CustomInput
             placeholder={userFirstName}
             value={userFirstName}
@@ -204,7 +203,7 @@ const EditProfile = ({ navigation }) => {
           />
         </View>
         <SafeAreaView style={styles.container}>
-        
+
           <View style={styles.container}>
 
             <DatePicker
@@ -234,11 +233,11 @@ const EditProfile = ({ navigation }) => {
           </View>
         </SafeAreaView>
         <View >
-          <RadioForm style={styles.radioBtn} 
+          <RadioForm style={styles.radioBtn}
             radio_props={options}
             initial={0}
             buttonColor={'black'}
-            
+
             onPress={(value) => {
               setUserGender(value);
 
@@ -302,13 +301,13 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
-   
+
   },
 
   datePickerStyle: {
     width: cardWidth,
     marginRight: 10,
-  
+
   },
   profileImage: {
     width: 150,
@@ -336,7 +335,7 @@ const styles = StyleSheet.create({
   },
   radioBtn: {
     flexDirection: 'row',
-    alignSelf: 'center' ,
+    alignSelf: 'center',
 
   },
   sortBtn: {

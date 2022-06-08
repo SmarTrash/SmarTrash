@@ -34,7 +34,7 @@ export default function Home({ navigation }) {
   useEffect(() => {
     onScreenLoad();
     registerForPushNotificationsAsync();
-  
+  console.log("password:",password);
 
   }, []);
 
@@ -75,15 +75,15 @@ export default function Home({ navigation }) {
     return token;
   }
   // console.log("userPhone",userPhone);
-  // const removeData = async () => {
-  //   try {
-  //     await AsyncStorage.removeItem('@storage_Key');
-  //     {console.log("@storage_Key:",AsyncStorage)}
-  //     navigation.navigate('SignInScreen');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  const removeData = async () => {
+    try {
+      await AsyncStorage.removeItem('@storage_Key');
+      {console.log("@storage_Key:",AsyncStorage)}
+      navigation.navigate('SignInScreen');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
 
@@ -123,7 +123,7 @@ export default function Home({ navigation }) {
     <SafeAreaView style={style.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={style.titleBar}>
-          <SimpleLineIcons name="logout" size={24} color='#52575D' onPress={() => navigation.navigate('SignInScreen')} />
+          <SimpleLineIcons name="logout" size={24} color='#52575D' onPress={() => removeData()} />
           <Ionicons name="notifications-outline" size={24} color='#52575D' onPress={() => navigation.navigate('Notifications')} />
         </View>
 
