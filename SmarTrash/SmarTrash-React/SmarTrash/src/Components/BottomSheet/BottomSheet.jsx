@@ -132,18 +132,23 @@ const styles = StyleSheet.create({
     },
     camera: {
         top: 30,
-        left: 80,
+       width:cardWidth,
+       height:cardHeight,
+       right:70,
+       top:5,
         borderRadius: 5,
     },
     textG: {
-        bottom: 82,
-        left: 300,
+        width:cardWidth,
+        height:cardHeight,
+        top: 2,
+        right: 3,
         fontWeight: "bold",
         color: '#818181',
     },
     textC: {
-        top: 30,
-        left: 110,
+        width:cardWidth,
+        height:cardHeight,
         fontWeight: "bold",
         color: '#818181',
 

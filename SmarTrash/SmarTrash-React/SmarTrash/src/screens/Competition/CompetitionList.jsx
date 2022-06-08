@@ -51,14 +51,23 @@ const CompetitionList=()=> {
     //     </View> 
     //   </View>
     //   <View>
+    
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-      <View style={style.header}>
-        <View style={{ paddingBottom: 15 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end', left: 110 }}>
-            הטבות
+       
+      <View style={style.titleContainer}>
+        <View style={[style.profileImage,{ paddingBottom: 15 }]}>
+         
+          <Image
+            style={style.image}
+            source={{ uri: 'https://www.thehandbook.com/cdn-cgi/image/width=300,height=300,fit=cover,q=85/https://files.thehandbook.com/uploads/2019/12/22708923_288175598347572_5346731196820750336_n.jpg' }} />
+         </View>
+         <View style={style.txtTitleContainer}>
+         <Text style={style.txtTitle}>
+          המתחרים בעיר שלך
           </Text>
         </View>
-
+        
+       
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
  
@@ -85,12 +94,16 @@ const CompetitionList=()=> {
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: true },
           )}
-          horizontal
+          
           data={usersPlaces}
           contentContainerStyle={{
-            paddingVertical: 30,
-            paddingLeft: 20,
-            paddingRight: cardWidth / 2 - 40,
+            paddingVertical: 50,
+            alignItems:'center',
+            alignContent:'center', 
+            alignSelf:'center',
+            // justifyContent:'center', 
+            // paddingLeft: 10,
+            // paddingRight: cardWidth / 2 - 40,
           }}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => <CompetitionCard usersPlaces={item} index={index} />}
@@ -102,20 +115,7 @@ const CompetitionList=()=> {
 }
 export default CompetitionList;
 const style = StyleSheet.create({
-  topHotelCard: {
-    height: 100,
-    width: cardWidth,
-    backgroundColor: 'black',
-    margin: 10,
-    borderRadius: 10,
-    elevation: 15,
-    shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-  },
+
   txtTitle: {
     fontFamily: 'HelveticaNeue',
     color: '#52575D',
@@ -132,11 +132,13 @@ const style = StyleSheet.create({
     overflow: 'hidden',
     marginRight: 15,
   },
+
   image: {
     flex: 1,
     width: undefined,
     height: undefined,
   },
+ 
   titleContainer: {
     flexDirection: 'row-reverse',
     marginBottom: 20,
@@ -146,89 +148,82 @@ const style = StyleSheet.create({
     justifyContent: 'flex-end',
     alignContent: 'flex-end',
   },
-  txtCard: {
-    fontFamily: 'HelveticaNeue',
-    color: '#52575D',
-    fontSize: 16,
-    fontWeight: 'bold',
-    margin: 10,
-  },
-  pointIcon: {
-    marginTop: 8,
-  },
-  header: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-  },
-  categoryListContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
-    marginTop: 30,
-  },
-  categoryListText: {
-    fontSize: 17,
-    fontWeight: 'bold',
-  },
-  card: {
-    height: 280,
-    width: cardWidth,
-    elevation: 15,
-    marginRight: 20,
-    borderRadius: 15,
-    backgroundColor: COLORS.white,
-  },
-  cardImage: {
-    height: 200,
-    width: '100%',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  priceTag: {
-    height: 60,
-    width: 80,
-    backgroundColor: COLORS.primary,
-    position: 'absolute',
-    zIndex: 1,
-    right: 0,
-    borderTopRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardDetails: {
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: COLORS.white,
-    position: 'absolute',
-    bottom: 0,
-    padding: 20,
-    width: cardWidth,
-  },
-  cardOverLay: {
-    height: 280,
-    backgroundColor: COLORS.white,
-    position: 'absolute',
-    zIndex: 100,
-    width: cardWidth,
-    borderRadius: 15,
-  },
-  topHotelCard: {
-    height: 120,
-    width: cardWidth,
-    backgroundColor: COLORS.white,
-    elevation: 15,
-    marginHorizontal: 10,
-    borderRadius: 10,
+  // txtCard: {
+  //   fontFamily: 'HelveticaNeue',
+  //   color: '#52575D',
+  //   fontSize: 16,
+  //   fontWeight: 'bold',
+  //   margin: 10,
+  // },
+  // pointIcon: {
+  //   marginTop: 8,
+  // },
+  // header: {
+  //   marginTop: 20,
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between',
+  //   paddingHorizontal: 20,
+  // },
+ 
+  
+  // card: {
+  //   height: 280,
+  //   width: cardWidth,
+  //   elevation: 15,
+  //   marginRight: 20,
+  //   borderRadius: 15,
+  //   backgroundColor: COLORS.white,
+  // },
+  // cardImage: {
+  //   height: 200,
+  //   width: '100%',
+  //   borderTopLeftRadius: 15,
+  //   borderTopRightRadius: 15,
+  // },
+  // priceTag: {
+  //   height: 60,
+  //   width: 80,
+  //   backgroundColor: COLORS.primary,
+  //   position: 'absolute',
+  //   zIndex: 1,
+  //   right: 0,
+  //   borderTopRightRadius: 15,
+  //   borderBottomLeftRadius: 15,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  // cardDetails: {
+  //   height: 100,
+  //   borderRadius: 50,
+  //   backgroundColor: COLORS.white,
+  //   position: 'absolute',
+  //   bottom: 0,
+  //   padding: 20,
+  //   width: cardWidth,
+  // },
+  // cardOverLay: {
+  //   height: 280,
+  //   backgroundColor: COLORS.white,
+  //   position: 'absolute',
+  //   zIndex: 100,
+  //   width: cardWidth,
+  //   borderRadius: 15,
+  // },
 
-  },
-  topHotelCardImage: {
-    height: 80,
-    width: cardWidth,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
+  // topHotelCard: {
+  //   height: 100,
+  //   width: cardWidth,
+  //   backgroundColor: 'black',
+  //   margin: 10,
+  //   borderRadius: 10,
+  //   elevation: 15,
+  //   shadowColor: '#171717',
+  //   shadowOffset: { width: -2, height: 4 },
+  //   shadowOpacity: 0.3,
+  //   shadowRadius: 8,
+  //   flexDirection: 'row-reverse',
+  //   alignItems: 'center',
+  // },
+
 
 });

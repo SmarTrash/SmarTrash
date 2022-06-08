@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import { Provider } from 'react-native-paper';
+import COLORS from '../../Consts/colors';
 
 
 const { width } = Dimensions.get('screen');
@@ -21,6 +22,7 @@ const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/U
 
 const EditProfile = ({ navigation }) => {
   const { userEmail, selectedCity,
+
     setUserImg, setChecked,
     setUserFirstName,
     setUserLastName,
@@ -39,15 +41,15 @@ const EditProfile = ({ navigation }) => {
 
   const [image, setImage] = useState('');
   const { show, setShow, setOpen } = useContext(GlobalContext);
-
+  setShow(true)
 
   useEffect(() => {
-
+    //userDetailsPlaceHolder();
   }, []);
 
   const options = [
-    { label: 'אישה', value: 'F' },
-    { label: 'גבר', value: 'M' },
+    { label: ' אישה   ', value: 'F' },
+    { label: ' גבר', value: 'M' },
   ];
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
@@ -137,8 +139,9 @@ const EditProfile = ({ navigation }) => {
           console.log("err del=", error);
         });
   }
+  // const openOptions = () => {
 
-
+  // }
   const ifPressOK = () => {
     setShow(true)
     setOpen(true)
@@ -146,7 +149,9 @@ const EditProfile = ({ navigation }) => {
   return (
 
     <Provider>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}
+        style={{ backgroundColor: 'white' }}
+      >
 
         <View style={styles.root}>
           <Text style={styles.title}>עריכת פרטים אישיים</Text>
@@ -202,10 +207,22 @@ const EditProfile = ({ navigation }) => {
             setValue={setUserStreetNameAndNumber}
           />
         </View>
+        <View >
+          <RadioForm style={styles.radioBtn}
+            radio_props={options}
+            initial={0}
+            buttonColor={COLORS.primary}
+            buttonSize={15}
+            buttonWrapStyle={{ marginLeft: 100 }}
+            selectedButtonColor={COLORS.green}
+            onPress={(value) => {
+              setUserGender(value);
+
+            }}
+          />
+        </View>
         <SafeAreaView style={styles.container}>
-
           <View style={styles.container}>
-
             <DatePicker
               style={styles.datePickerStyle}
               date={userBirthDate}
@@ -232,29 +249,19 @@ const EditProfile = ({ navigation }) => {
             />
           </View>
         </SafeAreaView>
-        <View >
-          <RadioForm style={styles.radioBtn}
-            radio_props={options}
-            initial={0}
-            buttonColor={'black'}
 
-            onPress={(value) => {
-              setUserGender(value);
-
-            }}
-          />
+        <View style={{ alignItems: 'center', alignContent: 'center', padding: 5 }}>
+          <CityList />
         </View>
-
-        <CityList />
-
-        <View>
+        <View >
           <CustonButton
             text='שמירה'
             onPress={userChangeSave}
           />
         </View>
-        <View>
+        <View >
           <CustonButton
+          bgColor={COLORS.red}
             text='מחיקת משתמש'
             onPress={DeleteUser}
           />
@@ -321,7 +328,7 @@ const styles = StyleSheet.create({
     height: undefined,
   },
   edit: {
-    backgroundColor: '#00C897',
+    backgroundColor: COLORS.green,
     position: 'absolute',
     bottom: 0,
     right: 0,
@@ -336,6 +343,8 @@ const styles = StyleSheet.create({
   radioBtn: {
     flexDirection: 'row',
     alignSelf: 'center',
+    padding: 13,
+    paddingBottom: 3
 
   },
   sortBtn: {
