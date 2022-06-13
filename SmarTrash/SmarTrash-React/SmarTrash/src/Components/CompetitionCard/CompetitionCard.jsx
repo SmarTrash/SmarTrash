@@ -8,51 +8,36 @@ import CoinIcon from '../Icon/CoinIcon';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
-const CompetitionCard = ({index,usersPlaces}) => {
+const CompetitionCard = ({ index, usersPlaces }) => {
 
 
-  const scrollX = React.useRef(new Animated.Value(0)).current;
-
-  const inputRange = [
-    (index - 1) * cardWidth,
-    index * cardWidth,
-    (index + 1) * cardWidth,
-  ];
-  const opacity = scrollX.interpolate({
-    inputRange,
-    outputRange: [0.1, 0.1, 0.1],
-  });
-  const scale = scrollX.interpolate({
-    inputRange,
-    outputRange: [1, 1, 1],
-  });
-
-
+  console.log('uuu', usersPlaces);
   return (
-    
-   
-    
-    <Animated.View style={[style.shadowProp, { ...style.card, transform: [{ scale }], marginLeft: 12 }]}>
-      <Animated.View style={{ ...style.cardOverLay, opacity }} />
-      <View style={style.priceTag}>
-        <Text
-          style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold' }}>
-          ${usersPlaces["Key"]}
-        </Text>
-      
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 13 }}>
-          <View >
-            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
-              {usersPlaces["Value"]}
-            </Text>
-            <CoinIcon />
-            </View>
-          </View>
-          </View>
-          </Animated.View>
-    
 
+    // <Animated.View style={[style.shadowProp, { ...style.card, transform: [{ scale }], marginLeft: 12 }]}>
+    //   <Animated.View style={{ ...style.cardOverLay, opacity }} />
+    //   <View style={style.priceTag}>
+    //     <Text
+    //       style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold' }}>
+    //       ${usersPlaces["Key"]}
+    //     </Text>
+
+    //     <View
+    //       style={{ flexDirection: 'row', justifyContent: 'space-between', bottom: 18, alignSelf: 'flex-end', right: 13 }}>
+    //       <View >
+    //         <Text style={{ fontWeight: 'bold', fontSize: 14 }}>
+    //           {usersPlaces["Value"]}
+    //         </Text>
+    //         <CoinIcon />
+    //         </View>
+    //       </View>
+    //       </View>
+    //       </Animated.View>
+    <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+      <Text>{usersPlaces.Key}</Text>
+      <CoinIcon />
+      <Text>{usersPlaces.Value}</Text>
+    </View>
   );
 };
 
@@ -72,14 +57,14 @@ const style = StyleSheet.create({
   // },
   card: {
     height: 220,
-    width: width/1.1,
+    width: width / 1.1,
     // elevation: 15,
     // marginRight: 20,
     borderRadius: 15,
     backgroundColor: COLORS.white,
     // margin:10,
     alignItems: 'center',
-   
+
   },
   // cardImage: {
   //   height: 200,
@@ -107,8 +92,8 @@ const style = StyleSheet.create({
     bottom: 0,
     padding: 25,
     width: '100%',
-    paddingRight:1,
-    
+    paddingRight: 1,
+
   },
   cardOverLay: {
     height: 280,

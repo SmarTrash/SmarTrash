@@ -13,24 +13,7 @@ export default function MapScreen({ navigation }) {
     longitude: 34.843893
   });
 
-
-
   useEffect(() => {
-    const url = 'http://proj.ruppin.ac.il/bgroup91/prod/api/BinSearch/GetBin';
-    fetch(url, {
-      method: 'POST',
-      body: { UserEmail: userEmail },
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-      })
-    }).then(response => response.json())
-      .then(data => {
-        console.log("דאטה", { data })
-        if(data){
-          setMarkers(data)
-        }
-      });
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -39,7 +22,6 @@ export default function MapScreen({ navigation }) {
         // navigation.navigate('')
         return;
       }
-
       let location = await Location.getCurrentPositionAsync({});
       //setLocation(location);
       console.log(location);
@@ -47,10 +29,44 @@ export default function MapScreen({ navigation }) {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude
       })
-
     })();
+    const url = 'http://proj.ruppin.ac.il/bgroup91/prod/api/BinSearch/GetBin';
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ UserEmail: userEmail }),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => response.json())
+      .then(data => {
+        console.log("דאטה", { data })
+        console.log("דאטה", data[0].CityId)
+        // alert(data[0].CityId)
+        if (data) {
 
+          setMarkers(data)
+
+        }
+      });
   }, []);
+
+
+  // let stam = markers.map((marker) => {
+  //   return <Marker
+  //     coordinate={
+  //       {
+  //         latitude: marker.Latitude,
+  //         longitude: marker.Longitude
+  //       }
+  //     }
+  //     title='avi'//{marker.BinTypeId}
+  //     description='avi'//{marker.Address}
+  //     pinColor='#FF8D29'
+  //   />
+  // });
+
+  //alert(JSON.stringify(stam[0])[0]);
 
   return (
     <View style={styles.container}>
@@ -64,21 +80,33 @@ export default function MapScreen({ navigation }) {
           latitudeDelta: 0.0122,
           longitudeDelta: 0.0121,
         }}>
-        {/* {markers&&
+        {markers&&
           markers.map((marker) => {
             return <Marker
+            key={marker.BinQRId}
               coordinate={
                 {
                   latitude: marker.Latitude,
                   longitude: marker.Longitude
                 }
               }
-              title={marker.BinTypeId}
+              title={marker.Address}
               description={marker.Address}
               pinColor='#FF8D29'
             />
           })
-        } */}
+        }
+        {/* <Marker
+          coordinate={
+            {
+              latitude: 32.15715,
+              longitude: 34.843893
+            }
+          }
+          title='avi'//{marker.BinTypeId}
+          description='avi'//{marker.Address}
+          pinColor='#FF8D29'
+        /> */}
       </MapView>
     </View>
   )

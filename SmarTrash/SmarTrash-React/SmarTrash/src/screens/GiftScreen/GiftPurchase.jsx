@@ -39,7 +39,7 @@ const GiftPurchase = ({ navigation, route }) => {
   }
 
   return (
-    <View>
+    <View style={style.container}>
 
       <View style={{ alignSelf: 'center' }}>
         <View style={style.profileImage}>
@@ -142,6 +142,9 @@ const GiftPurchase = ({ navigation, route }) => {
   )
 }
 const style = StyleSheet.create({
+  container: {
+    backgroundColor:COLORS.white,
+  },
   profileImage: {
     width: 80,
     height: 80,

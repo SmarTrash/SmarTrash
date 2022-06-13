@@ -33,8 +33,6 @@ const CompetitionList=()=> {
       });
   }
     , []);
-    const [activeCardIndex, setActiveCardIndex] = React.useState(0);
-    const scrollX = React.useRef(new Animated.Value(0)).current;
 
     console.log('usersPlaces',usersPlaces)
   return (
@@ -66,14 +64,10 @@ const CompetitionList=()=> {
           המתחרים בעיר שלך
           </Text>
         </View>
-        
-       
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
- 
-          {/* <FlatList
+      {/* <ScrollView showsVerticalScrollIndicator={false}> */}
+          <FlatList
             data={usersPlaces}
-            horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={{
               paddingLeft: 20,
@@ -81,10 +75,8 @@ const CompetitionList=()=> {
               paddingBottom: 30,
             }}
             renderItem={({ item,i }) => <CompetitionCard usersPlaces={item} index={i} />}
-          /> */}
-
-          
-        <Animated.FlatList
+          />
+        {/* <Animated.FlatList
           onMomentumScrollEnd={(e) => {
             setActiveCardIndex(
               Math.round(e.nativeEvent.contentOffset.x / cardWidth),
@@ -108,8 +100,8 @@ const CompetitionList=()=> {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item, index }) => <CompetitionCard usersPlaces={item} index={index} />}
           snapToInterval={cardWidth}
-        />
-      </ScrollView>
+        /> */}
+      {/* </ScrollView> */}
     </SafeAreaView>
   )
 }
