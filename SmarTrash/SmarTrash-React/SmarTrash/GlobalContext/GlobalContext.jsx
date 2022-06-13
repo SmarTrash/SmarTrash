@@ -24,10 +24,12 @@ const Provider = ({ children }) => {
     const [userToken, setUserToken] = useState('');
     const [show, setShow] = useState(false);
     const [open, setOpen] = useState(show)
-    
+    const [userCityName, setUserCityName] = useState('');
+    const [userDetails, setUserDetails] = useState(''); 
+
     const GlobalContextOrginal = {
-        cities, setCities,
-        selectedCity, setSelectedCity,
+        cities, setCities,userCityName, setUserCityName,
+        selectedCity, setSelectedCity,userDetails, setUserDetails,
         setUserImg,userImg,
         password, setPassword,
         userFirstName, setUserFirstName,
