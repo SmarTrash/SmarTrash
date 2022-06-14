@@ -4,18 +4,20 @@ import Camera from '../../Components/Camera/useCamera'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import { useNavigation } from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
+import COLORS from '../../Consts/colors'
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
 const cardWidth = width;
-const cardHeight = height;
+const cardHeight = height ;
 let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture/";
 const CameraScreen = () => {
 
 
 
   const navigation = useNavigation();
-  const { userImg,setUserImg, userEmail, userFirstName, userLastName, setOpen, setShow } = useContext(GlobalContext);
+  const { userImg,setUserImg, userEmail, userFirstName, userLastName, setOpen, setShow,userGallery,setUserGallery } = useContext(GlobalContext);
 
   useEffect(() => {
     ChangeImage();
@@ -25,7 +27,6 @@ const CameraScreen = () => {
     imageUpload(userImg, 'userPicture.jpg')
   }
   console.log("userImg=", userImg)
-
  const imageUpload = (userImage, picName) => {
 
     let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
@@ -111,7 +112,7 @@ console.log({dataI});
   return (
     <View>
       <View style={styles.root}>
-        <Camera />
+           <Camera />
         <View style={styles.savePic}>
           <CustonButton
             text='שמירה'
@@ -128,6 +129,13 @@ console.log({dataI});
 export default CameraScreen
 
 const styles = StyleSheet.create({
+  header: {
+    marginTop: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 20,
+    justifyContent: 'space-between',
+  },
   root: {
     alignItems: 'center',
     backgroundColor: 'white',

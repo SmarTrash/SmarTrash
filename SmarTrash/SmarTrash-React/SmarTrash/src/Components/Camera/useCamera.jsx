@@ -4,11 +4,12 @@ import { Camera } from 'expo-camera';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
 
-const useCamera = ({ navigation }) => {
-
+const useCamera = () => {
+const navigation = useNavigation();
     const { setUserImg, userImg } = useContext(GlobalContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
@@ -33,6 +34,16 @@ const useCamera = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
+
+{/* <View style={styles.header}>
+
+<AntDesign
+  name="left"
+  size={28}
+  color={COLORS.white}
+  onPress={navigation.navigate('Home')}
+/>
+</View>  */}
             <Camera style={styles.camera} type={type} ref={ref => setCamera(ref)}>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
@@ -51,7 +62,7 @@ const useCamera = ({ navigation }) => {
                         style={styles.button}
                         onPress={async () => {
                             if (camera) {
-                                const data = await camera.takePictureAsync(null);
+                                const data = await camera.takePictureAsync(null) ;
                                 console.log(data.uri)
                                 setPicUri(data.uri);
 
@@ -85,6 +96,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    header: {
+        marginTop: 60,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginHorizontal: 20,
+        justifyContent: 'space-between',
+      },
     camera: {
         //הפלקס בוחר את הגודל של המצלמה
         flex: 0.7,

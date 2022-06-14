@@ -5,6 +5,8 @@ import COLORS from '../../Consts/colors';
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import * as ImagePicker from 'expo-image-picker';
+
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
@@ -17,6 +19,21 @@ const BottomSheet = ({ show, onDismiss, children }) => {
     const { open, setOpen } = useContext(GlobalContext);
     const bottom = useRef(new Animated.Value(-bottomSheetHeight)).current;
     const navigation = useNavigation();
+    const [image, setImage] = useState('');
+
+     btnOpenGalery = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+        //allowsEditing: true,
+        //aspect: [4, 3], 
+    });
+    setImage(result)
+  
+        if (!result.cancelled) {
+         setImage({ image: result.uri });
+        }
+        };
+        
+        console.log("imageFromGallery", image);
 
     useEffect(() => {
         if (show) {
@@ -42,6 +59,7 @@ const BottomSheet = ({ show, onDismiss, children }) => {
     if (!open) {
         return null;
     }
+   
     return (
         <Portal>
             <Animated.View
@@ -75,12 +93,12 @@ const BottomSheet = ({ show, onDismiss, children }) => {
                     setOpen(false);
                     
                 }}>
-                    <Entypo name="camera" size={100} color={COLORS.primary} style={styles.camera} />
+                    <Entypo name="camera" size={50} color={COLORS.primary} style={styles.camera} />
                     <Text style={styles.textC}>מצלמה</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {
-                    //    navigation.navigate("CameraScreen") 
+                    btnOpenGalery()
                     console.log("pressedGallery")
                     setOpen(false);
                    
