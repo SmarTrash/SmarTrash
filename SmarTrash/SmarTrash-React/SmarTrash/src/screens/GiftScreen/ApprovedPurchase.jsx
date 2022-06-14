@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   txt: {
-    fontFamily: 'HelveticaNeue',
+    // fontFamily: 'HelveticaNeue',
     color: COLORS.dark,
     fontSize: 30,
     fontWeight: 'bold',

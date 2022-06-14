@@ -65,7 +65,7 @@ namespace SmarTrash.Models
                     var objectToSend = new
                     {
                         to = item,
-                        title = "שלום,",
+                        title = "SmarTrash",
                         body =message[index],
 
                         //  data = pnd.data//new { name = "nir", grade = 100 }

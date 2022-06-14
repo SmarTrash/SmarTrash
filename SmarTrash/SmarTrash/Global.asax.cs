@@ -21,8 +21,8 @@ namespace SmarTrash
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //1000 * 60 * 60 * 24
-            timer.Interval = 30000 ;
+            
+            timer.Interval =1000 * 60 * 60 * 24 ;
             path = Server.MapPath("/"); 
             timer.Elapsed += tm_Tick;
            

@@ -44,7 +44,7 @@ const EditProfile = ({ navigation }) => {
   setShow(true)
 
   useEffect(() => {
-    //userDetailsPlaceHolder();
+   
   }, []);
 
   const options = [
@@ -86,13 +86,13 @@ const EditProfile = ({ navigation }) => {
     const newUser = {
       UserEmail: userEmail,
       Password: password,
-      Img: userImg,
+      UserImg: userImg,
       Gender: userGender,
-      First: userFirstName,
-      Last: userLastName,
+      FirstName: userFirstName,
+      LastName: userLastName,
       Phone: userPhone,
       CityId: userCityId,
-      setStreetNum: userStreetNameAndNumber,
+      StreetNameAndNumber: userStreetNameAndNumber,
       BirthDate: userBirthDate
     }
     console.log("hhhhhhhhh", newUser)
@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: "#051C60",
     margin: 10,
-    fontFamily: 'HelveticaNeue',
+    // fontFamily: 'HelveticaNeue',
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',

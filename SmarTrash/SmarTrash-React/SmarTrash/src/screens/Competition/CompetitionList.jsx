@@ -107,6 +107,13 @@ const CompetitionList = (navigation, route) => {
 export default CompetitionList;
 const style = StyleSheet.create({
 
+  txtTitle: {
+    color: '#52575D',
+    fontSize: 24,
+    fontWeight: 'bold',
+    top: 50,
+    textAlign: 'center',
+  },
   profileImage: {
     width: 80,
     height: 80,
