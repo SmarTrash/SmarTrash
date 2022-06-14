@@ -84,7 +84,7 @@ export default function Home({ navigation }) {
       console.log(error);
     }
   }
-
+  console.log("userImgHome: ",userImg);
 
 
   // const updateData = async () => {  
@@ -112,9 +112,9 @@ export default function Home({ navigation }) {
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
       })
-    }).then(response => { return response.json() })
+      }).then(response => { return response.json() })
       .then(data => {
-        setData(data)
+          setData(data)
 
       });
   }
