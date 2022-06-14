@@ -23,8 +23,9 @@ const CompetitionCard = ({ index, usersPlaces }) => {
         <View style={{flex:1,}}>
           <Text style={style.txtPoint}>
             {usersPlaces.Value}
+            {'  '}
+            <CoinIcon />
           </Text>
-          <CoinIcon />
         </View>
 
       </View>
