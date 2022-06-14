@@ -19,6 +19,7 @@ const CameraScreen = () => {
   const navigation = useNavigation();
   const { userImg,setUserImg, userEmail, userFirstName, userLastName, setOpen, setShow,userGallery,setUserGallery } = useContext(GlobalContext);
 
+  const [newUserImage, setNewUserImage] = useState('');
   useEffect(() => {
     ChangeImage();
   });
@@ -64,8 +65,8 @@ console.log({dataI});
         console.log("responseData=", responseData)
         if (responseData != "err") {
           console.log("img uploaded successfully!"); 
-          setUserImg(responseData);
-          ChangeImage(url)
+          setNewUserImage(responseData);
+          ChangeImage(newUserImage)
 
         }
         else { alert('error uploding ...'); }
@@ -74,13 +75,13 @@ console.log({dataI});
   }
 
 //  body  , query  , params 
-  const ChangeImage = (url) => {
+  const ChangeImage = (newUserImage) => {
     console.log("userImg", userImg);
-    console.log("url", url);
+    console.log("url", newUserImage);
     fetch(urlUpdateImage, {
       method: 'POST',
-      body: JSON.stringify({ UserEmail: userEmail,
-                              UserImg:url}),
+       body: JSON.stringify({ UserEmail: userEmail,
+                              UserImg: newUserImage}),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
