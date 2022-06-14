@@ -36,12 +36,12 @@ const GiftsPage = () => {
 
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white, alignItems:'center' }}>
       <View style={style.header}>
         <View style={{ paddingBottom: 15 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end', left: 110 }}>
+          {/* <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign:'center', color:COLORS.primary}}>
             הטבות
-          </Text>
+          </Text> */}
         </View>
 
       </View>

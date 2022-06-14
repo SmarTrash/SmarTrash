@@ -169,8 +169,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     top: 60,
-
-    alignSelf: 'flex-end',
+    alignSelf: 'center',
     borderRadius: 100,
     overflow: 'hidden',
   },
@@ -182,7 +181,6 @@ const styles = StyleSheet.create({
   priceTag: {
     height: 40,
     alignItems: 'center',
-
     bottom: 65,
     width: 150,
     left: 100,

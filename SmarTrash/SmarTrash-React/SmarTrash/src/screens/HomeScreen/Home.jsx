@@ -210,7 +210,7 @@ export default function Home({ navigation }) {
 
           <Text onPress={() => {
             navigation.navigate('GiftsPage')
-          }} style={[style.text, style.subText, { zIndex: 1, color: COLORS.grey, top: 35, fontSize: 17, marginRight: -8 }]}>ראה הכל
+          }} style={[style.text, style.subText, { zIndex: 1, color: COLORS.primary, top: 35, fontSize: 17, marginRight: -8 }]}>ראה הכל
           </Text>
         </View>
         <TouchableOpacity >
