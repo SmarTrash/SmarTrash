@@ -16,7 +16,7 @@ const CompetitionList = (navigation, route) => {
   const { userImg } = useContext(GlobalContext);
   const [usersPlaces, setUsersPlaces] = useState('');
   const { userEmail } = useContext(GlobalContext);
-
+console.log(userEmail);
   useEffect(() => {
 
     fetch(apiUrl, {

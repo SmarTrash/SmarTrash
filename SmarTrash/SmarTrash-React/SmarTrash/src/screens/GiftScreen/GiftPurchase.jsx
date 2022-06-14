@@ -38,11 +38,9 @@ const GiftPurchase = ({ navigation, route }) => {
           userPhone: data[0].Phone
         }
         setNotes([note])
-        // 
+        
         // setPointsLeft(userShippingDetails.points - userShippingDetails.price)
-        // setUserPhone(userShippingDetails.Phone)
-        // setUserStreetNameAndNumber(userShippingDetails.StreetNameAndNumber)
-        // setUserCityName(userShippingDetails.city)
+
       });
   }
 
@@ -61,30 +59,32 @@ const GiftPurchase = ({ navigation, route }) => {
   console.log("notes:", notes)
   return (
     <>
-      <View style={styles.container}>
-        <View style={{ alignSelf: 'center', marginb: 20 }}>
+      <View style={{ backgroundColor: '#fff' }}>
+        <View style={{ alignSelf: 'center', margin: 60 }}>
           <View style={styles.profileImage}>
             <Image
               style={styles.image}
               source={{ uri: userImg }} />
           </View>
         </View>
-        <FlatList
+        </View>
+        <View style={styles.container}>
+        <FlatList 
           data={notes}
           renderItem={({ item }) => (
             <List.Item style={styles.itemStyle}
               title={item.selectedCity == "" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
-              description={item.userStreetNameAndNumber
-                + "\n" + item.userPhone + "\n" + item.Phone}
-              right={props => <Icon onPress={() => deleteNote(item)} size={40} name="delete" />}
-              detailsNumberOfLines={1}
+              description={ item.userStreetNameAndNumber+ "\n" +item.selectedCity
+                + "\n" + item.userPhone + "\n" + item.Phone  }
+              // right={props => <Icon onPress={() => deleteNote(item)} size={40} name="delete" />}
+              detailsNumberOfLines={0}
               titleStyle={styles.listTitle}
               detailsStyle={styles.listTitle}
             />
           )}
           keyExtractor={item => item.id}
         />
-        <FAB
+        <FAB style={styles.fab}
           small
           icon='plus'
           label='הוסף כתובת'
@@ -113,7 +113,7 @@ const GiftPurchase = ({ navigation, route }) => {
           </View>
           {/* {'מחיר הטבה'} */}
           <View>
-            <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start' }]}>
+            <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', }]}>
               {userShippingDetails.price} <CoinIcon />
             </Text>
 
@@ -137,6 +137,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
 
+  }, fab: {
+    position: 'absolute',
+    margin: 20,
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#99FFFF'
   },
   titleContainer: {
     alignItems: 'center',
@@ -152,17 +158,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     margin: 20,
     right: 0,
-    bottom: 10
+    bottom:200
   },
   listTitle: {
     fontSize: 20,
+    
 
   },
   itemStyle: {
     backgroundColor: 'lightgray',
     borderRadius: 10,
     margin: 10,
-    marginTop: 80
+   
+   
 
   },
   profileImage: {
@@ -179,11 +187,9 @@ const styles = StyleSheet.create({
     height: undefined,
   },
   priceTag: {
-    height: 40,
+   
     alignItems: 'center',
-    bottom: 65,
-    width: 150,
-    left: 100,
+    left: 150,
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,

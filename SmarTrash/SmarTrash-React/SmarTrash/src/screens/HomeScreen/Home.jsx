@@ -195,7 +195,7 @@ export default function Home({ navigation }) {
                 <FontAwesome5 name="recycle" size={50} color="black" />
               </View>
               <View>
-                <Text style={[style.text, style.subText, { marginLeft: 0 }]}>מחזר ותרוויח</Text>
+                <Text style={[style.text, style.subText, { marginLeft: -5 }]}>מחזר ותרוויח</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -298,8 +298,8 @@ const style = StyleSheet.create({
   },
   sortBtn: {
     marginTop: 40,
-    marginRight: 12,
-    marginLeft: 10,
+    marginRight: 15,
+    marginLeft: 7,
     height: 75,
     width: 70,
     justifyContent: 'center',
