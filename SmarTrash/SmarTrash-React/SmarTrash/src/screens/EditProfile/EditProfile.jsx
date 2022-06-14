@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: "#051C60",
     margin: 10,
-    fontFamily: 'HelveticaNeue',
+    // fontFamily: 'HelveticaNeue',
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',

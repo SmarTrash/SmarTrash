@@ -109,7 +109,7 @@ export default CompetitionList;
 const style = StyleSheet.create({
 
   txtTitle: {
-    fontFamily: 'HelveticaNeue',
+    // fontFamily: 'HelveticaNeue',
     color: '#52575D',
     fontSize: 24,
     fontWeight: 'bold',

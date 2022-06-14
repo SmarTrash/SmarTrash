@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { FAB, TextInput } from 'react-native-paper'
 import CustomInput from '../../Components/CustomInput/CustomInput'
@@ -8,8 +8,8 @@ import CityList from '../../Components/City/CityList'
 const AddNewAdress = ({ navigation, route }) => {
 
   const { userEmail, setUserEmail,
-    setUserCityId,userCityName, setUserCityName,
-    setUserStreetNameAndNumber,userStreetNameAndNumber,
+    setUserCityId, userCityName, setUserCityName, selectedCity, userPhone, setUserPhone,
+    setUserStreetNameAndNumber, userStreetNameAndNumber,
     setUserImg, userImg,
     userCityId, } = useContext(GlobalContext);
 
@@ -17,8 +17,8 @@ const AddNewAdress = ({ navigation, route }) => {
   const [noteDetails, setNoteDetails] = useState('');
 
   const onSaveNote = () => {
-    console.log(userCityId, userStreetNameAndNumber)
-    route.params.addNotes({ userCityId, userStreetNameAndNumber });
+    console.log(selectedCity, userStreetNameAndNumber)
+    route.params.addNotes({ selectedCity, userStreetNameAndNumber,userPhone });
     navigation.goBack();
   }
 
@@ -36,11 +36,16 @@ const AddNewAdress = ({ navigation, route }) => {
           setValue={setUserStreetNameAndNumber}
           style={styles.title}
         />
-
-        <FAB 
+        <CustomInput
+          placeholder="הכנס טלפון"
+          mode='outlined'
+          setValue={setUserPhone}
+          style={styles.title}
+        />
+        <FAB
           small
           icon="check"
-          disabled={noteTitle == '' ? true : false}
+          disabled={userStreetNameAndNumber == '' ? true : false}
           onPress={() => onSaveNote()}
         />
       </View>

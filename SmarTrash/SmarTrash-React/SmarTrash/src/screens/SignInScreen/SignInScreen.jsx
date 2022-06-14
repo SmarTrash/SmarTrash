@@ -29,6 +29,10 @@ const SignInScreen = ({ navigation }) => {
     setUserImg, userImg,
     password, setPassword } = useContext(GlobalContext);
 
+
+// user:{ name:'',age:''}
+// setUser({...user,age})
+
   useEffect(() => {
     const getData = async () => {
       try {
@@ -37,19 +41,17 @@ const SignInScreen = ({ navigation }) => {
             if (value != null) {
               console.log("gjhjhjh:", value)
               let jsonValue = JSON.parse(value);
-              if (jsonValue.Checked) {
-                setChecked(jsonValue.Checked)
-                setUserFirstName(jsonValue.First),
-                  setUserLastName(jsonValue.Last),
-                  setUserEmail(jsonValue.UserEmail),
-                  setUserCompetitionPlace(jsonValue.CompetitionPlace),
-                  setUserLastThrow(jsonValue.LastThrow),
-                  setUserPoints(jsonValue.Points),
-                  setUserImg(jsonValue.Img),
-                  setUserPhone(jsonValue.Phone),
-                  console.log("ddddddddddddddddddddddddd", userPhone);
-                navigation.navigate('Home', jsonValue);
-              }
+              setChecked(jsonValue.Checked)
+              setUserFirstName(jsonValue.First),
+                setUserLastName(jsonValue.Last),
+                setUserEmail(jsonValue.UserEmail),
+                setUserCompetitionPlace(jsonValue.competitionPlace),
+                setUserLastThrow(jsonValue.lastThrow),
+                setUserPoints(jsonValue.Points),
+                setUserImg(jsonValue.Img),
+                setUserPhone(jsonValue.Phone),
+                console.log("ddddddddddddddddddddddddd", userPhone);
+              navigation.navigate('Home', jsonValue);
             }
           })
       } catch (error) {
@@ -77,10 +79,10 @@ const SignInScreen = ({ navigation }) => {
     Checked: "",
     First: "",
     Last: "",
-    CompetitionPlace: "",
-    LastThrow: "",
+    competitionPlace: "",
+    lastThrow: "",
     Points: "",
-    Phone:""
+    Phone: ""
   };
   const onSignInPressed = () => {
 
@@ -117,17 +119,17 @@ const SignInScreen = ({ navigation }) => {
               setUserCityId(data[0].cityId),
               setUserStreetNameAndNumber(data[0].streetNum),
               setUserImg(data[0].Img)
-            
-            newUser.Img = userImg,
-              newUser.Checked = checked,
-              newUser.First = userFirstName,
-              newUser.Last = userLastName,
-              newUser.CompetitionPlace = userCompetitionPlace,
-              newUser.LastThrow = userLastThrow,
-              newUser.Points = userPoints,
-              newUser.Phone=userPhone,
+
+            newUser.Img = data[0].Img,
+              newUser.First = data[0].First,
+              newUser.Last = data[0].Last,
+              newUser.competitionPlace = data[0].competitionPlace,
+              newUser.lastThrow = data[0].lastThrow,
+              newUser.Points = data[0].Points,
+              newUser.Phone = data[0].Phone,
               console.log("newUser:", newUser)
-            storeData(newUser)
+            if (checked)
+              storeData(newUser)
             navigation.navigate('Home')
 
           }

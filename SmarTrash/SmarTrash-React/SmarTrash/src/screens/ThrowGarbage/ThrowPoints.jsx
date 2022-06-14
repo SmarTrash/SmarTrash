@@ -156,7 +156,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    fontFamily: 'HelveticaNeue',
+    // fontFamily: 'HelveticaNeue',
     color: '#52575D',
     fontSize: 18,
     fontWeight: 'bold',
@@ -175,7 +175,7 @@ const style = StyleSheet.create({
     justifyContent:'flex-start',
   },
   txtPoints:{
-    fontFamily: 'HelveticaNeue',
+    // fontFamily: 'HelveticaNeue',
     color: '#52575D',
     fontSize: 16,
     fontWeight: 'bold',

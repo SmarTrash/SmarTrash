@@ -270,7 +270,7 @@ const style = StyleSheet.create({
     marginTop: 16,
   },
   text: {
-    fontFamily: 'HelveticaNeue',
+    // fontFamily: 'HelveticaNeue',
     color: '#52575D',
 
   },
@@ -316,7 +316,7 @@ const style = StyleSheet.create({
     marginLeft: 10,
   },
   giftText: {
-    fontFamily: 'HelveticaNeue',
+    // fontFamily: 'HelveticaNeue',
     color: '#52575D',
     fontSize: 17,
     marginTop: 5,

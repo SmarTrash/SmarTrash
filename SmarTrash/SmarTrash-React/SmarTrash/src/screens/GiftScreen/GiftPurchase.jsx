@@ -15,8 +15,8 @@ const GiftPurchase = ({ navigation, route }) => {
     ShippingDetails();
   }, []);
 
-  const [notes, setNotes] = useState([]);
-  const { userEmail, userImg,userCityName, setUserCityName, setUserStreetNameAndNumber,userStreetNameAndNumber, } = useContext(GlobalContext);
+
+  const { userEmail, userImg, userCityName, selectedCity, userPhone, setUserPhone, setUserCityName, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
 
@@ -30,103 +30,66 @@ const GiftPurchase = ({ navigation, route }) => {
       })
     }).then(response => { return response.json() })
       .then(data => {
+        console.log("dataaaaaaaaaaaaaaa", data)
         data.map(st => setUserShippingDetails(st))
-        setPointsLeft(userShippingDetails.points - userShippingDetails.price)
-
+        const note = {
+          id: "1", selectedCity: data[0].city,
+          userStreetNameAndNumber: data[0].StreetNameAndNumber,
+          userPhone: data[0].Phone
+        }
+        setNotes([note])
+        // 
+        // setPointsLeft(userShippingDetails.points - userShippingDetails.price)
+        // setUserPhone(userShippingDetails.Phone)
+        // setUserStreetNameAndNumber(userShippingDetails.StreetNameAndNumber)
+        // setUserCityName(userShippingDetails.city)
       });
   }
+
   const addNotes = note => {
     note.id = notes.length + 1;
-    note.userCityId = note.userCityId;
+    note.selectedCity = note.selectedCity;
     note.userStreetNameAndNumber = note.userStreetNameAndNumber;
+    console.log({ note });
     setNotes([...notes, note])
   }
-
+  const [notes, setNotes] = useState([]);
   const deleteNote = (item) => {
     let newNotes = notes.filter(note => note.id !== item.id)
     setNotes(newNotes)
   }
   console.log("notes:", notes)
   return (
-<<<<<<< Updated upstream
-    <View style={style.container}>
-
-      <View style={{ alignSelf: 'center' }}>
-        <View style={style.profileImage}>
-          <Image
-            style={style.image}
-            source={{ uri: userImg }} />
-        </View>
-      </View>
-      <Text style={{ fontSize: 25, fontWeight: 'bold', color: COLORS.primary, alignSelf: "flex-start", top: 60, paddingRight: 20 }}>
-        {'כתובת '}
-      </Text>
-      <View style={style.topHotelCard}>
-        <View
-          style={{
-            position: 'absolute',
-            top: 5,
-            right: 5,
-            zIndex: 1,
-            flexDirection: 'row',
-          }}>
-          <View style={{ alignSelf: 'flex-end' }} top={50}>
-            <Ionicons name="md-checkmark-circle" size={60} color={COLORS.primary} />
-
-=======
     <>
-     <View style={styles.container}>
-        <View style={{ alignSelf: 'center' }}>
+      <View style={styles.container}>
+        <View style={{ alignSelf: 'center', marginb: 20 }}>
           <View style={styles.profileImage}>
             <Image
               style={styles.image}
               source={{ uri: userImg }} />
->>>>>>> Stashed changes
           </View>
         </View>
-        {notes.length === 0 ?
-        
-          <View style={styles.titleContainer}>
-                   <View style={{ paddingVertical: 3, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', margin: 10 }}>
-            {'כתובת ברירת מחדל'}
-          </Text>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', alignSelf: 'flex-start', margin: 5 }}>{userShippingDetails.StreetNameAndNumber}</Text>
-          <Text style={{ fontSize: 15, fontWeight: 'bold', color: COLORS.grey, alignSelf: 'flex-start', margin: 5 }}>
-            {userShippingDetails.city}
-          </Text>
-          <Text style={{ fontSize: 15, fontWeight: 'bold', color: COLORS.grey, alignSelf: 'flex-start', margin: 5 }}>
-            {userShippingDetails.Phone}
-          </Text>
-        </View>
-
-          </View>
-          :
-          
-          <FlatList
-            data={notes}
-            renderItem={({ item }) => (
-              <List.Item style={styles.itemStyle}
-                title={item.noteTitle}
-                description={item.noteDetails}
-                right={props => <Icon onPress={() => deleteNote(item)} size={40} name="delete" />}
-                detailsNumberOfLines={1}
-                titleStyle={styles.listTitle}
-                detailsStyle={styles.listTitle}
-
-              />
-            )}
-            keyExtractor={item => item.id}
-
-          />
-
-        }
-         <FAB 
-              small
-              icon='plus'
-              label='הוסף כתובת'
-              onPress={() => navigation.navigate('AddNewAdress', { addNotes })}
+        <FlatList
+          data={notes}
+          renderItem={({ item }) => (
+            <List.Item style={styles.itemStyle}
+              title={item.selectedCity == "" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
+              description={item.userStreetNameAndNumber
+                + "\n" + item.userPhone + "\n" + item.Phone}
+              right={props => <Icon onPress={() => deleteNote(item)} size={40} name="delete" />}
+              detailsNumberOfLines={1}
+              titleStyle={styles.listTitle}
+              detailsStyle={styles.listTitle}
             />
+          )}
+          keyExtractor={item => item.id}
+        />
+        <FAB
+          small
+          icon='plus'
+          label='הוסף כתובת'
+          onPress={() => navigation.navigate('AddNewAdress', { addNotes })}
+        />
         <View >
           <View>
             <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', }}>
@@ -150,7 +113,7 @@ const GiftPurchase = ({ navigation, route }) => {
           </View>
           {/* {'מחיר הטבה'} */}
           <View>
-            <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start'}]}>
+            <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start' }]}>
               {userShippingDetails.price} <CoinIcon />
             </Text>
 
@@ -158,18 +121,13 @@ const GiftPurchase = ({ navigation, route }) => {
               text='רכישה'
               onPress={() => { navigation.navigate('ApprovedPurchase') }}
             />
-           
+
           </View>
         </View>
       </View>
     </>
   )
 }
-<<<<<<< Updated upstream
-const style = StyleSheet.create({
-  container: {
-    backgroundColor:COLORS.white,
-=======
 
 export default GiftPurchase;
 const styles = StyleSheet.create({
@@ -178,6 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingVertical: 10,
     paddingHorizontal: 10,
+
   },
   titleContainer: {
     alignItems: 'center',
@@ -203,9 +162,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     borderRadius: 10,
     margin: 10,
-    marginTop:80
+    marginTop: 80
 
->>>>>>> Stashed changes
   },
   profileImage: {
     width: 80,
