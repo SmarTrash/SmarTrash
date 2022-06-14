@@ -5,6 +5,7 @@ import COLORS from '../../Consts/colors';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import CoinIcon from '../../Components/Icon/CoinIcon';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
