@@ -7,6 +7,12 @@ using System.Web.Http;
 using Data;
 namespace SmarTrash.Controllers
 {
+    public class Throw
+    {
+        public string email;
+        public string fullName;
+        public int throws;
+    }
     public class CompetitionController : ApiController
     {
        
@@ -17,7 +23,8 @@ namespace SmarTrash.Controllers
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             var ListUsersInCity = new Dictionary<int, object>();
-            var sums = new Dictionary<string, object>();
+            // var sums = new Dictionary<string, object>();
+            var sums = new List<Throw>();
 
             var User = db.tblUser.Where(x => x.UserEmail == selectedUser.UserEmail).FirstOrDefault();
             var usersInCity = db.tblUser.Where(t => t.CityId == User.CityId).ToList();
@@ -29,11 +36,16 @@ namespace SmarTrash.Controllers
                 {
                     if (e.Key == useriIncity.UserEmail)
                     {
-                        sums.Add(useriIncity.FirstName + ' ' + useriIncity.LastName, e.Sum(x => x.ThrowPoints));
+                        //sums.Add(useriIncity.FirstName + ' ' + useriIncity.LastName, e.Sum(x => x.ThrowPoints));
+                        Throw t = new Throw();
+                        t.email = useriIncity.UserEmail;
+                        t.fullName = useriIncity.FirstName + ' ' + useriIncity.LastName;
+                        t.throws = e.Sum(x => x.ThrowPoints);
+                        sums.Add(t);
                     }
                 }
             }
-            var userPlace = sums.OrderByDescending(x => x.Value);
+            var userPlace = sums.OrderByDescending(x => x.throws);
 
             return userPlace;
         }
