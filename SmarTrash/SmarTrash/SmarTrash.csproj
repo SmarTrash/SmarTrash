@@ -234,7 +234,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BinSearchController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
-    <Compile Include="Controllers\CustomVisionPredictionController.cs" />
     <Compile Include="Controllers\GiftController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
