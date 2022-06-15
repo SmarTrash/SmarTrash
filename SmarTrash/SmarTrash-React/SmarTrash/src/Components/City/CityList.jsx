@@ -6,9 +6,10 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 const apiUrlGetCities = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
 
 const CityList=(props)=> {
-  const {setCities,cities,setSelectedCity,selectedCity} = useContext(GlobalContext);
+  const {setCities,cities,setSelectedCity,selectedCity,setUserCityName} = useContext(GlobalContext);
   const handleChange=(itemValue)=>{
-    setSelectedCity(itemValue)
+    setSelectedCity(itemValue.id)
+    setUserCityName(itemValue.name)
   }
 useEffect (() => {
   fetch(apiUrlGetCities, {
@@ -31,7 +32,7 @@ useEffect (() => {
     style={{ height: 50, width: 190}}
     onValueChange={(itemValue) => handleChange(itemValue)}>
         {cities.map((city) => {
-            return <Picker.Item  key={city.CityId} label={city.CityName} value={city.CityId}  />
+            return <Picker.Item  key={city.CityId} label={city.CityName}  value={{id:city.CityId, name:city.CityName}}  />
         })}
     </Picker>
 

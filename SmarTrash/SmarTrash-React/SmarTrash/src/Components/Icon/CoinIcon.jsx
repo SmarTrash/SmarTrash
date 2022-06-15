@@ -6,7 +6,7 @@ import COLORS from '../../Consts/colors';
 const CoinIcon = () => {
   return (
   
-      <FontAwesome5 name="coins" size={24} color={COLORS.gold} //margin={30}  
+      <FontAwesome5 name="coins" size={22} color={COLORS.gold} //margin={30}  
       />
 
   )

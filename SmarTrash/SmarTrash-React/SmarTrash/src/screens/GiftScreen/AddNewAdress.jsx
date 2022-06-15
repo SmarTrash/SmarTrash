@@ -18,7 +18,7 @@ const AddNewAdress = ({ navigation, route }) => {
 
   const onSaveNote = () => {
     console.log(selectedCity, userStreetNameAndNumber)
-    route.params.addNotes({ selectedCity, userStreetNameAndNumber,userPhone });
+    route.params.addNotes({ userCityName, userStreetNameAndNumber,userPhone });
     navigation.goBack();
   }
 

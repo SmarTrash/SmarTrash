@@ -7,6 +7,7 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CoinIcon from '../../Components/Icon/CoinIcon';
 import CustonButton from '../../Components/CustomButton/CustonButton'
 
+
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/AbleToOrder/';
 
 const SelectedGift = ({ navigation, route }) => {
@@ -57,17 +58,15 @@ const SelectedGift = ({ navigation, route }) => {
         </View>
       </ImageBackground>
       <View>
-        <View style={style.iconContainer}>
-          <AntDesign name="hearto" size={24} color={COLORS.white} />
-        </View>
+ 
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-end' }}>{item.Name}</Text>
+          <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-start' }}>{item.Name}</Text>
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 26,
               fontWeight: '400',
               marginTop: 10,
-              alignSelf: 'flex-end',
+              alignSelf: 'flex-start',
               color: COLORS.primary,
             }}>
             {item.Brand}
@@ -79,21 +78,22 @@ const SelectedGift = ({ navigation, route }) => {
               justifyContent: 'space-between',
             }}>
           </View>
-          <View style={{ marginTop: 20, fontSize: 30 }}>
-            <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-end' }}>
+          <View style={style.priceTag}>
+          <CoinIcon />
+          <Text
+            style={{ fontSize: 20, fontWeight: 'bold', left: 20, color: COLORS.green }}>
+            {item.Price}
+
+          </Text>
+        </View>
+          <View style={{ marginBottom:20, fontSize: 30 }}>
+            <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-start',fontSize: 18  }}>
               {item.GiftDescription}
             </Text>
           </View>
         </View>
 
-        <View style={style.priceTag}>
-          <CoinIcon />
-          <Text
-            style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 5, left: 20, color: 'white' }}>
-            {item.Price}
-
-          </Text>
-        </View>
+       
 
         <CustonButton
             text='רכישה'
@@ -132,15 +132,12 @@ const style = StyleSheet.create({
 
   },
   priceTag: {
-    marginTop: 50,
+    marginTop: 20,
     height: 40,
     alignItems: 'center',
-    marginLeft: 50,
-    paddingLeft: 20,
     flex: 1,
     bottom: 15,
     width: 150,
-    backgroundColor: '#76bfa3',
     borderTopLeftRadius: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
@@ -167,9 +164,10 @@ const style = StyleSheet.create({
   header: {
     marginTop: 60,
     flexDirection: 'row',
-    alignItems: 'center',
+     alignItems: 'center',
     marginHorizontal: 20,
     justifyContent: 'space-between',
+   
   },
 
 });
