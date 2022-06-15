@@ -142,7 +142,7 @@ export default function Home({ navigation }) {
 
         <View style={style.statusContainer}>
           <View style={style.statusBox}>
-            <Text style={[style.text, { fontSize: 24, }]}>{userLastThrow}</Text>
+            <Text style={[style.text, { fontSize: 24, }]}>{userLastThrow=="0"?"-":userLastThrow}</Text>
             <Text style={[style.text, style.subText]}>צבירה אחרונה</Text>
           </View>
           <View style={[style.statusBox, { borderColor: '#DFD8C8', borderLeftWidth: 1, borderRightWidth: 1 }]}>
@@ -150,7 +150,7 @@ export default function Home({ navigation }) {
             <Text style={[style.text, style.subText]}>סה"כ נקודות</Text>
           </View>
           <View style={style.statusBox}>
-            <Text style={[style.text, { fontSize: 24, }]}>{userCompetitionPlace}</Text>
+            <Text style={[style.text, { fontSize: 24, }]}>{userCompetitionPlace=="0"?"-":userCompetitionPlace}</Text>
             <Text style={[style.text, style.subText]}>מקומך בתחרות</Text>
           </View>
         </View>

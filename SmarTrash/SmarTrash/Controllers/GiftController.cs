@@ -136,12 +136,11 @@ namespace SmarTrash.Controllers
                 tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
                 user.TotalPoints -= gift.Price;
                 tblOrder newOrder = new tblOrder();
-                newOrder.StreetNameAndNumber = user.StreetNameAndNumber;
-                newOrder.OrderPhone = user.Phone;
+                newOrder.StreetNameAndNumber = u.StreetNameAndNumber;
+                newOrder.OrderPhone = u.Phone;
                 newOrder.GiftCode = g;
-                newOrder.UserEmail = user.UserEmail;
-                newOrder.City = user.CityId;
-                newOrder.OrderNumber = 1;
+                newOrder.UserEmail = u.UserEmail;
+                newOrder.City = u.CityId;
                 db.tblOrder.Add(newOrder);
                 db.SaveChanges();
                 tblUser userAfterChange = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();

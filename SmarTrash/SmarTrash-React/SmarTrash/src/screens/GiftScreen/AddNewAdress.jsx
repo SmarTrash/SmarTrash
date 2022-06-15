@@ -7,18 +7,10 @@ import CityList from '../../Components/City/CityList'
 
 const AddNewAdress = ({ navigation, route }) => {
 
-  const { userEmail, setUserEmail,
-    setUserCityId, userCityName, setUserCityName, selectedCity, userPhone, setUserPhone,
-    setUserStreetNameAndNumber, userStreetNameAndNumber,
-    setUserImg, userImg,
-    userCityId, } = useContext(GlobalContext);
+  const { userPhone,userCityName, setUserCityName,setUserPhone, setUserStreetNameAndNumber, userStreetNameAndNumber,} = useContext(GlobalContext);
 
-  const [noteTitle, setNoteTitle] = useState('');
-  const [noteDetails, setNoteDetails] = useState('');
-
-  const onSaveNote = () => {
-    console.log(selectedCity, userStreetNameAndNumber)
-    route.params.addNotes({ userCityName, userStreetNameAndNumber,userPhone });
+  const onSaveAdress = () => {
+    route.params.addAdress({ userCityName, userStreetNameAndNumber,userPhone });
     navigation.goBack();
   }
 
@@ -46,7 +38,7 @@ const AddNewAdress = ({ navigation, route }) => {
           small
           icon="check"
           disabled={userStreetNameAndNumber == '' ? true : false}
-          onPress={() => onSaveNote()}
+          onPress={() => onSaveAdress()}
         />
       </View>
     </>
