@@ -33,7 +33,7 @@ const GiftPurchase = ({ navigation, route }) => {
         console.log("dataaaaaaaaaaaaaaa", data)
         data.map(st => setUserShippingDetails(st))
         const note = {
-          id: "1", selectedCity: data[0].city,
+          id: "1", userCityName: data[0].city,
           userStreetNameAndNumber: data[0].StreetNameAndNumber,
           userPhone: data[0].Phone
         }
@@ -46,7 +46,7 @@ const GiftPurchase = ({ navigation, route }) => {
 
   const addNotes = note => {
     note.id = notes.length + 1;
-    note.selectedCity = note.selectedCity;
+    note.userCityName = note.userCityName;
     note.userStreetNameAndNumber = note.userStreetNameAndNumber;
     console.log({ note });
     setNotes([...notes, note])
@@ -73,13 +73,14 @@ const GiftPurchase = ({ navigation, route }) => {
           data={notes}
           renderItem={({ item }) => (
             <List.Item style={styles.itemStyle}
-              title={item.selectedCity == "" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
-              description={ item.userStreetNameAndNumber+ "\n" +item.selectedCity
-                + "\n" + item.userPhone + "\n" + item.Phone  }
+              title={item.id == "1" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
+              description={ item.userStreetNameAndNumber+ "\n" +item.userCityName
+                + "\n" + item.userPhone   }
               // right={props => <Icon onPress={() => deleteNote(item)} size={40} name="delete" />}
               detailsNumberOfLines={0}
               titleStyle={styles.listTitle}
               detailsStyle={styles.listTitle}
+              descriptionNumberOfLines={3}
             />
           )}
           keyExtractor={item => item.id}
@@ -169,7 +170,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     borderRadius: 10,
     margin: 10,
-   
    
 
   },

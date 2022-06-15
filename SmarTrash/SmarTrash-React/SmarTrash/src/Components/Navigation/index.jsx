@@ -21,7 +21,7 @@ import BinCameraScreen from '../../screens/ThrowGarbage/BinCameraScreen';
 import Map from '../../screens/MapScreen/Map';
 import BinListScreen from '../../screens/BinListScreen';
 import AddNewAdress from '../../screens/GiftScreen/AddNewAdress';
-import IdentifyImage from '../../screens/IdentifyImage/IdentifyImage'
+
 
 const Stack = createNativeStackNavigator();
 
@@ -30,7 +30,7 @@ const Navigation = () => {
   return (
 
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="IdentifyImage" >
+      <Stack.Navigator initialRouteName="SignInScreen" >
         <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
         <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
         <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
@@ -51,7 +51,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="BinCameraScreen" component={BinCameraScreen} />
         <Stack.Screen options={{ headerShown: false }} name="BinListScreen" component={BinListScreen} />
         <Stack.Screen options={{ headerShown: false }} name="AddNewAdress" component={AddNewAdress} />
-        <Stack.Screen options={{ headerShown: false }} name="IdentifyImage" component={IdentifyImage} />
+    
       </Stack.Navigator>
     </NavigationContainer>
   )
