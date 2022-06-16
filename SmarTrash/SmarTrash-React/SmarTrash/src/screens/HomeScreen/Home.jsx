@@ -60,7 +60,7 @@ export default function Home({ navigation }) {
           'Content-type': 'application/json; charset=UTF-8',
           'Accept': 'application/json; charset-UTF-8'
         })
-      }).then(response => { return response.json() })
+      }).then(response => { return r9esponse.json() })
     } else {
       alert('Must use physical device for Push Notifications');
     }
@@ -188,7 +188,7 @@ export default function Home({ navigation }) {
             </View>
           </View>
           <TouchableOpacity onPress={() => {
-            navigation.navigate('BinCameraScreen')
+            navigation.navigate('QRScanner')
           }}>
             <View>
               <View style={[style.sortBtn, { backgroundColor: '#E5EFC1' }]}>

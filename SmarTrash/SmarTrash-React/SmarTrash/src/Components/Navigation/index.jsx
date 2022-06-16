@@ -21,6 +21,7 @@ import BinCameraScreen from '../../screens/ThrowGarbage/BinCameraScreen';
 import Map from '../../screens/MapScreen/Map';
 import BinListScreen from '../../screens/BinListScreen';
 import AddNewAdress from '../../screens/GiftScreen/AddNewAdress';
+import QRScanner from '../../screens/QRScanner/QRScanner';
 
 
 const Stack = createNativeStackNavigator();
@@ -51,7 +52,7 @@ const Navigation = () => {
         <Stack.Screen options={{ headerShown: false }} name="BinCameraScreen" component={BinCameraScreen} />
         <Stack.Screen options={{ headerShown: false }} name="BinListScreen" component={BinListScreen} />
         <Stack.Screen options={{ headerShown: false }} name="AddNewAdress" component={AddNewAdress} />
-    
+        <Stack.Screen options={{ headerShown: false }} name="QRScanner" component={QRScanner} />
       </Stack.Navigator>
     </NavigationContainer>
   )

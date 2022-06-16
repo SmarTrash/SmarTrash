@@ -39,6 +39,33 @@ namespace SmarTrash.Controllers
             }
         }
 
-   
+        //GET- מקבל מספר פח ובודק אם הוא נמצא, אם כן נשלח אמת.
+        [HttpPost]
+        [Route("api/BinSearch/MatchBin")]
+        public dynamic GetBinsFromQR([FromBody] tblSpecificBin userBinQR)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+
+                var listOfBin = db.tblSpecificBin.Select(x => x.BinQRId ).ToList();
+
+                foreach (var bin in listOfBin)
+                {
+                    if (bin == userBinQR.BinQRId)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+              
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
     }
 }
