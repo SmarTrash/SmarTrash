@@ -11,6 +11,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
+
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';

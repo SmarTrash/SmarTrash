@@ -30,7 +30,7 @@ const Provider = ({ children }) => {
     const GlobalContextOrginal = {
         cities, setCities,userCityName, setUserCityName,
         selectedCity, setSelectedCity,userDetails, setUserDetails,
-        setUserImg,userImg,
+        userImg, setUserImg,
         password, setPassword,
         userFirstName, setUserFirstName,
         userLastName, setUserLastName,

@@ -20,6 +20,11 @@ const navigation = useNavigation();
     setUserImg(picUri);
 
     useEffect(() => {
+       console.log("picUri")
+       console.log(picUri)
+    }, [picUri]);
+
+    useEffect(() => {
         (async () => {
             const { status } = await Camera.requestCameraPermissionsAsync();
             setHasPermission(status === 'granted');
