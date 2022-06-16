@@ -10,8 +10,6 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Competition/GetListOf
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
-
-
 const CompetitionList = (navigation, route) => {
   const { userImg } = useContext(GlobalContext);
   const [usersPlaces, setUsersPlaces] = useState('');

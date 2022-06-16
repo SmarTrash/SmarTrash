@@ -11,6 +11,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
+
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
@@ -60,7 +61,7 @@ export default function Home({ navigation }) {
           'Content-type': 'application/json; charset=UTF-8',
           'Accept': 'application/json; charset-UTF-8'
         })
-      }).then(response => { return response.json() })
+      }).then(response => { return r9esponse.json() })
     } else {
       alert('Must use physical device for Push Notifications');
     }
@@ -188,7 +189,7 @@ export default function Home({ navigation }) {
             </View>
           </View>
           <TouchableOpacity onPress={() => {
-            navigation.navigate('BinCameraScreen')
+            navigation.navigate('QRScanner')
           }}>
             <View>
               <View style={[style.sortBtn, { backgroundColor: '#E5EFC1' }]}>
