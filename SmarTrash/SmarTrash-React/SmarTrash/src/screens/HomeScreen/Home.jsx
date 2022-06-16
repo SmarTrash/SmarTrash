@@ -11,6 +11,7 @@ import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
+
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
@@ -142,7 +143,7 @@ export default function Home({ navigation }) {
 
         <View style={style.statusContainer}>
           <View style={style.statusBox}>
-            <Text style={[style.text, { fontSize: 24, }]}>{userLastThrow}</Text>
+            <Text style={[style.text, { fontSize: 24, }]}>{userLastThrow=="0"?"-":userLastThrow}</Text>
             <Text style={[style.text, style.subText]}>צבירה אחרונה</Text>
           </View>
           <View style={[style.statusBox, { borderColor: '#DFD8C8', borderLeftWidth: 1, borderRightWidth: 1 }]}>
@@ -150,7 +151,7 @@ export default function Home({ navigation }) {
             <Text style={[style.text, style.subText]}>סה"כ נקודות</Text>
           </View>
           <View style={style.statusBox}>
-            <Text style={[style.text, { fontSize: 24, }]}>{userCompetitionPlace}</Text>
+            <Text style={[style.text, { fontSize: 24, }]}>{userCompetitionPlace=="0"?"-":userCompetitionPlace}</Text>
             <Text style={[style.text, style.subText]}>מקומך בתחרות</Text>
           </View>
         </View>

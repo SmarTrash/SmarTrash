@@ -1,15 +1,17 @@
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
-import React from 'react'
 import COLORS from '../../Consts/colors'
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import CoinIcon from '../../Components/Icon/CoinIcon';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import React,{ useState,useEffect,useContext } from 'react'
 
 const { width } = Dimensions.get('screen');
 
 
 const ApprovedPurchase=({ navigation, route })=> {
-  const points = route.params;
-  console.log(points)
+  const { userPoints } = useContext(GlobalContext);
+
+  console.log(userPoints)
   return (
     <View style={styles.container}>
 
@@ -24,15 +26,16 @@ const ApprovedPurchase=({ navigation, route })=> {
       </View>
 
 
-      <View style={{ flexDirection: 'row-reverse', width }}>
+      <View style={{ width }}>
         <View>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, alignSelf: 'flex-start', margin: 20 }}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, textAlign: 'center',  }}>
             {'סה"כ נקודות שנשארו לך:'}
           </Text>
         </View>
 
-        <View style={{ marginRight: 20 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, alignSelf: 'flex-start', margin: 20 }}>
+        <View  >
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, textAlign: 'center',margin:10,padding:20 }}>
+           {userPoints}
             <CoinIcon />
           </Text>
         </View>
@@ -41,7 +44,7 @@ const ApprovedPurchase=({ navigation, route })=> {
       <View style={{marginTop:50}}>
         <CustonButton   
         text="סיים"
-        onPress={()=> navigation.navigate('GiftsPage')} 
+        onPress={()=> navigation.navigate('Home')} 
         />
       </View>
 

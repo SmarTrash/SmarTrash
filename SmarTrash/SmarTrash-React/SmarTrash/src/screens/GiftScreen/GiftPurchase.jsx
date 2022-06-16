@@ -8,6 +8,7 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import CoinIcon from '../../Components/Icon/CoinIcon';
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
+const apiUrlGiftOrder = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GiftOrder/';
 
 const GiftPurchase = ({ navigation, route }) => {
 
@@ -16,7 +17,7 @@ const GiftPurchase = ({ navigation, route }) => {
   }, []);
 
 
-  const { userEmail, userImg, userCityName, selectedCity, userPhone, setUserPhone, setUserCityName, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
+  const { userEmail, userImg, userCityName, selectedCity,userPoints, setUserPoints, userPhone, setUserPhone, setUserCityName, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
 
@@ -38,16 +39,13 @@ const GiftPurchase = ({ navigation, route }) => {
           userPhone: data[0].Phone
         }
         setNotes([note])
-        
-        // setPointsLeft(userShippingDetails.points - userShippingDetails.price)
 
       });
   }
 
-  const addNotes = note => {
+  const addAdress = note => {
     note.id = notes.length + 1;
-    note.userCityName = note.userCityName;
-    note.userStreetNameAndNumber = note.userStreetNameAndNumber;
+
     console.log({ note });
     setNotes([...notes, note])
   }
@@ -55,6 +53,23 @@ const GiftPurchase = ({ navigation, route }) => {
   const deleteNote = (item) => {
     let newNotes = notes.filter(note => note.id !== item.id)
     setNotes(newNotes)
+  }
+  const onPurchase = () => {
+    console.log("dddddddddddddd", notes[1].userPhone, notes[1].userStreetNameAndNumber, selectedCity);
+    fetch(apiUrlGiftOrder + giftId, {
+      method: 'POST',
+      body: JSON.stringify({ UserEmail: userEmail, Phone: notes[1].userPhone, StreetNameAndNumber: notes[1].userStreetNameAndNumber, CityId: selectedCity }),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        console.log("cataaaaaaaaaaaaaaa", data)
+        setUserPoints(data)
+
+      });
+    navigation.navigate('ApprovedPurchase')
   }
   console.log("notes:", notes)
   return (
@@ -67,15 +82,15 @@ const GiftPurchase = ({ navigation, route }) => {
               source={{ uri: userImg }} />
           </View>
         </View>
-        </View>
-        <View style={styles.container}>
-        <FlatList 
+      </View>
+      <View style={styles.container}>
+        <FlatList
           data={notes}
           renderItem={({ item }) => (
             <List.Item style={styles.itemStyle}
               title={item.id == "1" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
-              description={ item.userStreetNameAndNumber+ "\n" +item.userCityName
-                + "\n" + item.userPhone   }
+              description={item.userStreetNameAndNumber + "\n" + item.userCityName
+                + "\n" + item.userPhone}
               // right={props => <Icon onPress={() => deleteNote(item)} size={40} name="delete" />}
               detailsNumberOfLines={0}
               titleStyle={styles.listTitle}
@@ -89,7 +104,7 @@ const GiftPurchase = ({ navigation, route }) => {
           small
           icon='plus'
           label='הוסף כתובת'
-          onPress={() => navigation.navigate('AddNewAdress', { addNotes })}
+          onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
         />
         <View >
           <View>
@@ -120,7 +135,7 @@ const GiftPurchase = ({ navigation, route }) => {
 
             <CustonButton
               text='רכישה'
-              onPress={() => { navigation.navigate('ApprovedPurchase') }}
+              onPress={() => onPurchase()}
             />
 
           </View>
@@ -159,18 +174,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     margin: 20,
     right: 0,
-    bottom:200
+    bottom: 200
   },
   listTitle: {
     fontSize: 20,
-    
+
 
   },
   itemStyle: {
     backgroundColor: 'lightgray',
     borderRadius: 10,
     margin: 10,
-   
+
 
   },
   profileImage: {
@@ -187,7 +202,7 @@ const styles = StyleSheet.create({
     height: undefined,
   },
   priceTag: {
-   
+
     alignItems: 'center',
     left: 150,
     borderTopLeftRadius: 20,

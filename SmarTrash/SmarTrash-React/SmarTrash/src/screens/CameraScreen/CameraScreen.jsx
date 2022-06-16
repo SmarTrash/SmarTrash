@@ -7,6 +7,9 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 import COLORS from '../../Consts/colors'
 
+// Utils
+import { ChangeImage, sendToAzure } from '../../Utils/CameraUtils';
+
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
 const cardWidth = width;
@@ -21,7 +24,7 @@ const CameraScreen = () => {
 
   const [newUserImage, setNewUserImage] = useState('');
   useEffect(() => {
-    ChangeImage();
+    ChangeImage(newUserImage, userEmail);
   });
 
   const uploadImage = () => {
@@ -64,9 +67,33 @@ console.log({dataI});
       .then((responseData) => {
         console.log("responseData=", responseData)
         if (responseData != "err") {
-          console.log("img uploaded successfully!"); 
+          console.log("img uploaded successfully!");
+          console.log("responseData")
+          console.log(responseData)
+          
+
+
+        // if (responseData.indexOf("http") == 0)
+        // {
+            console.log("sending")
+            sendToAzure("https://static.turbosquid.com/Preview/001235/567/ZD/plastic-water-bottle-3D-model_Z.jpg")
+            .then(type => {
+              console.log("type in component")
+              console.log(type)
+            })
+            .catch(err => {
+              console.log("err in component")
+              console.log(err)
+            })
+      
+        // }
+         
+          
+          
+
+
           setNewUserImage(responseData);
-          ChangeImage(newUserImage)
+          ChangeImage(responseData, userEmail);
 
         }
         else { alert('error uploding ...'); }
@@ -75,41 +102,36 @@ console.log({dataI});
   }
 
 //  body  , query  , params 
-  const ChangeImage = (newUserImage) => {
-    console.log("userImg", userImg);
-    console.log("url", newUserImage);
-    fetch(urlUpdateImage, {
-      method: 'POST',
-       body: JSON.stringify({ UserEmail: userEmail,
-                              UserImg: newUserImage}),
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-      })
-    }).then((res) => {
-      if (res.status == 201) {
-        Alert.alert(
-          userFirstName + " " + userLastName,
-          "התמונה שונתה בהצלחה",
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel"
-            },
-            { text: "OK", onPress: () => ifPressOK() }
-          ]
-        );
-      }
-      else { return "err"; }
-    })
+  // const ChangeImage = (newUserImage) => {
+  //   console.log("userImg", userImg);
+  //   console.log("url", newUserImage);
+  //   fetch(urlUpdateImage, {
+  //     method: 'POST',
+  //      body: JSON.stringify({ UserEmail: userEmail,
+  //                             UserImg: newUserImage}),
+  //     headers: new Headers({
+  //       'Content-type': 'application/json; charset=UTF-8',
+  //       'Accept': 'application/json; charset-UTF-8'
+  //     })
+  //   }).then((res) => {
+  //     if (res.status == 201) {
+  //       Alert.alert(
+  //         userFirstName + " " + userLastName,
+  //         "התמונה שונתה בהצלחה",
+  //         [
+  //           {
+  //             text: "Cancel",
+  //             onPress: () => console.log("Cancel Pressed"),
+  //             style: "cancel"
+  //           },
+  //           { text: "OK", onPress: () => ifPressOK() }
+  //         ]
+  //       );
+  //     }
+  //     else { return "err"; }
+  //   })
 
-
-
-
-
-
-  }
+  // }
   return (
     <View>
       <View style={styles.root}>
