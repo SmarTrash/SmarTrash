@@ -33,6 +33,7 @@ const AddNewAdress = ({ navigation, route }) => {
           mode='outlined'
           setValue={setUserPhone}
           style={styles.title}
+        
         />
         <FAB
           small

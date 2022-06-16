@@ -6,7 +6,7 @@ import COLORS from '../../Consts/colors';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import CoinIcon from '../../Components/Icon/CoinIcon';
-
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const apiUrlGiftOrder = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GiftOrder/';
 
@@ -50,9 +50,15 @@ const GiftPurchase = ({ navigation, route }) => {
     setNotes([...notes, note])
   }
   const [notes, setNotes] = useState([]);
+  const [choosenAddress, setChoosenAddress] = useState();
   const deleteNote = (item) => {
-    let newNotes = notes.filter(note => note.id !== item.id)
-    setNotes(newNotes)
+    setCheckboxState(!checkboxState)
+    if (checkboxState) {
+      setChoosenAddress(item.id)
+      console.log("zzzzzzz",item.id)
+    }
+    
+   
   }
   const onPurchase = () => {
     console.log("dddddddddddddd", notes[1].userPhone, notes[1].userStreetNameAndNumber, selectedCity);
@@ -71,6 +77,7 @@ const GiftPurchase = ({ navigation, route }) => {
       });
     navigation.navigate('ApprovedPurchase')
   }
+  const [checkboxState, setCheckboxState] = useState(false);
   console.log("notes:", notes)
   return (
     <>
@@ -91,7 +98,7 @@ const GiftPurchase = ({ navigation, route }) => {
               title={item.id == "1" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
               description={item.userStreetNameAndNumber + "\n" + item.userCityName
                 + "\n" + item.userPhone}
-              // right={props => <Icon onPress={() => deleteNote(item)} size={40} name="delete" />}
+               right={props =>  <BouncyCheckbox  size={35} unfillColor="#FFFFFF"   iconStyle={{ borderColor: "black" }}    fillColor={COLORS.green} onPress={() => deleteNote(item)}  />}
               detailsNumberOfLines={0}
               titleStyle={styles.listTitle}
               detailsStyle={styles.listTitle}

@@ -44,6 +44,7 @@
     "react-hook-form": "^7.28.1",
     "react-native": "^0.64.3",
     "react-native-bouncy-checkbox": "^2.1.10",
+    "react-native-bouncy-checkbox-group": "^0.1.0",
     "react-native-category": "^1.0.4",
     "react-native-datepicker": "^1.7.2",
     "react-native-dynamic-search-bar": "github:WrathChaos/react-native-dynamic-search-bar#expo",
