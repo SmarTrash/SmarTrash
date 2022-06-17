@@ -67,6 +67,10 @@ const style = StyleSheet.create({
     elevation: 15,
     marginHorizontal: 10,
     borderRadius: 10,
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
 
   },
   topHotelCardImage: {

@@ -83,8 +83,8 @@ const GiftPurchase = ({ navigation, route }) => {
   console.log("notes:", notes)
   return (
     <>
-      <View style={{ backgroundColor: '#fff' }}>
-        <View style={{ alignSelf: 'center', margin: 60 }}>
+      <View style={{ backgroundColor: COLORS.white }}>
+        <View style={{ alignSelf: 'center', marginBottom: 60 }}>
           <View style={styles.profileImage}>
             <Image
               style={styles.image}
@@ -92,6 +92,7 @@ const GiftPurchase = ({ navigation, route }) => {
           </View>
         </View>
       </View>
+
       <View style={styles.container}>
         <FlatList
           data={notes}
@@ -123,40 +124,40 @@ const GiftPurchase = ({ navigation, route }) => {
           label='הוסף כתובת'
           onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
         />
-        <View >
-          <View>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', }}>
+        <View style={styles.txtContainer}>
+          
+            <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary,  }}>
               {'סה"כ נקודות'}
             </Text>
-          </View>
+          
           {/* {'סה"כ נקודות'} */}
-          <View>
-            <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start' }]}>
+          
+            <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, }]}>
               {userShippingDetails.points} <CoinIcon />
             </Text>
-          </View>
+         
         </View>
 
         {/* מחיר הטבה - טקסט*/}
-        <View >
-          <View>
+        {/* <View >
+         
             <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start' }}>
               {'מחיר הטבה'}
             </Text>
-          </View>
-          {/* {'מחיר הטבה'} */}
-          <View>
+          
+          
+          
             <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', }]}>
               {userShippingDetails.price} <CoinIcon />
             </Text>
 
-            <CustonButton
+
+        </View> */}
+        
+        <CustonButton
               text='רכישה'
               onPress={() => onPurchase()}
             />
-
-          </View>
-        </View>
       </View>
     </>
   )
@@ -166,16 +167,20 @@ export default GiftPurchase;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    backgroundColor:COLORS.white,
+    //paddingVertical: 10,
+    //paddingHorizontal: 10,
+    alignContent:'center',
+    justifyContent: 'center',
 
-  }, fab: {
-    position: 'absolute',
+  }, 
+  fab: {
     margin: 20,
-    right: 0,
-    bottom: 0,
-    backgroundColor: '#99FFFF'
+    backgroundColor:COLORS.white,
+    //position: 'absolute',
+    width:'90%',
+    marginTop:10,
+
   },
   titleContainer: {
     alignItems: 'center',
@@ -186,24 +191,18 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '200'
   },
-  fab: {
-    backgroundColor: '#99FFFF',
-    position: 'absolute',
-    margin: 20,
-    right: 0,
-    bottom: 200
-  },
+  
   listTitle: {
     fontSize: 20,
-
-
   },
   itemStyle: {
-    backgroundColor: 'lightgray',
+    backgroundColor:COLORS.white,
     borderRadius: 10,
     margin: 10,
-
-
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
   },
   profileImage: {
     width: 80,
@@ -218,16 +217,7 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
   },
-  priceTag: {
-
-    alignItems: 'center',
-    left: 150,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderTopRightRadius: 20,
-    flexDirection: 'row',
-  },
+  
   btn: {
     height: 55,
     justifyContent: 'center',
@@ -242,11 +232,15 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'flex-start',
     justifyContent: 'center',
-  }, modalBackGround: {
+  }, 
+  modalBackGround: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  txtContainer:{
+
   },
 
 })

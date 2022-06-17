@@ -2,7 +2,7 @@ import { View, Text, Animated, Dimensions, StyleSheet, TouchableOpacity, BottomS
 import React, { useState, useEffect, useRef,useContext } from 'react'
 import { Colors, Portal } from 'react-native-paper';
 import COLORS from '../../Consts/colors';
-import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
+import {  MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import * as ImagePicker from 'expo-image-picker';

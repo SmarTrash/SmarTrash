@@ -3,6 +3,7 @@ import React from 'react'
 import COLORS from '../../Consts/colors';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import CoinIcon from '../Icon/CoinIcon';
 
 const SmallCard = (props) => {
   const navigation = useNavigation();
@@ -19,7 +20,7 @@ const SmallCard = (props) => {
           zIndex: 1,
           flexDirection: 'row',
         }}>
-        <Icon name="star" size={15} color={COLORS.orange} />
+       
       </View>
       <Image style={style.topHotelCardImage} source={{uri:props.data[0].Image}} />
       <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>

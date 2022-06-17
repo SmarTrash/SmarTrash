@@ -2,7 +2,6 @@ import React from 'react';
 import { ImageBackground, ScrollView, StatusBar, StyleSheet, Text, View, Button } from 'react-native';
 import COLORS from '../../Consts/colors'
 import { useEffect, useContext, useState } from 'react';
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CoinIcon from '../../Components/Icon/CoinIcon';
 import CustonButton from '../../Components/CustomButton/CustonButton'
@@ -40,6 +39,7 @@ const SelectedGift = ({ navigation, route }) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
+        flex:1,
       }}>
       <StatusBar
         barStyle="light-content"
@@ -49,12 +49,12 @@ const SelectedGift = ({ navigation, route }) => {
       <ImageBackground style={style.headerImage} source={{ uri: item.Image }}>
         <View style={style.header}>
 
-          <AntDesign
+          {/* <AntDesign
             name="left"
             size={28}
-            color={COLORS.white}
+            color={COLORS.primary}
             onPress={navigation.goBack}
-          />
+          /> */}
         </View>
       </ImageBackground>
       <View>

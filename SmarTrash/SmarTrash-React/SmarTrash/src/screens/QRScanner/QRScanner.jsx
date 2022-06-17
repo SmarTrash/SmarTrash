@@ -98,7 +98,7 @@ const QRScanner = ({ navigation }) => {
       </View >
       {/* <Text style={styles.maintext}>{text}</Text>  */}
 <View style={{marginTop: 50 , borderRadius:30 , padding:12}}>
-    {scanned && <Button title={'סרוק שוב'} onPress={() => setScanned(false)} color='black'   />} 
+    {scanned && <Button title={'לא תקין, אנא סרוק שוב QR'} onPress={() => setScanned(false)} color='black'   />} 
 
 </View>
      

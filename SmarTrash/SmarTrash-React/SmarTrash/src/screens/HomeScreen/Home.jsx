@@ -2,7 +2,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Text, Dimensions, FlatList, 
 import React, { useEffect, useState, useContext } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, FontAwesome, Feather, AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons, SimpleLineIcons, Feather, AntDesign, FontAwesome5,  } from '@expo/vector-icons';
 import SmallCard from '../../Components/Card/SmallCard';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import COLORS from '../../Consts/colors'
@@ -16,6 +16,7 @@ const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
 const apiUrlPostToken = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PostToken';
+
 export default function Home({ navigation }) {
   const {
     userEmail,
@@ -87,23 +88,6 @@ export default function Home({ navigation }) {
   }
   console.log("userImgHome: ",userImg);
 
-
-  // const updateData = async () => {  
-  //   let reg =/[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
-  //   console.log('userEmail:',userEmail)
-  //   if (reg.test(userEmail) === true){
-  //    setUserEmail(userEmail);
-  //    console.log('valid:',userEmail)
-  //    await AsyncStorage.mergeItem('UserData', JSON.stringify(userEmail));
-  //    navigation.navigate('SignUpScreen');
-  //   }
-  //   else{ 
-  //     console.log('email:',userEmail)
-  //     alert('כתובת אימייל לא חוקית');
-  //   }
-
-
-
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const onScreenLoad = () => {
@@ -151,8 +135,8 @@ export default function Home({ navigation }) {
             <Text style={[style.text, style.subText]}>סה"כ נקודות</Text>
           </View>
           <View style={style.statusBox}>
-            <Text style={[style.text, { fontSize: 24, }]}>{userCompetitionPlace=="0"?"-":userCompetitionPlace}</Text>
-            <Text style={[style.text, style.subText]}>מקומך בתחרות</Text>
+            <Text style={[style.text, { fontSize: 24, }]} onPress={() => navigation.navigate('CompetitionList')}>{userCompetitionPlace=="0"?"-":userCompetitionPlace}</Text>
+            <Text style={[style.text, style.subText]}  onPress={() => navigation.navigate('CompetitionList')}>מקומך בתחרות</Text>
           </View>
         </View>
 
@@ -162,14 +146,11 @@ export default function Home({ navigation }) {
               <FontAwesome5 name="trash" size={50} color="black" />
             </View>
             <View>
-              <Text style={[style.text, style.subText, { marginLeft: 18 }]}>לאן לזרוק</Text>
+              <Text style={[style.text, style.subText, { marginLeft: 18 }]} >לאן לזרוק</Text>
             </View>
           </View>
           <View>
-               <TouchableOpacity onPress={() => {
-              console.log('heree');
-            navigation.navigate('Map')
-          }}>
+               <TouchableOpacity onPress={() => {navigation.navigate('Map') }}>
             <View style={[style.sortBtn, { backgroundColor: '#39AEA9' }]}>
               <Feather name="map-pin" size={50} color="black" />
             </View>
