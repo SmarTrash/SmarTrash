@@ -39,7 +39,7 @@ namespace SmarTrash.Controllers
             }
         }
 
-        //GET- מקבל מספר פח ובודק אם הוא נמצא, אם כן נשלח אמת.
+        //POST- מקבל מספר פח ובודק אם הוא נמצא, אם כן נשלח אמת.
         [HttpPost]
         [Route("api/BinSearch/MatchBin")]
         public dynamic GetBinsFromQR([FromBody] tblSpecificBin userBinQR)
