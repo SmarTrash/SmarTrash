@@ -2,6 +2,7 @@ import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextI
 import React from 'react'
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
+import CoinIcon from '../Icon/CoinIcon';
 
 
 const { width } = Dimensions.get('screen');
@@ -36,7 +37,7 @@ const Card = ({index,giftData}) => {
       <View style={style.priceTag}>
         <Text
           style={{ color: COLORS.white, fontSize: 15, fontWeight: 'bold',fontSize:17 }}>
-          ${giftData.Price}
+          <CoinIcon/> {giftData.Price}
         </Text>
       </View>
       <Image source={{uri:giftData.Image}} style={style.cardImage} />
@@ -102,6 +103,7 @@ const style = StyleSheet.create({
     
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
+    borderBottomRightRadius:15,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -6,8 +6,14 @@ import * as Location from "expo-location";
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import { Feather, } from '@expo/vector-icons';
 import COLORS from '../../Consts/colors';
+import { useNavigation } from '@react-navigation/native';
 
-export default function MapScreen({ navigation }) {
+
+const MapScreen = () => {
+
+  const navigation = useNavigation();
+  // export default function MapScreen({ navigation }) {
+
   const { userEmail } = useContext(GlobalContext);
   const [markers, setMarkers] = useState([])
   const [userLocation, setUserLocation] = useState({
@@ -65,9 +71,14 @@ export default function MapScreen({ navigation }) {
           latitudeDelta: 0.0122,
           longitudeDelta: 0.0121,
         }}>
-        <View style={styles.sortBtn}>
-          <Feather style={styles.IconList} name="list" size={24} color="black" />
+        <View style={styles.listBtnContainer}>
+          <View style={styles.Listbtn}>
+            <Feather name="list" size={30} color="black" onPress={() => navigation.navigate('BinListScreen')} />
+          </View>
         </View>
+
+
+
         <Polyline
           coordinates={[
             //{ latitude:32.803677, longitude: 35.084886},
@@ -78,28 +89,6 @@ export default function MapScreen({ navigation }) {
             { latitude: 32.69773, longitude: 35.15682 },
             { latitude: 32.69789, longitude: 35.15675 },
             { latitude: 32.69813, longitude: 35.15673 },
-            { latitude: 32.69838, longitude: 35.15676 },
-            { latitude: 32.69872, longitude: 35.15697 },
-            { latitude: 32.69903, longitude: 35.15723 },
-            { latitude: 32.69917, longitude: 35.15737 },
-            { latitude: 32.69931, longitude: 35.15753 },
-            { latitude: 32.69949, longitude: 35.15781 },
-            { latitude: 32.69958, longitude: 35.15796 },
-            { latitude: 32.69968, longitude: 35.15812 },
-            { latitude: 32.69976, longitude: 35.15822 },
-            { latitude: 32.69987, longitude: 35.15831 },
-            { latitude: 32.69997, longitude: 35.15836 },
-            { latitude: 32.69996, longitude: 35.15837 },
-            { latitude: 32.69996, longitude: 35.15840 },
-            { latitude: 32.69997, longitude: 35.15843 },
-            { latitude: 32.69998, longitude: 35.15846 },
-            { latitude: 32.70000, longitude: 35.15848 },
-            { latitude: 32.70003, longitude: 35.15850 },
-            { latitude: 32.70005, longitude: 35.15850 },
-            { latitude: 32.70008, longitude: 35.15850 },
-            { latitude: 32.70010, longitude: 35.15848 },
-            { latitude: 32.70012, longitude: 35.15846 },
-            { latitude: 32.70013, longitude: 35.15843 },
           ]}
           strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
           strokeColors={[
@@ -129,17 +118,6 @@ export default function MapScreen({ navigation }) {
 
           })
         }
-        {/* <Marker
-          coordinate={
-            {
-              latitude: 32.15715,
-              longitude: 34.843893
-            }
-          }
-          title='avi'//{marker.BinTypeId}
-          description='avi'//{marker.Address}
-          pinColor='#FF8D29'
-        /> */}
       </MapView>
     </View>
   )
@@ -147,23 +125,21 @@ export default function MapScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  // listBtnContainer:{
+  //   margin: 10
+  // },
+
+  Listbtn: {
+    alignContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: 40,
+    width: 45,
+    borderRadius: 10,
+    backgroundColor: COLORS.primary,
   },
 
-  sortBtn: {
-    height: 30,
-    width: 35,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 10,
-    margin: 5,
-    alignContent:'flex-end',
-    backgroundColor:COLORS.primary,
-  },
-  IconList:{
-    fontWeight:'bold',
-    alignSelf:'center'
-  },
 
 });
+export default MapScreen

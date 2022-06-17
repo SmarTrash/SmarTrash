@@ -4,15 +4,20 @@ import CategoryList from '../../screens/CategoryList/CategoryList';
 import COLORS from '../../Consts/colors';
 import Card from '../../Components/Card/Card';
 import CardMonthGift from '../../Components/Card/CardMonthGift';
+import { AntDesign, } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 
+
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllGifts';
 
 const GiftsPage = () => {
   const [giftData, setGiftData] = useState('');
+  const navigation = useNavigation();
+
 
   useEffect(() => {
 
@@ -36,19 +41,26 @@ const GiftsPage = () => {
 
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white, alignItems:'center' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white}}>
       <View style={style.header}>
-        <View style={{ paddingBottom: 15 }}>
-          {/* <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign:'center', color:COLORS.primary}}>
+        <View style={style.txtHeader}>
+          <Text style={style.txt}>
             הטבות
-          </Text> */}
+          </Text>
         </View>
-
+          {/* <AntDesign
+            name="left"
+            size={28}
+            color={COLORS.primary}
+            style={style.Icon}
+            onPress={ navigation.goBack}
+          /> */}
+    
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
 
         <CardMonthGift />
-        
+
         <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
           <View style={style.categoryListContainer}>
             <CategoryList func={setGiftData} />
@@ -67,7 +79,7 @@ const GiftsPage = () => {
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: true },
           )}
-         
+
           data={giftData}
           contentContainerStyle={{
             paddingVertical: 10,
@@ -87,9 +99,26 @@ const GiftsPage = () => {
 const style = StyleSheet.create({
   header: {
     marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'row-reverse',
     paddingHorizontal: 20,
+    paddingBottom: 15,
+    justifyContent:'space-between'
+  },
+  txtHeader:{
+    alignItems:'center',
+    alignSelf: 'center', 
+    alignContent:'center',
+  },
+  txt:{
+    fontSize: 30, 
+    fontWeight: 'bold', 
+    textAlign:'center', 
+    color:COLORS.primary,
+    marginRight:150,
+  },
+  Icon:{
+   margin:1,
+   
   },
   categoryListContainer: {
     flexDirection: 'row',
