@@ -7,10 +7,10 @@ import CityList from '../../Components/City/CityList'
 
 const AddNewAdress = ({ navigation, route }) => {
 
-  const { userPhone,userCityName, setUserCityName,setUserPhone, setUserStreetNameAndNumber, userStreetNameAndNumber,} = useContext(GlobalContext);
+  const { userPhone, userCityName, setUserCityName, setUserPhone, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
 
   const onSaveAdress = () => {
-    route.params.addAdress({ userCityName, userStreetNameAndNumber,userPhone });
+    route.params.addAdress({ userCityName, userStreetNameAndNumber, userPhone });
     navigation.goBack();
   }
 
@@ -29,16 +29,18 @@ const AddNewAdress = ({ navigation, route }) => {
           style={styles.title}
         />
         <CustomInput
+          maxLength={10}
+          keyboardType='numeric'
           placeholder="הכנס טלפון"
           mode='outlined'
           setValue={setUserPhone}
           style={styles.title}
-        
+
         />
         <FAB
           small
           icon="check"
-          disabled={userStreetNameAndNumber == '' ? true : false}
+          disabled={userStreetNameAndNumber == '' && userPhone=='' ? true : false}
           onPress={() => onSaveAdress()}
         />
       </View>

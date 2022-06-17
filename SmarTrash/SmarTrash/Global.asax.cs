@@ -47,7 +47,7 @@ namespace SmarTrash
             {
                 SmarTrash.Models.TimerServices.PostAllWinnersInCities(path);
             }
-            else if (DateTime.Now.Day == 8)
+            else if (DateTime.Now.Day == 18)
             {
                 SmarTrash.Models.TimerServices.Post(path);
             }

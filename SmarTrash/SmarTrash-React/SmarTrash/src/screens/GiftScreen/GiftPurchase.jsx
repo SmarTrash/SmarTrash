@@ -1,12 +1,13 @@
-import { FAB, Text, List } from 'react-native-paper'
+import { FAB, Text, List, RadioButton } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/AntDesign';
-import { View, FlatList, StyleSheet, Image, } from 'react-native'
+import { View, FlatList, StyleSheet, Image } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import CoinIcon from '../../Components/Icon/CoinIcon';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const apiUrlGiftOrder = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GiftOrder/';
 
@@ -17,7 +18,7 @@ const GiftPurchase = ({ navigation, route }) => {
   }, []);
 
 
-  const { userEmail, userImg, userCityName, selectedCity,userPoints, setUserPoints, userPhone, setUserPhone, setUserCityName, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
+  const { userEmail, userImg, userCityName, selectedCity, userPoints, setUserPoints, userPhone, setUserPhone, setUserCityName, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
 
@@ -34,7 +35,7 @@ const GiftPurchase = ({ navigation, route }) => {
         console.log("dataaaaaaaaaaaaaaa", data)
         data.map(st => setUserShippingDetails(st))
         const note = {
-          id: "1", userCityName: data[0].city,
+          id: "0", userCityName: data[0].city,
           userStreetNameAndNumber: data[0].StreetNameAndNumber,
           userPhone: data[0].Phone
         }
@@ -53,18 +54,19 @@ const GiftPurchase = ({ navigation, route }) => {
   const [choosenAddress, setChoosenAddress] = useState();
   const deleteNote = (item) => {
     setCheckboxState(!checkboxState)
-    if (checkboxState) {
-      setChoosenAddress(item.id)
-      console.log("zzzzzzz",item.id)
+    if (!checkboxState == true) {
+       setChoosenAddress(item.id-1)
+     
+      console.log("zzzzzzz",choosenAddress)
     }
-    
-   
+
+
   }
   const onPurchase = () => {
-    console.log("dddddddddddddd", notes[1].userPhone, notes[1].userStreetNameAndNumber, selectedCity);
+    console.log("dddddddddddddd",checkboxState, choosenAddress, notes[choosenAddress].userPhone, notes[choosenAddress].userStreetNameAndNumber, selectedCity);
     fetch(apiUrlGiftOrder + giftId, {
       method: 'POST',
-      body: JSON.stringify({ UserEmail: userEmail, Phone: notes[1].userPhone, StreetNameAndNumber: notes[1].userStreetNameAndNumber, CityId: selectedCity }),
+      body: JSON.stringify({ UserEmail: userEmail, Phone: notes[choosenAddress].userPhone, StreetNameAndNumber: notes[choosenAddress].userStreetNameAndNumber, CityId: selectedCity }),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -95,10 +97,18 @@ const GiftPurchase = ({ navigation, route }) => {
           data={notes}
           renderItem={({ item }) => (
             <List.Item style={styles.itemStyle}
-              title={item.id == "1" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
+              title={item.id == "0" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
               description={item.userStreetNameAndNumber + "\n" + item.userCityName
                 + "\n" + item.userPhone}
-               right={props =>  <BouncyCheckbox  size={35} unfillColor="#FFFFFF"   iconStyle={{ borderColor: "black" }}    fillColor={COLORS.green} onPress={() => deleteNote(item)}  />}
+              right={props =>   <RadioButton
+              radio_props={notes.length}
+              initial={0}
+              onPress={(id) => {
+                console.log("value",id);
+                deleteNote(id)
+              }}
+            />} 
+              // <BouncyCheckbox size={35} unfillColor="#FFFFFF" iconStyle={{ borderColor: "black" }} fillColor={COLORS.green} onPress={() => deleteNote(item)} />}
               detailsNumberOfLines={0}
               titleStyle={styles.listTitle}
               detailsStyle={styles.listTitle}

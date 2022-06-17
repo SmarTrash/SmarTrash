@@ -158,6 +158,8 @@ const SignUpScreen = ({ navigation }) => {
           <CityList />
 
           <CustomInput
+           maxLength={10}
+           keyboardType='numeric'
             placeholder="טלפון"
             value={phone}
             setValue={setPhone}

@@ -3,7 +3,7 @@ import React from 'react'
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
-const CustomInput = ({ value, setValue, placeholder, secureTextEntry }) => {
+const CustomInput = ({ value, setValue, placeholder, secureTextEntry, maxLength,keyboardType }) => {
 
   return (
     <View style={styles.container}>
@@ -14,6 +14,9 @@ const CustomInput = ({ value, setValue, placeholder, secureTextEntry }) => {
         styles={styles.input}
         placeholder={placeholder}
         secureTextEntry={secureTextEntry}
+        maxLength={maxLength}
+        keyboardType={keyboardType}
+
       />
 
     </View>
