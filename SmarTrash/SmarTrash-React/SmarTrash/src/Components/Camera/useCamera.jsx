@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
-import { AntDesign } from '@expo/vector-icons';
+
 import { useNavigation } from '@react-navigation/native';
 
 

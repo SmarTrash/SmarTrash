@@ -10,7 +10,7 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Competition/GetListOf
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
-const CompetitionList = (navigation, route) => {
+const CompetitionList = () => {
   const { userImg } = useContext(GlobalContext);
   const [usersPlaces, setUsersPlaces] = useState('');
   const { userEmail } = useContext(GlobalContext);
@@ -70,35 +70,7 @@ console.log(userEmail);
     </View>
 
 
-    // {/* <ScrollView showsVerticalScrollIndicator={false}> */}
-
-    // {/* <Animated.FlatList
-    //     onMomentumScrollEnd={(e) => {
-    //       setActiveCardIndex(
-    //         Math.round(e.nativeEvent.contentOffset.x / cardWidth),
-    //       );
-    //     }}
-    //     onScroll={Animated.event(
-    //       [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-    //       { useNativeDriver: true },
-    //     )}
-
-    //     data={usersPlaces}
-    //     contentContainerStyle={{
-    //       paddingVertical: 50,
-    //       alignItems:'center',
-    //       alignContent:'center', 
-    //       alignSelf:'center',
-    //       // justifyContent:'center', 
-    //       // paddingLeft: 10,
-    //       // paddingRight: cardWidth / 2 - 40,
-    //     }}
-    //     showsHorizontalScrollIndicator={false}
-    //     renderItem={({ item, index }) => <CompetitionCard usersPlaces={item} index={index} />}
-    //     snapToInterval={cardWidth}
-    //   /> */}
-    // {/* </ScrollView> */}
-
+   
   )
 };
 
