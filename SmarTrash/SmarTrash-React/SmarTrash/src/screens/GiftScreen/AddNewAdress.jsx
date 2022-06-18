@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { FAB, TextInput } from 'react-native-paper'
 import CustomInput from '../../Components/CustomInput/CustomInput'
@@ -7,13 +7,18 @@ import CityList from '../../Components/City/CityList'
 
 const AddNewAdress = ({ navigation, route }) => {
 
-  const { userPhone, userCityName, setUserCityName, setUserPhone, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
+  useEffect(() => {
+    setuserOrderPhone('')
+    setuserOrderStreetNameAndNumber('')
+
+  }, []);
+  const { userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,userOrderPhone, setuserOrderPhone, userCityName, setUserCityName, setUserPhone, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
 
   const onSaveAdress = () => {
-    route.params.addAdress({ userCityName, userStreetNameAndNumber, userPhone });
+    route.params.addAdress({ userCityName, userOrderStreetNameAndNumber, userOrderPhone });
     navigation.goBack();
   }
-
+ 
 
   return (
     <>
@@ -25,22 +30,23 @@ const AddNewAdress = ({ navigation, route }) => {
         <CustomInput
           placeholder="הכנס רחוב ומספר בית"
           mode='outlined'
-          setValue={setUserStreetNameAndNumber}
+          setValue={setuserOrderStreetNameAndNumber}
           style={styles.title}
+        
         />
         <CustomInput
           maxLength={10}
           keyboardType='numeric'
           placeholder="הכנס טלפון"
           mode='outlined'
-          setValue={setUserPhone}
+          setValue={setuserOrderPhone}
           style={styles.title}
-
+          
         />
         <FAB
           small
-          icon="check"
-          disabled={userStreetNameAndNumber == '' && userPhone=='' ? true : false}
+          icon="plus"
+          disabled={userOrderStreetNameAndNumber && userOrderPhone!= ''? false :true }
           onPress={() => onSaveAdress()}
         />
       </View>

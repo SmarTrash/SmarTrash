@@ -26,7 +26,8 @@ const Provider = ({ children }) => {
     const [open, setOpen] = useState(show)
     const [userCityName, setUserCityName] = useState('');
     const [userDetails, setUserDetails] = useState(''); 
-
+    const [userOrderPhone, setuserOrderPhone] = useState();
+    const [userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber] = useState();
     const GlobalContextOrginal = {
         cities, setCities,userCityName, setUserCityName,
         selectedCity, setSelectedCity,userDetails, setUserDetails,
@@ -43,7 +44,7 @@ const Provider = ({ children }) => {
         userCityId, setUserCityId,
         userStreetNameAndNumber, setUserStreetNameAndNumber,
         userEmail, setUserEmail,checked, setChecked,
-        userToken, setUserToken,
+        userToken, setUserToken,userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,
         show, setShow,open, setOpen}
         
     return (
