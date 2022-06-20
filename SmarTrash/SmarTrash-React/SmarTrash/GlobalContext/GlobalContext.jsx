@@ -28,6 +28,7 @@ const Provider = ({ children }) => {
     const [userDetails, setUserDetails] = useState(''); 
     const [userOrderPhone, setuserOrderPhone] = useState();
     const [userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber] = useState();
+    const [binQRId, setBinQRId] = useState('Not yet scanned')
     const GlobalContextOrginal = {
         cities, setCities,userCityName, setUserCityName,
         selectedCity, setSelectedCity,userDetails, setUserDetails,
@@ -45,7 +46,7 @@ const Provider = ({ children }) => {
         userStreetNameAndNumber, setUserStreetNameAndNumber,
         userEmail, setUserEmail,checked, setChecked,
         userToken, setUserToken,userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,
-        show, setShow,open, setOpen}
+        show, setShow,open, setOpen, binQRId, setBinQRId}
         
     return (
         <GlobalContext.Provider value={GlobalContextOrginal}>

@@ -9,15 +9,19 @@ import CoinIcon from '../../Components/Icon/CoinIcon';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
-const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Throw/ThrowGarbage';
+const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Throw/ThrowGarbage/';
 
 export default function ThrowPoints({ navigation }) {
-  const {userEmail,userImg} = useContext(GlobalContext);
+  const {userEmail,userImg, binQRId,userLastThrow,
+    setUserLastThrow,
+    setUserPoints, userPoints,} = useContext(GlobalContext);
   const [throwInfo, setThrowInfo] = useState('');
+
   useEffect( () => {
-    fetch(apiUrl, {
+    fetch(apiUrl + binQRId , {
       method: 'POST',
-      body: JSON.stringify({UserEmail:userEmail}),
+      body: JSON.stringify({UserEmail:userEmail
+                            }),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -26,10 +30,35 @@ export default function ThrowPoints({ navigation }) {
       .then(data => {
         data.map(st => setThrowInfo(st))
         console.log("dataaaaaa:", data);
-        
+        setUserLastThrow(data.gainedPoints)
+        setUserPoints(data.totalPoints)
+        updateData(data)
         
       });
   },[]);
+  const updateData = async (u) => {
+    AsyncStorage.getItem('@storage_Key')
+      .then(data => {
+        // the string value read from AsyncStorage has been assigned to data
+        console.log("eeeeeeeeeeeeeeeeeeeeee",data);
+
+        // transform it back to an object
+        data = JSON.parse(data);
+        console.log(data);
+
+        // Decrement
+        data.Points=u.totalPoints;
+        data.lastThrow=u.gainedPoints;
+        console.log("hhhhhhhhhhhh" ,data );
+
+        //save the value to AsyncStorage again
+        AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
+
+      }).done();
+
+
+  }
+  console.log('binQRId-throwPoint:', binQRId)
   return (
     <View style={{ backgroundColor: COLORS.white, width}}>
       <View style={{ alignSelf: 'center' }}>
