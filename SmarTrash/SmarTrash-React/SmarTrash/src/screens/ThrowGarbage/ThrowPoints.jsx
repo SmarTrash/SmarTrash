@@ -6,6 +6,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CoinIcon from '../../Components/Icon/CoinIcon';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
@@ -13,7 +14,7 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Throw/ThrowGarbage/';
 
 export default function ThrowPoints({ navigation }) {
   const {userEmail,userImg, binQRId,userLastThrow,
-    setUserLastThrow,
+    setUserLastThrow, setUserCompetitionPlace, userCompetitionPlace,
     setUserPoints, userPoints,} = useContext(GlobalContext);
   const [throwInfo, setThrowInfo] = useState('');
 
@@ -32,32 +33,36 @@ export default function ThrowPoints({ navigation }) {
         console.log("dataaaaaa:", data);
         setUserLastThrow(data.gainedPoints)
         setUserPoints(data.totalPoints)
+        setUserCompetitionPlace(data.competitionPlace)
         updateData(data)
         
       });
+      
+      const updateData = async (u) => {
+        AsyncStorage.getItem('@storage_Key')
+          .then(data => {
+            // the string value read from AsyncStorage has been assigned to data
+            console.log("eeeeeeeeeeeeeeeeeeeeee",u);
+    
+            // transform it back to an object
+            data = JSON.parse(data);
+            console.log(data);
+    
+            // Decrement
+            data.Points=u[0].totalPoints;
+            data.lastThrow=u[0].gainedPoints;
+            data.competitionPlace=u[0].data.competitionPlace
+            console.log("hhhhhhhhhhhh" ,data );
+    
+            //save the value to AsyncStorage again
+            AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
+    
+          }).done();
+    
+    
+      }
   },[]);
-  const updateData = async (u) => {
-    AsyncStorage.getItem('@storage_Key')
-      .then(data => {
-        // the string value read from AsyncStorage has been assigned to data
-        console.log("eeeeeeeeeeeeeeeeeeeeee",data);
-
-        // transform it back to an object
-        data = JSON.parse(data);
-        console.log(data);
-
-        // Decrement
-        data.Points=u.totalPoints;
-        data.lastThrow=u.gainedPoints;
-        console.log("hhhhhhhhhhhh" ,data );
-
-        //save the value to AsyncStorage again
-        AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
-
-      }).done();
-
-
-  }
+ 
   console.log('binQRId-throwPoint:', binQRId)
   return (
     <View style={{ backgroundColor: COLORS.white, width}}>
@@ -108,7 +113,7 @@ export default function ThrowPoints({ navigation }) {
           <CoinIcon />
       </View>
 
-      <View style={{marginTop:50}}>
+      <View >
         <CustonButton
           text="חזרה לדף הבית "
           onPress={() => navigation.navigate('Home')}

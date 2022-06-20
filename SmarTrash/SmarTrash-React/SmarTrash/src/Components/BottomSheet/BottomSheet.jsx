@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AntDesign, } from '@expo/vector-icons';
 
 let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/updateUserImage";
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";

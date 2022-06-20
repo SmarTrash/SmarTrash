@@ -10,7 +10,7 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
-
+import { useFocusEffect } from '@react-navigation/native';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
@@ -35,9 +35,42 @@ const Home = ({navigation}) => {
   useEffect(() => {
     onScreenLoad();
     registerForPushNotificationsAsync();
-  console.log("password:",password);
 
   }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("noyyyy",userPoints);
+      const getData = async () => {
+        try {
+          AsyncStorage.getItem('@storage_Key')
+            .then(value => {
+              if (value != null) {
+                console.log("noy:", value)
+                let jsonValue = JSON.parse(value);
+                setChecked(jsonValue.Checked)
+                setUserFirstName(jsonValue.First),
+                  setUserLastName(jsonValue.Last),
+                  setUserEmail(jsonValue.UserEmail),
+                  setUserCompetitionPlace(jsonValue.competitionPlace),
+                  setUserLastThrow(jsonValue.lastThrow),
+                  setUserPoints(jsonValue.Points),
+                  setUserImg(jsonValue.Img),
+                  setUserPhone(jsonValue.Phone),
+                  console.log("ddddddddddddddddddddddddd", userPhone);
+                navigation.navigate('Home', jsonValue);
+              }
+            })
+        } catch (error) {
+          console.log(error);
+        }
+      }
+     
+
+      return () => getData();
+    },[])
+  );
+
+ 
 
   async function registerForPushNotificationsAsync() {
     let token;
