@@ -7,6 +7,7 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import { Feather, } from '@expo/vector-icons';
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
+import { tomtomService } from '../../services/tomtom.service';
 
 
 const MapScreen = () => {
@@ -20,6 +21,7 @@ const MapScreen = () => {
     latitude: 32.15715,
     longitude: 34.843893
   });
+  const [points, setPoints] = useState([])
 
   useEffect(() => {
     (async () => {
@@ -59,8 +61,30 @@ const MapScreen = () => {
       });
   }, []);
 
+  const createPolyline = async (marker) => {
+    console.log({ marker });
+    const locations = [
+      {
+        lat: userLocation.latitude,
+        lon: userLocation.longitude,
+      },
+      {
+        lat: marker.Latitude,
+        lon: marker.Longitude,
+      },
+    ]
+    const res = await tomtomService.getRoute(locations)
+    if (res.data) {
+      setPoints(res.data?.routes[0].legs[0]?.points || [])
+    }
+  }
   return (
     <View style={styles.container}>
+      <View style={styles.listBtnContainer}>
+        <View style={styles.Listbtn}>
+          <Feather name="list" size={30} color="black" onPress={() => navigation.navigate('BinListScreen')} />
+        </View>
+      </View>
       <MapView
 
         showsUserLocation={true}
@@ -71,25 +95,10 @@ const MapScreen = () => {
           latitudeDelta: 0.0122,
           longitudeDelta: 0.0121,
         }}>
-        <View style={styles.listBtnContainer}>
-          <View style={styles.Listbtn}>
-            <Feather name="list" size={30} color="black" onPress={() => navigation.navigate('BinListScreen')} />
-          </View>
-        </View>
 
 
-
-        <Polyline
-          coordinates={[
-            //{ latitude:32.803677, longitude: 35.084886},
-            //{ latitude: 32.803731, longitude: 35.086034 },
-            //{ latitude:32.804219, longitude: 35.081678 },
-            { latitude: 32.69715, longitude: 35.15716 },
-            { latitude: 32.69727, longitude: 35.15712 },
-            { latitude: 32.69773, longitude: 35.15682 },
-            { latitude: 32.69789, longitude: 35.15675 },
-            { latitude: 32.69813, longitude: 35.15673 },
-          ]}
+        {!!points.length && <Polyline
+          coordinates={points}
           strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
           strokeColors={[
             '#7F0000',
@@ -100,10 +109,11 @@ const MapScreen = () => {
             '#7F0000'
           ]}
           strokeWidth={6}
-        />
+        />}
         {markers &&
           markers.map((marker) => {
             return <Marker
+              onPress={() => createPolyline(marker)}
               key={marker.BinQRId}
               coordinate={
                 {
