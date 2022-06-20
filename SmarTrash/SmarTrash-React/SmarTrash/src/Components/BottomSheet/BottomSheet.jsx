@@ -1,4 +1,4 @@
-import { View, Text, Animated, Dimensions, StyleSheet, TouchableOpacity, BottomSheetModal } from 'react-native'
+import { View, Text, Animated, Dimensions, StyleSheet, TouchableOpacity, BottomSheetModal, Alert } from 'react-native'
 import React, { useState, useEffect, useRef,useContext } from 'react'
 import { Colors, Portal } from 'react-native-paper';
 import COLORS from '../../Consts/colors';
@@ -6,7 +6,10 @@ import {  MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
+let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/updateUserImage";
+let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
@@ -16,26 +19,30 @@ const cardHeight = height / 1;
 const BottomSheet = ({ show, onDismiss, children }) => {
     const bottomSheetHeight = Dimensions.get('window').height * 0.25;
     const deviceWidth = Dimensions.get('window').width;
-    const { open, setOpen } = useContext(GlobalContext);
+    const { open, setOpen,userImg,setUserImg, userEmail,userFirstName,userLastName,setShow } = useContext(GlobalContext);
     const bottom = useRef(new Animated.Value(-bottomSheetHeight)).current;
     const navigation = useNavigation();
-    const [image, setImage] = useState('');
+   
 
      btnOpenGalery = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
         //allowsEditing: true,
         //aspect: [4, 3], 
+        
     });
-    setImage(result)
+    setUserImg(result)
   
         if (!result.cancelled) {
-         setImage({ image: result.uri });
+         setUserImg(result.uri );
+         uploadImage(result.uri )
         }
         };
         
-        console.log("imageFromGallery", image);
+      console.log('image',userImg);
+      
 
     useEffect(() => {
+        
         if (show) {
             setOpen(show);
             Animated.timing(bottom, {
@@ -59,6 +66,113 @@ const BottomSheet = ({ show, onDismiss, children }) => {
     if (!open) {
         return null;
     }
+
+    
+  const updateData = async (u) => {
+    AsyncStorage.getItem('@storage_Key')
+      .then(data => {
+
+        // the string value read from AsyncStorage has been assigned to data
+        console.log("eeeeeeeeeeeeeeeeeeeeee",data);
+
+        // transform it back to an object
+        data = JSON.parse(data);
+        console.log(data);
+
+        // Decrement
+        data.Img=u;
+        console.log("hhhhhhhhhhhh" ,data );
+
+        //save the value to AsyncStorage again
+        AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
+
+      }).done();
+
+
+  }
+
+//   useEffect(() => {
+//     uploadImage()
+//   },[image]);
+
+  console.log("userImguserImg", userImg);
+  const uploadImage = (us) => {
+    imageUpload(us, 'userPicture.jpg')
+  }
+
+  const imageUpload = (userImage, picName) => {
+
+    let dataI = new FormData();
+
+    dataI.append('picture', {
+      uri: userImage,
+      name: picName,
+      type: 'image/jpg'
+    });
+
+    console.log('dataI', { dataI });
+
+    const config = {
+      method: 'POST',
+      body: dataI,
+    }
+    console.log("config=", config)
+
+    fetch(urlAPI, config)
+      .then((res) => {
+        console.log({ res });
+        return res.json()
+        // else { return "err"; }
+      })
+      .then((responseData) => {
+        console.log("responseData=", responseData)
+        if (responseData != "err" || responseData != null) {
+          console.log("img uploaded successfully!");
+          setUserImg(responseData)
+          ChangeImage(responseData);
+          // }
+
+        }
+        else { alert('error uploding ...'); }
+
+
+      })
+      .catch(err => { alert('err upload= ' + err); });
+  }
+
+
+  const ChangeImage = (u) => {
+
+    console.log("userImghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", u);
+    fetch(urlUpdateImage, {
+      method: 'POST',
+      body: JSON.stringify({
+        UserEmail: userEmail,
+        UserImg: u
+      }),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    })
+
+        Alert.alert(
+          userFirstName + " " + userLastName,
+          "התמונה שונתה בהצלחה",
+          [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => { setShow(false)
+              setOpen(false) 
+              navigation.navigate("EditProfile")}
+          , style: "ok" }
+          ]
+        );
+        updateData(u);
+       }
    
     return (
         <Portal>
@@ -122,6 +236,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
         overflow: "hidden",
+        
 
     },
     header: {

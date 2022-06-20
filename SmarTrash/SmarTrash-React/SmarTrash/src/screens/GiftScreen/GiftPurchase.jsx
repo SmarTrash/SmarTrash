@@ -7,6 +7,7 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import CoinIcon from '../../Components/Icon/CoinIcon';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const apiUrlGiftOrder = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GiftOrder/';
@@ -22,8 +23,8 @@ const GiftPurchase = ({ navigation, route }) => {
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
   const [notes, setNotes] = useState([]);
-  const [choosenAddress, setChoosenAddress] = useState();
-
+  const [choosenAdress, setChoosenAdress] = useState();
+  const [checkboxState, setCheckboxState] = useState(false);
 
   const ShippingDetails = () => {
     fetch(apiUrl + giftId, {
@@ -35,7 +36,6 @@ const GiftPurchase = ({ navigation, route }) => {
       })
     }).then(response => { return response.json() })
       .then(data => {
-        console.log("dataaaaaaaaaaaaaaa", data)
         data.map(st => setUserShippingDetails(st))
         const note = {
           id: "0", userCityName: data[0].city,
@@ -53,22 +53,22 @@ const GiftPurchase = ({ navigation, route }) => {
     setNotes([...notes, note])
   }
 
-  const deleteNote = (item) => {
+  const chooseAdress = (item) => {
     setCheckboxState(!checkboxState)
     if (!checkboxState == true) {
-      setChoosenAddress(item.id - 1)
+      setChoosenAdress(item.id - 1)
 
-      console.log("zzzzzzz", choosenAddress)
+      console.log("zzzzzzz", choosenAdress)
     }
 
 
   }
   const onPurchase = () => {
-    console.log("dddddddddddddd", checkboxState, choosenAddress, notes[choosenAddress].userOrderPhone, notes[choosenAddress].userOrderStreetNameAndNumber, selectedCity);
-    if (notes[choosenAddress].userOrderStreetNameAndNumber != null && notes[choosenAddress].userOrderPhone != null) {
+    console.log("dddddddddddddd", checkboxState, choosenAdress, notes[choosenAdress].userOrderPhone, notes[choosenAdress].userOrderStreetNameAndNumber, selectedCity);
+    if (notes[choosenAdress].userOrderStreetNameAndNumber != null && notes[choosenAdress].userOrderPhone != null) {
       fetch(apiUrlGiftOrder + giftId, {
         method: 'POST',
-        body: JSON.stringify({ UserEmail: userEmail, Phone: notes[choosenAddress].userOrderPhone, StreetNameAndNumber: notes[choosenAddress].userOrderStreetNameAndNumber, CityId: selectedCity }),
+        body: JSON.stringify({ UserEmail: userEmail, Phone: notes[choosenAdress].userOrderPhone, StreetNameAndNumber: notes[choosenAdress].userOrderStreetNameAndNumber, CityId: selectedCity }),
         headers: new Headers({
           'Content-type': 'application/json; charset=UTF-8',
           'Accept': 'application/json; charset-UTF-8'
@@ -87,7 +87,7 @@ const GiftPurchase = ({ navigation, route }) => {
     }
 
   }
-  const [checkboxState, setCheckboxState] = useState(false);
+
   console.log("notes:", notes)
   return (
     <>
@@ -109,20 +109,18 @@ const GiftPurchase = ({ navigation, route }) => {
               title={item.id == "0" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
               description={item.userOrderStreetNameAndNumber + "\n" + item.userCityName
                 + "\n" + item.userOrderPhone}
-              right={props => <RadioButton radio_props={notes} initial={0} onPress={(id) => {
-                console.log("value", id);
-                deleteNote(id)
-              }}
-              />}
-              // <BouncyCheckbox size={35} unfillColor="#FFFFFF" iconStyle={{ borderColor: "black" }} fillColor={COLORS.green} onPress={() => deleteNote(item)} />}
+
               detailsNumberOfLines={0}
               titleStyle={styles.listTitle}
               detailsStyle={styles.listTitle}
               descriptionNumberOfLines={3}
+              
             />
-          )}
-          keyExtractor={item => item.id}
-        />
+          
+          )} 
+                    keyExtractor={item => item.id}
+        /> 
+        
         <FAB style={styles.fab}
           small
           icon='plus'
@@ -173,8 +171,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    //paddingVertical: 10,
-    //paddingHorizontal: 10,
     alignContent: 'center',
     justifyContent: 'center',
 
@@ -182,7 +178,6 @@ const styles = StyleSheet.create({
   fab: {
     margin: 20,
     backgroundColor: COLORS.white,
-    //position: 'absolute',
     width: '90%',
     marginTop: 10,
 

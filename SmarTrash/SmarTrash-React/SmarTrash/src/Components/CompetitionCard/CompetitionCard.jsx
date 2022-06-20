@@ -10,28 +10,25 @@ const cardWidth = width / 1.06;
 
 
 const CompetitionCard = ({ index, usersPlaces }) => {
-
-
-  console.log('uuu', usersPlaces);
   return (
-<View style={style.container}>
-<View style={style.competitorCard}>
-      <View style={style.competitorCardContent}>
-        <Text style={style.txtName}>
-          {usersPlaces.Key}
-        </Text>
-        <View style={{flex:1,}}>
-          <Text style={style.txtPoint}>
-            {usersPlaces.Value}
-            {'  '}
-            <CoinIcon />
+    <View style={style.container}>
+      <View style={style.competitorCard}>
+        <View style={style.competitorCardContent}>
+          <Text style={style.txtName}>
+            {usersPlaces["fullName"]}
           </Text>
-        </View>
+          <View style={{ flex: 1, }}>
+            <Text style={style.txtPoint}>
+              {usersPlaces["throws"]}
+              {'  '}
+              <CoinIcon />
+            </Text>
+          </View>
 
+        </View>
       </View>
     </View>
-</View>
-   
+
 
   );
 };
@@ -39,8 +36,8 @@ const CompetitionCard = ({ index, usersPlaces }) => {
 
 export default CompetitionCard;
 const style = StyleSheet.create({
-  container:{
-    alignItems:'center',
+  container: {
+    alignItems: 'center',
   },
   competitorCard: {
     height: 70,
@@ -53,8 +50,8 @@ const style = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 5,
-    marginRight:30,
-   
+    marginRight: 30,
+
   },
   competitorCardContent: {
     flexDirection: 'row',
@@ -71,7 +68,7 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     color: COLORS.green,
     alignSelf: 'flex-end',
-    textAlign:'left',
+    textAlign: 'left',
     margin: 20,
   },
 

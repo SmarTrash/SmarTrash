@@ -16,8 +16,7 @@ const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
 const apiUrlPostToken = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PostToken';
-
-export default function Home({ navigation }) {
+const Home = ({navigation}) => {
   const {
     userEmail,
     setUserImg,
@@ -76,7 +75,7 @@ export default function Home({ navigation }) {
     }
     return token;
   }
-  // console.log("userPhone",userPhone);
+
   const removeData = async () => {
     try {
       await AsyncStorage.removeItem('@storage_Key');
@@ -86,7 +85,7 @@ export default function Home({ navigation }) {
       console.log(error);
     }
   }
-  console.log("userImgHome: ",userImg);
+
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -161,14 +160,20 @@ export default function Home({ navigation }) {
               </TouchableOpacity>
 
           </View>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('Start')
+          }}>
           <View>
             <View style={[style.sortBtn, { backgroundColor: '#A2D5AB' }]}>
               <AntDesign name="play" size={50} color="black" />
             </View>
             <View>
-              <Text style={[style.text, style.subText, { marginLeft: 28 }]}>שחק</Text>
+              <Text  style={[style.text, style.subText, { marginLeft: 28 }]}>שחק</Text>
             </View>
+            
           </View>
+          </TouchableOpacity>
+
           <TouchableOpacity onPress={() => {
             navigation.navigate('QRScanner')
           }}>
@@ -218,6 +223,8 @@ export default function Home({ navigation }) {
     </SafeAreaView>
   )
 }
+
+export default Home
 const style = StyleSheet.create({
   container: {
     flex: 1,

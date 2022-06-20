@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
-
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -20,9 +19,9 @@ const navigation = useNavigation();
     setUserImg(picUri);
 
     useEffect(() => {
-       console.log("picUri")
-       console.log(picUri)
-    }, [picUri]);
+    //    console.log("picUri",picUri)
+    
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -68,12 +67,9 @@ const navigation = useNavigation();
                         onPress={async () => {
                             if (camera) {
                                 const data = await camera.takePictureAsync(null) ;
-                                console.log(data.uri)
                                 setPicUri(data.uri);
-
-
                             }
-                            navigation.navigate('UploadImage', { picUri })
+                            // navigation.navigate('UploadImage', { picUri })
                         }}>
                         <View >
                             <Text style={styles.text}> צלם </Text>

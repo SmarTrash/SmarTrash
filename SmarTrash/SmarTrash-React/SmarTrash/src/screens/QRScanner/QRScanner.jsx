@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, StyleSheet, Button ,Alert} from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import COLORS from '../../Consts/colors';
 import CustonButton from '../../Components/CustomButton/CustonButton';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/BinSearch/MatchBin';
 
@@ -28,12 +29,13 @@ const QRScanner = ({ navigation }) => {
 
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [text, setText] = useState('Not yet scanned')
+
+  const { binQRId,setBinQRId } = useContext(GlobalContext);
 
   useEffect(() => {
     fetch(apiUrl, {
       method: 'POST',
-      body: JSON.stringify({ BinQRId: text }),
+      body: JSON.stringify({ BinQRId: binQRId }),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -43,12 +45,11 @@ const QRScanner = ({ navigation }) => {
       .then(data => {
         console.log('QRBIN', data)
         if (data == true){
-          
             navigation.navigate('ReceptBin')
         }
       
       });
-  }, [text]);
+  }, [binQRId]);
 
 
   const askForCameraPermission = () => {
@@ -65,7 +66,7 @@ const QRScanner = ({ navigation }) => {
   // What happens when we scan the bar code
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    setText(data)
+    setBinQRId(data)
     console.log('Type: ' + type + '\nData: ' + data)
   };
 
