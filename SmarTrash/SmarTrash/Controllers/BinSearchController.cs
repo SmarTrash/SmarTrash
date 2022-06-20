@@ -10,8 +10,8 @@ namespace SmarTrash.Controllers
 {
     public class BinSearchController : ApiController
     {
-        // GET: api/BinSearch/GetBin
-        //GET- מקבל את המשתמש ומביא רשימת פחים בעיר שלו.
+        // Post: api/BinSearch/GetBin
+        //Post- מקבל את המשתמש ומביא רשימת פחים בעיר שלו.
         [HttpPost]
         [Route("api/BinSearch/GetBin")]
         public IHttpActionResult GetBinsInCity([FromBody] tblUser user)
@@ -20,23 +20,29 @@ namespace SmarTrash.Controllers
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
                 tblUser u = db.tblUser.Where(x => x.UserEmail == user.UserEmail).FirstOrDefault();
-                var binsListInUserCity = db.tblSpecificBin.Where(x => x.CityId == u.CityId).Select(x => new
-                {
-                    BinQRId = x.BinQRId,
-                    Longitude = x.Longitude,
-                    Latitude = x.Latitude,
-                    Address = x.Address,
-                    BinTypeId = x.BinTypeId,
-                    WeightId = x.WeightId,
-                    CityId = x.CityId,
-                }).ToList();
-                
-                return Ok(binsListInUserCity);
+                var binsDetails = (from binType in db.tblBinType
+                                       join specificBin in db.tblSpecificBin
+                                       on binType.BinTypeId equals specificBin.BinTypeId
+                                       where specificBin.CityId == u.CityId
+                                       select new
+                                       {
+                                           BinQRId = specificBin.BinQRId,
+                                           Longitude = specificBin.Longitude,
+                                           Latitude = specificBin.Latitude,
+                                           Address = specificBin.Address,
+                                           BinTypeId = specificBin.BinTypeId,
+                                           WeightId = specificBin.WeightId,
+                                           CityId = specificBin.CityId,
+                                           BinTypeColor = binType.BinTypeColor,
+                                           Description = binType.Description,
+                                           
+                                       }).ToList();
+                return Ok(binsDetails);
             }
             catch (Exception ex)
             {
                 return Content(HttpStatusCode.BadRequest, ex);
-            }
+            } 
         }
 
         //POST- מקבל מספר פח ובודק אם הוא נמצא, אם כן נשלח אמת.

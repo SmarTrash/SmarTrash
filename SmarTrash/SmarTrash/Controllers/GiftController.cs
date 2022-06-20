@@ -169,7 +169,7 @@ namespace SmarTrash.Controllers
             return false;
         }
 
-        // GET: api/Gift/ShippingDetails/{g}
+        // Post: api/Gift/ShippingDetails/{g}
         [HttpPost]
         [Route("api/Gift/ShippingDetails/{g}")]
         //מקבל מייל ומחזיר את פרטי המשלוח שלו, הנקודות שלו ומחיר ההטבה

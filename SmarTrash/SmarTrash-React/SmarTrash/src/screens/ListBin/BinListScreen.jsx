@@ -9,7 +9,7 @@ const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
 const BinListScreen = () => {
-  const [bins,setBins]=useState();
+  const [bins, setBins]=useState('');
   const { userEmail } = useContext(GlobalContext);
   const { userImg } = useContext(GlobalContext);
 

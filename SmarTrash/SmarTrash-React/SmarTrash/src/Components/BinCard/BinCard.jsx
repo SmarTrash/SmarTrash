@@ -18,11 +18,11 @@ const BinCard = ({ index, bins }) => {
 <View style={style.binCard}>
       <View style={style.binCardContent}>
         <Text style={style.txtName}>
-          {bins.Key}
+          {bins["Address"]}
         </Text>
         <View style={{flex:1,}}>
           <Text style={style.txtPoint}>
-            {bins.Value}
+            {bins["CityId"]}
             {'  '}
           </Text>
         </View>

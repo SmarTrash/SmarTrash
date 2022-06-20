@@ -11,6 +11,7 @@ const COLORS = {
   gold: '#F0A500',
   offwhite:'#E4EFE7',
   red:'rgb(200,0,0)',
+  
 
 };
 
