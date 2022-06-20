@@ -10,19 +10,19 @@ namespace SmarTrash.Controllers
 {
     public class ThrowController : ApiController
     {
-
+ 
         // POST api/Throw/ThrowGarbage
         [HttpPost]
         [Route("api/Throw/ThrowGarbage/{g}")]
         // זריקת פסולת, מוסיף את הזריקה לטבלת זריקות, מוסיף נקודות למשתמש, מוסיף את משקל הפסולת למשקל ומחזיר פרטים למסך  
-        public IHttpActionResult ThrowGarbage(int g, [FromBody] tblUser user)
+        public IHttpActionResult ThrowGarbage(int g ,[FromBody] tblUser user)
         {
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
                 tblCurrentThrow newThrow = new tblCurrentThrow();
                 float rndWeight = RandomWeight();
-                short points = CalculatePoints(rndWeight);
+                short points= CalculatePoints(rndWeight);
                 newThrow.DateThrow = DateTime.Today;
                 newThrow.ThrowWeight = rndWeight;
                 newThrow.ThrowPoints = points;
@@ -34,12 +34,15 @@ namespace SmarTrash.Controllers
                 tblUser throwingUser = db.tblUser.Where(x => x.UserEmail == user.UserEmail).FirstOrDefault();
                 throwingUser.TotalPoints += points;
                 db.SaveChanges();
+                var User = db.tblUser.Where(x => x.UserEmail == user.UserEmail).FirstOrDefault();
+                int d= HomePageController.GetUserPlaceInCompetition(User);
                 dynamic detailsAfterThrow = db.tblUser.Where(x => x.UserEmail == user.UserEmail).Select(y => new
                 {
                     First = y.FirstName,
                     throwenWeight = rndWeight,
                     gainedPoints = points,
-                    totalPoints = y.TotalPoints
+                    totalPoints = y.TotalPoints,
+                     competitionPlace = d
                 }).ToList();
                 return Content(HttpStatusCode.OK, detailsAfterThrow);
             }
@@ -55,21 +58,21 @@ namespace SmarTrash.Controllers
         [Route("api/Throw/RandomSpecicBin")]
         // מביא פח ספציפי אקראי ברנדום
         public tblSpecificBin RandomSpecicBin()
-        {
-            SmarTrashDBContext db = new SmarTrashDBContext();
-            var rand = new Random();
-            var randBin = db.tblSpecificBin.AsEnumerable().OrderBy(r => rand.Next()).Take(1).ToList();
-            tblSpecificBin bin = new tblSpecificBin();
-            bin.BinQRId = randBin.First().BinQRId;
-            bin.Longitude = randBin.First().Longitude;
-            bin.Latitude = randBin.First().Latitude;
-            bin.Address = randBin.First().Address;
-            bin.BinTypeId = randBin.First().BinTypeId;
-            bin.WeightId = randBin.First().WeightId;
-            return bin;
+        {  
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                var rand = new Random();
+                var randBin = db.tblSpecificBin.AsEnumerable().OrderBy(r => rand.Next()).Take(1).ToList();
+                tblSpecificBin bin = new tblSpecificBin();
+                bin.BinQRId = randBin.First().BinQRId;
+                bin.Longitude = randBin.First().Longitude;
+                bin.Latitude = randBin.First().Latitude;
+                bin.Address = randBin.First().Address;
+                bin.BinTypeId = randBin.First().BinTypeId;
+                bin.WeightId = randBin.First().WeightId;
+                return bin;
         }
 
-
+        
         // GET api/Throw/RandomWeight
         [HttpGet]
         [Route("api/Throw/RandomWeight")]
@@ -94,12 +97,12 @@ namespace SmarTrash.Controllers
         // מקבל משקל שנזרק ומחשב לו את הנקודות שנצברו
         public short CalculatePoints(float weight)
         {
-
+           
             double p = Math.Round(weight * 100);
             short points = ((short)p);
             return points;
         }
 
-
+   
     }
 }

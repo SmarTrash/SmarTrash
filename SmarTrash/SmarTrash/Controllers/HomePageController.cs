@@ -141,7 +141,7 @@ namespace SmarTrash.Controllers
 
 
         //מקבל מייל ומחזיר את המקום שלו בתחרות החודשית באזור שלו. מופעלת בפונקציה הקודמת
-        public int GetUserPlaceInCompetition(tblUser u)
+        public static int GetUserPlaceInCompetition(tblUser u)
         {
             SmarTrashDBContext db = new SmarTrashDBContext();
             //  רשימה של משתמשים לפי עיר לבדוק שהחודש מעודכן בSql
