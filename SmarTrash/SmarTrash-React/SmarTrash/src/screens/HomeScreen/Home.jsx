@@ -16,8 +16,7 @@ const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
 const apiUrlPostToken = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PostToken';
-
-export default function Home({ navigation }) {
+const Home = ({navigation}) => {
   const {
     userEmail,
     setUserImg,
@@ -86,7 +85,7 @@ export default function Home({ navigation }) {
       console.log(error);
     }
   }
-  console.log("userImgHome: ",userImg);
+
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -224,6 +223,8 @@ export default function Home({ navigation }) {
     </SafeAreaView>
   )
 }
+
+export default Home
 const style = StyleSheet.create({
   container: {
     flex: 1,

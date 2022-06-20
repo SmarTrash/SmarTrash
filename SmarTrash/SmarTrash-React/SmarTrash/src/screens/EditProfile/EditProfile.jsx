@@ -41,7 +41,7 @@ const EditProfile = ({ navigation }) => {
 
   const [image, setImage] = useState('');
   const { show, setShow, setOpen } = useContext(GlobalContext);
-  setShow(true)
+ 
 
   useEffect(() => {
    
@@ -144,7 +144,8 @@ const EditProfile = ({ navigation }) => {
   // }
   const ifPressOK = () => {
     setShow(true)
-    setOpen(true)
+    setOpen(false)
+    
   }
   return (
 
@@ -156,20 +157,21 @@ const EditProfile = ({ navigation }) => {
         <View style={styles.root}>
           <Text style={styles.title}>עריכת פרטים אישיים</Text>
           <View style={{ alignSelf: 'center' }}>
-            <TouchableOpacity onPress={() => ifPressOK()}>
+            
               <View style={styles.profileImage}>
                 <Image
                   style={styles.image}
                   source={{ uri: userImg }} />
               </View>
-            </TouchableOpacity >
+            
             <View style={styles.edit}>
-              <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
+              <MaterialCommunityIcons onPress={() => ifPressOK()} name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
             </View>
             <BottomSheet
               show={show}
               onDismiss={() => {
                 setShow(false);
+                
               }}
             ></BottomSheet>
           </View>
