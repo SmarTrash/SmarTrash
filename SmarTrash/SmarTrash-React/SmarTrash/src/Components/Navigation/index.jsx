@@ -22,40 +22,44 @@ import Map from '../../screens/MapScreen/Map';
 import BinListScreen from '../../screens/ListBin/BinListScreen';
 import AddNewAdress from '../../screens/GiftScreen/AddNewAdress';
 import QRScanner from '../../screens/QRScanner/QRScanner';
-
+import Start from '../../screens/GameScreen/Start'
+import Game from '../../screens/GameScreen/GameOver'
+import GameOver from '../../screens/GameScreen/GameOver'
 //import NavigationMap from '../../screens/MapScreen/NavigationMap'
 // import IdentifyImage from '../../screens/IdentifyImage/IdentifyImage'
 
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
- 
+
   return (
 
     <NavigationContainer  >
-      <Stack.Navigator initialRouteName="SignInScreen" >
-        <Stack.Screen options={{ headerShown: false }} name="SignUpScreen" component={SignUpScreen} />
-        <Stack.Screen options={{ headerShown: false }} name="SignInScreen" component={SignInScreen} />
-        <Stack.Screen options={{ headerShown: false }} name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
-        <Stack.Screen options={{ headerShown: false }} name="ResetPassword" component={ResetPassword} />
-        <Stack.Screen options={{ headerShown: false }} name="Home" component={Home} />
-        <Stack.Screen options={{ headerShown: false }} name="GiftsPage" component={GiftsPage} />
-        <Stack.Screen options={{ headerShown: false }} name="SelectedGift" component={SelectedGift} />
-        <Stack.Screen options={{ headerShown: false }} name="Notifications" component={Notifications} />
-        <Stack.Screen options={{ headerShown: false }} name="EditProfile" component={EditProfile} />
-        <Stack.Screen options={{ headerShown: false }} name="GiftPurchase" component={GiftPurchase} />
-        <Stack.Screen options={{ headerShown: false }} name="ApprovedPurchase" component={ApprovedPurchase} />
-        <Stack.Screen options={{ headerShown: false }} name="ReceptBin" component={ReceptBin} />
-        <Stack.Screen options={{ headerShown: false }} name="ThrowPoints" component={ThrowPoints} />
-        <Stack.Screen options={{ headerShown: false }} name="CompetitionList" component={CompetitionList} />
-        <Stack.Screen options={{ headerShown: false }} name="CameraScreen" component={CameraScreen} />
-        <Stack.Screen options={{ headerShown: true }} name="Map" component={Map} />
-        {/* <Stack.Screen options={{ headerShown: true }} name="NavigationMap" component={NavigationMap} /> */}
+      <Stack.Navigator initialRouteName="SignInScreen" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
+        <Stack.Screen name="SignInScreen" component={SignInScreen} />
+        <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
+        <Stack.Screen name="ResetPassword" component={ResetPassword} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="GiftsPage" component={GiftsPage} />
+        <Stack.Screen name="SelectedGift" component={SelectedGift} />
+        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="GiftPurchase" component={GiftPurchase} />
+        <Stack.Screen name="ApprovedPurchase" component={ApprovedPurchase} />
+        <Stack.Screen name="ReceptBin" component={ReceptBin} />
+        <Stack.Screen name="ThrowPoints" component={ThrowPoints} />
+        <Stack.Screen name="CompetitionList" component={CompetitionList} />
+        <Stack.Screen name="CameraScreen" component={CameraScreen} />
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Game" component={Game} />
+        <Stack.Screen options={{ headerShown: true }} name="GameOver" component={GameOver} />
         <Stack.Screen options={{ headerShown: true }} name="PushPage" component={PushPage} />
-        <Stack.Screen options={{ headerShown: false }} name="BinCameraScreen" component={BinCameraScreen} />
-        <Stack.Screen options={{ headerShown: false }} name="BinListScreen" component={BinListScreen} />
-        <Stack.Screen options={{ headerShown: false }} name="AddNewAdress" component={AddNewAdress} />
-        <Stack.Screen options={{ headerShown: false }} name="QRScanner" component={QRScanner} />
+        <Stack.Screen name="BinCameraScreen" component={BinCameraScreen} />
+        <Stack.Screen name="BinListScreen" component={BinListScreen} />
+        <Stack.Screen name="AddNewAdress" component={AddNewAdress} />
+        <Stack.Screen name="QRScanner" component={QRScanner} />
       </Stack.Navigator>
     </NavigationContainer>
   )

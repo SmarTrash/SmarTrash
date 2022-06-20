@@ -76,7 +76,7 @@ export default function Home({ navigation }) {
     }
     return token;
   }
-  // console.log("userPhone",userPhone);
+
   const removeData = async () => {
     try {
       await AsyncStorage.removeItem('@storage_Key');
@@ -161,14 +161,20 @@ export default function Home({ navigation }) {
               </TouchableOpacity>
 
           </View>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('Start')
+          }}>
           <View>
             <View style={[style.sortBtn, { backgroundColor: '#A2D5AB' }]}>
               <AntDesign name="play" size={50} color="black" />
             </View>
             <View>
-              <Text style={[style.text, style.subText, { marginLeft: 28 }]}>שחק</Text>
+              <Text  style={[style.text, style.subText, { marginLeft: 28 }]}>שחק</Text>
             </View>
+            
           </View>
+          </TouchableOpacity>
+
           <TouchableOpacity onPress={() => {
             navigation.navigate('QRScanner')
           }}>
