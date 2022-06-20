@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^0.27.2",
     "directory": "^0.1.0",
     "expo-constants": "^13.0.2",
     "expo-notifications": "^0.14.1",
