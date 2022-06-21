@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Callout } from 'react-native-maps';
 import { Marker, Polyline } from 'react-native-maps';
 import * as Location from "expo-location";
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
@@ -22,6 +22,8 @@ const MapScreen = () => {
     longitude: 34.843893
   });
   const [points, setPoints] = useState([])
+  const [colorPolyline, setColorPolyline] = useState('')
+
 
   useEffect(() => {
     (async () => {
@@ -51,7 +53,7 @@ const MapScreen = () => {
     }).then(response => response.json())
       .then(data => {
         console.log("דאטה", { data })
-        console.log("דאטה", data[0].CityId)
+        console.log("דאטההההה", data[0].CityId)
         // alert(data[0].CityId)
         if (data) {
 
@@ -61,8 +63,13 @@ const MapScreen = () => {
       });
   }, []);
 
+
   const createPolyline = async (marker) => {
-    console.log({ marker });
+    console.log('markerrrrr', marker);
+
+
+ setColorPolyline(COLORS[`${marker.BinTypeColor}`]);
+
     const locations = [
       {
         lat: userLocation.latitude,
@@ -80,10 +87,9 @@ const MapScreen = () => {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.listBtnContainer}>
-        <View style={styles.Listbtn}>
-          <Feather name="list" size={30} color="black" onPress={() => navigation.navigate('BinListScreen')} />
-        </View>
+
+      <View style={styles.Listbtn}>
+        <Feather name="list" size={50} color="black" onPress={() => navigation.navigate('BinListScreen')} />
       </View>
       <MapView
 
@@ -99,7 +105,7 @@ const MapScreen = () => {
 
         {!!points.length && <Polyline
           coordinates={points}
-          strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
+          strokeColor={colorPolyline} // fallback for when `strokeColors` is not supported by the map-provider
           strokeColors={[
             '#7F0000',
             '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
@@ -112,7 +118,7 @@ const MapScreen = () => {
         />}
         {markers &&
           markers.map((marker) => {
-            return <Marker
+            return <MapView.Marker
               onPress={() => createPolyline(marker)}
               key={marker.BinQRId}
               coordinate={
@@ -121,11 +127,15 @@ const MapScreen = () => {
                   longitude: marker.Longitude
                 }
               }
-              title={marker.Address}
-              description={marker.Address}
-              pinColor='#FF8D29'
-            />
-
+              pinColor={COLORS[`${marker.BinTypeColor}`]}
+              >
+              <MapView.Callout>
+                <View style={{ height: 100, width: 200 }}>
+                  <Text> {marker.Address} </Text>
+                  <Text> {marker.Description}</Text>
+                </View>
+              </MapView.Callout>
+            </MapView.Marker>
           })
         }
       </MapView>
@@ -135,6 +145,7 @@ const MapScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
   },
   // listBtnContainer:{
   //   margin: 10
@@ -144,9 +155,11 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 40,
-    width: 45,
+    height: 60,
+    width: 60,
     borderRadius: 10,
+    top: 20,
+    flex: 0,
     backgroundColor: COLORS.primary,
   },
 

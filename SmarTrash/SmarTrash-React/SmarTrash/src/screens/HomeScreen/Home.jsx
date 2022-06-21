@@ -94,7 +94,7 @@ const Home = ({navigation}) => {
           'Content-type': 'application/json; charset=UTF-8',
           'Accept': 'application/json; charset-UTF-8'
         })
-      }).then(response => { return r9esponse.json() })
+      }).then(response => { return response.json() })
     } else {
       alert('Must use physical device for Push Notifications');
     }
