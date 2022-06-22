@@ -11,8 +11,11 @@ const COLORS = {
   gold: '#F0A500',
   offwhite:'#E4EFE7',
   red:'rgb(200,0,0)',
-  
-
+  purple:'#9900ff',
+  blue:'#0000ff',
+  yellow:'#ffff00',
+  brown:'#a0522d',
+  cardboard:'#ffdd99',
 };
 
 export default COLORS;
