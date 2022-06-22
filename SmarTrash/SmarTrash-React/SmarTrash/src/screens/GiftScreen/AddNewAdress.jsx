@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { FAB, TextInput } from 'react-native-paper'
+import { FAB } from 'react-native-paper'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CityList from '../../Components/City/CityList'
@@ -10,29 +10,24 @@ const AddNewAdress = ({ navigation, route }) => {
   useEffect(() => {
     setuserOrderPhone('')
     setuserOrderStreetNameAndNumber('')
-
   }, []);
-  const { userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,userOrderPhone, setuserOrderPhone, userCityName, setUserCityName, setUserPhone, setUserStreetNameAndNumber, userStreetNameAndNumber, } = useContext(GlobalContext);
+  const { userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,userOrderPhone, setuserOrderPhone, userCityName } = useContext(GlobalContext);
 
   const onSaveAdress = () => {
     route.params.addAdress({ userCityName, userOrderStreetNameAndNumber, userOrderPhone });
     navigation.goBack();
   }
  
-
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.title}>הוסף כתובת</Text>
-
         <CityList />
-
         <CustomInput
           placeholder="הכנס רחוב ומספר בית"
           mode='outlined'
           setValue={setuserOrderStreetNameAndNumber}
           style={styles.title}
-        
         />
         <CustomInput
           maxLength={10}
@@ -41,7 +36,6 @@ const AddNewAdress = ({ navigation, route }) => {
           mode='outlined'
           setValue={setuserOrderPhone}
           style={styles.title}
-          
         />
         <FAB
           small
@@ -83,5 +77,4 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#99FFFF'
   }
-
 })

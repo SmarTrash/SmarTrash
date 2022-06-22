@@ -12,8 +12,8 @@ class OurItem extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.item !== this.props.item) {
-      this.setState({item: this.props.item});
+    if (prevProps.item !== this.props.item) {
+      this.setState({ item: this.props.item });
     }
   }
 
@@ -22,7 +22,7 @@ class OurItem extends PureComponent {
     const y = this.props.position[1] - RADIUS / 2;
     let item = this.state.item;
     let img;
-    switch(item) {
+    switch (item) {
       case 'apple':
         img = require('../../assets/apple.png');
         break;
@@ -50,7 +50,7 @@ class OurItem extends PureComponent {
     //img = require('../../assets/'+item+'.png'); -> should get rid of the long switch!
 
     return (
-      <Image source={img} key={this.props.item} style={[styles.item, { left: x, top: y }]}/>
+      <Image source={img} key={this.props.item} style={[styles.item, { left: x, top: y }]} />
     );
   }
 }
@@ -59,36 +59,36 @@ class Bin extends PureComponent {
   constructor(props) {
     super(props);
   }
-    render() {
-        const x = this.props.position[0] - RADIUS / 2;
-        const y = this.props.position[1] - RADIUS / 2;
-        let c = this.props.category;
-        let img;
-        let styleComponent = styles.bin;
-        if (c=="paper")
-          img = require('../../assets/bin_paper.png');
-        else if (c=="glass")
-          img = require('../../assets/bin_glass.png');
-        else if (c=="organic")
-          img = require('../../assets/bin_organic.png');
-        else if (c=="plastic")
-          img = require('../../assets/bin_plastic.png');
-        else if (c=="cloud") {
-          img = require('../../assets/cloud.png');
-          styleComponent = styles.cloud;
-        }
-        else if (c=="mountain") {
-          img = require('../../assets/mountain.png');
-          styleComponent = styles.mountain;
-        }
-        else if (c=="trash")
-          img = require('../../assets/bin_trash.png');
-        
-        return (
-          <Image source={img} style={[styleComponent, { left: x, top: y }]}/>
-          );
-
+  render() {
+    const x = this.props.position[0] - RADIUS / 2;
+    const y = this.props.position[1] - RADIUS / 2;
+    let c = this.props.category;
+    let img;
+    let styleComponent = styles.bin;
+    if (c == "paper")
+      img = require('../../assets/bin_paper.png');
+    else if (c == "glass")
+      img = require('../../assets/bin_glass.png');
+    else if (c == "organic")
+      img = require('../../assets/bin_organic.png');
+    else if (c == "plastic")
+      img = require('../../assets/bin_plastic.png');
+    else if (c == "cloud") {
+      img = require('../../assets/cloud.png');
+      styleComponent = styles.cloud;
     }
+    else if (c == "mountain") {
+      img = require('../../assets/mountain.png');
+      styleComponent = styles.mountain;
+    }
+    else if (c == "trash")
+      img = require('../../assets/bin_trash.png');
+
+    return (
+      <Image source={img} style={[styleComponent, { left: x, top: y }]} />
+    );
+
+  }
 }
 
 class Timer extends PureComponent {
@@ -100,61 +100,61 @@ class Timer extends PureComponent {
     }
   }
 
-componentDidMount() {
-  this.myInterval = setInterval(() => {
+  componentDidMount() {
+    this.myInterval = setInterval(() => {
       const { seconds, minutes } = this.state
 
       if (seconds > 0) {
-          this.setState(({ seconds }) => ({
-              seconds: seconds - 1
-          }))
+        this.setState(({ seconds }) => ({
+          seconds: seconds - 1
+        }))
       }
       if (seconds === 0) {
-          if (minutes === 0) {
-              clearInterval(this.myInterval)
-              this.props.onChange();
-          } else {
-              this.setState(({ minutes }) => ({
-                  minutes: minutes - 1,
-                  seconds: 59
-              }))
-          }
-      } 
-  }, 1000)
-}
+        if (minutes === 0) {
+          clearInterval(this.myInterval)
+          this.props.onChange();
+        } else {
+          this.setState(({ minutes }) => ({
+            minutes: minutes - 1,
+            seconds: 59
+          }))
+        }
+      }
+    }, 1000)
+  }
 
-componentWillUnmount() {
-  clearInterval(this.myInterval)
-}
+  componentWillUnmount() {
+    clearInterval(this.myInterval)
+  }
 
-render() {
-  const { minutes, seconds } = this.state;
-  return (
+  render() {
+    const { minutes, seconds } = this.state;
+    return (
       <View>
-          { minutes === 0 && seconds === 0
-              ? <Text style={styles.busted}>Busted!</Text>
-              : <Text style={styles.time}>Time: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>
-          }
+        {minutes === 0 && seconds === 0
+          ? <Text style={styles.busted}>Busted!</Text>
+          : <Text style={styles.time}>Time: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>
+        }
       </View>
-  )
+    )
+  }
 }
-}
- 
+
 
 class Floor extends PureComponent {
   constructor(props) {
     super(props);
   }
-    render() {
-        const x = this.props.position[0] - RADIUS / 2;
-        const y = this.props.position[1] - RADIUS / 2;
-        let c = this.props.category;
-        let img;
-        img = require('../../assets/floor2.png');
-        return (
-          <Image source={img} style={[styles.floor, { left: x, top: y }]}/>
-          );
-}
+  render() {
+    const x = this.props.position[0] - RADIUS / 2;
+    const y = this.props.position[1] - RADIUS / 2;
+    let c = this.props.category;
+    let img;
+    img = require('../../assets/floor2.png');
+    return (
+      <Image source={img} style={[styles.floor, { left: x, top: y }]} />
+    );
+  }
 }
 const styles = StyleSheet.create({
   bin: {
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
   item: {
     borderRadius: RADIUS * 2,
-    borderColor:'black',
+    borderColor: 'black',
     width: RADIUS * 2,
     height: RADIUS * 2,
     resizeMode: 'contain',
@@ -206,5 +206,5 @@ const styles = StyleSheet.create({
     height: 60
   }
 });
- 
+
 export { OurItem, Bin, Timer, Floor };

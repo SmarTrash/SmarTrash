@@ -1,74 +1,49 @@
-import { Dimensions, FlatList, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Animated, } from 'react-native';
+import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, View, Animated, } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react'
 import CategoryList from '../../screens/CategoryList/CategoryList';
 import COLORS from '../../Consts/colors';
 import Card from '../../Components/Card/Card';
 import CardMonthGift from '../../Components/Card/CardMonthGift';
-import { AntDesign, } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.8;
-
-
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllGifts';
 
 const GiftsPage = () => {
   const [giftData, setGiftData] = useState('');
-  const navigation = useNavigation();
-
 
   useEffect(() => {
-
     fetch(apiUrl, {
       method: 'GET',
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
-
       })
     }).then(response => { return response.json() })
       .then(data => {
         setGiftData(data);
-
       });
-  }
-    , []);
+  }, []);
 
   const [activeCardIndex, setActiveCardIndex] = React.useState(0);
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
-
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <View style={style.header}>
         <View style={style.txtHeader}>
           <Text style={style.txt}>
             הטבות
           </Text>
         </View>
-          {/* <AntDesign
-            name="left"
-            size={28}
-            color={COLORS.primary}
-            style={style.Icon}
-            onPress={ navigation.goBack}
-          /> */}
-    
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-
         <CardMonthGift />
-
         <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
           <View style={style.categoryListContainer}>
             <CategoryList func={setGiftData} />
           </View>
         </ScrollView>
-
-
-
         <Animated.FlatList
           onMomentumScrollEnd={(e) => {
             setActiveCardIndex(
@@ -102,23 +77,22 @@ const style = StyleSheet.create({
     flexDirection: 'row-reverse',
     paddingHorizontal: 20,
     paddingBottom: 15,
-    justifyContent:'space-between'
+    justifyContent: 'space-between'
   },
-  txtHeader:{
-    alignItems:'center',
-    alignSelf: 'center', 
-    alignContent:'center',
+  txtHeader: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    alignContent: 'center',
   },
-  txt:{
-    fontSize: 30, 
-    fontWeight: 'bold', 
-    textAlign:'center', 
-    color:COLORS.primary,
-    marginRight:150,
+  txt: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: COLORS.primary,
+    marginRight: 150,
   },
-  Icon:{
-   margin:1,
-   
+  Icon: {
+    margin: 1,
   },
   categoryListContainer: {
     flexDirection: 'row',
@@ -180,7 +154,6 @@ const style = StyleSheet.create({
     elevation: 15,
     marginHorizontal: 10,
     borderRadius: 10,
-
   },
   topHotelCardImage: {
     height: 80,

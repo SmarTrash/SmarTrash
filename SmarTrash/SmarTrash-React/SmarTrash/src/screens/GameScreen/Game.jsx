@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { PureComponent, useEffect, useState } from 'react';
+import React, { PureComponent, useEffect,useContext, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Dimensions, Alert, Modal, Pressable } from 'react-native';
 import { NativeBaseProvider } from 'native-base';
@@ -9,6 +9,7 @@ import {
   Left, Body, Title, Button, Label, Form, Item
 }
   from 'native-base';
+  import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import { GameEngine } from "react-native-game-engine";
 import { OurItem, Bin, Timer, Floor } from "./../renderers";
 import { MoveItem, Collision } from "./../systems";
@@ -20,21 +21,11 @@ const HEIGHT = Constants.HEIGHT;
 let iconURL = ['https://www.shareicon.net/data/128x128/2015/08/17/86679_cat_256x256.png', 'https://www.shareicon.net/data/128x128/2015/08/17/86680_cat_256x256.png', 'https://www.shareicon.net/data/128x128/2015/08/17/86684_cat_256x256.png', 'https://www.shareicon.net/data/128x128/2015/04/04/17581_cat_128x128.png', 'https://www.shareicon.net/data/128x128/2015/04/04/17584_animal_128x128.png', 'https://www.shareicon.net/data/128x128/2015/04/04/17589_animal_128x128.png', 'https://www.shareicon.net/data/128x128/2015/04/04/17590_animal_128x128.png', 'https://www.shareicon.net/data/128x128/2015/04/04/17586_animal_128x128.png'];
 
 
-const Game = () => {
-
+const Game = ( {navigation}) => {
+ 
+  const {userEmail, userState, setUserState
+  } = useContext(GlobalContext);
   engine = null;
-
-  const [userState, setUserState] = useState({
-    running: true,
-    points: 0,
-    updateTimer: 0,
-    username: '',
-    visibleModal: true,
-    item: "can" //random
-  });
-
-
-
 
   soundState = "sound";
   soundObject = new Audio.Sound();
@@ -52,16 +43,16 @@ const Game = () => {
     });
 
     try {
-      await this.soundObject.loadAsync(require('../../../assets/gamesound.mp3'));
-      await this.soundObject.playAsync();
+       soundObject.loadAsync(require('../../../assets/gamesound.mp3'));
+       soundObject.playAsync();
     } catch (error) {
       console.log(error);
     }
     return () => {
 
       try {
-        await this.soundObject.unloadAsync();
-        await this.soundObject.stopAsync();
+        soundObject.unloadAsync();
+        soundObject.stopAsync();
       } catch (error) {
         console.log(error);
       }
@@ -71,7 +62,7 @@ const Game = () => {
 
 
 
-  storeData = async (points, username) => {
+const  storeData = async (points, username) => {
     const v = [{
       points: points,
       username: username,
@@ -92,17 +83,17 @@ const Game = () => {
     })
   }
 
-  toggleSound = () => {
-    if (this.soundState === "sound") {
-      this.soundState = "nosound";
-      this.soundObject.pauseAsync();
-    } else if (this.soundState === "nosound") {
-      this.soundState = "sound";
-      this.soundObject.playAsync();
-    }
+ const  toggleSound = () => {
+    // if (this.soundState === "sound") {
+    //   soundState = "nosound";
+    //   soundObject.pauseAsync();
+    // } else if (this.soundState === "nosound") {
+    //   soundState = "sound";
+    //   soundObject.playAsync();
+    // }
   };
 
-  onEvent = (e) => {
+ const  onEvent = (e) => {
     if (e.type == 'correct') {
       setUserState({...userState,
         points: userState.points + 10
@@ -116,12 +107,12 @@ const Game = () => {
   }
 
   //game over
-  onChangeTimer = () => {
+ const onChangeTimer = () => {
     setUserState({...userState, running: false });
 
   }
 
-  reset = () => {
+ const reset = () => {
     setUserState({...userState,
       running: true,
       points: 0,
@@ -129,9 +120,8 @@ const Game = () => {
     });
   }
 
-  renderModalContent=()=>{
+ const renderModalContent=()=>{
    
-      <NativeBaseProvider>
         <View style={styles.modalView}>
           <Form>
             <Item stackedLabel>
@@ -139,25 +129,25 @@ const Game = () => {
               <Input
                 value={userState.username}
                 onChangeText={(text) => {
-                  this.setState({ username: text })
+                  setUserState({ username: text })
                 }}
               />
             </Item>
             <Button rounded success
               style={styles.modalButton}
               onPress={() => {
-                this.storeData(JSON.stringify(userState.points), userState.username);
-                this.reset()
+                storeData(JSON.stringify(userState.points), userState.username);
+                // this.reset()
 
               }}>
               <Text>Play again</Text>
             </Button>
-            <Button rounded warning
+            <Button rounded warningcreateth
               style={styles.modalButton}
               title="View Leaderboard"
               onPress={() => {
-                this.storeData(JSON.stringify(userState.points), userState.username);
-                this.props.navigation.navigate("GameOver", { points: userState.points, username: userState.username })
+                storeData(JSON.stringify(userState.points), userState.username);
+                navigation.navigate("GameOver")
                 setUserState({...userState,
                   visibleModal: false
                 })
@@ -168,12 +158,7 @@ const Game = () => {
           </Form>
 
         </View>
-      </NativeBaseProvider>
-
-    
   }
-
-
 
  
     return (
@@ -181,19 +166,20 @@ const Game = () => {
       <NativeBaseProvider>
         <View style={styles.container}>
           <Text style={styles.score}>Score</Text>
-          <Text style={styles.points}>{this.state.points}</Text>
-          <Timer key={this.state.updateTimer} onChange={this.onChangeTimer} />
-          <Pressable onPress={this.toggleSound}>
-            <Octicons style={styles.muteIcon} name={this.soundState === "sound" ? "unmute" : "mute"} size={24} color="black" />
+          <Text style={styles.points}>{userState.points}</Text>
+          <Timer key={userState.updateTimer} onChange={()=>onChangeTimer()} />
+          <Pressable onPress={toggleSound}>
+            <Octicons style={styles.muteIcon} name={soundState === "sound" ? "unmute" : "mute"} size={24} color="black" />
           </Pressable>
           <GameEngine
-            ref={(ref) => { this.engine = ref; }}
+            // ref={(ref) => { this.engine = ref; }}
+            ref={(ref) => { }}
             style={styles.container}
-            running={this.state.running}
-            onEvent={this.onEvent}
+            running={userState.running}
+            onEvent={onEvent}
             systems={[MoveItem, Collision]}
             entities={{
-              1: { position: [WIDTH / 2, HEIGHT - 200], item: this.state.item, renderer: <OurItem /> },
+              1: { position: [WIDTH / 2, HEIGHT - 200], item: userState.item, renderer: <OurItem /> },
               //bins
               2: { position: [WIDTH - 125, HEIGHT / 3], category: "paper", renderer: <Bin /> },
               3: { position: [WIDTH - 55, HEIGHT / 3], category: "glass", renderer: <Bin /> },
@@ -211,13 +197,13 @@ const Game = () => {
             }}>
             <StatusBar hidden={true} />
           </GameEngine>
-          {!this.state.running &&
+          {!userState.running &&
             <Modal
               transparent={true}
-              visible={this.state.visibleModal}
+              visible={userState.visibleModal}
               animationType="slide"
             >
-             {this.renderModalContent()}
+             {renderModalContent()}
             </Modal>
           }
           <StatusBar style="auto" />
@@ -227,7 +213,7 @@ const Game = () => {
     );
   }
 
-export default Game();
+export default Game;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

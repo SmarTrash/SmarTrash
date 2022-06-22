@@ -31,9 +31,9 @@ export default function ThrowPoints({ navigation }) {
       .then(data => {
         data.map(st => setThrowInfo(st))
         console.log("dataaaaaa:", data);
-        setUserLastThrow(data.gainedPoints)
-        setUserPoints(data.totalPoints)
-        setUserCompetitionPlace(data.competitionPlace)
+        setUserLastThrow(data[0].gainedPoints)
+        setUserPoints(data[0].totalPoints)
+        setUserCompetitionPlace(data[0].competitionPlace)
         updateData(data)
         
       });
@@ -51,7 +51,7 @@ export default function ThrowPoints({ navigation }) {
             // Decrement
             data.Points=u[0].totalPoints;
             data.lastThrow=u[0].gainedPoints;
-            data.competitionPlace=u[0].data.competitionPlace
+            data.competitionPlace=u[0].competitionPlace
             console.log("hhhhhhhhhhhh" ,data );
     
             //save the value to AsyncStorage again

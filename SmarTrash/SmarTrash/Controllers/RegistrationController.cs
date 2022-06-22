@@ -51,7 +51,7 @@ namespace SmarTrash.Controllers
                 db.tblUser.Add(newUser);
                 db.SaveChanges();
 
-                return Created(new Uri(Request.RequestUri.AbsoluteUri + newUser.UserEmail), newUser);
+                return Ok(new { status = 201, isSuccess = true, message = "ההרשמה התבצעה בהצלחה", });
             }
             catch (Exception ex)
             {

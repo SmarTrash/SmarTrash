@@ -1,24 +1,20 @@
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, TouchableOpacity,Image } from 'react-native'
 import React, { useState, useContext } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
-import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import COLORS from '../../Consts/colors'
-
-
-
+import EditImage from '../EditImage/EditImage';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
-
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
 
 const SignUpScreen = ({ navigation }) => {
 
-  const { selectedCity } = useContext(GlobalContext);
+  const { selectedCity,  userImg,setUserImg } = useContext(GlobalContext);
   const [userEmail, setUserEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -28,15 +24,13 @@ const SignUpScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [streetNum, setStreetNum] = useState('');
 
-
   const options = [
     { label: '  נקבה', value: 'F' },
     { label: '  זכר', value: 'M' },
   ];
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
-
-
+console.log("d",d)
   const newUser = {
     UserEmail: "",
     Password: "",
@@ -58,10 +52,10 @@ const SignUpScreen = ({ navigation }) => {
   newUser.Password = password;
   newUser.StreetNameAndNumber = streetNum;
   newUser.CityId = selectedCity;
-  newUser.UserImg = '';
+  newUser.UserImg = userImg;
 
   const onSignUPPressed = () => {
-    { console.log(newUser) }
+    { console.log("newUser",newUser) }
     fetch(apiUrl, {
       method: 'POST',
       body: JSON.stringify(newUser),
@@ -69,40 +63,26 @@ const SignUpScreen = ({ navigation }) => {
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
       })
-    }).then(response => { return response.json(),console.log(response) })
+    }).then(response => { return response.json()})
       .then(data => {
-        console.log("bvvvvv",data)
+        data.map(st => console.log("bvvvvv", st))
+        console.log("bvvvvv", data)
       });
-      navigation.navigate('SignInScreen');
-  }
-  const onSignInPressed = () => {
-    console.warn("sign up");
     navigation.navigate('SignInScreen');
   }
-  
-// let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
-    // if (reg.test(userEmail) === true) {
-    //   setUserEmail(userEmail);
-    // }
-    // else {
-    //   alert(' כתובת אימייל  לא חוקית');
-    //   setUserEmail(null)
-    // }
-    // if (password.length > 8) {
-    //   setPassword(password)
-    //
-    // } else {
-    //   alert(' סיסמה לא חוקית');
-    //   setPassword(null)
-    // }
+
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.root}>
         <Text style={styles.title}>{'יצירת חשבון'}</Text>
 
-
-
+        <View style={styles.profileImage}>
+          <Image
+            style={styles.image}
+            source={{ uri: userImg }} />
+        </View>
+        <EditImage />
         <CustomInput
           placeholder="שם פרטי"
           value={firstName}
@@ -148,6 +128,8 @@ const SignUpScreen = ({ navigation }) => {
           <RadioForm style={{ flexDirection: 'row' }}
             radio_props={options}
             initial={0}
+            selectedButtonColor={COLORS.green}
+            buttonColor={COLORS.green}
             onPress={(value) => {
               setChecked(value);
             }}
@@ -158,8 +140,8 @@ const SignUpScreen = ({ navigation }) => {
           <CityList />
 
           <CustomInput
-           maxLength={10}
-           keyboardType='numeric'
+            maxLength={10}
+            keyboardType='numeric'
             placeholder="טלפון"
             value={phone}
             setValue={setPhone}
@@ -187,13 +169,9 @@ const SignUpScreen = ({ navigation }) => {
           text="הרשמה"
           onPress={onSignUPPressed}
         />
-
-        <SocialSignInButtons />
-        <CustonButton
-          text="Have an account? Sign In"
-          onPress={onSignInPressed}
-          type="TERTIARY"
-        />
+        <TouchableOpacity onPress={() => { navigation.navigate('SignInScreen') }} >
+          <Text style={{ fontStyle: 'italic', color: '#8f9195', textAlign: 'justify', fontSize: 16, padding: 10 }}> יש לך חשבון? התחבר!</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   )
@@ -225,6 +203,17 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     alignItems: "center"
-  }
+  },
+  profileImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 100,
+    overflow: 'hidden',
+  },
+  image: {
+    flex: 1,
+    width: undefined,
+    height: undefined,
+  },
 
 })

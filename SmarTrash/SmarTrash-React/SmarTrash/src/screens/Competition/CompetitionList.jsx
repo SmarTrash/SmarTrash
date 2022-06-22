@@ -1,8 +1,6 @@
-import { View, Text, StyleSheet, SafeAreaView, Image, Dimensions, FlatList, Animated, } from 'react-native'
+import { View, Text, StyleSheet, Image, Dimensions, FlatList } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
-import CoinIcon from '../../Components/Icon/CoinIcon';
-import { ScrollView } from 'react-native-gesture-handler';
 import CompetitionCard from '../../Components/CompetitionCard/CompetitionCard';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
@@ -11,12 +9,11 @@ const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
 const CompetitionList = () => {
-  const { userImg } = useContext(GlobalContext);
-  const [usersPlaces, setUsersPlaces] = useState('');
-  const { userEmail } = useContext(GlobalContext);
-console.log(userEmail);
-  useEffect(() => {
 
+  const { userImg, userEmail } = useContext(GlobalContext);
+  const [usersPlaces, setUsersPlaces] = useState('');
+
+  useEffect(() => {
     fetch(apiUrl, {
       method: 'POST',
       body: JSON.stringify({ UserEmail: userEmail }),
@@ -27,20 +24,14 @@ console.log(userEmail);
       })
     }).then(response => { return response.json() })
       .then(data => {
-        console.log('gbgfgvf', data)
-        // data.map(st => setUsersPlaces(st))
         setUsersPlaces(data);
 
       });
-  }
-    , []);
+  } , []);
 
-  console.log('usersPlaces', usersPlaces)
   return (
 
     <View style={{ flex: 1, backgroundColor: COLORS.white, }}>
-
-
       <View style={{ alignSelf: 'center', alignItems: 'center', flexDirection: 'column' }}>
         <View style={style.profileImage}>
           <Image
@@ -51,8 +42,7 @@ console.log(userEmail);
           המתחרים בעיר שלך
         </Text>
       </View>
-
-      <View style={{top:80}}>
+      <View style={{ top: 80 }}>
         <FlatList
           data={usersPlaces}
           showsHorizontalScrollIndicator={false}
@@ -65,12 +55,7 @@ console.log(userEmail);
             <CompetitionCard usersPlaces={item} index={i} />}
         />
       </View>
-
-
     </View>
-
-
-   
   )
 };
 

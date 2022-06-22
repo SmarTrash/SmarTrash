@@ -8,7 +8,7 @@ const Provider = ({ children }) => {
     const [selectedCity, setSelectedCity] = useState(0);
 
     const [userEmail, setUserEmail] = useState('');
-    const [userImg, setUserImg] = useState('');
+    const [userImg, setUserImg] = useState('https://cdn-icons-png.flaticon.com/512/149/149071.png');
     const [ userFirstName, setUserFirstName] = useState('');
     const [userLastName, setUserLastName] = useState('');
     const [userCompetitionPlace, setUserCompetitionPlace] = useState('');
@@ -29,8 +29,16 @@ const Provider = ({ children }) => {
     const [userOrderPhone, setuserOrderPhone] = useState();
     const [userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber] = useState();
     const [binQRId, setBinQRId] = useState('Not yet scanned')
+    const [userState, setUserState] = useState({
+        running: true,
+        points: 0,
+        updateTimer: 0,
+        username: '',
+        visibleModal: true,
+        item: "can" //random
+      });
     const GlobalContextOrginal = {
-        cities, setCities,userCityName, setUserCityName,
+        cities, setCities,userCityName, setUserCityName,userState, setUserState,
         selectedCity, setSelectedCity,userDetails, setUserDetails,
         userImg, setUserImg,
         password, setPassword,
