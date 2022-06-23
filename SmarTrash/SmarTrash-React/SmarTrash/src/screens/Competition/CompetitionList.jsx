@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet,Image,FlatList } from 'react-native'
+import { View, Text, StyleSheet, Image, FlatList,ScrollView } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import CompetitionCard from '../../Components/CompetitionCard/CompetitionCard';
@@ -40,7 +40,9 @@ const CompetitionList = () => {
           המתחרים בעיר שלך
         </Text>
       </View>
-      <View style={{ top: 80 }}>
+     
+      <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{marginTop:80}} >
+      <View>
         <FlatList
           data={usersPlaces}
           showsHorizontalScrollIndicator={false}
@@ -50,9 +52,13 @@ const CompetitionList = () => {
             paddingBottom: 30,
           }}
           renderItem={({ item, i }) =>
+         
             <CompetitionCard usersPlaces={item} index={i} />}
+        
         />
       </View>
+      </ScrollView>
+     
     </View>
   )
 };
