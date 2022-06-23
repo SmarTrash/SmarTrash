@@ -5,17 +5,13 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import { Provider } from 'react-native-paper';
 import COLORS from '../../Consts/colors';
 import EditImage from '../EditImage/EditImage';
 
 const { width } = Dimensions.get('screen');
-
 const cardWidth = width / 1.2;
-
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
@@ -43,6 +39,7 @@ const EditProfile = ({ navigation }) => {
     { label: ' אישה   ', value: 'F' },
     { label: ' גבר', value: 'M' },
   ];
+
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
 
@@ -117,8 +114,6 @@ const EditProfile = ({ navigation }) => {
         <View style={styles.root}>
           <Text style={styles.title}>עריכת פרטים אישיים</Text>
           <View style={{ alignSelf: 'center' }}>
-            
-           
               <View style={styles.profileImage}>
                 <Image
                   style={styles.image}
@@ -238,18 +233,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'white',
   },
-  deletebtn: {
-    marginTop: 40,
-    marginRight: 12,
-    marginLeft: 10,
-    height: 50,
-    width: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 25,
-    backgroundColor: '#00C897'
-  },
-
+  
   title: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -284,43 +268,11 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
   },
-  edit: {
-    backgroundColor: COLORS.green,
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    width: 35,
-    height: 35,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 14,
-    bottom: 5
-  },
   radioBtn: {
     flexDirection: 'row',
     alignSelf: 'center',
     padding: 13,
     paddingBottom: 3
-
-  },
-  sortBtn: {
-    marginTop: 40,
-    marginRight: 12,
-    marginLeft: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 25,
-    backgroundColor: '#00C897'
-  },
-  txt: {
-    color: 'white',
-    fontFamily: 'HelveticaNeue',
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
 
   },
 })

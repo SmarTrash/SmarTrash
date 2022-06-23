@@ -9,10 +9,10 @@ const ForgotPasswordScreen = ({navigation}) => {
 
   const [userEmail, setUserEmail] = useState([]);
    const newUser = {
-       UserEmail:"noy8383@walla.com"
+       UserEmail: userEmail
      };
   const onSendPressed = () => {
-   //newUser.UserEmail=userEmail;
+  //  newUser.UserEmail=userEmail;
      console.log("user before sending", newUser);
     fetch(apiUrl, {
       method: 'POST',

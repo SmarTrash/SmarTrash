@@ -1,8 +1,8 @@
 
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
+import React, { useContext } from 'react'
 import COLORS from '../../Consts/colors';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import CoinIcon from '../../Components/Icon/CoinIcon';
@@ -10,9 +10,8 @@ import CoinIcon from '../../Components/Icon/CoinIcon';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
-
-export default function ReceptBin({ navigation }) {
-  const { userImg} = useContext(GlobalContext);
+const ReceptBin = ({ navigation }) => {
+  const { userImg } = useContext(GlobalContext);
   return (
     <View style={style.container}>
       <View>
@@ -23,17 +22,16 @@ export default function ReceptBin({ navigation }) {
         </View>
       </View>
 
-      <View style={style.topHotelCard}>
+      <View style={style.Card}>
         <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
           {'הפח נקלט בהצלחה !'}
         </Text>
         <Ionicons name="md-checkmark-circle" size={60} color={COLORS.green} style={style.checkIcon} />
       </View>
 
-
       <View>
         <View style={{ marginTop: 120 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, margin: 20, textAlign:'center', marginTop:60}}>
+          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, margin: 20, textAlign: 'center', marginTop: 60 }}>
             {'עכשיו ניתן לזרוק את הפסולת לפח ולצבור נקודות!'}
           </Text>
         </View>
@@ -42,10 +40,8 @@ export default function ReceptBin({ navigation }) {
           <CoinIcon />
           <CoinIcon />
         </View>
-
       </View>
-
-
+      
       <View style={{ marginTop: 70 }}>
         <CustonButton
           text="לחץ כאן לאחר הזריקה"
@@ -56,6 +52,9 @@ export default function ReceptBin({ navigation }) {
     </View>
   )
 }
+
+export default ReceptBin;
+
 const style = StyleSheet.create({
   container: {
     flex: 1,
@@ -76,7 +75,7 @@ const style = StyleSheet.create({
     width: undefined,
     height: undefined,
   },
-  topHotelCard: {
+  Card: {
     height: 180,
     width: cardWidth,
     backgroundColor: COLORS.white,
@@ -91,42 +90,17 @@ const style = StyleSheet.create({
     shadowRadius: 8,
 
   },
-  // AddNewAddress: {
-  //   height: 70,
-  //   width: cardWidth,
-  //   backgroundColor: COLORS.white,
-  //   elevation: 15,
-  //   marginHorizontal: 10,
-  //   borderRadius: 10,
-  //   top: 80,
-  //   right: 10,
-  // },
   topHotelCardImage: {
     height: 250,
     width: cardWidth,
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },
-  priceTag: {
-    height: 40,
-    alignItems: 'center',
-    marginLeft: 50,
-    paddingLeft: 20,
-    bottom: 65,
-    width: 150,
-    left: 250,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderTopRightRadius: 20,
-    flexDirection: 'row',
+  checkIcon: {
+    justifyContent: 'center',
+    textAlign: 'center',
+    marginTop: 20,
   },
-  checkIcon:{
-    justifyContent:'center',
-    textAlign:'center',
-    marginTop:20,
-  },
-
 
 });
 

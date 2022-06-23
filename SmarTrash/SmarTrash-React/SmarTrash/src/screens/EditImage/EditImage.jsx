@@ -1,11 +1,11 @@
-import { View, Text, Animated, SafeAreaView, StyleSheet, TouchableOpacity, BottomSheetModal, Alert } from 'react-native'
+import { SafeAreaView, StyleSheet, TouchableOpacity, Alert, ColorPropType } from 'react-native'
 import React, { useRef, useContext } from 'react'
 import ActionSheet from 'react-native-actionsheet';
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import BottomSheet from '../../Components/BottomSheet/BottomSheet'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import * as ImagePicker from 'expo-image-picker';
 let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/updateUserImage";
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
@@ -28,7 +28,7 @@ const EditImage = () => {
       //aspect: [4, 3], 
 
     });
-    setUserImg(result)
+    console.log('!!!!!!',result );
 
     if (!result.cancelled) {
       setUserImg(result.uri);
@@ -59,7 +59,7 @@ const EditImage = () => {
       }).done();
   }
 
-  console.log("userImguserImg", userImg);
+  // console.log("userImguserImg", userImg);
   const uploadImage = (us) => {
     imageUpload(us, 'userPicture.jpg')
   }
@@ -105,7 +105,6 @@ const EditImage = () => {
   }
 
   const ChangeImage = (u) => {
-
     console.log("userImghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", u);
     fetch(urlUpdateImage, {
       method: 'POST',
@@ -130,8 +129,6 @@ const EditImage = () => {
         },
         {
           text: "OK", onPress: () => {
-            setShow(false)
-            setOpen(false)
             navigation.navigate("EditProfile")
           }
           , style: "ok"
@@ -149,16 +146,17 @@ const EditImage = () => {
       <ActionSheet
         ref={actionSheet}
         title={'תמונה באמצעות'}
+        titleColor={'black'}
         options={optionArray}
         cancelButtonIndex={2}
         destructiveButtonIndex={1}
+        tintColor ={COLORS.green}
         onPress={(index) => {
           if (optionArray[index] == 'מצלמה') {
             navigation.navigate('CameraScreen')
           }
-          else if (optionArray[index] == 'גלריה') {
-            
-            btnOpenGalery;
+          else if (optionArray[index] == 'גלריה') {   
+           btnOpenGalery()
           }
           else if (optionArray[index] == 'יציאה') {
             navigation.navigate('EditProfile')
