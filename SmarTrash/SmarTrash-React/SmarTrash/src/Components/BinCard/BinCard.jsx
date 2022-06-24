@@ -1,7 +1,7 @@
 import { ColorPropType, Dimensions, StyleSheet, Text, View, } from 'react-native';
 import React from 'react'
 import COLORS from '../../Consts/colors';
-
+import { Entypo  } from '@expo/vector-icons';
 
 
 
@@ -13,21 +13,18 @@ const BinCard = ({ index, bins }) => {
   const c = bins["BinTypeColor"];
   const color = COLORS[`${c}`];
   console.log('colorrrrgggg', color);
-
   console.log('list bin', bins);
   return (
     <View style={style.container}>
-    
-   
         <View style={style.binCard}>
           <View style={style.binCardContent}>
             <Text style={style.txtName}>
-
-              {bins["Address"]}
+            {bins["Address"]}
             </Text>
             <View style={{ flex: 1, }}>
               <Text style={style.txtPoint}>
-                {bins["CityId"]}
+              <Entypo name="trash" size={25} color={color}  />
+                
                 {'  '}
               </Text>
             </View>
