@@ -1,7 +1,8 @@
-import { Dimensions, StyleSheet, Text, View, } from 'react-native';
-import React from 'react'
+import { Dimensions, StyleSheet, Text, View,ScrollView } from 'react-native';
+import React,{useContext} from 'react'
 import COLORS from '../../Consts/colors';
 import CoinIcon from '../Icon/CoinIcon';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
 
 
@@ -9,11 +10,15 @@ const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
 
-const CompetitionCard = ({ index, usersPlaces }) => {
+
+const CompetitionCard = ({  usersPlaces,index }) => {
+  const {userFirstName, userLastName,
+} = useContext(GlobalContext);
   return (
+  
     <View style={style.container}>
-      <View style={style.competitorCard}>
-        <View style={style.competitorCardContent}>
+      <View style={[style.competitorCard,{ backgroundColor: usersPlaces["fullName"]==userFirstName+" "+userLastName ? '#e8ffef' : COLORS.white }]} >
+            <View style={style.competitorCardContent}>
           <Text style={style.txtName}>
             {usersPlaces["fullName"]}
           </Text>
@@ -38,6 +43,8 @@ export default CompetitionCard;
 const style = StyleSheet.create({
   container: {
     alignItems: 'center',
+   
+ 
   },
   competitorCard: {
     height: 70,
@@ -55,6 +62,7 @@ const style = StyleSheet.create({
   },
   competitorCardContent: {
     flexDirection: 'row',
+    
   },
   txtName: {
     fontSize: 20,

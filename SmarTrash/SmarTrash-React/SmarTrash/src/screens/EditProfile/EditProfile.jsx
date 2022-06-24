@@ -5,82 +5,45 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import DatePicker from 'react-native-datepicker';
 import RadioForm from 'react-native-simple-radio-button';
 import CityList from '../../Components/City/CityList';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import { Provider } from 'react-native-paper';
 import COLORS from '../../Consts/colors';
-
+import EditImage from '../EditImage/EditImage';
 
 const { width } = Dimensions.get('screen');
-
 const cardWidth = width / 1.2;
-
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 
 const EditProfile = ({ navigation }) => {
   const { userEmail, selectedCity,
-
-    setUserImg, setChecked,
+     setChecked,
     setUserFirstName,
     setUserLastName,
     setUserGender, userGender,
     setUserPhone, userPhone,
     setUserBirthDate, userBirthDate,
     setUserStreetNameAndNumber, userStreetNameAndNumber,
-    userImg,
+    userImg,setUserImg,
     userCityId,
     password, setPassword,
     userFirstName,
     userLastName,
   } = useContext(GlobalContext);
-  const [userDetails, setUserDetails] = useState('');
+
+  
   const [changeSave, setChangeSave] = useState('');
-
-  const [image, setImage] = useState('');
-  const { show, setShow, setOpen } = useContext(GlobalContext);
- 
-
-  useEffect(() => {
-   
-  }, []);
 
   const options = [
     { label: ' אישה   ', value: 'F' },
     { label: ' גבר', value: 'M' },
   ];
+
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
 
 
-  // const userDetailsPlaceHolder = () => {
-
-  //   fetch(apiUrlCurrentDetails, {
-  //     method: 'POST',
-  //     body: JSON.stringify({ UserEmail: userEmail }),
-  //     headers: new Headers({
-  //       'Content-type': 'application/json; charset=UTF-8',
-  //       'Accept': 'application/json; charset-UTF-8'
-  //     })
-  //   }).then(response => { return response.json() })
-  //     .then(data => {
-  //       data.map(st => setUserDetails(st), console.log("userD", userDetails))
-
-  //     });
-  //     setFirstName(userFirstName),
-  //     setLastName(userLastName),
-  //     setPhone(userDetails.Phone),
-  //     setChecked(userDetails.Gender),
-  //     setBirthDate(userDetails.BirthDate),
-  //     setPassword(userDetails.Password),
-  //     setStreetNum(userDetails.StreetNameAndNumber),
-  //     setImage(userDetails.UserImg)
-  //     setUserGender()
-  //   setUserDetails(userDetails)
-
-  // }
 
   const userChangeSave = () => {
     const newUser = {
@@ -139,14 +102,8 @@ const EditProfile = ({ navigation }) => {
           console.log("err del=", error);
         });
   }
-  // const openOptions = () => {
 
-  // }
-  const ifPressOK = () => {
-    setShow(true)
-    setOpen(false)
-    
-  }
+ 
   return (
 
     <Provider>
@@ -157,23 +114,16 @@ const EditProfile = ({ navigation }) => {
         <View style={styles.root}>
           <Text style={styles.title}>עריכת פרטים אישיים</Text>
           <View style={{ alignSelf: 'center' }}>
-            
               <View style={styles.profileImage}>
                 <Image
                   style={styles.image}
                   source={{ uri: userImg }} />
+                  <EditImage />
               </View>
-            
+        
             <View style={styles.edit}>
-              <MaterialCommunityIcons onPress={() => ifPressOK()} name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
-            </View>
-            <BottomSheet
-              show={show}
-              onDismiss={() => {
-                setShow(false);
-                
-              }}
-            ></BottomSheet>
+        
+        </View>
           </View>
         </View>
 
@@ -217,6 +167,7 @@ const EditProfile = ({ navigation }) => {
             buttonSize={15}
             buttonWrapStyle={{ marginLeft: 100 }}
             selectedButtonColor={COLORS.green}
+            defaultChecked={userGender}
             onPress={(value) => {
               setUserGender(value);
 
@@ -282,24 +233,12 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: 'white',
   },
-  deletebtn: {
-    marginTop: 40,
-    marginRight: 12,
-    marginLeft: 10,
-    height: 50,
-    width: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 25,
-    backgroundColor: '#00C897'
-  },
-
+  
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: "#051C60",
     margin: 10,
-    // fontFamily: 'HelveticaNeue',
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
@@ -329,43 +268,11 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
   },
-  edit: {
-    backgroundColor: COLORS.green,
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    width: 35,
-    height: 35,
-    borderRadius: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    right: 14,
-    bottom: 5
-  },
   radioBtn: {
     flexDirection: 'row',
     alignSelf: 'center',
     padding: 13,
     paddingBottom: 3
-
-  },
-  sortBtn: {
-    marginTop: 40,
-    marginRight: 12,
-    marginLeft: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 25,
-    backgroundColor: '#00C897'
-  },
-  txt: {
-    color: 'white',
-    fontFamily: 'HelveticaNeue',
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
 
   },
 })

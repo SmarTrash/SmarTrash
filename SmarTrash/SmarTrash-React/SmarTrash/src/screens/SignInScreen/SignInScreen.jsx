@@ -3,7 +3,6 @@ import React, { useEffect, useState, useContext } from 'react'
 import bg from '../../../assets/bg.jpg'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
-import SocialSignInButtons from '../../Components/SocialSignInButtons/SocialSignInButtons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ListItem } from 'react-native-elements'
 import COLORS from '../../Consts/colors'
@@ -16,11 +15,11 @@ const SignInScreen = ({ navigation }) => {
 
   const { userEmail, setUserEmail,
     checked, setChecked,
-    setUserFirstName, userFirstName,
-    setUserLastName, userLastName,
-    setUserCompetitionPlace, userCompetitionPlace, userLastThrow,
+    setUserFirstName,
+    setUserLastName,
+    setUserCompetitionPlace,
     setUserLastThrow,
-    setUserPoints, userPoints,
+    setUserPoints,
     setUserGender,
     setUserPhone, userPhone,
     setUserBirthDate,
@@ -28,10 +27,6 @@ const SignInScreen = ({ navigation }) => {
     setUserStreetNameAndNumber,
     setUserImg, userImg,
     password, setPassword } = useContext(GlobalContext);
-
-
-// user:{ name:'',age:''}
-// setUser({...user,age})
 
   useEffect(() => {
     const getData = async () => {
@@ -85,8 +80,7 @@ const SignInScreen = ({ navigation }) => {
     Phone: ""
   };
   const onSignInPressed = () => {
-
-    if (password != null && userEmail != null) {
+    if (password != "" && userEmail != "") {
       newUser.UserEmail = userEmail;
       newUser.Password = password;
       console.log("11111111111", newUser);
@@ -100,14 +94,9 @@ const SignInScreen = ({ navigation }) => {
         })
       }).then(response => { return response.json() })
         .then(data => {
-          console.log("2222222222", data);
-
-          if (data.isSuccess) {
-            console.log("333", data.message);
+          if (data.isSuccess==false) {
             alert(data.message);
-
           } else {
-            console.log("4444444", data);
             setUserFirstName(data[0].First),
               setUserLastName(data[0].Last),
               setUserCompetitionPlace(data[0].competitionPlace),
@@ -120,7 +109,7 @@ const SignInScreen = ({ navigation }) => {
               setUserStreetNameAndNumber(data[0].streetNum),
               setUserImg(data[0].Img)
 
-            newUser.Img = data[0].Img,
+              newUser.Img = data[0].Img,
               newUser.First = data[0].First,
               newUser.Last = data[0].Last,
               newUser.competitionPlace = data[0].competitionPlace,
@@ -128,67 +117,33 @@ const SignInScreen = ({ navigation }) => {
               newUser.Points = data[0].Points,
               newUser.Phone = data[0].Phone,
               console.log("newUser:", newUser)
+              
             if (checked)
               storeData(newUser)
-            navigation.navigate('Home')
-
+              navigation.navigate('Home')
           }
-
         });
     } else {
       alert("אנא מלא את שם המשתמש והסיסמא");
 
-    }   // let reg = /[a-zA-Z0-9]+[a-zA-Z0-9]+[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
-    // if (reg.test(userEmail) === true) {
-    //   setUserEmail(userEmail);
-    // }
-    // else {
-    //   alert(' כתובת אימייל  לא חוקית');
-    //   setUserEmail(null)
-    // }
-    // if (password.length > 8) {
-    //   setPassword(password)
-    //
-    // } else {
-    //   alert(' סיסמה לא חוקית');
-    //   setPassword(null)
-    // }
+    }
   }
-  // const removeData = async () => {
-  //   try {
-  //     await AsyncStorage.removeItem('@storage_Key');
-  //     { console.log("@storage_Key:", AsyncStorage) }
-  //     navigation.navigate('SignInScreen');
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-
-
 
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
-
       <ImageBackground source={bg} style={styles.logo} >
-
         <View style={styles.brandView}>
-
           <Text style={styles.brandViewText}>SmarTrash</Text>
         </View>
-
       </ImageBackground>
       <View style={styles.bottomView} >
         <View style={{ padding: 40 }}>
 
           <Text style={{ color: 'black', fontSize: 34, fontWeight: 'bold', textAlign: 'center' }}>ברוכים הבאים</Text>
           <Text style={{ fontSize: 18, textAlign: 'center' }}>אין לך חשבון?
-
             <Text onPress={() => navigation.navigate('SignUpScreen')} style={{ color: COLORS.green, fontStyle: 'italic', textAlign: 'justify', fontSize: 18 }}
             > הירשם עכשיו!</Text>
-
           </Text>
-
           <View style={{ marginTop: 30 }}>
             <CustomInput
               placeholder="אימייל"
@@ -210,14 +165,10 @@ const SignInScreen = ({ navigation }) => {
                     <Text style={{ color: '#8f9195', marginTop: 0 }}>Forgot Password</Text>
                   </ListItem>
                 </TouchableOpacity>
-
               </View>
-
               <View style={{ flex: 1 }}>
-
                 <ListItem noBorder>
                   <View style={styles.container}>
-
                     <View>
                       <Text style={{ color: '#8f9195', marginRight: 50, marginTop: -50, marginTop: 0 }}>Remember me</Text>
                       <Checkbox
@@ -226,22 +177,16 @@ const SignInScreen = ({ navigation }) => {
                         onPress={() => {
                           setChecked(!checked);
                         }}
-                        fillColor={COLORS.primary}
+                        fillColor={COLORS.green}
                       />
-                      {console.log("isSelected:", checked)}
                     </View>
                   </View>
                 </ListItem>
-
               </View>
-
-
             </View>
-
-
-
             <View
               style={{
+                margin:10,
                 height: 100,
                 justifyContent: 'center',
                 alignItems: 'center'
@@ -250,13 +195,7 @@ const SignInScreen = ({ navigation }) => {
                 text="התחברות"
                 onPress={onSignInPressed}
               />
-              <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: 'center', fontSize: 16 }}>or Login With</Text>
-
-              </View>
-
             </View>
-            <SocialSignInButtons />
           </View>
         </View>
       </View>

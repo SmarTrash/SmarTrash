@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, ScrollView, StatusBar, StyleSheet, Text, View, Button } from 'react-native';
+import { ImageBackground, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import COLORS from '../../Consts/colors'
 import { useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
@@ -10,7 +10,6 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/AbleToOrder/';
 
 const SelectedGift = ({ navigation, route }) => {
-
   const [isAbleToOrder, setIsAbleToOrder] = useState(false);
   const { userEmail } = useContext(GlobalContext);
   const item = route.params;
@@ -31,8 +30,6 @@ const SelectedGift = ({ navigation, route }) => {
       });
   }, []);
 
-
-  console.log("setisAbleToOrder=" + isAbleToOrder)
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
@@ -48,17 +45,9 @@ const SelectedGift = ({ navigation, route }) => {
       />
       <ImageBackground style={style.headerImage} source={{ uri: item.Image }}>
         <View style={style.header}>
-
-          {/* <AntDesign
-            name="left"
-            size={28}
-            color={COLORS.primary}
-            onPress={navigation.goBack}
-          /> */}
         </View>
       </ImageBackground>
       <View>
- 
         <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
           <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-start' }}>{item.Name}</Text>
           <Text
@@ -83,7 +72,6 @@ const SelectedGift = ({ navigation, route }) => {
           <Text
             style={{ fontSize: 20, fontWeight: 'bold', left: 20, color: COLORS.green }}>
             {item.Price}
-
           </Text>
         </View>
           <View style={{ marginBottom:20, fontSize: 30 }}>
@@ -92,17 +80,11 @@ const SelectedGift = ({ navigation, route }) => {
             </Text>
           </View>
         </View>
-
-       
-
         <CustonButton
             text='רכישה'
             disabled={!isAbleToOrder}
             onPress={() => {navigation.navigate('GiftPurchase', item.GiftId)}}
           />
-  
-
-
       </View>
     </ScrollView>
   );
@@ -167,9 +149,7 @@ const style = StyleSheet.create({
      alignItems: 'center',
     marginHorizontal: 20,
     justifyContent: 'space-between',
-   
   },
-
 });
 
 export default SelectedGift

@@ -16,12 +16,7 @@ const navigation = useNavigation();
     const [picUri, setPicUri] = useState(userImg);
 
 
-    setUserImg(picUri);
-
-    useEffect(() => {
-    //    console.log("picUri",picUri)
-    
-    }, []);
+     setUserImg(picUri);
 
     useEffect(() => {
         (async () => {
@@ -38,16 +33,6 @@ const navigation = useNavigation();
     }
     return (
         <View style={styles.container}>
-
-{/* <View style={styles.header}>
-
-<AntDesign
-  name="left"
-  size={28}
-  color={COLORS.white}
-  onPress={navigation.navigate('Home')}
-/>
-</View>  */}
             <Camera style={styles.camera} type={type} ref={ref => setCamera(ref)}>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
@@ -61,7 +46,6 @@ const navigation = useNavigation();
                         }}>
                         <Text style={styles.text}>  החלף צד </Text>
                     </TouchableOpacity>
-
                     <TouchableOpacity
                         style={styles.button}
                         onPress={async () => {
@@ -69,7 +53,6 @@ const navigation = useNavigation();
                                 const data = await camera.takePictureAsync(null) ;
                                 setPicUri(data.uri);
                             }
-                            // navigation.navigate('UploadImage', { picUri })
                         }}>
                         <View >
                             <Text style={styles.text}> צלם </Text>
@@ -83,12 +66,7 @@ const navigation = useNavigation();
                     style={styles.picture} />
 
             </View>
-            {/* <View style={{ flex: 0.6, justifyContent: 'center' }}>
-                {picUri && <Image
-                    source={{ uri: picUri }}
-                    style={styles.picture} />}
-
-            </View> */}
+       
         </View>
     );
 }

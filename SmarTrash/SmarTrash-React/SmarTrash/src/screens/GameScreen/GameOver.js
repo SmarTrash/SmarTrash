@@ -1,5 +1,5 @@
-
-import React, { useState, useEffect } from 'react';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
+import React, { useState,useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Leaderboard from 'react-native-leaderboard';
@@ -9,10 +9,12 @@ const HEIGHT = Constants.HEIGHT;
 
 
 const GameOver = ({route, navigation}) => {
+  const {userEmail, userState, setUserState
+  } = useContext(GlobalContext);
   const [points, setPoints] = useState([{}]);
   const [position, setPosition] = useState(1);
   let img = require('../../../assets/trophy.png')
-  
+ 
   const getData = async () => {
     AsyncStorage.getItem('points', (err,result) => {
       if (result !== null) {
@@ -32,7 +34,7 @@ const GameOver = ({route, navigation}) => {
       if (isMounted==true) {
         getData();
         setPosition(points
-      .findIndex(elem => elem.points == route.params.points && elem.username==route.params.username)+1);
+      .findIndex(elem => elem.points == userState.points && elem.username==userState.username)+1);
         }  
     })
     
@@ -49,7 +51,7 @@ return(
         <Text style={styles.points}
          >position {JSON.stringify(position)}</Text> 
         <Image source={img} style={styles.image}></Image>
-        <Text style={styles.points}> {route.params.points} points </Text>
+        <Text style={styles.points}> {userState.points} points </Text>
     </View>
     <TouchableOpacity
       style={styles.customBtnBG}

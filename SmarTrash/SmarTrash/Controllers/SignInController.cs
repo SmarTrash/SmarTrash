@@ -20,8 +20,6 @@ namespace SmarTrash.Controllers
         {
             try
             {
-
-
                 SmarTrashDBContext db = new SmarTrashDBContext();
                 tblUser user = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
                 MailMessage mail = new MailMessage();

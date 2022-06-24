@@ -14,7 +14,7 @@ const COLORS = {
   blue:'#0000ff',
   yellow:'#ffff00',
   brown:'#a0522d',
-  green: '#019267',
+  green: '#448749',
   cardboard:'#ffdd99',
   grey: '#908e8c',
 };

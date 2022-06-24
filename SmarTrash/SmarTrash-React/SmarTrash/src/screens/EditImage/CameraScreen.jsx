@@ -49,7 +49,7 @@ const CameraScreen = () => {
 
   // },[userImg]);
 
-  console.log("userImguserImg", userImg);
+  // console.log("userImguserImg", userImg);
   const uploadImage = () => {
     imageUpload(userImg, 'userPicture.jpg')
   }
@@ -57,14 +57,15 @@ const CameraScreen = () => {
   const imageUpload = (userImage, picName) => {
 
     let dataI = new FormData();
-
+    console.log({picName});
     dataI.append('picture', {
       uri: userImage,
       name: picName,
       type: 'image/jpg'
     });
 
-    console.log('dataI', { dataI });
+    console.log('dataI',  dataI );
+    console.log('picName',  dataI.picName );
 
     const config = {
       method: 'POST',
@@ -80,7 +81,7 @@ const CameraScreen = () => {
       })
       .then((responseData) => {
         console.log("responseData=", responseData)
-        if (responseData != "err" || responseData != null) {
+        if (responseData != "err" || responseData != null|| !responseData ) {
           console.log("img uploaded successfully!");
           setUserImg(responseData)
 
@@ -132,8 +133,7 @@ const CameraScreen = () => {
               onPress: () => console.log("Cancel Pressed"),
               style: "cancel"
             },
-            { text: "OK", onPress: () => { setShow(false)
-              setOpen(false) 
+            { text: "OK", onPress: () => {
               navigation.navigate("EditProfile")}
           , style: "ok" }
           ]
