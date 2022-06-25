@@ -22,8 +22,6 @@ const Provider = ({ children }) => {
     const [userStreetNameAndNumber, setUserStreetNameAndNumber] = useState('');
     const [checked, setChecked] = useState(false);
     const [userToken, setUserToken] = useState('');
-    const [show, setShow] = useState(false);
-    const [open, setOpen] = useState(show)
     const [userCityName, setUserCityName] = useState('');
     const [userDetails, setUserDetails] = useState(''); 
     const [userOrderPhone, setuserOrderPhone] = useState();
@@ -54,7 +52,7 @@ const Provider = ({ children }) => {
         userStreetNameAndNumber, setUserStreetNameAndNumber,
         userEmail, setUserEmail,checked, setChecked,
         userToken, setUserToken,userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,
-        show, setShow,open, setOpen, binQRId, setBinQRId}
+        binQRId, setBinQRId}
         
     return (
         <GlobalContext.Provider value={GlobalContextOrginal}>

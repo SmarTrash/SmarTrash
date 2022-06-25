@@ -5,7 +5,6 @@ import COLORS from '../../Consts/colors';
 const apiUrlAll = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllGifts';
 const apiUrlGetCategory = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetAllCategoryGifts';
 const apiUrlGetSpesificCategory = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetGiftsByCategory/';
-
 const CategoryList = (props) => {
 
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
@@ -14,7 +13,6 @@ const CategoryList = (props) => {
   useEffect(() => {
     GetCategory();
   }, []);
-
   const GetCategory = () => {
     fetch(apiUrlGetCategory, {
       method: 'GET',
@@ -35,6 +33,7 @@ const CategoryList = (props) => {
         headers: new Headers({
           'Content-type': 'application/json; charset=UTF-8',
           'Accept': 'application/json; charset-UTF-8'
+
         })
       }).then(response => { return response.json() })
         .then(data => {

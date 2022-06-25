@@ -41,7 +41,7 @@ const BinListScreen = () => {
             style={styles.image}
             source={{ uri: userImg }} />
         </View>
-        <Text style={{ fontSize: 25, fontWeight: 'bold', color: COLORS.primary, top: 60, margin: 5 }}>
+        <Text style={{ fontSize: 25, fontWeight: 'bold', color: COLORS.green, top: 60, margin: 5 }}>
           הפחים בעיר שלך
         </Text>
       </View>
@@ -57,13 +57,9 @@ const BinListScreen = () => {
           }}
           renderItem={({ item, i }) =>
             <BinCard bins={item} index={i} />}
-        />
+        /> 
       </View>
-
-
     </View>
-
-
   )
 }
 

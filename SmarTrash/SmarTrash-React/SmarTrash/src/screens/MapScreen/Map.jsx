@@ -63,13 +63,10 @@ const MapScreen = () => {
       });
   }, []);
 
-
   const createPolyline = async (marker) => {
     console.log('markerrrrr', marker);
-
-
- setColorPolyline(COLORS[`${marker.BinTypeColor}`]);
-
+    console.log('theColorCode', COLORS[`${marker.BinTypeColor}`]);
+    setColorPolyline(COLORS[`${marker.BinTypeColor}`]);
     const locations = [
       {
         lat: userLocation.latitude,
@@ -87,7 +84,6 @@ const MapScreen = () => {
   }
   return (
     <View style={styles.container}>
-
       <View style={styles.Listbtn}>
         <Feather name="list" size={50} color="black" onPress={() => navigation.navigate('BinListScreen')} />
       </View>
@@ -114,7 +110,7 @@ const MapScreen = () => {
             '#238C23',
             '#7F0000'
           ]}
-          strokeWidth={6}
+          strokeWidth={4}
         />}
         {markers &&
           markers.map((marker) => {
@@ -128,7 +124,8 @@ const MapScreen = () => {
                 }
               }
               pinColor={COLORS[`${marker.BinTypeColor}`]}
-              >
+            >
+       
               <MapView.Callout>
                 <View style={{ height: 100, width: 200 }}>
                   <Text> {marker.Address} </Text>

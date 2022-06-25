@@ -49,7 +49,7 @@ const CameraScreen = () => {
 
   // },[userImg]);
 
-  console.log("userImguserImg", userImg);
+  // console.log("userImguserImg", userImg);
   const uploadImage = () => {
     imageUpload(userImg, 'userPicture.jpg')
   }
@@ -133,8 +133,7 @@ const CameraScreen = () => {
               onPress: () => console.log("Cancel Pressed"),
               style: "cancel"
             },
-            { text: "OK", onPress: () => { setShow(false)
-              setOpen(false) 
+            { text: "OK", onPress: () => {
               navigation.navigate("EditProfile")}
           , style: "ok" }
           ]

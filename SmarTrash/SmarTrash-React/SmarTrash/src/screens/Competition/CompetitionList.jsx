@@ -1,12 +1,10 @@
-import { View, Text, StyleSheet, Image, Dimensions, FlatList,ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, FlatList,ScrollView } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import CompetitionCard from '../../Components/CompetitionCard/CompetitionCard';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Competition/GetListOfUsersInMyCity';
-const { width } = Dimensions.get('screen');
-const cardWidth = width / 1.06;
 
 const CompetitionList = () => {
 
@@ -68,13 +66,6 @@ const CompetitionList = () => {
 export default CompetitionList;
 const style = StyleSheet.create({
 
-  txtTitle: {
-    color: '#52575D',
-    fontSize: 24,
-    fontWeight: 'bold',
-    top: 50,
-    textAlign: 'center',
-  },
   profileImage: {
     width: 80,
     height: 80,
