@@ -1,4 +1,4 @@
-import { View, Dimensions, StyleSheet, Text, Image, FlatList } from 'react-native';
+import { View, Dimensions, StyleSheet, Text, Image, FlatList, ScrollView } from 'react-native';
 import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
@@ -46,7 +46,7 @@ const BinListScreen = () => {
         </Text>
       </View>
 
-      <View style={{top:80}}>
+      <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{marginTop:80}} >
         <FlatList
           data={bins}
           showsHorizontalScrollIndicator={false}
@@ -58,7 +58,7 @@ const BinListScreen = () => {
           renderItem={({ item, i }) =>
             <BinCard bins={item} index={i} />}
         /> 
-      </View>
+      </ScrollView>
     </View>
   )
 }
