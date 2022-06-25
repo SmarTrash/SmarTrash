@@ -20,6 +20,7 @@ namespace Data
         public string UserEmail { get; set; }
         public Nullable<int> City { get; set; }
         public string StreetNameAndNumber { get; set; }
+        public Nullable<System.DateTime> OrderDate { get; set; }
     
         public virtual tblCity tblCity { get; set; }
         public virtual tblGift tblGift { get; set; }

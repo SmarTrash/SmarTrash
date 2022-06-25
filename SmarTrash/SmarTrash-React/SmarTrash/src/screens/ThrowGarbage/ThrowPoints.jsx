@@ -65,7 +65,7 @@ export default function ThrowPoints({ navigation }) {
  
   console.log('binQRId-throwPoint:', binQRId)
   return (
-    <View style={{ backgroundColor: COLORS.white, width}}>
+    <View style={{ backgroundColor: COLORS.white, width,flex:1}}>
       <View style={{ alignSelf: 'center' }}>
         <View style={style.profileImage}>
           <Image
@@ -105,12 +105,14 @@ export default function ThrowPoints({ navigation }) {
 
       <View style={style.pointsTxt}>
         <Text style={style.txtPoints}>
-          {'סה"כ הנקודות שלך: '}
-        </Text>
-          <Text style={[style.txtPoints, {marginRight:100}]}>
+          {'סה"כ הנקודות שלך:  '}
+           <Text style={[style.txtPoints]}>
             {throwInfo.totalPoints}
+             <CoinIcon />
           </Text>
-          <CoinIcon />
+        </Text>
+         
+         
       </View>
 
       <View >
@@ -166,9 +168,9 @@ const style = StyleSheet.create({
     height: undefined,
   },
   txtContainer: {
-    textAlign: 'right',
-    marginTop:-50
-
+    alignSelf:'flex-start',
+    
+    flexDirection: 'row',
   },
   topHotelCardImage: {
     height: 250,
@@ -191,7 +193,6 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   text: {
-    // fontFamily: 'HelveticaNeue',
     color: '#52575D',
     fontSize: 18,
     fontWeight: 'bold',
@@ -200,7 +201,7 @@ const style = StyleSheet.create({
     textAlign: 'center'
   },
   ChkdIcon: {
-    marginTop: 30,
+    marginTop: 10,
       alignSelf:'flex-start',
       
   },
@@ -210,11 +211,12 @@ const style = StyleSheet.create({
     justifyContent:'flex-start',
   },
   txtPoints:{
-    // fontFamily: 'HelveticaNeue',
     color: '#52575D',
     fontSize: 16,
     fontWeight: 'bold',
-    margin: 10,
+    margin: 20,
+    
+    flexDirection: 'row',
   },
   pointIcon:{
     marginTop:-60,

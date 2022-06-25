@@ -120,8 +120,6 @@ namespace SmarTrash.Controllers
 
         }
 
-
-        // Post api/Gift/GiftOrder/{g}
         [HttpPost]
         [Route("api/Gift/GiftOrder/{g}")]
         // ביצוע הזמנת הטבה. הורדה מהמלאי שלה ומהנקודות של המשתמש. 
@@ -141,10 +139,42 @@ namespace SmarTrash.Controllers
                 newOrder.GiftCode = g;
                 newOrder.UserEmail = u.UserEmail;
                 newOrder.City = u.CityId;
+                newOrder.OrderDate = DateTime.Now;
                 db.tblOrder.Add(newOrder);
                 db.SaveChanges();
                 tblUser userAfterChange = db.tblUser.Where(x => x.UserEmail == u.UserEmail).FirstOrDefault();
                 return Ok(userAfterChange.TotalPoints);
+            }
+            catch (Exception ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("api/Gift/GetUserOrders")]
+        //מקבל מייל ומחזיר את פרטי המשלוח שלו, הנקודות שלו ומחיר ההטבה
+        public IHttpActionResult GetUserOrders([FromBody] tblUser u)
+        {
+            try
+            {
+                SmarTrashDBContext db = new SmarTrashDBContext();
+                //List<tblOrder> newOrder= db.tblOrder.Where(y => y.UserEmail == u.UserEmail).ToList();
+
+                var shippingDetails = (from order in db.tblOrder
+                                       join gifts in db.tblGift
+                                       on order.GiftCode equals gifts.GiftId
+                                       where order.UserEmail == u.UserEmail
+                                       select new
+                                       {
+                                           StreetNameAndNumber = order.StreetNameAndNumber,
+                                           city = order.City,
+                                           Phone = order.OrderPhone,
+                                           giftName = gifts.GiftName,
+                                           orderDate = order.OrderDate
+                                       }).ToList();
+                return Ok(shippingDetails);
             }
             catch (Exception ex)
             {

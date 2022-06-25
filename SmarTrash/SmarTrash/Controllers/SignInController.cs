@@ -35,10 +35,10 @@ namespace SmarTrash.Controllers
                 SmtpServer.Port = 587;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
-                SmtpServer.Credentials = new System.Net.NetworkCredential("rupb912022@gmail.com", "rupb912022@smatrash");
+                SmtpServer.Credentials = new System.Net.NetworkCredential("rupb912022@gmail.com", "ylpt mkon ppny icky");
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);
-                return Ok();
+                return Ok(new { status = 201, isSuccess = true, message = "'הסיסמה נשלחה אליך למייל" });
             }
             catch (Exception ex)
             {
