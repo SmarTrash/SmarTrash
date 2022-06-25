@@ -4,7 +4,7 @@ import MapView, { Callout } from 'react-native-maps';
 import { Marker, Polyline } from 'react-native-maps';
 import * as Location from "expo-location";
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import { Feather, } from '@expo/vector-icons';
+import { Feather, Ionicons } from '@expo/vector-icons';
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
 import { tomtomService } from '../../services/tomtom.service';
@@ -84,9 +84,16 @@ const MapScreen = () => {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.Listbtn}>
-        <Feather name="list" size={50} color="black" onPress={() => navigation.navigate('BinListScreen')} />
+      <View style={styles.header}>
+        <View style={styles.back}>
+          <Ionicons name="ios-chevron-back" size={30} color="black" onPress={() => navigation.navigate('Home')} />
+        </View>
+        <View style={styles.Listbtn}>
+          <Feather name="list" size={40} color="black" onPress={() => navigation.navigate('BinListScreen')} />
+        </View>
       </View>
+
+
       <MapView
 
         showsUserLocation={true}
@@ -97,7 +104,6 @@ const MapScreen = () => {
           latitudeDelta: 0.0122,
           longitudeDelta: 0.0121,
         }}>
-
 
         {!!points.length && <Polyline
           coordinates={points}
@@ -125,7 +131,7 @@ const MapScreen = () => {
               }
               pinColor={COLORS[`${marker.BinTypeColor}`]}
             >
-       
+
               <MapView.Callout>
                 <View style={{ height: 100, width: 200 }}>
                   <Text> {marker.Address} </Text>
@@ -142,22 +148,31 @@ const MapScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
+    backgroundColor:COLORS.white,
+    alignItems:'center'
   },
-  // listBtnContainer:{
-  //   margin: 10
-  // },
-
+  header: {
+    flexDirection: 'row',
+    backgroundColor:COLORS.white,
+    marginBottom:15
+    },
+  back: {
+    marginRight: 305,
+    marginTop:40,
+    marginLeft:10
+  },
   Listbtn: {
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 60,
-    width: 60,
+    alignSelf: 'flex-start',
+    height: 50,
+    width: 50,
     borderRadius: 10,
     top: 20,
     flex: 0,
     backgroundColor: COLORS.primary,
+    marginTop:14,
   },
 
 

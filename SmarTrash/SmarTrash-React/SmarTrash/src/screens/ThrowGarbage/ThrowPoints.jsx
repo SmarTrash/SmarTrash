@@ -65,7 +65,7 @@ export default function ThrowPoints({ navigation }) {
  
   console.log('binQRId-throwPoint:', binQRId)
   return (
-    <View style={{ backgroundColor: COLORS.white, width,flex:1}}>
+    <View style={{ backgroundColor: COLORS.white, width, flex:1}}>
       <View style={{ alignSelf: 'center' }}>
         <View style={style.profileImage}>
           <Image
