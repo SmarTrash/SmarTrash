@@ -1,39 +1,30 @@
 import { View, Text, ScrollView,StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
-
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SendMail';
 
 const ForgotPasswordScreen = ({navigation}) => {
+  const { userEmail, setUserEmail } = useContext(GlobalContext);
 
-  const [userEmail, setUserEmail] = useState([]);
-   const newUser = {
-       UserEmail: userEmail
-     };
   const onSendPressed = () => {
-  //  newUser.UserEmail=userEmail;
-     console.log("user before sending", newUser);
+     console.log("user before sending", userEmail);
     fetch(apiUrl, {
       method: 'POST',
-      body: JSON.stringify(newUser),
+      body: JSON.stringify({UserEmail:userEmail}),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
       })
-    }).then(response =>  { console.log("response: "); console.log(response); return response.json()  })
+    }).then(response =>  { return response.json()  })
       .then(data => {
          console.log("data:",data)
-        // if (IsUserExists) {
-        //   navigation.navigate('SignInScreen');
-          
-        // }
-      
-        navigation.navigate('ResetPassword');
-        alert('הסיסמה נשלחה אליך למייל');
+        if (data.isSuccess==true) {
+          navigation.navigate('SignInScreen');
+          alert(data.message);
+        }
       });
-
-
   }
 
   const onSignInPressed = () => {

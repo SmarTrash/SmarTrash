@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView, ImageBackground, Dimensions, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import bg from '../../../assets/bg.jpg'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
@@ -12,7 +12,7 @@ import Checkbox from 'react-native-bouncy-checkbox'
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/HomePageDetails';
 
 const SignInScreen = ({ navigation }) => {
-
+ 
   const { userEmail, setUserEmail,
     checked, setChecked,
     setUserFirstName,

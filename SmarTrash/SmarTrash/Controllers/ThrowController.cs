@@ -53,24 +53,24 @@ namespace SmarTrash.Controllers
         }
 
 
-        // GET api/Throw/RandomSpecicBin
-        [HttpGet]
-        [Route("api/Throw/RandomSpecicBin")]
-        // מביא פח ספציפי אקראי ברנדום
-        public tblSpecificBin RandomSpecicBin()
-        {  
-                SmarTrashDBContext db = new SmarTrashDBContext();
-                var rand = new Random();
-                var randBin = db.tblSpecificBin.AsEnumerable().OrderBy(r => rand.Next()).Take(1).ToList();
-                tblSpecificBin bin = new tblSpecificBin();
-                bin.BinQRId = randBin.First().BinQRId;
-                bin.Longitude = randBin.First().Longitude;
-                bin.Latitude = randBin.First().Latitude;
-                bin.Address = randBin.First().Address;
-                bin.BinTypeId = randBin.First().BinTypeId;
-                bin.WeightId = randBin.First().WeightId;
-                return bin;
-        }
+        //// GET api/Throw/RandomSpecicBin
+        //[HttpGet]
+        //[Route("api/Throw/RandomSpecicBin")]
+        //// מביא פח ספציפי אקראי ברנדום
+        //public tblSpecificBin RandomSpecicBin()
+        //{  
+        //        SmarTrashDBContext db = new SmarTrashDBContext();
+        //        var rand = new Random();
+        //        var randBin = db.tblSpecificBin.AsEnumerable().OrderBy(r => rand.Next()).Take(1).ToList();
+        //        tblSpecificBin bin = new tblSpecificBin();
+        //        bin.BinQRId = randBin.First().BinQRId;
+        //        bin.Longitude = randBin.First().Longitude;
+        //        bin.Latitude = randBin.First().Latitude;
+        //        bin.Address = randBin.First().Address;
+        //        bin.BinTypeId = randBin.First().BinTypeId;
+        //        bin.WeightId = randBin.First().WeightId;
+        //        return bin;
+        //}
 
         
         // GET api/Throw/RandomWeight

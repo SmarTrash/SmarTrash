@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/30/2022 15:41:59
+-- Date Created: 06/25/2022 14:43:15
 -- Generated from EDMX file: C:\Users\noy\Desktop\SmarTrash\SmarTrash\SmarTrash\Data\Model1.edmx
 -- --------------------------------------------------
 
@@ -46,12 +46,6 @@ IF OBJECT_ID(N'[dbo].[FK__tblOrder__UserEm__2A4B4B5E]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK__tblProduc__BinTy__2E1BDC42]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblProduct] DROP CONSTRAINT [FK__tblProduc__BinTy__2E1BDC42];
-GO
-IF OBJECT_ID(N'[dbo].[FK__tblScanPr__Produ__31EC6D26]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblScanProduct] DROP CONSTRAINT [FK__tblScanPr__Produ__31EC6D26];
-GO
-IF OBJECT_ID(N'[dbo].[FK__tblScanPr__UserE__30F848ED]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[tblScanProduct] DROP CONSTRAINT [FK__tblScanPr__UserE__30F848ED];
 GO
 IF OBJECT_ID(N'[dbo].[FK__tblSelect__IdMon__5EBF139D]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[tblSelectedMonthGift] DROP CONSTRAINT [FK__tblSelect__IdMon__5EBF139D];
@@ -99,9 +93,6 @@ IF OBJECT_ID(N'[dbo].[tblOrder]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[tblProduct]', 'U') IS NOT NULL
     DROP TABLE [dbo].[tblProduct];
-GO
-IF OBJECT_ID(N'[dbo].[tblScanProduct]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[tblScanProduct];
 GO
 IF OBJECT_ID(N'[dbo].[tblSelectedMonthGift]', 'U') IS NOT NULL
     DROP TABLE [dbo].[tblSelectedMonthGift];
@@ -194,7 +185,8 @@ CREATE TABLE [dbo].[tblOrder] (
     [GiftCode] int  NULL,
     [UserEmail] varchar(150)  NULL,
     [City] int  NULL,
-    [StreetNameAndNumber] nvarchar(20)  NOT NULL
+    [StreetNameAndNumber] nvarchar(20)  NOT NULL,
+    [OrderDate] datetime  NULL
 );
 GO
 

@@ -169,6 +169,7 @@
     <Property Name="UserEmail" Type="varchar" Nullable="true" MaxLength="150" />
     <Property Name="City" Type="int" Nullable="true" />
     <Property Name="StreetNameAndNumber" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="OrderDate" Type="datetime" Nullable="true" />
   </EntityType>
   <EntityType Name="tblProduct">
     <Key>
@@ -542,6 +543,7 @@
           <NavigationProperty Name="tblGift" Relationship="Self.FK__tblOrder__GiftCo__29572725" FromRole="tblOrder" ToRole="tblGift" />
           <NavigationProperty Name="tblUser" Relationship="Self.FK__tblOrder__UserEm__2A4B4B5E" FromRole="tblOrder" ToRole="tblUser" />
           <Property Name="StreetNameAndNumber" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrderDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="tblProduct">
           <Key>
@@ -1000,6 +1002,7 @@
           <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="StreetNameAndNumber" ColumnName="StreetNameAndNumber" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

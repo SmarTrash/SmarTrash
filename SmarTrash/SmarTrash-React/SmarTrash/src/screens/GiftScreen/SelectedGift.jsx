@@ -48,13 +48,13 @@ const SelectedGift = ({ navigation, route }) => {
         </View>
       </ImageBackground>
       <View>
-        <View style={{ marginTop: 20, paddingHorizontal: 20 }}>
+        <View style={{ marginTop: 80, paddingHorizontal: 20 }}>
           <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-start' }}>{item.Name}</Text>
           <Text
             style={{
               fontSize: 26,
               fontWeight: '400',
-              marginTop: 10,
+              marginTop: 15,
               alignSelf: 'flex-start',
               color: COLORS.primary,
             }}>
@@ -138,7 +138,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   headerImage: {
-    height: 500,
+    height: 400,
     borderBottomRightRadius: 40,
     borderBottomLeftRadius: 40,
     overflow: 'hidden',
