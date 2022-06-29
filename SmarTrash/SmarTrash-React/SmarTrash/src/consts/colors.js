@@ -15,8 +15,9 @@ const COLORS = {
   yellow:'#ffff00',
   brown:'#a0522d',
   green: '#448749',
-  cardboard:'#ffdd99',
-  grey: '#908e8c',
+  cardboard:'tan',
+  grey: '#808080',
+  
 };
 
 export default COLORS;

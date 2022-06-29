@@ -50,12 +50,10 @@ export const ChangeImage = (newUserImage, userEmail) => {
     //     })
     //     .catch(err => { alert('err upload= ' + err); });
     // }
-
     export const sendToAzure = async imageURL => {
         console.log("in func")
         console.log("image in sendToAzure")
         console.log(imageURL)
-
         if (imageURL.indexOf("http") != 0)
         {
             console.log("bad url")

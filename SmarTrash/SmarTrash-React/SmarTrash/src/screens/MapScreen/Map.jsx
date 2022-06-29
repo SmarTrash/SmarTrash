@@ -23,7 +23,8 @@ const MapScreen = () => {
   });
   const [points, setPoints] = useState([])
   const [colorPolyline, setColorPolyline] = useState('')
-
+  const { width } = Dimensions.get('screen');
+ 
 
   useEffect(() => {
     (async () => {
@@ -84,20 +85,20 @@ const MapScreen = () => {
   }
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.back}>
+      {/* <View style={styles.header}> */}
+        {/* <View style={styles.back}>
           <Ionicons name="ios-chevron-back" size={30} color="black" onPress={() => navigation.navigate('Home')} />
-        </View>
+        </View> */}
         <View style={styles.Listbtn}>
           <Feather name="list" size={40} color="black" onPress={() => navigation.navigate('BinListScreen')} />
         </View>
-      </View>
+      {/* </View> */}
 
 
       <MapView
 
         showsUserLocation={true}
-        style={{ flex: 1, width: Dimensions.get('window').width - 10, }}
+        style={{ flex: 1, width:width, }}
         region={{
           latitude: userLocation.latitude,
           longitude: userLocation.longitude,
@@ -108,14 +109,14 @@ const MapScreen = () => {
         {!!points.length && <Polyline
           coordinates={points}
           strokeColor={colorPolyline} // fallback for when `strokeColors` is not supported by the map-provider
-          strokeColors={[
-            '#7F0000',
-            '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
-            '#B24112',
-            '#E5845C',
-            '#238C23',
-            '#7F0000'
-          ]}
+          // strokeColors={[
+          //   '#7F0000',
+          //   '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
+          //   '#B24112',
+          //   '#E5845C',
+          //   '#238C23',
+          //   '#7F0000'
+          // ]}
           strokeWidth={4}
         />}
         {markers &&
@@ -148,31 +149,31 @@ const MapScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:COLORS.white,
-    alignItems:'center'
+
+  
   },
-  header: {
-    flexDirection: 'row',
-    backgroundColor:COLORS.white,
-    marginBottom:15
-    },
-  back: {
-    marginRight: 305,
-    marginTop:40,
-    marginLeft:10
-  },
+  // header: {
+  //   // flexDirection: 'row',
+  //   // backgroundColor:COLORS.white,
+  //   // marginBottom:15
+  //   },
+  // back: {
+  //   marginRight: 305,
+  //   marginTop:40,
+  //   marginLeft:10
+  // },
   Listbtn: {
     alignContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignSelf: 'flex-start',
     height: 50,
     width: 50,
     borderRadius: 10,
     top: 20,
-    flex: 0,
-    backgroundColor: COLORS.primary,
-    marginTop:14,
+    backgroundColor: COLORS.green,
+    marginTop:20,
+    marginLeft:10,
   },
 
 

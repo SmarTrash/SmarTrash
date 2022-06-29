@@ -34,8 +34,7 @@ namespace SmarTrash.Controllers
                                            WeightId = specificBin.WeightId,
                                            CityId = specificBin.CityId,
                                            BinTypeColor = binType.BinTypeColor,
-                                           Description = binType.Description,
-                                           
+                                           Description = binType.Description,  
                                        }).ToList();
                 return Ok(binsDetails);
             }
