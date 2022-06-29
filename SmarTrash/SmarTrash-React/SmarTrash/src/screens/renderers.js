@@ -96,7 +96,7 @@ class Timer extends PureComponent {
     super(props);
     this.state = {
       minutes: 0,
-      seconds: 30
+      seconds: 5
     }
   }
 

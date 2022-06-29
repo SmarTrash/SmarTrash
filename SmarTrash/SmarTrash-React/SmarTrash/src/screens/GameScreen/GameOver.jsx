@@ -3,7 +3,7 @@ import React, { useState,useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Leaderboard from 'react-native-leaderboard';
-import Constants from './../Constants';
+import Constants from '../Constants';
 const WIDTH = Constants.WIDTH;
 const HEIGHT = Constants.HEIGHT;
 
