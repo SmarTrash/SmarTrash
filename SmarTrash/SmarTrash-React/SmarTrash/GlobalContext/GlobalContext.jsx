@@ -32,6 +32,7 @@ const Provider = ({ children }) => {
         points: 0,
         updateTimer: 0,
         username: '',
+        userEmail:'',
         visibleModal: true,
         item: "can" //random
       });
