@@ -25,7 +25,9 @@ import Game from '../../screens/GameScreen/Game'
 import GameOver from '../../screens/GameScreen/GameOver'
 //import NavigationMap from '../../screens/MapScreen/NavigationMap'
 import EditImage from '../../screens/EditImage/EditImage';
-import BottomSheet from '../../Components/BottomSheet/BottomSheet'
+import BottomSheet from '../../Components/BottomSheet/BottomSheet';
+import BinCameraScreen from '../../screens/FindBin/BinCameraScreen';
+import BinPicture from '../../screens/FindBin/BinPicture';
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -58,6 +60,8 @@ const Navigation = () => {
         <Stack.Screen name="BinListScreen" component={BinListScreen} />
         <Stack.Screen name="AddNewAdress" component={AddNewAdress} />
         <Stack.Screen name="QRScanner" component={QRScanner} />
+        <Stack.Screen name="BinCameraScreen" component={BinCameraScreen} />
+        <Stack.Screen name="BinPicture" component={BinPicture} />
       </Stack.Navigator>
     </NavigationContainer>
   )
