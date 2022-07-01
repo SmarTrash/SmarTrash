@@ -2,14 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useContext, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Modal, Pressable } from 'react-native';
-import { Input, Text, Button, Label, Item, NativeBaseProvider, Form } from 'native-base';
+import { Text, NativeBaseProvider } from 'native-base';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import { GameEngine } from "react-native-game-engine";
 import { OurItem, Bin, Timer, Floor } from "../../screens/renderers";
 import { MoveItem, Collision } from "../../screens/systems";
 import { Audio } from 'expo-av';
-import { Octicons } from '@expo/vector-icons';
-// import Constants from './../Constants';
 import Constants from '../../screens/Constants';
 const WIDTH = Constants.WIDTH;
 const HEIGHT = Constants.HEIGHT;
@@ -32,7 +30,6 @@ const Game = ({ navigation }) => {
       points: 0,
       username: userFirstName + " " + userLastName,
       userEmail: userEmail,
-      userImg: userImg,
       visibleModal: true,
       item: "can" //random
     })
@@ -67,7 +64,6 @@ const Game = ({ navigation }) => {
 
 
   const storeData = async (points, username, userEmail) => {
-    AsyncStorage.clear();
     const v = [{
       points: points,
       username: username,
@@ -80,10 +76,23 @@ const Game = ({ navigation }) => {
     AsyncStorage.getItem('points', (err, result) => {
 
       if (result !== null) {
-        //console.log('Data found', result);
+        console.log('Data found', result);
         var arr = JSON.parse(result) || [];
+        arr.map((userData) => {
+          console.log('userEmail == userData.userEmail',userEmail == userData.userEmail);
+          if(userEmail == userData.userEmail){
+            if (userData.points > points) {
+              return
+            }
+            else{ 
+             
+            }
+          }
+        })
+
         var newPoints = arr.concat(v);
         AsyncStorage.setItem('points', JSON.stringify(newPoints));
+
       }
       else {
         //console.log("data not found");
@@ -91,7 +100,7 @@ const Game = ({ navigation }) => {
       }
     })
   }
-  
+
   // const toggleSound = () => {
   //   if (soundState === "sound") {
   //     soundState = "nosound";
