@@ -1,18 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useContext, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+<<<<<<< Updated upstream
 import { StyleSheet, View, Modal, Pressable } from 'react-native';
 import { Text, NativeBaseProvider } from 'native-base';
+=======
+import { StyleSheet, View, Modal, Pressable, Alert } from 'react-native';
+import { Text,NativeBaseProvider, Input } from 'native-base';
+>>>>>>> Stashed changes
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import { GameEngine } from "react-native-game-engine";
 import { OurItem, Bin, Timer, Floor } from "../../screens/renderers";
 import { MoveItem, Collision } from "../../screens/systems";
 import { Audio } from 'expo-av';
+<<<<<<< Updated upstream
+=======
+import { Octicons } from '@expo/vector-icons';
+// import Constants from './../Constants';
+>>>>>>> Stashed changes
 import Constants from '../../screens/Constants';
 const WIDTH = Constants.WIDTH;
 const HEIGHT = Constants.HEIGHT;
 
 
+<<<<<<< Updated upstream
 
 const Game = ({ navigation }) => {
 
@@ -24,12 +35,39 @@ const Game = ({ navigation }) => {
   // soundState = "sound";
   // soundObject = new Audio.Sound();
 
+=======
+const Game = ({ navigation }) => {
+
+  const { userState, setUserState, userFirstName, userLastName
+  } = useContext(GlobalContext);
+  const [engine, setEngine] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const fullname = userFirstName + " " + userLastName;
+  soundState = "sound";
+  soundObject = new Audio.Sound();
+
+  // const data = [
+
+  //   posts.map(d => [{ username: fullname , points: d.points, }])
+
+  // ];
+// console.log('data',data);
+  // useEffect(() => {
+
+  // },[]);
+
+>>>>>>> Stashed changes
   useEffect(() => {
     setUserState({
       running: true,
       points: 0,
+<<<<<<< Updated upstream
       username: userFirstName + " " + userLastName,
       userEmail: userEmail,
+=======
+      username: '',
+>>>>>>> Stashed changes
       visibleModal: true,
       item: "can" //random
     })
@@ -63,7 +101,11 @@ const Game = ({ navigation }) => {
 
 
 
+<<<<<<< Updated upstream
   const storeData = async (points, username, userEmail) => {
+=======
+  const storeData = async (points, username) => {
+>>>>>>> Stashed changes
     const v = [{
       points: points,
       username: username,
@@ -98,9 +140,14 @@ const Game = ({ navigation }) => {
         //console.log("data not found");
         AsyncStorage.setItem('points', JSON.stringify(v));
       }
+
+      // AsyncStorage.clear()
     })
+
+
   }
 
+<<<<<<< Updated upstream
   // const toggleSound = () => {
   //   if (soundState === "sound") {
   //     soundState = "nosound";
@@ -110,6 +157,18 @@ const Game = ({ navigation }) => {
   //     soundObject.playAsync();
   //   }
   // };
+=======
+
+  const toggleSound = () => {
+    if (soundState === "sound") {
+      soundState = "nosound";
+      soundObject.pauseAsync();
+    } else if (soundState === "nosound") {
+      soundState = "sound";
+      soundObject.playAsync();
+    }
+  };
+>>>>>>> Stashed changes
 
   const onEvent = (e) => {
     if (e.type == 'correct') {
@@ -134,13 +193,20 @@ const Game = ({ navigation }) => {
 
   const reset = () => {
     setUserState({
+<<<<<<< Updated upstream
       ...userState,
       running: true,
       points: 0,
       userEmail: userEmail,
+=======
+      running: true,
+      points: 0,
+>>>>>>> Stashed changes
       updateTimer: userState.updateTimer + 1
     });
+    console.log('userState', userState);
   }
+<<<<<<< Updated upstream
   console.log('userState', userState);
   return (
 
@@ -247,6 +313,156 @@ const Game = ({ navigation }) => {
       </View>
     </NativeBaseProvider>
 
+=======
+  const renderModalContent = () => {
+    // {userFirstName + " " + userLastName}
+    return <View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText} >הוסף את שם המשתמש שלך</Text>
+            <Input
+              value={userState.username}
+              onChangeText={(text) => {
+                setUserState({ username: text })
+              }}
+            />
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => {
+                storeData(JSON.stringify(userState.points), userState.username);
+                { reset() }
+              }}>
+              <Text style={styles.textStyle}>שחק שוב</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => {
+                storeData(JSON.stringify(userState.points), userState.username);
+                console.log('userState.points:', userState.points);
+                navigation.navigate("GameOver")
+                setUserState({
+                  userState,
+                  visibleModal: false
+                })
+                console.log('userState', userState);
+              }
+              }>
+              <Text style={styles.textStyle}>לוח משחק</Text>
+            </Pressable>
+
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)} >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      <Pressable
+        style={[styles.button, styles.buttonOpen]} onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}>Show Modal</Text>
+      </Pressable>
+    </View>
+
+    // <View style={styles.modalView}>
+    //   <Form>
+    //     <Item stackedLabel>
+    //       <Label>Insert a username to save your score!</Label>
+    //       <Input
+    //         value={userState.username}
+    //         onChangeText={(text) => {
+    //           setUserState({ username: text })
+    //         }}
+    //       />
+    //     </Item>
+    //     <Button rounded success
+    //       style={styles.modalButton}
+    //       onPress={() => {
+    //         storeData(JSON.stringify(userState.points), userState.username);
+    //         reset()
+    //       }}>
+    //       <Text>Play again</Text>
+    //     </Button>
+    //     <Button rounded warningcreateth
+    //       style={styles.modalButton}
+    //       title="View Leaderboard"
+    //       onPress={() => {
+    //         storeData(JSON.stringify(userState.points), userState.username);
+    //         navigation.navigate("GameOver")
+    //         setUserState({
+    //           ...userState,
+    //           visibleModal: false
+    //         })
+    //       }
+    //       }>
+    //       <Text>View Leaderboard</Text>
+    //     </Button>
+    //   </Form>
+
+    // </View>
+
+  }
+  return (
+
+    <NativeBaseProvider>
+      <View style={styles.container}>
+        <Text style={styles.score}>Score</Text>
+        <Text style={styles.points}>{userState.points}</Text>
+        <Timer key={userState.updateTimer} onChange={() => onChangeTimer()} />
+        <Pressable onPress={toggleSound}>
+          <Octicons style={styles.muteIcon} name={soundState === "sound" ? "unmute" : "mute"} size={24} color="black" />
+        </Pressable>
+        <GameEngine
+          // ref={(ref) => { this.engine = ref; }}
+          ref={(ref) => { setEngine(ref) }}
+          style={styles.container}
+          running={userState.running}
+          onEvent={onEvent}
+          systems={[MoveItem, Collision]}
+          entities={{
+            1: { position: [WIDTH / 2, HEIGHT - 200], item: userState.item, renderer: <OurItem /> },
+            //bins
+            2: { position: [WIDTH - 125, HEIGHT / 3], category: "paper", renderer: <Bin /> },
+            3: { position: [WIDTH - 55, HEIGHT / 3], category: "glass", renderer: <Bin /> },
+            4: { position: [WIDTH / 3.7, HEIGHT / 3], category: "organic", renderer: <Bin /> },
+            5: { position: [WIDTH / 16, HEIGHT / 3], category: "plastic", renderer: <Bin /> },
+            6: { position: [WIDTH / 2.1, HEIGHT / 3], category: "trash", renderer: <Bin /> },
+            // Clouds
+            7: { position: [WIDTH / 16, HEIGHT - 670], category: "cloud", renderer: <Bin /> },
+            8: { position: [WIDTH / 16 - 100, HEIGHT - 650], category: "cloud", renderer: <Bin /> },
+            9: { position: [WIDTH / 16 + 100, HEIGHT - 700], category: "cloud", renderer: <Bin /> },
+            //10: {position: [WIDTH/16+100, HEIGHT-700], category: "mountain", renderer: <Bin/>},
+            // Floor
+            16: { position: [0, HEIGHT / 3 - 90], category: "floor", renderer: <Floor /> }
+
+          }}>
+          <StatusBar hidden={true} />
+        </GameEngine>
+        {!userState.running &&
+          <Modal
+            transparent={true}
+            visible={userState.visibleModal}
+            animationType="slide"
+          >
+            {renderModalContent()}
+
+          </Modal>
+        }
+        <StatusBar style="auto" />
+      </View>
+    </NativeBaseProvider>
+
+>>>>>>> Stashed changes
   );
 }
 
@@ -291,7 +507,11 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginHorizontal: 20
   },
+<<<<<<< Updated upstream
   ////
+=======
+  //
+>>>>>>> Stashed changes
   centeredView: {
     flex: 1,
     justifyContent: "center",

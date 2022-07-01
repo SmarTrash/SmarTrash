@@ -1,7 +1,9 @@
-import React, { PureComponent } from "react";
+import React, { useContext,PureComponent } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 import Constants from './Constants';
+// import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
+// const { donePlay, setDonePlay} = useContext(GlobalContext);
 const RADIUS = Constants.RADIUS;
 class OurItem extends PureComponent {
   constructor(props) {
@@ -96,7 +98,11 @@ class Timer extends PureComponent {
     super(props);
     this.state = {
       minutes: 0,
+<<<<<<< Updated upstream
       seconds: 5
+=======
+      seconds: 10
+>>>>>>> Stashed changes
     }
   }
 
@@ -133,7 +139,7 @@ class Timer extends PureComponent {
       <View>
         {minutes === 0 && seconds === 0
           ? <Text style={styles.busted}>Busted!</Text>
-          : <Text style={styles.time}>Time: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>
+          : <Text style={styles.time}>Time: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>  
         }
       </View>
     )

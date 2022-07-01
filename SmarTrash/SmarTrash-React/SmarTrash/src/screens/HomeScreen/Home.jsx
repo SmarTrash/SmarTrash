@@ -28,6 +28,7 @@ const Home = ({ navigation }) => {
 
   const [data, setData] = useState('');
 
+
   useEffect(() => {
     onScreenLoad();
     registerForPushNotificationsAsync();
@@ -92,6 +93,7 @@ const Home = ({ navigation }) => {
     }).then(response => { return response.json() })
       .then(data => {
         setData(data)
+        console.log('data',data);
 
       });
   }
