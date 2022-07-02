@@ -2,11 +2,9 @@
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import React, { useContext } from 'react'
 import COLORS from '../../Consts/colors';
-import { Ionicons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import CoinIcon from '../../Components/Icon/CoinIcon';
-
+import LottieView from 'lottie-react-native';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
@@ -21,28 +19,20 @@ const ReceptBin = ({ navigation }) => {
             source={{ uri: userImg }} />
         </View>
       </View>
-
-      <View style={style.Card}>
-        <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
-          {'הפח נקלט בהצלחה !'}
+        <Text style={{ fontSize: 26, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
+          {' הפח נקלט בהצלחה !\n'}
+          {'עכשיו ניתן לזרוק את הפסולת לפח ולצבור נקודות!'}
         </Text>
-        <Ionicons name="md-checkmark-circle" size={60} color={COLORS.green} style={style.checkIcon} />
-      </View>
+      <View  style={{height:'30%' ,margin:50}}>
+        <LottieView style={{width:20, aspectRatio:300/300, flexGrow:1,alignSelf:'center'}}
+        resizeMode="cover"
+        source={require('../../../assets/SuccessBin.json')}
+        autoPlay
+       />
+     </View>
 
-      <View>
-        <View style={{ marginTop: 120 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, margin: 20, textAlign: 'center', marginTop: 60 }}>
-            {'עכשיו ניתן לזרוק את הפסולת לפח ולצבור נקודות!'}
-          </Text>
-        </View>
-        <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
-          <CoinIcon />
-          <CoinIcon />
-          <CoinIcon />
-        </View>
-      </View>
-      
-      <View style={{ marginTop: 70 }}>
+    
+      <View >
         <CustonButton
           text="לחץ כאן לאחר הזריקה"
           onPress={() => navigation.navigate('ThrowPoints')}
@@ -65,7 +55,6 @@ const style = StyleSheet.create({
   profileImage: {
     width: 80,
     height: 80,
-    top: 60,
     alignSelf: 'center',
     borderRadius: 100,
     overflow: 'hidden',

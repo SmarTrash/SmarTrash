@@ -184,13 +184,14 @@ namespace SmarTrash.Controllers
                 userToUpdate.Password = u.Password;
                 userToUpdate.StreetNameAndNumber = u.StreetNameAndNumber;
                 userToUpdate.CityId = u.CityId;
-                userToUpdate.UserImg = u.UserImg;
                 db.SaveChanges();
-                return Ok("פרטי המשתמש עודכנו בהצלחה");
+                return Ok(new { status = 201, isSuccess = true, message = "פרטי המשתמש עודכנו בהצלחה" });
+               
             }
             catch (Exception ex)
             {
-                return Content(HttpStatusCode.BadRequest, ex);
+                return Ok(new { status = 400, isSuccess = false, message = ex});
+
             }
         }
 

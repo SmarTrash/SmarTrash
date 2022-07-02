@@ -1,4 +1,11 @@
 const COLORS = {
+ 
+  black: '#000',
+  blue: '#5D5FEE',
+ 
+
+  red: 'red',
+ 
   white: '#fff',
   dark: '#52575D',
   //primary: '#52c0b4',
@@ -9,6 +16,7 @@ const COLORS = {
   offwhite:'#E4EFE7',
   red:'rgb(200,0,0)', 
   
+  darkBlue: '#7978B5',
   orange: '#f5a623',
   purple:'#9900ff',
   blue:'#0000ff',

@@ -19,7 +19,7 @@ const GiftPurchase = ({ navigation, route }) => {
   }, []);
 
 
-  const { setuserOrderStreetNameAndNumber, setuserOrderPhone, userOrderStreetNameAndNumber, userOrderPhone, userEmail, userImg, userCityName, selectedCity, userPoints, setUserPoints } = useContext(GlobalContext);
+  const { userOrderStreetNameAndNumber, userOrderPhone, userEmail, userImg, userCityName, selectedCity, userPoints, setUserPoints } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
   const [notes, setNotes] = useState([]);
@@ -132,8 +132,6 @@ const GiftPurchase = ({ navigation, route }) => {
             onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
           />
         </View>
-
-
 
         <View style={styles.txtContainer}>
 

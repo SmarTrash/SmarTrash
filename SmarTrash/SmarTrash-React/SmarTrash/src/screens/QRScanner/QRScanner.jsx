@@ -25,7 +25,7 @@ const QRScanner = ({ navigation }) => {
       .then(data => {
         console.log('QRBIN', data)
         if (data == true) {
-          // setBinQRId(data)
+        
           console.log('binQRId', binQRId);
           navigation.navigate('ReceptBin')
         }

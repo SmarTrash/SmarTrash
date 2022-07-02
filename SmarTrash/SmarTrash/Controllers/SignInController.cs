@@ -38,12 +38,13 @@ namespace SmarTrash.Controllers
                 SmtpServer.Credentials = new System.Net.NetworkCredential("rupb912022@gmail.com", "ylpt mkon ppny icky");
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);
-                return Ok(new { status = 201, isSuccess = true, message = "'הסיסמה נשלחה אליך למייל" });
+                return Ok(new { status = 201, isSuccess = true, message = "הסיסמה נשלחה אליך למייל" });
             }
             catch (Exception ex)
             {
                 return Content(HttpStatusCode.BadRequest, ex);
             }
+
 
         }
 

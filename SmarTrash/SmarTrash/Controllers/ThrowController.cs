@@ -42,7 +42,7 @@ namespace SmarTrash.Controllers
                     throwenWeight = rndWeight,
                     gainedPoints = points,
                     totalPoints = y.TotalPoints,
-                    competitionPlace = d,
+                     competitionPlace = d,
                     BinQRId = g
 
                 }).ToList();
