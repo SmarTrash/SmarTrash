@@ -4,6 +4,8 @@ import CustomInput from '../../Components/CustomInput/CustomInput'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CityList from '../../Components/City/CityList'
 import CustonButton from '../../Components/CustomButton/CustonButton'
+import COLORS from '../../Consts/colors'
+
 const AddNewAdress = ({ navigation, route }) => {
   const [inputs, setInputs] = React.useState({
     phone: '',

@@ -7,7 +7,7 @@ const Start = ({navigation}) => {
     return(
     <View style = {styles.MainContainer}>
         <Text style={styles.title}>יאללה בואו נשחק!</Text>
-        <Text style={styles.instructions}>תנסה למיין כמה שיותר מוצרים בזמן המוקצב, תזהר אם תטעה תפסיד נקודות </Text>
+        <Text style={styles.instructions}>נסו למיין כמה שיותר מוצרים בזמן המוקצב, היזהרו אם תטעו תפסידו נקודות </Text>
         <Image source={require('../../../assets/bins-start.png')} key='bins' style={[styles.bins]}/>
         {/* <TouchableOpacity
           style={styles.customBtnBG}

@@ -3,6 +3,7 @@ import React,{useEffect,useState} from 'react'
 import Navigation from './src/Components/Navigation';
 import {Provider} from './GlobalContext/GlobalContext';
 import LoginLoader from './src/Components/Loader/LoginLoader';
+
 {/* setLoading(false) */}
 export default function App() {
   const [loading, setLoading] = useState(true);
