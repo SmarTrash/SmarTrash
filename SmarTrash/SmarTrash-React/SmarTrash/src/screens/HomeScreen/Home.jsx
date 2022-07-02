@@ -28,6 +28,7 @@ const Home = ({ navigation }) => {
 
   const [data, setData] = useState('');
 
+
   useEffect(() => {
     onScreenLoad();
     registerForPushNotificationsAsync();
@@ -92,10 +93,10 @@ const Home = ({ navigation }) => {
     }).then(response => { return response.json() })
       .then(data => {
         setData(data)
+        console.log('data',data);
 
       });
   }
-
   return (
     <SafeAreaView style={style.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -130,12 +131,14 @@ const Home = ({ navigation }) => {
         </View>
         <View style={style.btnContainer}>
           <View>
+          <TouchableOpacity onPress={() => { navigation.navigate('BinCameraScreen') }}>
             <View style={[style.sortBtn, { backgroundColor: '#557B83' }]}>
-              <FontAwesome5 name="trash" size={50} color="black" />
+              <FontAwesome5  name="trash" size={50} color="black" />
             </View>
             <View>
               <Text style={[style.text, style.subText, { marginLeft: 18 }]} >לאן לזרוק</Text>
             </View>
+            </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity onPress={() => { navigation.navigate('Map') }}>

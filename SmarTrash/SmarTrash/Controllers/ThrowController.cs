@@ -99,7 +99,6 @@ namespace SmarTrash.Controllers
         // מקבל משקל שנזרק ומחשב לו את הנקודות שנצברו
         public short CalculatePoints(float weight)
         {
-           
             double p = Math.Round(weight * 100);
             short points = ((short)p);
             return points;

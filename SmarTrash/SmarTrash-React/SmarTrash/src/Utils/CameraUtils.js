@@ -50,12 +50,10 @@ export const ChangeImage = (newUserImage, userEmail) => {
     //     })
     //     .catch(err => { alert('err upload= ' + err); });
     // }
-
     export const sendToAzure = async imageURL => {
         console.log("in func")
         console.log("image in sendToAzure")
         console.log(imageURL)
-
         if (imageURL.indexOf("http") != 0)
         {
             console.log("bad url")
@@ -75,10 +73,18 @@ export const ChangeImage = (newUserImage, userEmail) => {
             .then(res => {
                 console.log("res iin func")
                 console.log(res)
-                const type = res?.predictions[0]?.tagName;
-                console.log("type")
-                console.log(type)
-                return type;
+                let max = 0
+                let binName = "";
+                for (let i = 0; i < res?.predictions.length; i++) {
+                  if (res?.predictions[i].probability > max) {
+                    max = res?.predictions[i].probability;
+                    binName =  res?.predictions[i].tagName;
+                  }
+                }
+
+                console.log("binName")
+                console.log(binName)
+                return binName;
             }).catch(err => {
                 console.log("err in func")
                 console.log(err)

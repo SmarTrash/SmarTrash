@@ -7,16 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-const useCamera = () => {
-const navigation = useNavigation();
-    const { setUserImg, userImg } = useContext(GlobalContext);
+
+const BinCamera = () => {
+    const navigation = useNavigation();
+    const { userImg } = useContext(GlobalContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [camera, setCamera] = useState(null);
     const [picUri, setPicUri] = useState(userImg);
-
-
-    setUserImg(picUri);
 
     useEffect(() => {
         (async () => {
@@ -46,13 +44,16 @@ const navigation = useNavigation();
                         }}>
                         <Text style={styles.text}>  החלף צד </Text>
                     </TouchableOpacity>
+
                     <TouchableOpacity
                         style={styles.button}
                         onPress={async () => {
                             if (camera) {
-                                const data = await camera.takePictureAsync(null) ;
+                                const data = await camera.takePictureAsync(null);
+                                console.log(data.uri)
                                 setPicUri(data.uri);
                             }
+                           // navigation.navigate('xxxx')
                         }}>
                         <View >
                             <Text style={styles.text}> צלם </Text>
@@ -60,13 +61,6 @@ const navigation = useNavigation();
                     </TouchableOpacity>
                 </View>
             </Camera>
-            <View style={{ flex: 0.6, justifyContent: 'center' }}>
-                <Image
-                    source={{ uri: picUri }}
-                    style={styles.picture} />
-
-            </View>
-       
         </View>
     );
 }
@@ -75,16 +69,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    header: {
-        marginTop: 60,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginHorizontal: 20,
-        justifyContent: 'space-between',
-      },
     camera: {
         //הפלקס בוחר את הגודל של המצלמה
-        flex: 0.7,
+        flex: 1,
         width: 415,
     },
     buttonContainer: {
@@ -115,4 +102,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default useCamera
+export default BinCamera

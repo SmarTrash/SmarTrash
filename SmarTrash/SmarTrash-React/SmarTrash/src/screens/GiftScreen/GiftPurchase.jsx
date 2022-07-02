@@ -1,5 +1,4 @@
 import { FAB, Text, List, RadioButton } from 'react-native-paper'
-import Icon from 'react-native-vector-icons/AntDesign';
 import { View, FlatList, StyleSheet, Image } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
@@ -8,6 +7,7 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import CoinIcon from '../../Components/Icon/CoinIcon';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const apiUrlGiftOrder = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GiftOrder/';
@@ -79,7 +79,7 @@ const GiftPurchase = ({ navigation, route }) => {
           setUserPoints(data)
 
         });
-    
+
       navigation.navigate('ApprovedPurchase')
     }
     else {
@@ -91,69 +91,57 @@ const GiftPurchase = ({ navigation, route }) => {
   console.log("notes:", notes)
   return (
     <>
-      <View style={{ backgroundColor: COLORS.white }}>
-        <View style={{ alignSelf: 'center', marginBottom: 60 }}>
-          <View style={styles.profileImage}>
-            <Image
-              style={styles.image}
-              source={{ uri: userImg }} />
+      <View style={styles.container}>
+
+        <View style={{ backgroundColor: COLORS.white }}>
+          <View style={{ alignSelf: 'center', marginBottom: 60 }}>
+            <View style={styles.profileImage}>
+              <Image
+                style={styles.image}
+                source={{ uri: userImg }} />
+            </View>
           </View>
         </View>
-      </View>
 
-      <View style={styles.container}>
-        <FlatList
-          data={notes}
-          renderItem={({ item }) => (
-            <List.Item style={styles.itemStyle}
-              title={item.id == "0" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
-              description={item.userOrderStreetNameAndNumber + "\n" + item.userCityName
-                + "\n" + item.userOrderPhone}
+        <View>
+          <FlatList
 
-              detailsNumberOfLines={0}
-              titleStyle={styles.listTitle}
-              detailsStyle={styles.listTitle}
-              descriptionNumberOfLines={3}
-              
-            />
-          
-          )} 
-           keyExtractor={item => item.id}
-        /> 
-        
-        <FAB style={styles.fab}
-          small
-          icon='plus'
-          label='הוסף כתובת'
-          onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
-        />
-        <View style={styles.txtContainer}>
+            data={notes}
+            renderItem={({ item }) => (
+              <List.Item style={styles.itemStyle}
+                title={item.id == "0" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
+                description={item.userOrderStreetNameAndNumber + "\n" + item.userCityName
+                  + "\n" + item.userOrderPhone}
 
-          <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, }}>
-            {'סה"כ נקודות'}
-          </Text>
+                detailsNumberOfLines={0}
+                titleStyle={styles.listTitle}
+                detailsStyle={styles.listTitle}
+                descriptionNumberOfLines={3}
+              />
+            )}
+            keyExtractor={item => item.id}
 
-          {/* {'סה"כ נקודות'} */}
-
-          <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, }]}>
-            {userShippingDetails.points} <CoinIcon />
-          </Text>
-
+          />
+          <Ionicons style={styles.icon} name="md-checkmark-circle" size={30} color={COLORS.green} />
         </View>
 
-        {/* מחיר הטבה - טקסט*/}
-        <View >
-         
-            <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start' }}>
-              {'מחיר הטבה'}
-            </Text>
-          
-          
-          
-            <Text style={[styles.priceTag, { fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start', }]}>
-              {userShippingDetails.price} <CoinIcon />
-            </Text>
+        <View>
+          <FAB style={styles.fab}
+            icon= 'plus'
+            label='הוסף כתובת'
+            onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
+          />
+        </View>
 
+        <View style={styles.txtContainer}>
+
+          <Text style={styles.txtPrice}>
+            סה"כ נקודות: {userShippingDetails.points} <CoinIcon />
+          </Text>
+
+          <Text style={styles.txtPrice}>
+            מחיר ההטבה: {userShippingDetails.price} <CoinIcon />
+          </Text>
 
         </View>
 
@@ -171,27 +159,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
-    alignContent: 'center',
-    justifyContent: 'center',
-
   },
   fab: {
-    margin: 20,
     backgroundColor: COLORS.white,
     width: '90%',
-    marginTop: 10,
+    marginTop: 150,
+    alignSelf: 'center'
 
   },
-  titleContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: '200'
-  },
-
   listTitle: {
     fontSize: 20,
   },
@@ -203,7 +178,15 @@ const styles = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 5,
+    marginTop: 20,
   },
+  icon: {
+    position: 'absolute',
+    marginLeft: 350,
+    marginTop: 55,
+
+  },
+
   profileImage: {
     width: 80,
     height: 80,
@@ -217,30 +200,18 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
   },
-
-  btn: {
-    height: 55,
-    justifyContent: 'center',
-    alignItems: 'center',
-    bottom: 40,
-    backgroundColor: COLORS.primary,
-    marginHorizontal: 20,
-    borderRadius: 10,
-  },
-  header: {
-    width: '100%',
-    height: 40,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  modalBackGround: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   txtContainer: {
-
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: 30,
+    marginBottom:50,
   },
+  txtPrice: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: COLORS.primary,
+    margin: 5,
+  },
+
 
 })

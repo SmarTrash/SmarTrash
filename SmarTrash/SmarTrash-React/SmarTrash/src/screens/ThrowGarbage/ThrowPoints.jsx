@@ -2,7 +2,7 @@
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons} from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CoinIcon from '../../Components/Icon/CoinIcon';
@@ -13,9 +13,9 @@ const cardWidth = width / 1.06;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Throw/ThrowGarbage/';
 
 export default function ThrowPoints({ navigation }) {
-  const {userEmail,userImg, binQRId,userLastThrow,
-    setUserLastThrow, setUserCompetitionPlace, userCompetitionPlace,
-    setUserPoints, userPoints,} = useContext(GlobalContext);
+  const {userEmail,userImg, binQRId,
+    setUserLastThrow, setUserCompetitionPlace,
+    setUserPoints} = useContext(GlobalContext);
   const [throwInfo, setThrowInfo] = useState('');
 
   useEffect( () => {
@@ -29,7 +29,7 @@ export default function ThrowPoints({ navigation }) {
     }).then(response => { return response.json() })
       .then(data => {
         data.map(st => setThrowInfo(st))
-        console.log("dataaaaaa:", data);
+        console.log("ThrowPointsData:", data);
         setUserLastThrow(data[0].gainedPoints)
         setUserPoints(data[0].totalPoints)
         setUserCompetitionPlace(data[0].competitionPlace)
@@ -62,9 +62,8 @@ export default function ThrowPoints({ navigation }) {
       }
   },[]);
  
-  console.log('binQRId-throwPoint:', binQRId)
   return (
-    <View style={{ backgroundColor: COLORS.white, width,flex:1}}>
+    <View style={{ backgroundColor: COLORS.white, width, flex:1}}>
       <View style={{ alignSelf: 'center' }}>
         <View style={style.profileImage}>
           <Image

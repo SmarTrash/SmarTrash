@@ -154,7 +154,7 @@ namespace SmarTrash.Controllers
 
         [HttpGet]
         [Route("api/Gift/GetUserOrders")]
-        //מקבל מייל ומחזיר את פרטי המשלוח שלו, הנקודות שלו ומחיר ההטבה
+
         public IHttpActionResult GetUserOrders([FromBody] tblUser u)
         {
             try

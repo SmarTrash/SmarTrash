@@ -7,22 +7,48 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Utils
-import { ChangeImage, sendToAzure } from '../../Utils/CameraUtils';
+import { sendToAzure } from '../../Utils/CameraUtils';
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
 const cardWidth = width;
 const cardHeight = height;
 
-let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/updateUserImage";
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
-const CameraScreen = () => {
+const BinCameraScreen = () => {
 
   const navigation = useNavigation();
-  const { userImg, setUserImg, userEmail, userFirstName, userLastName } = useContext(GlobalContext);
+  const { userImg } = useContext(GlobalContext);
+
+  // const updateData = async (u) => {
+  //   AsyncStorage.getItem('@storage_Key')
+  //     .then(data => {
+
+  //       // the string value read from AsyncStorage has been assigned to data
+  //       console.log("eeeeeeeeeeeeeeeeeeeeee",data);
+
+  //       // transform it back to an object
+  //       data = JSON.parse(data);
+  //       console.log(data);
+
+  //       // Decrement
+  //       data.Img=userImg;
+  //       console.log("hhhhhhhhhhhh" ,data );
+
+  //       //save the value to AsyncStorage again
+  //       AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
+
+  //     }).done();
 
 
+  // }
+
+  // useEffect(() => {
+
+  // },[userImg]);
+
+  // console.log("userImguserImg", userImg);
   const uploadImage = () => {
     imageUpload(userImg, 'userPicture.jpg')
   }
@@ -38,7 +64,6 @@ const CameraScreen = () => {
     });
 
     console.log('dataI', dataI);
-    console.log('picName', dataI.picName);
 
     const config = {
       method: 'POST',
@@ -56,18 +81,24 @@ const CameraScreen = () => {
         console.log("responseData=", responseData)
         if (responseData != "err" || responseData != null || !responseData) {
           console.log("img uploaded successfully!");
-          setUserImg(responseData)
+          // setUserImg(responseData)
+
+          // if (responseData.indexOf("http") == 0)
+          // {
           console.log("sending")
-          // sendToAzure(responseData)
-          //   .then(type => {
-          //     console.log("type in component")
-          //     console.log(type)
-          //   })
-          //   .catch(err => {
-          //     console.log("err in component")
-          //     console.log(err)
-          //   })
-          ChangeImage(responseData);
+          sendToAzure(responseData)
+            .then(type => {
+              console.log("type in component")
+              console.log(type)
+              navigation.navigate("BinPicture", { binName: type })
+              alert(type);
+
+            })
+            .catch(err => {
+              console.log("err in component")
+              console.log(err)
+            })
+
           // }
 
         }
@@ -76,64 +107,6 @@ const CameraScreen = () => {
 
       })
       .catch(err => { alert('err upload= ' + err); });
-  }
-
-
-  const ChangeImage = (u) => {
-
-    console.log("userImghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", u);
-    fetch(urlUpdateImage, {
-      method: 'POST',
-      body: JSON.stringify({
-        UserEmail: userEmail,
-        UserImg: u
-      }),
-      headers: new Headers({
-        'Content-type': 'application/json; charset=UTF-8',
-        'Accept': 'application/json; charset-UTF-8'
-      })
-    })
-
-    Alert.alert(
-      userFirstName + " " + userLastName,
-      "התמונה שונתה בהצלחה",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        {
-          text: "OK", onPress: () => {
-            navigation.navigate("EditProfile")
-          }
-          , style: "ok"
-        }
-      ]
-    );
-    updateData(u);
-  }
-  const updateData = async (u) => {
-    AsyncStorage.getItem('@storage_Key')
-      .then(data => {
-
-        // the string value read from AsyncStorage has been assigned to data
-        console.log("eeeeeeeeeeeeeeeeeeeeee", data);
-
-        // transform it back to an object
-        data = JSON.parse(data);
-        console.log(data);
-
-        // Decrement
-        data.Img = userImg;
-        console.log("hhhhhhhhhhhh", data);
-
-        //save the value to AsyncStorage again
-        AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
-
-      }).done();
-
-
   }
 
 
@@ -155,7 +128,7 @@ const CameraScreen = () => {
   )
 }
 
-export default CameraScreen
+export default BinCameraScreen
 
 const styles = StyleSheet.create({
   header: {

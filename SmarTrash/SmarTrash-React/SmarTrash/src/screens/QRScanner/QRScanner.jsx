@@ -29,6 +29,9 @@ const QRScanner = ({ navigation }) => {
           console.log('binQRId', binQRId);
           navigation.navigate('ReceptBin')
         }
+        else{
+          setBinQRId('Not yet scanned')
+        }
       });
   }, [binQRId]);
 
@@ -47,6 +50,7 @@ const QRScanner = ({ navigation }) => {
 
   // What happens when we scan the bar code
   const handleBarCodeScanned = ({ type, data }) => {
+    console.log('lalala',data);
     setScanned(true);
     setBinQRId(data)
     console.log('Type: ' + type + '\nData: ' + data)
