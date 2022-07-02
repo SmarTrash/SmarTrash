@@ -1,48 +1,81 @@
 import React, { useContext, useEffect } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import { FAB } from 'react-native-paper'
+import { StyleSheet, View, Text,Keyboard } from 'react-native'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CityList from '../../Components/City/CityList'
-
+import CustonButton from '../../Components/CustomButton/CustonButton'
 const AddNewAdress = ({ navigation, route }) => {
-
-  useEffect(() => {
-    setuserOrderPhone('')
-    setuserOrderStreetNameAndNumber('')
-  }, []);
-  const { userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,userOrderPhone, setuserOrderPhone, userCityName } = useContext(GlobalContext);
+  const [inputs, setInputs] = React.useState({
+    phone: '',
+    streetNameAndNumber: ''
+  });
+  
+  const { userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber, userCityName } = useContext(GlobalContext);
 
   const onSaveAdress = () => {
+    console.log('userOrderStreetNameAndNumber',userOrderStreetNameAndNumber);
     route.params.addAdress({ userCityName, userOrderStreetNameAndNumber, userOrderPhone });
     navigation.goBack();
   }
- 
+  const validate = () => {
+    Keyboard.dismiss();
+    let isValid = true;
+
+    if (!inputs.phone) {
+      handleError('בבקשה הכנס מספר טלפון', 'phone');
+      isValid = false;
+    } else if (inputs.phone.length != 10) {
+      handleError('טלפון חייב להכיל 10 ספרות', 'phone');
+      isValid = false;
+    }
+
+    if (!inputs.streetNameAndNumber) {
+      handleError('בבקשה הכנס רחוב ומספר בית', 'streetNameAndNumber');
+      isValid = false;
+    }
+    if (isValid) {
+      console.log('inputs.phone',inputs.phone);
+      setuserOrderPhone(inputs.phone)
+      setuserOrderStreetNameAndNumber(inputs.streetNameAndNumber)
+     
+      onSaveAdress();
+    }
+  };
+  const [errors, setErrors] = React.useState({});
+  const handleOnchange = (text, input) => {
+    setInputs(prevState => ({ ...prevState, [input]: text }));
+  };
+  const handleError = (error, input) => {
+    setErrors(prevState => ({ ...prevState, [input]: error }));
+  };
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.title}>הוסף כתובת</Text>
-        <CityList />
+
         <CustomInput
+          onChangeText={text => handleOnchange(text, 'streetNameAndNumber')}
+          onFocus={() => handleError(null, 'streetNameAndNumber')}
+          iconName="home"
+          label="רחוב ומספר בית"
           placeholder="הכנס רחוב ומספר בית"
-          mode='outlined'
-          setValue={setuserOrderStreetNameAndNumber}
-          style={styles.title}
+          error={errors.streetNameAndNumber}
         />
         <CustomInput
-          maxLength={10}
-          keyboardType='numeric'
-          placeholder="הכנס טלפון"
-          mode='outlined'
-          setValue={setuserOrderPhone}
-          style={styles.title}
+          keyboardType="numeric"
+          onChangeText={text => handleOnchange(text, 'phone')}
+          onFocus={() => handleError(null, 'phone')}
+          iconName="phone-android"
+          label="טלפון"
+          placeholder="הכנס מספר טלפון"
+          error={errors.phone}
         />
-        <FAB
-          small
-          icon="plus"
-          disabled={userOrderStreetNameAndNumber && userOrderPhone!= ''? false :true }
-          onPress={() => onSaveAdress()}
-        />
+        <View style={{ alignSelf: 'center',margin:30 }}>
+          <CityList />
+        </View>
+        <View>
+        <CustonButton text="הוסף" onPress={validate} />
+        </View>
       </View>
     </>
   )

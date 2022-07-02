@@ -15,7 +15,7 @@ const Provider = ({ children }) => {
     const [userLastThrow, setUserLastThrow] = useState('');
     const [userPoints, setUserPoints] = useState('');
     const [password, setPassword] = useState('');
-    const [userGender, setUserGender] = useState('');
+    const [userGender, setUserGender] = useState('F');
     const [userPhone, setUserPhone] = useState('');
     const [userBirthDate, setUserBirthDate] = useState('');
     const [userCityId, setUserCityId] = useState('');
@@ -24,8 +24,8 @@ const Provider = ({ children }) => {
     const [userToken, setUserToken] = useState('');
     const [userCityName, setUserCityName] = useState('');
     const [userDetails, setUserDetails] = useState(''); 
-    const [userOrderPhone, setuserOrderPhone] = useState();
-    const [userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber] = useState();
+    const [userOrderPhone, setuserOrderPhone] = useState('');
+    const [userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber] = useState('');
     const [binQRId, setBinQRId] = useState('Not yet scanned')
     const [userState, setUserState] = useState({
         running: true,

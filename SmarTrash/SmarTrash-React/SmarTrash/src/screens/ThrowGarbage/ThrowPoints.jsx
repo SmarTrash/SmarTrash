@@ -21,8 +21,7 @@ export default function ThrowPoints({ navigation }) {
   useEffect( () => {
     fetch(apiUrl + binQRId , {
       method: 'POST',
-      body: JSON.stringify({UserEmail:userEmail
-                            }),
+      body: JSON.stringify({UserEmail:userEmail}),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -90,7 +89,8 @@ export default function ThrowPoints({ navigation }) {
           {'במיחזור זה:'}
         </Text>
         <View style={style.txtContainer}>
-          <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
+      
+        <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
           <Text style={style.text}>
             'מיחזרת {throwInfo.throwenWeight} קילו פסולת'
           </Text>

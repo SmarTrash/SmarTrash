@@ -21,8 +21,7 @@ namespace SmarTrash
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            
-            timer.Interval =1000 * 60 * 60 * 24 ;
+            timer.Interval = 1000 * 60 * 60 * 24;
             path = Server.MapPath("/"); 
             timer.Elapsed += tm_Tick;
            
@@ -47,7 +46,7 @@ namespace SmarTrash
             {
                 SmarTrash.Models.TimerServices.PostAllWinnersInCities(path);
             }
-            else if (DateTime.Now.Day == 18)
+            else if (DateTime.Now.Day == 15)
             {
                 SmarTrash.Models.TimerServices.Post(path);
             }

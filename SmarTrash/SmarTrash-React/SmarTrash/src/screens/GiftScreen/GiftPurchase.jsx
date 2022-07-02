@@ -19,7 +19,7 @@ const GiftPurchase = ({ navigation, route }) => {
   }, []);
 
 
-  const { setuserOrderStreetNameAndNumber, setuserOrderPhone,userOrderStreetNameAndNumber, userOrderPhone, userEmail, userImg, userCityName, selectedCity, userPoints, setUserPoints } = useContext(GlobalContext);
+  const { userOrderStreetNameAndNumber, userOrderPhone, userEmail, userImg, userCityName, selectedCity, userPoints, setUserPoints } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
   const [notes, setNotes] = useState([]);
@@ -118,7 +118,7 @@ const GiftPurchase = ({ navigation, route }) => {
             />
           
           )} 
-                    keyExtractor={item => item.id}
+           keyExtractor={item => item.id}
         /> 
         
         <FAB style={styles.fab}
@@ -142,7 +142,7 @@ const GiftPurchase = ({ navigation, route }) => {
         </View>
 
         {/* מחיר הטבה - טקסט*/}
-        {/* <View >
+        <View >
          
             <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start' }}>
               {'מחיר הטבה'}
@@ -155,7 +155,7 @@ const GiftPurchase = ({ navigation, route }) => {
             </Text>
 
 
-        </View> */}
+        </View>
 
         <CustonButton
           text='רכישה'
