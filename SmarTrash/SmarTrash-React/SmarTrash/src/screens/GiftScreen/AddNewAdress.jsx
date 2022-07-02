@@ -4,6 +4,8 @@ import CustomInput from '../../Components/CustomInput/CustomInput'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CityList from '../../Components/City/CityList'
 import CustonButton from '../../Components/CustomButton/CustonButton'
+import COLORS from '../../Consts/colors'
+
 const AddNewAdress = ({ navigation, route }) => {
 
  const { userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber, userCityName } = useContext(GlobalContext); 
@@ -62,6 +64,23 @@ const AddNewAdress = ({ navigation, route }) => {
           iconName="home"
           label="רחוב ומספר בית"
           placeholder="הכנס רחוב ומספר בית"
+          mode='outlined'
+          setValue={setuserOrderStreetNameAndNumber}
+          style={styles.input}
+        />
+        <CustomInput
+          maxLength={10}
+          keyboardType='numeric'
+          placeholder="הכנס טלפון"
+          mode='outlined'
+          setValue={setuserOrderPhone}
+          style={styles.input}
+        />
+        <FAB
+          small
+          icon="plus"
+          disabled={userOrderStreetNameAndNumber && userOrderPhone != '' ? false : true}
+          onPress={() => onSaveAdress()}
           error={errors.streetNameAndNumber}
         />
         <CustomInput
@@ -87,24 +106,24 @@ export default AddNewAdress;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingVertical: 90,
-    paddingHorizontal: 40
+    backgroundColor: COLORS.white,
+    alignItems: 'center',
+
   },
 
-  titleContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
-  },
   title: {
     fontSize: 24,
-    marginBottom: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    margin: 50,
+    color: COLORS.green,
+
   },
-  text: {
-    height: 300,
-    fontSize: 16
+  input: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: COLORS.green,
+    margin:20,
+
   },
   fab: {
     position: 'absolute',

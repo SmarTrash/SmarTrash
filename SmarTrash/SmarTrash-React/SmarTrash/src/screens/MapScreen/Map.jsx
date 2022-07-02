@@ -149,8 +149,18 @@ const MapScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-  
+    backgroundColor:COLORS.white,
+    alignItems:'center'
+  },
+  header: {
+    flexDirection: 'row',
+    backgroundColor:COLORS.white,
+    marginBottom:15
+    },
+  back: {
+    marginRight: 280,
+    marginTop:40,
+    marginLeft:10
   },
   // header: {
   //   // flexDirection: 'row',

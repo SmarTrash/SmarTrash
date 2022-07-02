@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Leaderboard from 'react-native-leaderboard';
 import Constants from '../Constants';
-
+import COLORS from '../../Consts/colors'
 const WIDTH = Constants.WIDTH;
 const HEIGHT = Constants.HEIGHT;
 
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     flex:1
   },
   header: {
-    backgroundColor: 'green',
+    backgroundColor: COLORS.green,
     height: HEIGHT * 0.3,
     display: 'flex',
     flexDirection: 'column',
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400',
     fontFamily: 'Thonburi-Bold',
-    color: "#fff",
+    color: COLORS.white,
     width: 200,
     marginTop: 0
   },
@@ -121,7 +121,10 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     width: 200,
     marginTop: 0,
-    borderRadius: 5
+    borderRadius: 5,
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   }
 });
    

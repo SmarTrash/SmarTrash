@@ -139,7 +139,7 @@ const Game = ({ navigation }) => {
 
     <NativeBaseProvider>
       <View style={styles.container}>
-        <Text style={styles.score}>Score</Text>
+        <Text style={styles.score}>נקודות</Text>
         <Text style={styles.points}>{userState.points}</Text>
         <Timer key={userState.updateTimer} onChange={() => onChangeTimer()} />
         {/* <Pressable onPress={toggleSound}>
@@ -153,7 +153,7 @@ const Game = ({ navigation }) => {
           onEvent={onEvent}
           systems={[MoveItem, Collision]}
           entities={{
-            1: { position: [WIDTH / 2, HEIGHT - 200], item: userState.item, renderer: <OurItem /> },
+            1: { position: [WIDTH / 2, HEIGHT - 600], item: userState.item, renderer: <OurItem /> },
             //bins
             2: { position: [WIDTH - 125, HEIGHT / 3], category: "paper", renderer: <Bin /> },
             3: { position: [WIDTH - 55, HEIGHT / 3], category: "glass", renderer: <Bin /> },
@@ -196,7 +196,7 @@ const Game = ({ navigation }) => {
                         storeData(JSON.stringify(userState.points), userState.username);
                         { reset() }
                       }}>
-                      <Text style={styles.textStyle}>שחק שוב</Text>
+                      <Text style={styles.textStyle}>מחשק חוזר</Text>
                     
                     </Pressable>
                       </View>
@@ -213,7 +213,7 @@ const Game = ({ navigation }) => {
                         console.log('userState', userState);
                       }
                       }>
-                      <Text style={styles.textStyle}>לוח משחק</Text>
+                      <Text style={styles.textStyle}>לוח תוצאות</Text>
                     </Pressable>
 
                   </View>
@@ -239,9 +239,12 @@ const styles = StyleSheet.create({
   score: {
     fontSize: 20,
     fontWeight: '400',
-    margin: 20,
+    marginRight: 25,
+    marginTop:20,
     textAlign: "right",
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    color:COLORS.green,
+    marginRight: 25,
 
   },
   points: {
@@ -249,7 +252,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     padding: 15,
     textAlign: "right",
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    color:COLORS.green
   },
   modalView: {
     backgroundColor: "white",
@@ -302,10 +306,10 @@ const styles = StyleSheet.create({
     elevation: 2
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: COLORS.green,
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    backgroundColor: COLORS.green,
   },
   textStyle: {
     color: "white",

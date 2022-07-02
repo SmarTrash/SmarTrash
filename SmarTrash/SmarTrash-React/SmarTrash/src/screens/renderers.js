@@ -134,7 +134,7 @@ class Timer extends PureComponent {
     return (
       <View>
         {minutes === 0 && seconds === 0
-          ? <Text style={styles.busted}>Busted!</Text>
+          ? <Text style={styles.busted}>נגמר הזמן!</Text>
           : <Text style={styles.time}>Time: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>  
         }
       </View>

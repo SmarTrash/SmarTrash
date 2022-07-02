@@ -7,7 +7,6 @@ import ForgotPasswordScreen from '../../screens/ForgotPasswordScreen/ForgotPassw
 import Home from '../../screens/HomeScreen/Home';
 import SelectedGift from '../../screens/GiftScreen/SelectedGift';
 import GiftsPage from '../../screens/GiftScreen/GiftsPage';
-import Notifications from '../../screens/Notifications/Notifications'
 import EditProfile from '../../screens//EditProfile/EditProfile'
 import ApprovedPurchase from '../../screens/GiftScreen/ApprovedPurchase';
 import GiftPurchase from '../../screens/GiftScreen/GiftPurchase';
@@ -28,6 +27,9 @@ import EditImage from '../../screens/EditImage/EditImage';
 import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import BinCameraScreen from '../../screens/FindBin/BinCameraScreen'
 import BinPicture from '../../screens/FindBin/BinPicture';
+//import OrderListScreen from '../../screens/OrderList/OrderListScreen';
+import OrderListScreen from '../../screens/OrderList/OrderListScreen';
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -42,7 +44,7 @@ const Navigation = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="GiftsPage" component={GiftsPage} />
         <Stack.Screen name="SelectedGift" component={SelectedGift} />
-        <Stack.Screen name="Notifications" component={Notifications} />
+        <Stack.Screen name="OrderListScreen" component={OrderListScreen} />
         <Stack.Screen name="EditProfile" component={EditProfile} />
         <Stack.Screen name="GiftPurchase" component={GiftPurchase} />
         <Stack.Screen name="ApprovedPurchase" component={ApprovedPurchase} />
