@@ -26,7 +26,7 @@ import GameOver from '../../screens/GameScreen/GameOver'
 //import NavigationMap from '../../screens/MapScreen/NavigationMap'
 import EditImage from '../../screens/EditImage/EditImage';
 import BottomSheet from '../../Components/BottomSheet/BottomSheet';
-import BinCameraScreen from '../../screens/FindBin/BinCameraScreen';
+import BinCameraScreen from '../../screens/FindBin/BinCameraScreen'
 import BinPicture from '../../screens/FindBin/BinPicture';
 const Stack = createNativeStackNavigator();
 

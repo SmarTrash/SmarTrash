@@ -74,7 +74,7 @@ const Game = ({ navigation }) => {
       icon: iconURL
 
     }];
-    console.log('v', v);
+    console.log('noy', v);
     console.log('userEmail', userEmail);
     AsyncStorage.getItem('points', (err, result) => {
 

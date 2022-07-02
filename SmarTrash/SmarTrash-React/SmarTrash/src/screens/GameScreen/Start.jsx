@@ -1,11 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import LottieView from 'lottie-react-native';
 const Start = ({navigation}) => {
     return(
     <View style = {styles.MainContainer}>
         <Text style={styles.title}>SmarTrash!</Text>
         <Text style={styles.instructions}>תנסה למיין כמה שיותר מוצרים בזמן המוקצב, אם טעיתה תפסיד נקודות </Text>
-        <Image source={require('../../../assets/bins-start.png')} key='bins' style={[styles.bins]}/>
+        <LottieView style={{width:10, aspectRatio:400/200, flexGrow:1,alignSelf:'center'}}
+        resizeMode="center"
+        source={require('../../../assets/Game.json')}
+        autoPlay
+       />
         <TouchableOpacity
           style={styles.customBtnBG}
           onPress={() => navigation.navigate('Game', {startAgain: false})}  >
@@ -23,7 +28,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 60,
+    marginTop: 30,
+    fontSize: 50,
     fontWeight: '400',
     color: "#fff",
     textShadowColor: 'black',
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
    
     color: "#fff",
     width: 200,
-    marginTop: 0,
+  
     padding: 10
   },
   customBtnBG: {
@@ -54,9 +60,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 5,
     width: 200,
-    marginTop: 0,
+ 
     borderRadius: 30,
-    
+    marginBottom:20,
   },
   bins: {
     borderRadius: 20 * 2,

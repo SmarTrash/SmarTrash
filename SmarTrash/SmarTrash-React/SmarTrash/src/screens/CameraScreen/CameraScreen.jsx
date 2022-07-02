@@ -45,10 +45,6 @@ const CameraScreen = () => {
 
   }
 
-  // useEffect(() => {
-
-  // },[userImg]);
-
   console.log("userImguserImg", userImg);
   const uploadImage = () => {
     imageUpload(userImg, 'userPicture.jpg')
@@ -110,7 +106,6 @@ const CameraScreen = () => {
 
   const ChangeImage = (u) => {
 
-    console.log("userImghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", u);
     fetch(urlUpdateImage, {
       method: 'POST',
       body: JSON.stringify({

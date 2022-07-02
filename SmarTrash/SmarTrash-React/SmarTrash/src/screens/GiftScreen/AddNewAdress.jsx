@@ -5,16 +5,19 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CityList from '../../Components/City/CityList'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 const AddNewAdress = ({ navigation, route }) => {
-  const [inputs, setInputs] = React.useState({
+
+ const { userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber, userCityName } = useContext(GlobalContext); 
+ 
+ const [inputs, setInputs] = React.useState({
     phone: '',
     streetNameAndNumber: ''
   });
   
-  const { userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber, userCityName } = useContext(GlobalContext);
+ 
 
-  const onSaveAdress = () => {
-    console.log('userOrderStreetNameAndNumber',userOrderStreetNameAndNumber);
-    route.params.addAdress({ userCityName, userOrderStreetNameAndNumber, userOrderPhone });
+  const onSaveAdress = (P,S) => {
+    console.log('userOrderStreetNameAndNumber',S);
+    route.params.addAdress({ userCityName, S, P });
     navigation.goBack();
   }
   const validate = () => {
@@ -38,7 +41,7 @@ const AddNewAdress = ({ navigation, route }) => {
       setuserOrderPhone(inputs.phone)
       setuserOrderStreetNameAndNumber(inputs.streetNameAndNumber)
      
-      onSaveAdress();
+      onSaveAdress(inputs.phone,inputs.streetNameAndNumber);
     }
   };
   const [errors, setErrors] = React.useState({});

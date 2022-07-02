@@ -47,17 +47,16 @@ const GameOver = ({route, navigation}) => {
 return(
   <View style={styles.container}>
     <View style={styles.header}> 
-      <Text style={styles.title}>Leaderboard</Text>
+      <Text style={styles.title}>לוח תוצאות</Text>
       <View style={styles.content}>
         <Text style={styles.points}
-         >position {JSON.stringify(position)}</Text> 
+         > שבור את השיא של עצמך והרווח נקודות{'\n'} </Text> 
         <Image source={img} style={styles.image}></Image>
-        <Text style={styles.points}> {userState.points} points </Text>
     </View>
     <TouchableOpacity
       style={styles.customBtnBG}
         onPress={() => navigation.navigate('Start')}>
-          <Text style={styles.customBtnText}>Go back to menu</Text>
+          <Text style={styles.customBtnText}>חזור למשחק</Text>
       </TouchableOpacity>
 
     </View>

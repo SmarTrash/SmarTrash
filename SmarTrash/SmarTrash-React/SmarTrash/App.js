@@ -18,7 +18,7 @@ export default function App() {
     <Provider>
   
     <View style={styles.root} > 
-       {loading?<LoginLoader visible={loading}/>:null}
+       {/* {loading?<LoginLoader visible={loading}/>:null} */}
       <Navigation/>
     </View>
     
