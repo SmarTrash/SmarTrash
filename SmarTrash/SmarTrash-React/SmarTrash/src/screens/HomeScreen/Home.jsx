@@ -97,7 +97,6 @@ const Home = ({ navigation }) => {
 
       });
   }
-
   return (
     <SafeAreaView style={style.container}>
       <ScrollView showsVerticalScrollIndicator={false}>

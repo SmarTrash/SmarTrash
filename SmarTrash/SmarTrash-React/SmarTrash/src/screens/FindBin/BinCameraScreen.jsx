@@ -19,30 +19,30 @@ let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture"
 const BinCameraScreen = () => {
 
   const navigation = useNavigation();
-  const { userImg, setUserImg, userEmail, userFirstName, userLastName, setOpen, setShow, userGallery, setUserGallery } = useContext(GlobalContext);
+  const { userImg } = useContext(GlobalContext);
 
-  const updateData = async (u) => {
-    AsyncStorage.getItem('@storage_Key')
-      .then(data => {
+  // const updateData = async (u) => {
+  //   AsyncStorage.getItem('@storage_Key')
+  //     .then(data => {
 
-        // the string value read from AsyncStorage has been assigned to data
-        console.log("eeeeeeeeeeeeeeeeeeeeee",data);
+  //       // the string value read from AsyncStorage has been assigned to data
+  //       console.log("eeeeeeeeeeeeeeeeeeeeee",data);
 
-        // transform it back to an object
-        data = JSON.parse(data);
-        console.log(data);
+  //       // transform it back to an object
+  //       data = JSON.parse(data);
+  //       console.log(data);
 
-        // Decrement
-        data.Img=userImg;
-        console.log("hhhhhhhhhhhh" ,data );
+  //       // Decrement
+  //       data.Img=userImg;
+  //       console.log("hhhhhhhhhhhh" ,data );
 
-        //save the value to AsyncStorage again
-        AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
+  //       //save the value to AsyncStorage again
+  //       AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
 
-      }).done();
+  //     }).done();
 
 
-  }
+  // }
 
   // useEffect(() => {
 
@@ -56,14 +56,14 @@ const BinCameraScreen = () => {
   const imageUpload = (userImage, picName) => {
 
     let dataI = new FormData();
-    console.log({picName});
+    console.log({ picName });
     dataI.append('picture', {
       uri: userImage,
       name: picName,
       type: 'image/jpg'
     });
 
-    console.log('dataI',  dataI );
+    console.log('dataI', dataI);
 
     const config = {
       method: 'POST',
@@ -79,7 +79,7 @@ const BinCameraScreen = () => {
       })
       .then((responseData) => {
         console.log("responseData=", responseData)
-        if (responseData != "err" || responseData != null|| !responseData ) {
+        if (responseData != "err" || responseData != null || !responseData) {
           console.log("img uploaded successfully!");
           // setUserImg(responseData)
 
@@ -90,15 +90,15 @@ const BinCameraScreen = () => {
             .then(type => {
               console.log("type in component")
               console.log(type)
-              navigation.navigate("BinPicture", {binName: type })
+              navigation.navigate("BinPicture", { binName: type })
               alert(type);
-              
+
             })
             .catch(err => {
               console.log("err in component")
               console.log(err)
             })
-     
+
           // }
 
         }
@@ -110,7 +110,7 @@ const BinCameraScreen = () => {
   }
 
 
-  
+
   return (
     <View>
       <View style={styles.root}>

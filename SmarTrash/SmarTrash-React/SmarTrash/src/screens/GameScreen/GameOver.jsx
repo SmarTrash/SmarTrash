@@ -2,14 +2,9 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import React, { useState,useContext, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-<<<<<<< Updated upstream:SmarTrash/SmarTrash-React/SmarTrash/src/screens/GameScreen/GameOver.jsx
 import Leaderboard from 'react-native-leaderboard';
 import Constants from '../Constants';
-=======
-import Constants from '../Constants';
-import Leaderboard from 'react-native-leaderboard'
 
->>>>>>> Stashed changes:SmarTrash/SmarTrash-React/SmarTrash/src/screens/GameScreen/GameOver.js
 const WIDTH = Constants.WIDTH;
 const HEIGHT = Constants.HEIGHT;
 

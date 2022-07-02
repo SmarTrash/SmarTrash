@@ -170,7 +170,7 @@ const SignInScreen = ({ navigation }) => {
                 <ListItem noBorder>
                   <View style={styles.container}>
                     <View>
-                      <Text style={{ color: '#8f9195', marginRight: 50, marginTop: -50, marginTop: 0 }}>Remember me</Text>
+                      <Text style={{ color: '#8f9195', marginRight: 50, marginTop: -50 }}>Remember me</Text>
                       <Checkbox
                         style={{ marginLeft: 140, marginTop: -23 }}
                         status={checked ? 'checked' : 'unchecked'}

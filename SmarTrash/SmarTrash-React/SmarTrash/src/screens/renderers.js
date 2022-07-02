@@ -98,11 +98,7 @@ class Timer extends PureComponent {
     super(props);
     this.state = {
       minutes: 0,
-<<<<<<< Updated upstream
       seconds: 5
-=======
-      seconds: 10
->>>>>>> Stashed changes
     }
   }
 

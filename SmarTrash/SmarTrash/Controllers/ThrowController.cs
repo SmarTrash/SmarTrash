@@ -42,7 +42,9 @@ namespace SmarTrash.Controllers
                     throwenWeight = rndWeight,
                     gainedPoints = points,
                     totalPoints = y.TotalPoints,
-                     competitionPlace = d
+                    competitionPlace = d,
+                    BinQRId = g
+
                 }).ToList();
                 return Content(HttpStatusCode.OK, detailsAfterThrow);
             }
@@ -97,7 +99,6 @@ namespace SmarTrash.Controllers
         // מקבל משקל שנזרק ומחשב לו את הנקודות שנצברו
         public short CalculatePoints(float weight)
         {
-           
             double p = Math.Round(weight * 100);
             short points = ((short)p);
             return points;
