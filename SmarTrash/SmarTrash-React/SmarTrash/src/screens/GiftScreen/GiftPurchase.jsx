@@ -7,7 +7,7 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import CoinIcon from '../../Components/Icon/CoinIcon';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { Ionicons, } from '@expo/vector-icons';
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const apiUrlGiftOrder = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GiftOrder/';
@@ -149,7 +149,10 @@ const GiftPurchase = ({ navigation, route }) => {
 
         <CustonButton
           text='רכישה'
-          onPress={() => onPurchase()}
+          onPress={() => {
+            navigation.navigate('ApprovedPurchase',userShippingDetails.price )
+          }}
+         
         />
       </View>
     </>
@@ -184,7 +187,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: 'absolute',
-    marginLeft: 350,
+    marginLeft: 330,
     marginTop: 55,
 
   },

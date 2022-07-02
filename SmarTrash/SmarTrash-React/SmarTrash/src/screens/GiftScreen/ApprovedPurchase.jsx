@@ -9,7 +9,9 @@ const { width } = Dimensions.get('screen');
 
 
 const ApprovedPurchase=({ navigation, route })=> {
-  const { userPoints } = useContext(GlobalContext);
+const { userPoints } = useContext(GlobalContext);
+const userShippingDetails = route.params;
+console.log("points =" + userShippingDetails.price)
 
   console.log(userPoints)
   return (
@@ -35,7 +37,7 @@ const ApprovedPurchase=({ navigation, route })=> {
 
         <View  >
           <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, textAlign: 'center',margin:10,padding:20 }}>
-           {userPoints}
+           {userShippingDetails.price} {' '}
             <CoinIcon />
           </Text>
         </View>
@@ -78,7 +80,7 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
     marginTop: 90,
-    marginLeft:60
+    marginLeft:10
 
 
   },

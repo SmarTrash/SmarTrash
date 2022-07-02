@@ -1,23 +1,31 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import COLORS from '../../Consts/colors';
+import CustonButton from '../../Components/CustomButton/CustonButton';
+
 const Start = ({navigation}) => {
     return(
     <View style = {styles.MainContainer}>
-        <Text style={styles.title}>SmarTrash!</Text>
-        <Text style={styles.instructions}>תנסה למיין כמה שיותר מוצרים בזמן המוקצב, אם טעיתה תפסיד נקודות </Text>
+        <Text style={styles.title}>יאללה בואו נשחק!</Text>
+        <Text style={styles.instructions}>תנסה למיין כמה שיותר מוצרים בזמן המוקצב, תזהר אם תטעה תפסיד נקודות </Text>
         <Image source={require('../../../assets/bins-start.png')} key='bins' style={[styles.bins]}/>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.customBtnBG}
           onPress={() => navigation.navigate('Game', {startAgain: false})}  >
-          <Text style={styles.customBtnText}>START</Text>
-        </TouchableOpacity>
+          <Text style={styles.customBtnText}>התחל</Text>
+        </TouchableOpacity> */}
+        <CustonButton
+          text='התחל'
+          onPress={() => navigation.navigate('Game', {startAgain: false})}  
+         
+        />
     </View>
     );
   };
 
 const styles = StyleSheet.create({
   MainContainer: {
-    backgroundColor: '#B8E994',
+    backgroundColor: COLORS.offwhite,
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
@@ -25,15 +33,15 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 60,
     fontWeight: '400',
-    color: "#fff",
+    color: COLORS.white,
     textShadowColor: 'black',
-    textShadowRadius: 2,
+    textShadowRadius: 3,
+    textAlign:'center',
   },
   instructions: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '400',
-  
-    color: "#fff",
+    color: COLORS.green,
     padding: 10,
     textAlign: 'center',
     //textShadowColor: 'black',
@@ -44,18 +52,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '400',
    
-    color: "#fff",
+    color: COLORS.white,
     width: 200,
     marginTop: 0,
     padding: 10
   },
   customBtnBG: {
-    backgroundColor: "#78E08F",
+    backgroundColor: COLORS.green,
     paddingHorizontal: 5,
     paddingVertical: 5,
     width: 200,
     marginTop: 0,
     borderRadius: 30,
+    alignItems:'center',
     
   },
   bins: {

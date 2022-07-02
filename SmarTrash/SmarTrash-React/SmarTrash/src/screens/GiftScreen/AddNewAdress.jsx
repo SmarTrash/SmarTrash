@@ -1,9 +1,10 @@
-import React, { useContext, useEffect } from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-import { FAB } from 'react-native-paper'
-import CustomInput from '../../Components/CustomInput/CustomInput'
-import { GlobalContext } from '../../../GlobalContext/GlobalContext'
-import CityList from '../../Components/City/CityList'
+import React, { useContext, useEffect } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { FAB } from 'react-native-paper';
+import CustomInput from '../../Components/CustomInput/CustomInput';
+import { GlobalContext } from '../../../GlobalContext/GlobalContext';
+import CityList from '../../Components/City/CityList';
+import COLORS from '../../Consts/colors';
 
 const AddNewAdress = ({ navigation, route }) => {
 
@@ -11,23 +12,23 @@ const AddNewAdress = ({ navigation, route }) => {
     setuserOrderPhone('')
     setuserOrderStreetNameAndNumber('')
   }, []);
-  const { userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,userOrderPhone, setuserOrderPhone, userCityName } = useContext(GlobalContext);
+  const { userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber, userOrderPhone, setuserOrderPhone, userCityName } = useContext(GlobalContext);
 
   const onSaveAdress = () => {
     route.params.addAdress({ userCityName, userOrderStreetNameAndNumber, userOrderPhone });
     navigation.goBack();
   }
- 
+
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.title}>הוסף כתובת</Text>
-        <CityList />
+        <Text style={styles.title}>הוספת כתובת</Text>
+        <CityList style={{margin:20}}/>
         <CustomInput
           placeholder="הכנס רחוב ומספר בית"
           mode='outlined'
           setValue={setuserOrderStreetNameAndNumber}
-          style={styles.title}
+          style={styles.input}
         />
         <CustomInput
           maxLength={10}
@@ -35,12 +36,12 @@ const AddNewAdress = ({ navigation, route }) => {
           placeholder="הכנס טלפון"
           mode='outlined'
           setValue={setuserOrderPhone}
-          style={styles.title}
+          style={styles.input}
         />
         <FAB
           small
           icon="plus"
-          disabled={userOrderStreetNameAndNumber && userOrderPhone!= ''? false :true }
+          disabled={userOrderStreetNameAndNumber && userOrderPhone != '' ? false : true}
           onPress={() => onSaveAdress()}
         />
       </View>
@@ -51,24 +52,24 @@ export default AddNewAdress;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    paddingVertical: 90,
-    paddingHorizontal: 40
+    backgroundColor: COLORS.white,
+    alignItems: 'center',
+
   },
 
-  titleContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1
-  },
   title: {
     fontSize: 24,
-    marginBottom: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    margin: 50,
+    color: COLORS.green,
+
   },
-  text: {
-    height: 300,
-    fontSize: 16
+  input: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: COLORS.green,
+    margin:20,
+
   },
   fab: {
     position: 'absolute',
