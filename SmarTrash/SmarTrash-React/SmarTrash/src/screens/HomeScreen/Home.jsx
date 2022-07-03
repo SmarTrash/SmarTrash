@@ -103,7 +103,7 @@ const Home = ({ navigation }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={style.titleBar}>
           <SimpleLineIcons name="logout" size={24} color='#52575D' onPress={() => removeData()} />
-          <Ionicons name="notifications-outline" size={24} color='#52575D' onPress={() => navigation.navigate('OrderListScreen')} />
+          <Ionicons name="gift-outline" size={25} color='#52575D' onPress={() => navigation.navigate('OrderListScreen')} />
         </View>
         <View style={{ alignSelf: 'center' }}>
           <View style={style.profileImage}>

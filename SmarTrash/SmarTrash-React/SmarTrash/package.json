@@ -45,6 +45,7 @@
     "link": "^0.1.5",
     "lottie-ios": "^3.2.3",
     "lottie-react-native": "5.0.1",
+    "moment": "^2.29.3",
     "native-base": "^3.4.6",
     "native-notify": "^2.0.5",
     "react": "17.0.1",

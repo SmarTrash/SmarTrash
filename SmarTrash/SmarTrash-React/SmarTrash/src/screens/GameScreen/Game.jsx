@@ -196,7 +196,7 @@ const Game = ({ navigation }) => {
                         storeData(JSON.stringify(userState.points), userState.username);
                         { reset() }
                       }}>
-                      <Text style={styles.textStyle}>מחשק חוזר</Text>
+                      <Text style={styles.textStyle}>משחק חוזר</Text>
                     
                     </Pressable>
                       </View>

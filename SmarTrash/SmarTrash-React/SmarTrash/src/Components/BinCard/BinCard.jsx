@@ -1,19 +1,15 @@
-import { ColorPropType, Dimensions, StyleSheet, Text, View, } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, } from 'react-native';
 import React from 'react'
 import COLORS from '../../Consts/colors';
 import { Entypo  } from '@expo/vector-icons';
 
-
-
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
-
 
 const BinCard = ({ index, bins }) => {
   const c = bins["BinTypeColor"];
   const color = COLORS[`${c}`];
-  console.log('colorrrrgggg', color);
-  console.log('list bin', bins);
+
   return (
     <View style={style.container}>
         <View style={style.binCard}>
@@ -23,19 +19,13 @@ const BinCard = ({ index, bins }) => {
             </Text>
             <View style={{ flex: 1, }}>
               <Text style={style.txtPoint}>
-              <Entypo name="trash" size={25} color={color}  />
-                
+              <Entypo name="trash" size={25} color={color}  /> 
                 {'  '}
               </Text>
             </View>
-
           </View>
         </View>
-    
-
     </View>
-
-
   );
 };
 
@@ -44,7 +34,6 @@ const BinCard = ({ index, bins }) => {
 const style = StyleSheet.create({
   container: {
     alignItems: 'center',
-
   },
   binCard: {
     height: 70,
@@ -58,11 +47,9 @@ const style = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 5,
     marginRight: 30,
-
   },
   binCardContent: {
     flexDirection: 'row',
-
   },
   txtName: {
     fontSize: 20,

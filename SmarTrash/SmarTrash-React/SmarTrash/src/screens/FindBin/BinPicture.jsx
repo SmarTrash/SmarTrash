@@ -5,12 +5,12 @@ import CustonButton from '../../Components/CustomButton/CustonButton';
  const BinPicture = ({route, navigation}) => {
     const getImageUrl = () => {
         if (route.params.binName == "פח כתום") {
-            return  require("../../../Images/orange.jpg");
+            return  require("../../../assets/bin_plastic.png");
         } else if (route.params.binName == "פח סגול") {
-            return require("../../../Images/purple.jpg");
+            return require("../../../assets/bin_glass.png");
         } else {
             console.log("defualt")
-            return  require("../../../Images/orange.jpg");
+            return  require("../../../assets/bin_plastic.png");
         }
     }
 

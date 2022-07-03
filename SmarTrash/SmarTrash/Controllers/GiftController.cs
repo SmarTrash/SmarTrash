@@ -152,7 +152,7 @@ namespace SmarTrash.Controllers
         }
 
 
-        [HttpGet]
+        [HttpPost]
         [Route("api/Gift/GetUserOrders")]
 
         public IHttpActionResult GetUserOrders([FromBody] tblUser u)
@@ -172,7 +172,8 @@ namespace SmarTrash.Controllers
                                            city = order.City,
                                            Phone = order.OrderPhone,
                                            giftName = gifts.GiftName,
-                                           orderDate = order.OrderDate
+                                           orderDate = order.OrderDate,
+                                           brand= gifts.Brand
                                        }).ToList();
                 return Ok(shippingDetails);
             }
