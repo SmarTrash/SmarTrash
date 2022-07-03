@@ -1,5 +1,5 @@
 import { FAB, Text, List, RadioButton } from 'react-native-paper'
-import { View, FlatList, StyleSheet,SafeAreaView, Image,Alert } from 'react-native'
+import { View, FlatList, StyleSheet, Image } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
@@ -7,7 +7,7 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import CoinIcon from '../../Components/Icon/CoinIcon';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Ionicons, } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/ShippingDetails/';
 const apiUrlGiftOrder = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GiftOrder/';
@@ -19,7 +19,7 @@ const GiftPurchase = ({ navigation, route }) => {
   }, []);
 
 
-  const { userOrderStreetNameAndNumber, userOrderPhone, userEmail, userImg, userCityName, selectedCity, userPoints, setUserPoints } = useContext(GlobalContext);
+  const { setuserOrderStreetNameAndNumber, setuserOrderPhone, userOrderStreetNameAndNumber, userOrderPhone, userEmail, userImg, userCityName, selectedCity, userPoints, setUserPoints } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
   const [notes, setNotes] = useState([]);
@@ -68,7 +68,7 @@ const GiftPurchase = ({ navigation, route }) => {
     if (notes[choosenAdress].userOrderStreetNameAndNumber != null && notes[choosenAdress].userOrderPhone != null) {
       fetch(apiUrlGiftOrder + giftId, {
         method: 'POST',
-        body: JSON.stringify({ UserEmail: userEmail, Phone: notes[choosenAdress].userOrderPhone, StreetNameAndNumber: notes[choosenAdress].userOrderStreetNameAndNumber, CityId: selectedCity }),
+        body: JSON.stringify({ UserEmail: userEmail, Phone: notes[choosenAdress].P, StreetNameAndNumber: notes[choosenAdress].S, CityId: selectedCity }),
         headers: new Headers({
           'Content-type': 'application/json; charset=UTF-8',
           'Accept': 'application/json; charset-UTF-8'
@@ -87,28 +87,7 @@ const GiftPurchase = ({ navigation, route }) => {
     }
 
   }
-  const getItem = (id,S,P) => {
- 
-    Alert.alert(S);
- 
-  }
-  const ItemRender = ({ id,S,P }) => (
-    <View style={styles.item}>
-      <Text style={styles.itemText} onPress={()=> getItem(id,S,P)}>{S}</Text>
-    </View>
-  );
-  const ItemDivider = () => {
-    console.log("ffff")
-    return (
-      <View
-        style={{
-          height: 50,
-          width: "100%",
-          backgroundColor: "#607D8B",
-        }}
-      />
-    );
-  }
+
   console.log("notes:", notes)
   return (
     <>
@@ -125,27 +104,26 @@ const GiftPurchase = ({ navigation, route }) => {
         </View>
 
         <View>
-        <SafeAreaView style={styles.MainContainer}>
- 
           <FlatList
-              data={notes}
-              renderItem={({ item }) => <ItemRender name={item.name} />}
-              keyExtractor={item => item.id}
-              ItemSeparatorComponent={ItemDivider}
-                // title={item.id == "0" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
-                // description={item.S + "\n" + item.userCityName
-                //   + "\n" + item.P}
+
+            data={notes}
+            renderItem={({ item }) => (
+              <List.Item style={styles.itemStyle}
+                title={item.id == "0" ? "כתובת ברירת מחדל" : "כתובת: " + item.id}
+                description={item.S + "\n" + item.userCityName
+                  + "\n" + item.P}
+
                 detailsNumberOfLines={0}
                 titleStyle={styles.listTitle}
                 detailsStyle={styles.listTitle}
                 descriptionNumberOfLines={3}
-                // keyExtractor={item => item.id}
+               
               />
-            
-            
+            )}
+            keyExtractor={item => item.id}
 
-            </SafeAreaView>
-         
+          />
+
         </View>
 
         <View>
@@ -155,6 +133,8 @@ const GiftPurchase = ({ navigation, route }) => {
             onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
           />
         </View>
+
+
 
         <View style={styles.txtContainer}>
 
@@ -170,10 +150,7 @@ const GiftPurchase = ({ navigation, route }) => {
 
         <CustonButton
           text='רכישה'
-          onPress={() => {
-            navigation.navigate('ApprovedPurchase',userShippingDetails.price )
-          }}
-         
+          onPress={() => onPurchase()}
         />
       </View>
     </>
@@ -206,14 +183,9 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     marginTop: 20,
   },
-   
-  MainContainer: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
   icon: {
-    position: 'absolute',
-    marginLeft: 330,
+   
+    marginLeft: 350,
     marginTop: 55,
 
   },
@@ -234,7 +206,7 @@ const styles = StyleSheet.create({
   txtContainer: {
     flexDirection: 'column',
     alignItems: 'center',
-
+    margin: 30,
     marginBottom:50,
   },
   txtPrice: {
@@ -243,15 +215,6 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     margin: 5,
   },
-  item: {
-    paddingLeft: 15,
-    paddingTop: 8,
-    paddingBottom: 8
-  },
- 
-  itemText: {
-    fontSize: 24,
-    color: 'black'
-  }
+
 
 })
