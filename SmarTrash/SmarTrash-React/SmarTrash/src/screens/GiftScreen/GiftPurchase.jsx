@@ -35,7 +35,6 @@ const GiftPurchase = ({ navigation, route }) => {
   //   console.log('selectedCityUPDATE', selectedCity);
   // }, [selectedCity]);
 
-
   const ShippingDetails = () => {
     fetch(apiUrl + giftId, {
       method: 'POST',
@@ -113,11 +112,8 @@ const GiftPurchase = ({ navigation, route }) => {
           <View>
             <FlatList
               data={notes}
-              renderItem={({ item }) => (
-              
+              renderItem={({ item }) => (  
                   <AddressItem specificAdres={item}/>
-               
-             
               )}
               keyExtractor={item => item.id}
             />
@@ -184,10 +180,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   icon: {
-
     marginLeft: 350,
     marginTop: 55,
-
   },
 
   profileImage: {

@@ -5,7 +5,7 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
+import Loader from '../../Components/Loader/Loader';
 // Utils
 import { sendToAzure } from '../../Utils/CameraUtils';
 
@@ -17,44 +17,17 @@ const cardHeight = height;
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
 const BinCameraScreen = () => {
-
+  const [loading, setLoading] = useState(false);
+ 
   const navigation = useNavigation();
   const { userImg } = useContext(GlobalContext);
 
-  // const updateData = async (u) => {
-  //   AsyncStorage.getItem('@storage_Key')
-  //     .then(data => {
-
-  //       // the string value read from AsyncStorage has been assigned to data
-  //       console.log("eeeeeeeeeeeeeeeeeeeeee",data);
-
-  //       // transform it back to an object
-  //       data = JSON.parse(data);
-  //       console.log(data);
-
-  //       // Decrement
-  //       data.Img=userImg;
-  //       console.log("hhhhhhhhhhhh" ,data );
-
-  //       //save the value to AsyncStorage again
-  //       AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
-
-  //     }).done();
-
-
-  // }
-
-  // useEffect(() => {
-
-  // },[userImg]);
-
-  // console.log("userImguserImg", userImg);
+ 
   const uploadImage = () => {
     imageUpload(userImg, 'userPicture.jpg')
   }
 
   const imageUpload = (userImage, picName) => {
-
     let dataI = new FormData();
     console.log({ picName });
     dataI.append('picture', {
@@ -70,52 +43,63 @@ const BinCameraScreen = () => {
       body: dataI,
     }
     console.log("config=", config)
+    setLoading(true);
+    
+      try {
+        
+        fetch(urlAPI, config)
+          .then((res) => {
+            console.log({ res });
+            return res.json()
+            // else { return "err"; }
+          })
+          .then((responseData) => {
+            console.log("responseData=", responseData)
+            if (responseData != "err" || responseData != null || !responseData) {
+              console.log("img uploaded successfully!");
+              // setUserImg(responseData)
 
-    fetch(urlAPI, config)
-      .then((res) => {
-        console.log({ res });
-        return res.json()
-        // else { return "err"; }
-      })
-      .then((responseData) => {
-        console.log("responseData=", responseData)
-        if (responseData != "err" || responseData != null || !responseData) {
-          console.log("img uploaded successfully!");
-          // setUserImg(responseData)
+              // if (responseData.indexOf("http") == 0)
+              // {
+              console.log("sending")
+              sendToAzure(responseData)
+                .then(type => {
+                
+                  console.log("type in component")
+                  console.log(type)
+                  setLoading(false);
+                  navigation.navigate("BinPicture", { binName: type })
+                  // alert(type);
 
-          // if (responseData.indexOf("http") == 0)
-          // {
-          console.log("sending")
-          sendToAzure(responseData)
-            .then(type => {
-              console.log("type in component")
-              console.log(type)
-              navigation.navigate("BinPicture", { binName: type })
-              alert(type);
+                })
+                .catch(err => {
+                  console.log("err in component")
+                  console.log(err)
+                })
 
-            })
-            .catch(err => {
-              console.log("err in component")
-              console.log(err)
-            })
+              // }
 
-          // }
-
-        }
-        else { alert('error uploding ...'); }
+            }
+            else { alert('error uploding ...'); }
 
 
-      })
-      .catch(err => { alert('err upload= ' + err); });
+          })
+          .catch(err => { alert('err upload= ' + err); });
+
+      } catch (error) {
+        Alert.alert('Error', 'Something went wrong');
+      }
+ 
   }
-
-
 
   return (
     <View>
+       <Loader visible={loading} />
       <View style={styles.root}>
-        <Camera />
+        <Camera /> 
+             
         <View style={styles.savePic}>
+ 
           <CustonButton
             text='שמירה'
             onPress={uploadImage} />
@@ -145,7 +129,7 @@ const styles = StyleSheet.create({
     height: cardHeight,
   },
   savePic: {
-    bottom: 30,
+    bottom: 60,
   }
 
 })

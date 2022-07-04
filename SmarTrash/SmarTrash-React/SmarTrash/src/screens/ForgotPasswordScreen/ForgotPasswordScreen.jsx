@@ -18,10 +18,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
     setUserEmail(inputs.email)
     console.log('userEmail',inputs.email);
     setLoading(true);
-    setTimeout(() => {
+   
       try {
-        setLoading(false);
-        
+       
         console.log("user before sending", userEmail);
         fetch(apiUrl, {
           method: 'POST',
@@ -33,23 +32,24 @@ const ForgotPasswordScreen = ({ navigation }) => {
         }).then(response => { return response.json() })
           .then(data => {
             if (data.isSuccess == true) {
+              setLoading(false);
               navigation.navigate('SignInScreen');
             }
           });
       } catch (error) {
         Alert.alert('Error', 'Something went wrong');
       }
-    }, 7000);
+  
   }
   const validate = () => {
     Keyboard.dismiss();
     let isValid = true;
 
     if (!inputs.email) {
-      handleError('בבקשה הכנס אימייל', 'email');
+      handleError(' הכנס אימייל', 'email');
       isValid = false;
     } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleError('בבקשה הכנס אימייל תקין', 'email');
+      handleError(' הכנס אימייל תקין', 'email');
       isValid = false;
     }
 

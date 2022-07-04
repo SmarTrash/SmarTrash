@@ -5,9 +5,8 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import Loader from '../../Components/Loader/Loader';
 
-// Utils
-import { ChangeImage, sendToAzure } from '../../Utils/CameraUtils';
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
@@ -18,7 +17,7 @@ let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/update
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
 const CameraScreen = () => {
-
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const { userImg, setUserImg, userEmail, userFirstName, userLastName } = useContext(GlobalContext);
 
@@ -45,12 +44,11 @@ const CameraScreen = () => {
       body: dataI,
     }
     console.log("config=", config)
-
+    setLoading(true)
     fetch(urlAPI, config)
       .then((res) => {
         console.log({ res });
         return res.json()
-        // else { return "err"; }
       })
       .then((responseData) => {
         console.log("responseData=", responseData)
@@ -58,18 +56,8 @@ const CameraScreen = () => {
           console.log("img uploaded successfully!");
           setUserImg(responseData)
           console.log("sending")
-          // sendToAzure(responseData)
-          //   .then(type => {
-          //     console.log("type in component")
-          //     console.log(type)
-          //   })
-          //   .catch(err => {
-          //     console.log("err in component")
-          //     console.log(err)
-          //   })
           ChangeImage(responseData);
-          // }
-
+          setLoading(false)
         }
         else { alert('error uploding ...'); }
 
@@ -80,7 +68,7 @@ const CameraScreen = () => {
 
 
   const ChangeImage = (u) => {
-
+   
     console.log("userImghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", u);
     fetch(urlUpdateImage, {
       method: 'POST',
@@ -93,7 +81,7 @@ const CameraScreen = () => {
         'Accept': 'application/json; charset-UTF-8'
       })
     })
-
+  
     Alert.alert(
       userFirstName + " " + userLastName,
       "התמונה שונתה בהצלחה",
@@ -140,6 +128,7 @@ const CameraScreen = () => {
 
   return (
     <View>
+        <Loader visible={loading} />
       <View style={styles.root}>
         <Camera />
         <View style={styles.savePic}>
@@ -172,7 +161,7 @@ const styles = StyleSheet.create({
     height: cardHeight,
   },
   savePic: {
-    bottom: 30,
+    bottom: 60,
   }
 
 })

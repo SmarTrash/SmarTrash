@@ -1,39 +1,33 @@
-import { View, Dimensions, StyleSheet, Text, Image, FlatList, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, Image, FlatList, ScrollView } from 'react-native';
 import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
 import OrderCard from '../../Components/OrderCard/OrderCard';
 
 const url = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetUserOrders';
-const { width } = Dimensions.get('screen');
-const cardWidth = width / 1.06;
 
 const OrderListScreen = () => {
 
   const { userEmail } = useContext(GlobalContext);
   const { userImg } = useContext(GlobalContext);
-  const [shippingDetails, setsShippingDetails] = useState('');
+  const [orders, setOrders] = useState('');
   useEffect(() => {
 
-
     fetch(url, {
-      method: 'GET',
+      method: 'POST',
       body: JSON.stringify({ UserEmail: userEmail }),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
       })
-    }).then(response => { return response.json() })
+    }).then(response => {return response.json()})
       .then(data => {
-        console.log("רשימת הזמנות", { data })
-       
-        setsShippingDetails(data)
+        console.log("רשימת הזמנות", {data})
+        setOrders(data)
       });
   }, []);
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white, }}>
-
-
       <View style={{ alignSelf: 'center', alignItems: 'center', flexDirection: 'column' }}>
         <View style={styles.profileImage}>
           <Image
@@ -45,9 +39,9 @@ const OrderListScreen = () => {
         </Text>
       </View>
 
-      
+      <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{marginTop:80}} >
         <FlatList
-          data={shippingDetails}
+          data={orders}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{
             paddingLeft: 20,
@@ -55,9 +49,10 @@ const OrderListScreen = () => {
             paddingBottom: 30,
           }}
           renderItem={({ item, i }) =>
-            <OrderCard shippingDetails={item} index={i} />
+            <OrderCard orders={item} index={i} />
         }
         />
+         </ScrollView>
     </View>
   )
 }

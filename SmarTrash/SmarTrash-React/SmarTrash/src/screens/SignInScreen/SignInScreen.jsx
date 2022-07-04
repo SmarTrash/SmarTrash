@@ -75,14 +75,14 @@ const SignInScreen = ({ navigation }) => {
     let isValid = true;
 
     if (!inputs.email) {
-      handleError('בבקשה הכנס אימייל', 'email');
+      handleError(' הכנס אימייל', 'email');
       isValid = false;
     } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleError('בבקשה הכנס אימייל תקין', 'email');
+      handleError(' הכנס אימייל תקין', 'email');
       isValid = false;
     }
     if (!inputs.password) {
-      handleError('בבקשה הכנס סיסמה', 'password');
+      handleError(' הכנס סיסמה', 'password');
       isValid = false;
     } else if (inputs.password.length < 8) {
       handleError('סיסמה חייבת להכיל לפחות 8 ספרות ואותיות', 'password');

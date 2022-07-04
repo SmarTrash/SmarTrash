@@ -1,20 +1,17 @@
-import { View, Dimensions, StyleSheet, Text, Image, FlatList, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, Image, FlatList, ScrollView } from 'react-native';
 import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
 import BinCard from '../../Components/BinCard/BinCard';
 
 const url = 'http://proj.ruppin.ac.il/bgroup91/prod/api/BinSearch/GetBin';
-const { width } = Dimensions.get('screen');
-const cardWidth = width / 1.06;
 
 const BinListScreen = () => {
   
   const { userEmail } = useContext(GlobalContext);
   const { userImg } = useContext(GlobalContext);
   const [bins, setBins]=useState('');
-  useEffect(() => {
-    
+  useEffect(() => {   
     
     fetch(url, {
       method: 'POST',
@@ -26,15 +23,12 @@ const BinListScreen = () => {
     }).then(response => {return response.json()})
       .then(data => {
         console.log("רשימת פחים", {data} )
-        //data.map(sb => setBins(sb))
         setBins(data)
       });
   }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white, }}>
-
-
       <View style={{ alignSelf: 'center', alignItems: 'center', flexDirection: 'column' }}>
         <View style={styles.profileImage}>
           <Image

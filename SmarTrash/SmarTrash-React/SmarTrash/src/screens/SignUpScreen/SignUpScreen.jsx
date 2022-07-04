@@ -57,15 +57,15 @@ const SignUpScreen = ({ navigation }) => {
     let isValid = true;
 
     if (!inputs.email) {
-      handleError('בבקשה הכנס אימייל', 'email');
+      handleError(' הכנס אימייל', 'email');
       isValid = false;
     } else if (!inputs.email.match(/\S+@\S+\.\S+/)) {
-      handleError('בבקשה הכנס אימייל תקין', 'email');
+      handleError(' הכנס אימייל תקין', 'email');
       isValid = false;
     }
 
     if (!inputs.firstName) {
-      handleError('בבקשה הכנס שם פרטי', 'firstName');
+      handleError(' הכנס שם פרטי', 'firstName');
       isValid = false;
     } else if (inputs.firstName.length < 2) {
       handleError('שם פרטי חייב להיות מעל 2 אותיות', 'firstName');
@@ -73,7 +73,7 @@ const SignUpScreen = ({ navigation }) => {
     }
 
     if (!inputs.lastName) {
-      handleError('בבקשה הכנס שם משפחה', 'lastName');
+      handleError(' הכנס שם משפחה', 'lastName');
       isValid = false;
     } else if (inputs.lastName.length < 2) {
       handleError('שם משפחה חייב להיות מעל 2 אותיות', 'lastName');
@@ -81,7 +81,7 @@ const SignUpScreen = ({ navigation }) => {
     }
 
     if (!inputs.phone) {
-      handleError('בבקשה הכנס מספר טלפון', 'phone');
+      handleError(' הכנס מספר טלפון', 'phone');
       isValid = false;
     } else if (inputs.phone.length != 10) {
       handleError('טלפון חייב להכיל 10 ספרות', 'phone');
@@ -89,14 +89,14 @@ const SignUpScreen = ({ navigation }) => {
     }
 
     if (!inputs.password) {
-      handleError('בבקשה הכנס סיסמה', 'password');
+      handleError(' הכנס סיסמה', 'password');
       isValid = false;
     } else if (inputs.password.length < 8) {
       handleError('סיסמה חייבת להכיל לפחות 8 ספרות ואותיות', 'password');
       isValid = false;
     }
     if (!inputs.streetNameAndNumber) {
-      handleError('בבקשה הכנס רחוב ומספר בית', 'streetNameAndNumber');
+      handleError(' הכנס רחוב ומספר בית', 'streetNameAndNumber');
       isValid = false;
     }
     if (isValid) {
