@@ -162,10 +162,11 @@ class Floor extends PureComponent {
 const styles = StyleSheet.create({
   bin: {
     borderRadius: RADIUS * 2,
-    width: RADIUS * 3,
-    height: 100,
+    width: RADIUS * 3.5,
+    height: 150,
     position: "absolute",
-    resizeMode: 'contain'
+    resizeMode: 'contain',
+    marginTop:10
   },
   item: {
     borderRadius: RADIUS * 2,

@@ -142,7 +142,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity onPress={() => { navigation.navigate('Map') }}>
+            <TouchableOpacity onPress={() => { navigation.navigate('SelectBinsOption') }}>
               <View style={[style.sortBtn, { backgroundColor: '#39AEA9' }]}>
                 <Feather name="map-pin" size={50} color="black" />
               </View>
