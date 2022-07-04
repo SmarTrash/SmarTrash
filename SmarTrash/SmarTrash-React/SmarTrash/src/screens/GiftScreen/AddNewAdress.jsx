@@ -8,7 +8,7 @@ import COLORS from '../../Consts/colors'
 
 const AddNewAdress = ({ navigation, route }) => {
 
- const { userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber, userCityName } = useContext(GlobalContext); 
+ const { setuserOrderPhone, setuserOrderStreetNameAndNumber, userCityName } = useContext(GlobalContext); 
  
  const [inputs, setInputs] = React.useState({
     phone: '',
@@ -55,9 +55,9 @@ const AddNewAdress = ({ navigation, route }) => {
   };
   return (
     <>
-      <View style={styles.container}>
+     
         <Text style={styles.title}>הוסף כתובת</Text>
-
+        
         <CustomInput
           onChangeText={text => handleOnchange(text, 'streetNameAndNumber')}
           onFocus={() => handleError(null, 'streetNameAndNumber')}
@@ -66,22 +66,7 @@ const AddNewAdress = ({ navigation, route }) => {
           placeholder="הכנס רחוב ומספר בית"
           mode='outlined'
           setValue={setuserOrderStreetNameAndNumber}
-          style={styles.input}
-        />
-        <CustomInput
-          maxLength={10}
-          keyboardType='numeric'
-          placeholder="הכנס טלפון"
-          mode='outlined'
-          setValue={setuserOrderPhone}
-          style={styles.input}
-        />
-        <FAB
-          small
-          icon="plus"
-          disabled={userOrderStreetNameAndNumber && userOrderPhone != '' ? false : true}
-          onPress={() => onSaveAdress()}
-          error={errors.streetNameAndNumber}
+          
         />
         <CustomInput
           keyboardType="numeric"
@@ -98,7 +83,7 @@ const AddNewAdress = ({ navigation, route }) => {
         <View>
         <CustonButton text="הוסף" onPress={validate} />
         </View>
-      </View>
+    
     </>
   )
 }

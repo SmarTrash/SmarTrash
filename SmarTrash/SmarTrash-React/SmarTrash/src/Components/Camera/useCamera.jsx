@@ -4,20 +4,21 @@ import { Camera } from 'expo-camera';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
-
+import Loader from '../../Components/Loader/Loader';
 
 
 const useCamera = () => {
-const navigation = useNavigation();
+    const navigation = useNavigation();
+
     const { setUserImg, userImg } = useContext(GlobalContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [camera, setCamera] = useState(null);
     const [picUri, setPicUri] = useState(userImg);
+    const [loading, setLoading] = useState(false);
 
 
     setUserImg(picUri);
-
     useEffect(() => {
         (async () => {
             const { status } = await Camera.requestCameraPermissionsAsync();
@@ -33,6 +34,7 @@ const navigation = useNavigation();
     }
     return (
         <View style={styles.container}>
+              <Loader visible={loading} />
             <Camera style={styles.camera} type={type} ref={ref => setCamera(ref)}>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
@@ -50,7 +52,7 @@ const navigation = useNavigation();
                         style={styles.button}
                         onPress={async () => {
                             if (camera) {
-                                const data = await camera.takePictureAsync(null) ;
+                                const data = await camera.takePictureAsync(null);
                                 setPicUri(data.uri);
                             }
                         }}>
@@ -66,7 +68,7 @@ const navigation = useNavigation();
                     style={styles.picture} />
 
             </View>
-       
+
         </View>
     );
 }
@@ -81,7 +83,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: 20,
         justifyContent: 'space-between',
-      },
+    },
     camera: {
         //הפלקס בוחר את הגודל של המצלמה
         flex: 0.7,

@@ -30,7 +30,6 @@ const OrderListScreen = () => {
         setsShippingDetails(data)
       });
   }, []);
-
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.white, }}>
 

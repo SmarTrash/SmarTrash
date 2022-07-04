@@ -1,5 +1,5 @@
 import { View, Dimensions, StyleSheet, Alert } from 'react-native'
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import Camera from '../../Components/Camera/useCamera'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Utils
-import { ChangeImage, sendToAzure } from '../../Utils/CameraUtils';
+import { sendToAzure } from '../../Utils/CameraUtils';
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
@@ -16,32 +16,24 @@ const cardHeight = height;
 
 let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/updateUserImage";
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
-
 const CameraScreen = () => {
 
+
   const navigation = useNavigation();
-  const { userImg, setUserImg, userEmail, userFirstName, userLastName, setOpen, setShow, userGallery, setUserGallery } = useContext(GlobalContext);
+
+  const { userImg, setUserImg, userEmail, userFirstName, userLastName, setOpen, setShow } = useContext(GlobalContext);
 
   const updateData = async (u) => {
     AsyncStorage.getItem('@storage_Key')
       .then(data => {
-
-        // the string value read from AsyncStorage has been assigned to data
-        console.log("eeeeeeeeeeeeeeeeeeeeee",data);
-
-        // transform it back to an object
+        console.log("eeeeeeeeeeeeeeeeeeeeee", data);
         data = JSON.parse(data);
         console.log(data);
-
-        // Decrement
-        data.Img=userImg;
-        console.log("hhhhhhhhhhhh" ,data );
-
-        //save the value to AsyncStorage again
+        data.Img = userImg;
+        console.log("hhhhhhhhhhhh", data);
         AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
 
       }).done();
-
 
   }
 
@@ -51,16 +43,15 @@ const CameraScreen = () => {
   }
 
   const imageUpload = (userImage, picName) => {
-
+    console.log('loading', loading);
     let dataI = new FormData();
-
     dataI.append('picture', {
       uri: userImage,
       name: picName,
       type: 'image/jpg'
     });
 
-    console.log('dataI', { dataI });
+    console.log('dataI', { dataI });;
 
     const config = {
       method: 'POST',
@@ -97,8 +88,10 @@ const CameraScreen = () => {
 
         }
         else { alert('error uploding ...'); }
-
-
+        //   } catch (error) {
+        //     Alert.alert('Error', 'Something went wrong');
+        //   }
+        // }, 1000);
       })
       .catch(err => { alert('err upload= ' + err); });
   }
@@ -118,29 +111,35 @@ const CameraScreen = () => {
       })
     })
 
-        Alert.alert(
-          userFirstName + " " + userLastName,
-          "התמונה שונתה בהצלחה",
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel"
-            },
-            { text: "OK", onPress: () => { setShow(false)
-              setOpen(false) 
-              navigation.navigate("EditProfile")}
-          , style: "ok" }
-          ]
-        );
-        updateData(u);
-       }
-  
-    
+    Alert.alert(
+      userFirstName + " " + userLastName,
+      "התמונה שונתה בהצלחה",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: "OK", onPress: () => {
+            setShow(false)
+            setOpen(false)
+            navigation.navigate("EditProfile")
+          }
+          , style: "ok"
+        }
+      ]
+    );
+    updateData(u);
+  }
 
-  
+
+
+
   return (
+
     <View>
+      <Loader visible={loading} />
       <View style={styles.root}>
         <Camera />
         <View style={styles.savePic}>

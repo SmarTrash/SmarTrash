@@ -7,12 +7,8 @@ import React,{ useState,useEffect,useContext } from 'react'
 
 const { width } = Dimensions.get('screen');
 
-
-const ApprovedPurchase=({ navigation, route })=> {
+const ApprovedPurchase=({ navigation})=> {
 const { userPoints } = useContext(GlobalContext);
-const userShippingDetails = route.params;
-console.log("points =" + userShippingDetails.price)
-
   console.log(userPoints)
   return (
     <View style={styles.container}>
@@ -37,7 +33,7 @@ console.log("points =" + userShippingDetails.price)
 
         <View  >
           <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.dark, textAlign: 'center',margin:10,padding:20 }}>
-           {userShippingDetails.price} {' '}
+           {userPoints} {' '}
             <CoinIcon />
           </Text>
         </View>

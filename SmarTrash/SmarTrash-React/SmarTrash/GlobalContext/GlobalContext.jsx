@@ -6,7 +6,7 @@ const GlobalContext = createContext({});
 const Provider = ({ children }) => {
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState(0);
-
+    const [specificAdress, setSpecificAdress] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userImg, setUserImg] = useState('https://cdn-icons-png.flaticon.com/512/149/149071.png');
     const [ userFirstName, setUserFirstName] = useState('');
@@ -53,7 +53,8 @@ const Provider = ({ children }) => {
         userStreetNameAndNumber, setUserStreetNameAndNumber,
         userEmail, setUserEmail,checked, setChecked,
         userToken, setUserToken,userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,
-        binQRId, setBinQRId}
+        binQRId, setBinQRId,
+        specificAdress, setSpecificAdress}
         
     return (
         <GlobalContext.Provider value={GlobalContextOrginal}>

@@ -1,5 +1,6 @@
 import React, { useContext,PureComponent } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
+import COLORS from "../Consts/colors";
 import Constants from './Constants';
 // import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 
@@ -52,7 +53,7 @@ class OurItem extends PureComponent {
     //img = require('../../assets/'+item+'.png'); -> should get rid of the long switch!
 
     return (
-      <Image source={img} key={this.props.item} style={[styles.item, { left: x, top: y }]} />
+      <Image source={img} key={this.props.item} style={[styles.item, { left: x, top: y }]}/>
     );
   }
 }
@@ -87,7 +88,7 @@ class Bin extends PureComponent {
       img = require('../../assets/bin_trash.png');
 
     return (
-      <Image source={img} style={[styleComponent, { left: x, top: y }]} />
+      <Image source={img} style={[styleComponent, { left: x, top: y }]}/>
     );
 
   }
@@ -98,7 +99,7 @@ class Timer extends PureComponent {
     super(props);
     this.state = {
       minutes: 0,
-      seconds: 60
+      seconds: 10
     }
   }
 
@@ -135,7 +136,7 @@ class Timer extends PureComponent {
       <View>
         {minutes === 0 && seconds === 0
           ? <Text style={styles.busted}>נגמר הזמן!</Text>
-          : <Text style={styles.time}>Time: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>  
+          : <Text style={styles.time}>זמן שנותר: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>  
         }
       </View>
     )
@@ -177,15 +178,15 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 40,
-    color: "#F3B337",
+    color: COLORS.black,
     textShadowColor: 'black',
-    textShadowRadius: 5,
+    textShadowRadius: 4,
     fontFamily: 'Futura',
     textAlign: "center",
   },
   busted: {
     fontSize: 30,
-    color: "#F3B337",
+    color: COLORS.red,
     fontFamily: 'Futura',
     textAlign: "center",
   },

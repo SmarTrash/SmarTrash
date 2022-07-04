@@ -22,12 +22,10 @@ import QRScanner from '../../screens/QRScanner/QRScanner';
 import Start from '../../screens/GameScreen/Start'
 import Game from '../../screens/GameScreen/Game'
 import GameOver from '../../screens/GameScreen/GameOver'
-//import NavigationMap from '../../screens/MapScreen/NavigationMap'
 import EditImage from '../../screens/EditImage/EditImage';
 import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import BinCameraScreen from '../../screens/FindBin/BinCameraScreen'
 import BinPicture from '../../screens/FindBin/BinPicture';
-//import OrderListScreen from '../../screens/OrderList/OrderListScreen';
 import OrderListScreen from '../../screens/OrderList/OrderListScreen';
 
 const Stack = createNativeStackNavigator();

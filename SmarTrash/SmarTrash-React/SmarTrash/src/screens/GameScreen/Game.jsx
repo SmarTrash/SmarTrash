@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useContext, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StyleSheet, View, Modal, Pressable } from 'react-native';
-import { Input, Text, Button, Label, Item, NativeBaseProvider, Form } from 'native-base';
+import { Text,NativeBaseProvider,} from 'native-base';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import { GameEngine } from "react-native-game-engine";
 import { OurItem, Bin, Timer, Floor } from "../../screens/renderers";
@@ -10,10 +10,10 @@ import { MoveItem, Collision } from "../../screens/systems";
 import COLORS from '../../Consts/colors';
 import { Audio } from 'expo-av';
 // import Constants from './../Constants';
+// import { Octicons } from '@expo/vector-icons';
 import Constants from '../../screens/Constants';
 const WIDTH = Constants.WIDTH;
 const HEIGHT = Constants.HEIGHT;
-
 
 
 const Game = ({ navigation }) => {
@@ -34,7 +34,6 @@ const Game = ({ navigation }) => {
       userEmail: userEmail,
       visibleModal: true,
       item: "can" //random
-
     })
     Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
@@ -46,21 +45,21 @@ const Game = ({ navigation }) => {
       playThroughEarpieceAndroid: true,
     });
 
-    try {
-      soundObject.loadAsync(require('../../../assets/gamesound.mp3'));
-      soundObject.playAsync();
-    } catch (error) {
-      console.log(error);
-    }
-    return () => {
+    // try {
+    //   soundObject.loadAsync(require('./assets/gamesound.mp3'));
+    //   soundObject.playAsync();
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // return () => {
 
-      try {
-        soundObject.unloadAsync();
-        soundObject.stopAsync();
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    //   try {
+    //     soundObject.unloadAsync();
+    //     soundObject.stopAsync();
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
   }, []);
 
 
@@ -74,17 +73,13 @@ const Game = ({ navigation }) => {
       icon: iconURL
 
     }];
-    console.log('noy', v);
+    console.log('v', v);
     console.log('userEmail', userEmail);
     AsyncStorage.getItem('points', (err, result) => {
-
       if (result !== null) {
         //console.log('Data found', result);
         var arr = JSON.parse(result) || [];
-        
-        console.log('arr',arr);
         var newPoints = arr.concat(v);
-        console.log('newPoints',newPoints);
         AsyncStorage.setItem('points', JSON.stringify(newPoints));
       }
       else {
@@ -92,6 +87,7 @@ const Game = ({ navigation }) => {
         AsyncStorage.setItem('points', JSON.stringify(v));
       }
     })
+    AsyncStorage.clear();
   }
 
   // const toggleSound = () => {
@@ -139,7 +135,7 @@ const Game = ({ navigation }) => {
 
     <NativeBaseProvider>
       <View style={styles.container}>
-        <Text style={styles.score}>נקודות</Text>
+        <Text style={styles.score}>סה"כ נקודות</Text>
         <Text style={styles.points}>{userState.points}</Text>
         <Timer key={userState.updateTimer} onChange={() => onChangeTimer()} />
         {/* <Pressable onPress={toggleSound}>
@@ -153,7 +149,7 @@ const Game = ({ navigation }) => {
           onEvent={onEvent}
           systems={[MoveItem, Collision]}
           entities={{
-            1: { position: [WIDTH / 2, HEIGHT - 600], item: userState.item, renderer: <OurItem /> },
+            1: { position: [WIDTH / 2, HEIGHT - 200], item: userState.item, renderer: <OurItem /> },
             //bins
             2: { position: [WIDTH - 125, HEIGHT / 3], category: "paper", renderer: <Bin /> },
             3: { position: [WIDTH - 55, HEIGHT / 3], category: "glass", renderer: <Bin /> },
@@ -169,7 +165,7 @@ const Game = ({ navigation }) => {
             16: { position: [0, HEIGHT / 3 - 90], category: "floor", renderer: <Floor /> }
 
           }}>
-          <StatusBar hidden={true} />
+         <StatusBar hidden={true} />
         </GameEngine>
         {!userState.running &&
           <Modal
@@ -196,7 +192,7 @@ const Game = ({ navigation }) => {
                         storeData(JSON.stringify(userState.points), userState.username);
                         { reset() }
                       }}>
-                      <Text style={styles.textStyle}>מחשק חוזר</Text>
+                      <Text style={styles.textStyle}>משחק חוזר</Text>
                     
                     </Pressable>
                       </View>
@@ -243,7 +239,7 @@ const styles = StyleSheet.create({
     marginTop:20,
     textAlign: "right",
     marginHorizontal: 10,
-    color:COLORS.green,
+    color:COLORS.black,
     marginRight: 25,
 
   },
@@ -253,7 +249,7 @@ const styles = StyleSheet.create({
     padding: 15,
     textAlign: "right",
     marginHorizontal: 10,
-    color:COLORS.green
+    color:COLORS.black
   },
   modalView: {
     backgroundColor: "white",

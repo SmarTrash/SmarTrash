@@ -36,7 +36,6 @@ const EditImage = () => {
     }
   };
 
-  console.log('image', userImg);
 
   const updateData = async (u) => {
     AsyncStorage.getItem('@storage_Key')
