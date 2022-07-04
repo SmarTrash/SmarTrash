@@ -91,7 +91,7 @@ export default function ThrowPoints({ navigation }) {
       
         <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
           <Text style={style.text}>
-            'מיחזרת {throwInfo.throwenWeight} קילו פסולת'
+            מיחזרת {throwInfo.throwenWeight} קילו פסולת
           </Text>
         </View>
         <View style={style.txtContainer}>
