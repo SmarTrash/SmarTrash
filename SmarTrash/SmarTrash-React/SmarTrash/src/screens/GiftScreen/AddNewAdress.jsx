@@ -27,7 +27,7 @@ const AddNewAdress = ({ navigation, route }) => {
     let isValid = true;
 
     if (!inputs.phone) {
-      handleError('בבקשה הכנס מספר טלפון', 'phone');
+      handleError(' הכנס מספר טלפון', 'phone');
       isValid = false;
     } else if (inputs.phone.length != 10) {
       handleError('טלפון חייב להכיל 10 ספרות', 'phone');
@@ -35,7 +35,7 @@ const AddNewAdress = ({ navigation, route }) => {
     }
 
     if (!inputs.streetNameAndNumber) {
-      handleError('בבקשה הכנס רחוב ומספר בית', 'streetNameAndNumber');
+      handleError(' הכנס רחוב ומספר בית', 'streetNameAndNumber');
       isValid = false;
     }
     if (isValid) {

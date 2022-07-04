@@ -1,17 +1,18 @@
 import { SafeAreaView, StyleSheet, TouchableOpacity, Alert, ColorPropType } from 'react-native'
-import React, { useRef, useContext } from 'react'
+import React, { useRef, useContext,useState } from 'react'
 import ActionSheet from 'react-native-actionsheet';
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import * as ImagePicker from 'expo-image-picker';
+import Loader from '../../Components/Loader/Loader';
 let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/updateUserImage";
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
 const EditImage = () => {
   const { userImg, setUserImg, userEmail, userFirstName, userLastName } = useContext(GlobalContext);
-
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   let actionSheet = useRef();
@@ -81,7 +82,7 @@ const EditImage = () => {
       body: dataI,
     }
     console.log("config=", config)
-
+    setLoading(true)
     fetch(urlAPI, config)
       .then((res) => {
         console.log({ res });
@@ -118,28 +119,13 @@ const EditImage = () => {
       })
     })
 
-    Alert.alert(
-      userFirstName + " " + userLastName,
-      "התמונה שונתה בהצלחה",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        {
-          text: "OK", onPress: () => {
-            navigation.navigate("EditProfile")
-          }
-          , style: "ok"
-        }
-      ]
-    );
+   
     updateData(u);
   }
 
   return (
     <SafeAreaView>
+          <Loader visible={loading} />
       <TouchableOpacity style={{ backgroundColor: 'green' }} onPress={showActionSheet}>
         <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
       </TouchableOpacity>

@@ -117,7 +117,7 @@ const GiftPurchase = ({ navigation, route }) => {
                 titleStyle={styles.listTitle}
                 detailsStyle={styles.listTitle}
                 descriptionNumberOfLines={3}
-               
+               צצצצצצצצצצצצצצצצצצצצצצת
               />
             )}
             keyExtractor={item => item.id}

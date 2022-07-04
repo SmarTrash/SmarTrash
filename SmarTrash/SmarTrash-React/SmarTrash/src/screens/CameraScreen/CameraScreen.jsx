@@ -5,7 +5,7 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
+import Loader from '../../Components/Loader/Loader';
 // Utils
 import { ChangeImage, sendToAzure } from '../../Utils/CameraUtils';
 
@@ -18,7 +18,7 @@ let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/update
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
 const CameraScreen = () => {
-
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
   const { userImg, setUserImg, userEmail, userFirstName, userLastName, setOpen, setShow, userGallery, setUserGallery } = useContext(GlobalContext);
 
@@ -45,7 +45,7 @@ const CameraScreen = () => {
 
   }
 
-  console.log("userImguserImg", userImg);
+ 
   const uploadImage = () => {
     imageUpload(userImg, 'userPicture.jpg')
   }
@@ -61,13 +61,13 @@ const CameraScreen = () => {
     });
 
     console.log('dataI', { dataI });
-
+    setLoading(true)
     const config = {
       method: 'POST',
       body: dataI,
     }
     console.log("config=", config)
-
+    
     fetch(urlAPI, config)
       .then((res) => {
         console.log({ res });
@@ -79,9 +79,8 @@ const CameraScreen = () => {
         if (responseData != "err" || responseData != null) {
           console.log("img uploaded successfully!");
           setUserImg(responseData)
-
-          // if (responseData.indexOf("http") == 0)
-          // {
+          setLoading(false)
+          
           console.log("sending")
           sendToAzure("https://static.turbosquid.com/Preview/001235/567/ZD/plastic-water-bottle-3D-model_Z.jpg")
             .then(type => {
@@ -105,7 +104,7 @@ const CameraScreen = () => {
 
 
   const ChangeImage = (u) => {
-
+    
     fetch(urlUpdateImage, {
       method: 'POST',
       body: JSON.stringify({
@@ -117,22 +116,8 @@ const CameraScreen = () => {
         'Accept': 'application/json; charset-UTF-8'
       })
     })
-
-        Alert.alert(
-          userFirstName + " " + userLastName,
-          "התמונה שונתה בהצלחה",
-          [
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel"
-            },
-            { text: "OK", onPress: () => { setShow(false)
-              setOpen(false) 
-              navigation.navigate("EditProfile")}
-          , style: "ok" }
-          ]
-        );
+  
+        
         updateData(u);
        }
   
@@ -141,6 +126,7 @@ const CameraScreen = () => {
   
   return (
     <View>
+        <Loader visible={loading} />
       <View style={styles.root}>
         <Camera />
         <View style={styles.savePic}>
@@ -173,7 +159,7 @@ const styles = StyleSheet.create({
     height: cardHeight,
   },
   savePic: {
-    bottom: 30,
+    bottom: 60,
   }
 
 })

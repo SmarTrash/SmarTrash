@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import LottieView from 'lottie-react-native';
 import COLORS from '../../Consts/colors'
+import CustonButton from '../../Components/CustomButton/CustonButton'
 const Start = ({navigation}) => {
     return(
     <View style = {styles.MainContainer}>
