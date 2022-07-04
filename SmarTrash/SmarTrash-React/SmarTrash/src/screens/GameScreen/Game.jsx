@@ -87,7 +87,6 @@ const Game = ({ navigation }) => {
         AsyncStorage.setItem('points', JSON.stringify(v));
       }
     })
-    AsyncStorage.clear();
   }
 
   // const toggleSound = () => {
