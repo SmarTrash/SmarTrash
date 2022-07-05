@@ -24,6 +24,13 @@ const Loader = ({visible = false}) => {
 };
 
 const style = StyleSheet.create({
+  container: {
+    flex:1,
+    position: 'absolute',
+    zIndex: 10,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+  },
   loader: {
     height: 70,
     backgroundColor: COLORS.white,
@@ -33,12 +40,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-  container: {
-    position: 'absolute',
-    zIndex: 10,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-  },
+
 });
 
 export default Loader;

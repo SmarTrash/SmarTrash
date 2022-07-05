@@ -12,7 +12,6 @@ import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 
 const { width } = Dimensions.get('screen');
-const cardWidth = width / 1.8;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/HomePageGifts';
 const apiUrlPostToken = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Homepage/PostToken';
 
@@ -76,13 +75,11 @@ const Home = ({ navigation }) => {
   const removeData = async () => {
     try {
       await AsyncStorage.removeItem('@storage_Key');
-      { console.log("@storage_Key:", AsyncStorage) }
       navigation.navigate('SignInScreen');
     } catch (error) {
       console.log(error);
     }
   }
-  const scrollX = React.useRef(new Animated.Value(0)).current;
 
   const onScreenLoad = () => {
     fetch(apiUrl, {
@@ -94,8 +91,6 @@ const Home = ({ navigation }) => {
     }).then(response => { return response.json() })
       .then(data => {
         setData(data)
-        console.log('data',data);
-
       });
   }
   return (
@@ -132,13 +127,13 @@ const Home = ({ navigation }) => {
         </View>
         <View style={style.btnContainer}>
           <View>
-          <TouchableOpacity onPress={() => { navigation.navigate('BinCameraScreen') }}>
-            <View style={[style.sortBtn, { backgroundColor: '#557B83' }]}>
-              <FontAwesome5  name="trash" size={50} color="black" />
-            </View>
-            <View>
-              <Text style={[style.text, style.subText, { marginLeft: 18 }]} >לאן לזרוק</Text>
-            </View>
+            <TouchableOpacity onPress={() => { navigation.navigate('BinCameraScreen') }}>
+              <View style={[style.sortBtn, { backgroundColor: '#557B83' }]}>
+                <FontAwesome5 name="trash" size={50} color="black" />
+              </View>
+              <View>
+                <Text style={[style.text, style.subText, { marginLeft: 18 }]} >לאן לזרוק</Text>
+              </View>
             </TouchableOpacity>
           </View>
           <View>
@@ -277,30 +272,5 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 25,
-  },
-  card: {
-    height: 250,
-    backgroundColor: COLORS.light,
-    borderRadius: 10,
-    marginBottom: 20,
-    padding: 15,
-    width,
-    marginLeft: 10,
-  },
-  giftText: {
-    color: '#52575D',
-    fontSize: 17,
-    marginTop: 5,
-    textAlign: 'center',
-  },
-  cardImage: {
-    marginTop: 0,
-    height: 150,
-    width: 120,
-    borderRadius: 10,
-    flex: 1,
-  },
-  priceGift: {
-    flexDirection: 'row-reverse',
   },
 });

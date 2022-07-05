@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Image,  StyleSheet, Text, View, Dimensions } from 'react-native';
 import COLORS from '../../Consts/colors'
 import { useEffect, useContext, useState } from 'react';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
@@ -8,6 +8,9 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/AbleToOrder/';
+const { width } = Dimensions.get('screen');
+const cardWidth = width ;
+const imgWidth = width/ 1.07;
 
 const SelectedGift = ({ navigation, route }) => {
   const [isAbleToOrder, setIsAbleToOrder] = useState(false);
@@ -31,128 +34,89 @@ const SelectedGift = ({ navigation, route }) => {
   }, []);
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        backgroundColor: COLORS.white,
-        paddingBottom: 20,
-        flex: 1,
-      }}>
-      <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="rgba(0,0,0,0)"
-      />
-      <ImageBackground style={style.headerImage} source={{ uri: item.Image }}>
-        <View style={style.header}>
-        </View>
-      </ImageBackground>
+    <View style={style.container}>
 
-
-      <Text
-        style={{
-          fontSize: 26,
-          fontWeight: '400',
-          marginTop: 15,
-          alignSelf: 'flex-start',
-          color: COLORS.primary,
-          padding: 20
-        }}>
-        {item.Brand}  
-         <View style={style.priceTag}>
-            <Text
-              style={{ fontSize: 20, fontWeight: 'bold', left: 20, color: COLORS.green }}>
-              {item.Price}
-            </Text>
-            <CoinIcon />
-          </View>
-      </Text>
-      
-       
-      
-      <View
-        style={{
-          marginTop: 10,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-
-        <View style={{  fontSize: 30 }}>
-          <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-start', fontSize: 18, padding: 20 }}>
-            {item.GiftName + '\n\n' + item.GiftDescription + '\n'}
-          </Text>
-        </View>
-       
+      <View style={style.imgContainer}>
+        <Image style={style.headerImage} source={{ uri: item.Image }} />
       </View>
+
+      <View style={style.content}>
+        <Text style={style.txtContent2}>
+          {item.Brand}
+        </Text>
+        <Text style={style.txtContent}>
+          {item.GiftName + '\n\n' + item.GiftDescription}
+        </Text>
+
+        <Text style={style.priceContent}>
+          {item.Price} <CoinIcon />
+        </Text>
+      </View>
+
       <CustonButton
         text='רכישה'
         disabled={!isAbleToOrder}
         onPress={() => { navigation.navigate('GiftPurchase', item.GiftId) }}
       />
+    </View>
 
-    </ScrollView>
   );
 };
 
 const style = StyleSheet.create({
   container: {
-    width: '100%',
-    padding: 15,
-    marginVertical: 10,
-    alignItems: 'center',
-    borderRadius: 15,
-    backgroundColor: COLORS.primary,
-  },
-  btn: {
-    height: 55,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-    backgroundColor: COLORS.primary,
-    marginHorizontal: 20,
-    borderRadius: 10,
-  },
-  amount: {
-    left: 250,
-    top: 30,
-
-  },
-  priceTag: {
-    height: 40,
-    alignItems: 'center',
     flex: 1,
-    bottom: 15,
-    width: 150,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderTopRightRadius: 20,
-    flexDirection: 'row',
+    backgroundColor: COLORS.white,
   },
-  iconContainer: {
-    position: 'absolute',
-    height: 60,
-    width: 60,
-    backgroundColor: COLORS.primary,
-    top: -30,
-    left: 20,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+  imgContainer: {
+    height: 400,
+    width: cardWidth,
+    backgroundColor: COLORS.white,
+    elevation: 15,
+    borderRadius:20,
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    alignContent:'center',
   },
   headerImage: {
     height: 400,
-    borderBottomRightRadius: 40,
-    borderBottomLeftRadius: 40,
-    overflow: 'hidden',
+    width:'100%',
+    borderRadius:20,
+    shadowColor: '#171717',
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    alignContent:'center',
   },
-  header: {
-    marginTop: 60,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 20,
-    justifyContent: 'space-between',
+  content: {
+    marginTop: 10,
+    flexDirection: 'column',
   },
+  txtContent: {
+    lineHeight: 24,
+    color: COLORS.grey,
+    fontSize: 24,
+    padding: 10
+  },
+  txtContent2: {
+    textAlign: 'left',
+    fontWeight: 'bold',
+    color: COLORS.grey,
+    fontSize: 24,
+    padding: 10
+  },
+  priceContent: {
+    textAlign: 'left',
+    lineHeight: 20,
+    color: COLORS.green,
+    fontSize: 24,
+    fontWeight: 'bold',
+    padding: 20
+  },
+
+
 });
 
 export default SelectedGift

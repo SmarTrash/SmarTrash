@@ -21,12 +21,9 @@ const QRScanner = ({ navigation }) => {
         'Accept': 'application/json; charset-UTF-8'
 
       })
-    }).then(response => { return console.log('response'), response.json() })
+    }).then(response => { return  response.json() })
       .then(data => {
-        console.log('QRBIN', data)
         if (data == true) {
-        
-          console.log('binQRId', binQRId);
           navigation.navigate('ReceptBin')
         }
         else{
@@ -43,20 +40,15 @@ const QRScanner = ({ navigation }) => {
       setHasPermission(status === 'granted');
     })()
   }
-  // Request Camera Permission
   useEffect(() => {
     askForCameraPermission();
   }, []);
 
-  // What happens when we scan the bar code
-  const handleBarCodeScanned = ({ type, data }) => {
-    console.log('lalala',data);
+  const handleBarCodeScanned = ({  data }) => {
     setScanned(true);
     setBinQRId(data)
-    console.log('Type: ' + type + '\nData: ' + data)
   };
 
-  // Check permissions and return the screens
   if (hasPermission === null) {
     return (
       <View style={styles.container}>
