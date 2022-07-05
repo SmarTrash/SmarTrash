@@ -48,6 +48,7 @@ namespace SmarTrash.Controllers
                 newUser.StreetNameAndNumber = value.StreetNameAndNumber;
                 newUser.CityId = value.CityId;
                 newUser.UserImg = value.UserImg;
+                newUser.TotalPoints = 0;
                 db.tblUser.Add(newUser);
                 db.SaveChanges();
 
