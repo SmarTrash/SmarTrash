@@ -301,6 +301,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="FindBin\" />
     <Folder Include="uploadFiles\" />
     <Folder Include="Views\Gift\" />
     <Folder Include="Views\TimerServices\" />
