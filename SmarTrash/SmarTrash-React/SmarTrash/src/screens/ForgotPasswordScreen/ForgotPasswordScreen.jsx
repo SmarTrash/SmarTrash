@@ -1,45 +1,45 @@
-import { View, Text, ScrollView, StyleSheet, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, Keyboard } from 'react-native'
 import React, { useContext } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import Loader from '../../Components/Loader/Loader';
+
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/SendMail';
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [inputs, setInputs] = React.useState({
     email: '',
-
   });
   const [loading, setLoading] = React.useState(false);
   const { userEmail, setUserEmail } = useContext(GlobalContext);
   const [errors, setErrors] = React.useState({});
   const onSendPressed = () => {
     setUserEmail(inputs.email)
-    console.log('userEmail',inputs.email);
+    console.log('userEmail', inputs.email);
     setLoading(true);
-   
-      try {
-       
-        console.log("user before sending", userEmail);
-        fetch(apiUrl, {
-          method: 'POST',
-          body: JSON.stringify({ UserEmail: inputs.email }),
-          headers: new Headers({
-            'Content-type': 'application/json; charset=UTF-8',
-            'Accept': 'application/json; charset-UTF-8'
-          })
-        }).then(response => { return response.json() })
-          .then(data => {
-            if (data.isSuccess == true) {
-              setLoading(false);
-              navigation.navigate('SignInScreen');
-            }
-          });
-      } catch (error) {
-        Alert.alert('Error', 'Something went wrong');
-      }
-  
+    try {
+      console.log("user before sending", userEmail);
+      fetch(apiUrl, {
+        method: 'POST',
+        body: JSON.stringify({ UserEmail: inputs.email }),
+        headers: new Headers({
+          'Content-type': 'application/json; charset=UTF-8',
+          'Accept': 'application/json; charset-UTF-8'
+        })
+      }).then(response => { return response.json() })
+        .then(data => {
+          if (data.isSuccess == true) {
+            setLoading(false);
+            navigation.navigate('SignInScreen');
+          } else {
+            setLoading(false);
+            alert("משתמש לא במערכת")
+          }
+        });
+    } catch (error) {
+      Alert.alert('Error', 'Something went wrong');
+    }
   }
   const validate = () => {
     Keyboard.dismiss();
@@ -67,8 +67,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
     setErrors(prevState => ({ ...prevState, [input]: error }));
   };
   return (
-
-
     <View style={styles.root}>
       <Loader visible={loading} />
       <Text style={styles.title}>שחזור סיסמה</Text>
@@ -82,7 +80,6 @@ const ForgotPasswordScreen = ({ navigation }) => {
           placeholder="אימייל"
           error={errors.email}
         />
-
         <CustonButton
           text="שלח"
           onPress={validate}
@@ -93,9 +90,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
         onPress={onSignInPressed}
         type="TERTIARY"
       />
-
     </View>
-
   )
 }
 
@@ -105,14 +100,11 @@ const styles = StyleSheet.create({
   root: {
     alignItems: 'center',
     padding: 50,
-
   },
-
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: "#051C60",
     margin: 10
   }
-
 })

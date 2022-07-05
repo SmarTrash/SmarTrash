@@ -122,7 +122,7 @@ const Home = ({ navigation }) => {
             <Text style={[style.text, style.subText]}>צבירה אחרונה</Text>
           </View>
           <View style={[style.statusBox, { borderColor: '#DFD8C8', borderLeftWidth: 1, borderRightWidth: 1 }]}>
-            <Text style={[style.text, { fontSize: 24, }]}>{userPoints}</Text>
+            <Text style={[style.text, { fontSize: 24, }]}>{userPoints=="0"?"-":userPoints}</Text>
             <Text style={[style.text, style.subText]}>סה"כ נקודות</Text>
           </View>
           <View style={style.statusBox}>

@@ -36,7 +36,7 @@ const SelectedGift = ({ navigation, route }) => {
       contentContainerStyle={{
         backgroundColor: COLORS.white,
         paddingBottom: 20,
-        flex:1,
+        flex: 1,
       }}>
       <StatusBar
         barStyle="light-content"
@@ -47,45 +47,49 @@ const SelectedGift = ({ navigation, route }) => {
         <View style={style.header}>
         </View>
       </ImageBackground>
-      <View>
-        <View style={{ marginTop: 80, paddingHorizontal: 20 }}>
-          <Text style={{ fontSize: 30, fontWeight: 'bold', alignSelf: 'flex-start' }}>{item.Name}</Text>
-          <Text
-            style={{
-              fontSize: 26,
-              fontWeight: '400',
-              marginTop: 15,
-              alignSelf: 'flex-start',
-              color: COLORS.primary,
-            }}>
-            {item.Brand}
-          </Text>
-          <View
-            style={{
-              marginTop: 10,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-          </View>
-          <View style={style.priceTag}>
-          <CoinIcon />
-          <Text
-            style={{ fontSize: 20, fontWeight: 'bold', left: 20, color: COLORS.green }}>
-            {item.Price}
-          </Text>
-        </View>
-          <View style={{ marginBottom:20, fontSize: 30 }}>
-            <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-start',fontSize: 18  }}>
-              {item.GiftDescription}
+
+
+      <Text
+        style={{
+          fontSize: 26,
+          fontWeight: '400',
+          marginTop: 15,
+          alignSelf: 'flex-start',
+          color: COLORS.primary,
+          padding: 20
+        }}>
+        {item.Brand}  
+         <View style={style.priceTag}>
+            <Text
+              style={{ fontSize: 20, fontWeight: 'bold', left: 20, color: COLORS.green }}>
+              {item.Price}
             </Text>
+            <CoinIcon />
           </View>
+      </Text>
+      
+       
+      
+      <View
+        style={{
+          marginTop: 10,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}>
+
+        <View style={{  fontSize: 30 }}>
+          <Text style={{ lineHeight: 20, color: COLORS.grey, alignSelf: 'flex-start', fontSize: 18, padding: 20 }}>
+            {item.GiftName + '\n\n' + item.GiftDescription + '\n'}
+          </Text>
         </View>
-        <CustonButton
-            text='רכישה'
-            disabled={!isAbleToOrder}
-            onPress={() => {navigation.navigate('GiftPurchase', item.GiftId)}}
-          />
+       
       </View>
+      <CustonButton
+        text='רכישה'
+        disabled={!isAbleToOrder}
+        onPress={() => { navigation.navigate('GiftPurchase', item.GiftId) }}
+      />
+
     </ScrollView>
   );
 };
@@ -114,7 +118,6 @@ const style = StyleSheet.create({
 
   },
   priceTag: {
-    marginTop: 20,
     height: 40,
     alignItems: 'center',
     flex: 1,
@@ -146,7 +149,7 @@ const style = StyleSheet.create({
   header: {
     marginTop: 60,
     flexDirection: 'row',
-     alignItems: 'center',
+    alignItems: 'center',
     marginHorizontal: 20,
     justifyContent: 'space-between',
   },
