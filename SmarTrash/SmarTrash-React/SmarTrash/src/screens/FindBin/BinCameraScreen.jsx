@@ -20,8 +20,9 @@ const BinCameraScreen = () => {
   const navigation = useNavigation();
   const { imageBin, setSendFromBin } = useContext(GlobalContext);
 
-  setSendFromBin(true)
+
   const uploadImage = () => {
+    setSendFromBin(true)
     imageUpload(imageBin, 'userPicture.jpg')
   }
 
@@ -37,33 +38,6 @@ const BinCameraScreen = () => {
       body: dataI,
     }
     setLoading(true);
-    
-      try {
-        
-        fetch(urlAPI, config)
-          .then((res) => {
-            console.log({ res });
-            return res.json()
-            // else { return "err"; }
-          })
-          .then((responseData) => {
-            console.log("responseData=", responseData)
-            if (responseData != "err" || responseData != null || !responseData) {
-              console.log("img uploaded successfully!");
-              // setUserImg(responseData)
-             
-              // if (responseData.indexOf("http") == 0)
-              // {
-              console.log("sending")
-              sendToAzure(responseData)
-                .then(type => {
-                
-                  console.log("type in component")
-                  console.log(type)
-                  setLoading(false);
-                  
-                  navigation.navigate("BinPicture", { binName: type })
-                  // alert(type);
 
     try {
 
@@ -87,7 +61,7 @@ const BinCameraScreen = () => {
           }
           else { alert('error uploding ...'); }
         })
-        .catch(err => { alert('העלאת התמונה נכשלה, נסה שנית'); });
+        .catch(err => { alert('העלאת התמונה נכשלה, נסה שנית');  setLoading(false); });
     } catch (error) {
       Alert.alert('Error', 'Something went wrong');
     }
