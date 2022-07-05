@@ -10,13 +10,12 @@ import CustonButton from '../../Components/CustomButton/CustonButton'
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/AbleToOrder/';
 const { width } = Dimensions.get('screen');
 const cardWidth = width ;
-const imgWidth = width/ 1.07;
+
 
 const SelectedGift = ({ navigation, route }) => {
   const [isAbleToOrder, setIsAbleToOrder] = useState(false);
   const { userEmail } = useContext(GlobalContext);
   const item = route.params;
-  console.log("item=" + item.GiftId)
 
   useEffect(() => {
     fetch(apiUrl + item.GiftId, {
@@ -29,7 +28,6 @@ const SelectedGift = ({ navigation, route }) => {
     }).then(response => { return response.json() })
       .then(data => {
         setIsAbleToOrder(data)
-        console.log("setisAbleToOrder=" + data)
       });
   }, []);
 
