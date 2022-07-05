@@ -205,7 +205,9 @@ const EditProfile = ({ navigation }) => {
                 style={styles.image}
                 source={{ uri: userImg }} />
             </View>
-            <EditImage />
+            <View style={{left:10, bottom:70}}>
+              <EditImage />
+            </View>
           </View>
         </View>
         <View style={{ marginVertical: 20, margin: 15, marginTop: 0 }}>
