@@ -2,13 +2,9 @@ const COLORS = {
  
   black: '#000',
   blue: '#5D5FEE',
- 
-
   red: 'red',
- 
   white: '#fff',
   dark: '#52575D',
-  //primary: '#52c0b4',
   primary: '#92BA92',
   secondary: '#e0f4f1',
   light: '#f9f9f9',
