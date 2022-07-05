@@ -2,7 +2,7 @@
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
-import { Ionicons} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 import CoinIcon from '../../Components/Icon/CoinIcon';
@@ -13,15 +13,15 @@ const cardWidth = width / 1.06;
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Throw/ThrowGarbage/';
 
 export default function ThrowPoints({ navigation }) {
-  const {userEmail,userImg, binQRId,
+  const { userEmail, userImg, binQRId,
     setUserLastThrow, setUserCompetitionPlace,
-    setUserPoints} = useContext(GlobalContext);
+    setUserPoints } = useContext(GlobalContext);
   const [throwInfo, setThrowInfo] = useState('');
 
-  useEffect( () => {
-    fetch(apiUrl + binQRId , {
+  useEffect(() => {
+    fetch(apiUrl + binQRId, {
       method: 'POST',
-      body: JSON.stringify({UserEmail:userEmail}),
+      body: JSON.stringify({ UserEmail: userEmail }),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
@@ -29,49 +29,34 @@ export default function ThrowPoints({ navigation }) {
     }).then(response => { return response.json() })
       .then(data => {
         data.map(st => setThrowInfo(st))
-        console.log("ThrowPointsData:", data);
         setUserLastThrow(data[0].gainedPoints)
         setUserPoints(data[0].totalPoints)
         setUserCompetitionPlace(data[0].competitionPlace)
         updateData(data)
-        
+
       });
-      
-      const updateData = async (u) => {
-        AsyncStorage.getItem('@storage_Key')
-          .then(data => {
-            // the string value read from AsyncStorage has been assigned to data
-            console.log("eeeeeeeeeeeeeeeeeeeeee",u);
-    
-            // transform it back to an object
-            data = JSON.parse(data);
-            console.log(data);
-    
-            // Decrement
-            data.Points=u[0].totalPoints;
-            data.lastThrow=u[0].gainedPoints;
-            data.competitionPlace=u[0].competitionPlace
-            console.log("hhhhhhhhhhhh" ,data );
-    
-            //save the value to AsyncStorage again
-            AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
-    
-          }).done();
-    
-    
-      }
-  },[]);
- 
+
+    const updateData = async (u) => {
+      AsyncStorage.getItem('@storage_Key')
+        .then(data => {
+          data = JSON.parse(data);
+          data.Points = u[0].totalPoints;
+          data.lastThrow = u[0].gainedPoints;
+          data.competitionPlace = u[0].competitionPlace
+          AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
+        }).done();
+    }
+  }, []);
+
   return (
-    <View style={{ backgroundColor: COLORS.white, width, flex:1}}>
+    <View style={{ backgroundColor: COLORS.white, width, flex: 1 }}>
       <View style={{ alignSelf: 'center' }}>
         <View style={style.profileImage}>
           <Image
             style={style.image}
-            source={{ uri:userImg }} />
+            source={{ uri: userImg }} />
         </View>
       </View>
-
       <View style={style.topHotelCard}>
         <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
           העולם מוסר לך תודה {throwInfo.First} !
@@ -82,14 +67,12 @@ export default function ThrowPoints({ navigation }) {
             source={{ uri: 'https://m.media-amazon.com/images/I/51udbTwCXvL._SL1000_.jpg' }} />
         </View>
       </View>
-
       <View style={style.topHotelCard}>
         <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.green, alignSelf: 'center', margin: 10, textAlign: 'center' }}>
           {'במיחזור זה:'}
         </Text>
         <View style={style.txtContainer}>
-      
-        <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
+          <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
           <Text style={style.text}>
             מיחזרת {throwInfo.throwenWeight} קילו פסולת
           </Text>
@@ -97,30 +80,25 @@ export default function ThrowPoints({ navigation }) {
         <View style={style.txtContainer}>
           <Ionicons name="md-checkmark-circle" size={28} color={COLORS.green} style={style.ChkdIcon} />
           <Text style={style.text}>
-          צברת {throwInfo.gainedPoints} נקודות
+            צברת {throwInfo.gainedPoints} נקודות
           </Text>
         </View>
       </View>
-
       <View style={style.pointsTxt}>
         <Text style={style.txtPoints}>
           {'סה"כ הנקודות שלך:  '}
-           <Text style={[style.txtPoints]}>
+          <Text style={[style.txtPoints]}>
             {throwInfo.totalPoints}
-             <CoinIcon />
+            <CoinIcon />
           </Text>
         </Text>
-         
-         
       </View>
-
       <View >
         <CustonButton
           text="חזרה לדף הבית "
           onPress={() => navigation.navigate('Home')}
         />
       </View>
-
     </View>
   )
 }
@@ -151,7 +129,6 @@ const style = StyleSheet.create({
     shadowOffset: { width: -2, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
-
   },
   imageEarthContainer: {
     justifyContent: 'center',
@@ -167,28 +144,7 @@ const style = StyleSheet.create({
     height: undefined,
   },
   txtContainer: {
-    alignSelf:'flex-start',
-    
-    flexDirection: 'row',
-  },
-  topHotelCardImage: {
-    height: 250,
-    width: cardWidth,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
-  priceTag: {
-    height: 40,
-    alignItems: 'center',
-    marginLeft: 50,
-    paddingLeft: 20,
-    bottom: 65,
-    width: 150,
-    left: 250,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    borderTopRightRadius: 20,
+    alignSelf: 'flex-start',
     flexDirection: 'row',
   },
   text: {
@@ -201,24 +157,19 @@ const style = StyleSheet.create({
   },
   ChkdIcon: {
     marginTop: 10,
-      alignSelf:'flex-start',
-      
+    alignSelf: 'flex-start',
   },
   pointsTxt: {
     marginTop: 70,
-    margin:15,
-    justifyContent:'flex-start',
+    margin: 15,
+    justifyContent: 'flex-start',
   },
-  txtPoints:{
+  txtPoints: {
     color: '#52575D',
     fontSize: 16,
     fontWeight: 'bold',
     margin: 20,
-    
     flexDirection: 'row',
-  },
-  pointIcon:{
-    marginTop:-60,
   },
 
 });

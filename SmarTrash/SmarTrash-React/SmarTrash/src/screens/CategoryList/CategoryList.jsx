@@ -27,7 +27,7 @@ const CategoryList = (props) => {
   }
 
   const GetSpesificCategory = (index) => {
-    if (index === 0) {
+    if (index === 1) {
       fetch(apiUrlAll, {
         method: 'GET',
         headers: new Headers({
@@ -52,25 +52,25 @@ const CategoryList = (props) => {
         });
     }
   }
-  
+
   return (
-    category.map((item, index) => (
+    category.map((item) => (
       <TouchableOpacity
-        key={index}
+        key={item.CategoryId}
         activeOpacity={0.8}
-        onPress={() => { setSelectedCategoryIndex(index), GetSpesificCategory(index) }}>
+        onPress={() => { setSelectedCategoryIndex(item.CategoryId), GetSpesificCategory(item.CategoryId) }}>
         <View>
           <Text
             style={{
               ...style.categoryListText,
               color:
-                selectedCategoryIndex == index
+                selectedCategoryIndex == item.CategoryId
                   ? COLORS.primary
                   : COLORS.grey,
             }}>
-            {item}
+            {item.CategoryName}
           </Text>
-          {selectedCategoryIndex == index && (
+          {selectedCategoryIndex == item.CategoryId && (
             <View
               style={{
                 height: 3,

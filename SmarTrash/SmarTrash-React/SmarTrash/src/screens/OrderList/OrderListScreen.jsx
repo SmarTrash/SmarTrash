@@ -8,11 +8,9 @@ const url = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetUserOrders';
 
 const OrderListScreen = () => {
 
-  const { userEmail,userImg } = useContext(GlobalContext);
- 
+  const { userEmail, userImg } = useContext(GlobalContext);
   const [orders, setOrders] = useState('');
   useEffect(() => {
-
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({ UserEmail: userEmail }),
@@ -20,9 +18,8 @@ const OrderListScreen = () => {
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
       })
-    }).then(response => {return response.json()})
+    }).then(response => { return response.json() })
       .then(data => {
-        console.log("רשימת הזמנות", {data})
         setOrders(data)
       });
   }, []);
@@ -38,8 +35,7 @@ const OrderListScreen = () => {
           ההזמנות שלך
         </Text>
       </View>
-
-      <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{marginTop:80}} >
+      <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{ marginTop: 80 }} >
         <FlatList
           data={orders}
           showsHorizontalScrollIndicator={false}
@@ -50,9 +46,9 @@ const OrderListScreen = () => {
           }}
           renderItem={({ item, i }) =>
             <OrderCard orders={item} index={i} />
-        }
+          }
         />
-         </ScrollView>
+      </ScrollView>
     </View>
   )
 }

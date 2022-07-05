@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Loader from '../../Components/Loader/Loader';
 
-
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
 const cardWidth = width;
@@ -21,7 +20,6 @@ const CameraScreen = () => {
   const navigation = useNavigation();
   const { userImg, setUserImg, userEmail, userFirstName, userLastName } = useContext(GlobalContext);
 
-
   const uploadImage = () => {
     imageUpload(userImg, 'userPicture.jpg')
   }
@@ -29,25 +27,19 @@ const CameraScreen = () => {
   const imageUpload = (userImage, picName) => {
 
     let dataI = new FormData();
-    console.log({ picName });
     dataI.append('picture', {
       uri: userImage,
       name: picName,
       type: 'image/jpg'
     });
 
-    console.log('dataI', dataI);
-    console.log('picName', dataI.picName);
-
     const config = {
       method: 'POST',
       body: dataI,
     }
-    console.log("config=", config)
     setLoading(true)
     fetch(urlAPI, config)
       .then((res) => {
-        console.log({ res });
         return res.json()
       })
       .then((responseData) => {
@@ -55,21 +47,16 @@ const CameraScreen = () => {
         if (responseData != "err" || responseData != null || !responseData) {
           console.log("img uploaded successfully!");
           setUserImg(responseData)
-          console.log("sending")
           ChangeImage(responseData);
           setLoading(false)
         }
         else { alert('error uploding ...'); }
-
-
       })
-      .catch(err => { alert('err upload= ' + err); });
+      .catch(err => { alert('העלאת התמונה נכשלה, נסה שנית'); });
   }
 
 
   const ChangeImage = (u) => {
-   
-    console.log("userImghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", u);
     fetch(urlUpdateImage, {
       method: 'POST',
       body: JSON.stringify({
@@ -93,9 +80,8 @@ const CameraScreen = () => {
         },
         {
           text: "OK", onPress: () => {
-            navigation.navigate("EditProfile")
-          }
-          , style: "ok"
+            navigation.navigate("EditProfile")},
+           style: "ok"
         }
       ]
     );
@@ -104,27 +90,11 @@ const CameraScreen = () => {
   const updateData = async (u) => {
     AsyncStorage.getItem('@storage_Key')
       .then(data => {
-
-        // the string value read from AsyncStorage has been assigned to data
-        console.log("eeeeeeeeeeeeeeeeeeeeee", data);
-
-        // transform it back to an object
         data = JSON.parse(data);
-        console.log(data);
-
-        // Decrement
         data.Img = userImg;
-        console.log("hhhhhhhhhhhh", data);
-
-        //save the value to AsyncStorage again
         AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
-
       }).done();
-
-
   }
-
-
 
   return (
     <View>
@@ -137,8 +107,6 @@ const CameraScreen = () => {
             onPress={uploadImage} />
         </View>
       </View>
-
-
     </View>
 
   )
@@ -147,13 +115,6 @@ const CameraScreen = () => {
 export default CameraScreen
 
 const styles = StyleSheet.create({
-  header: {
-    marginTop: 60,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginHorizontal: 20,
-    justifyContent: 'space-between',
-  },
   root: {
     alignItems: 'center',
     backgroundColor: 'white',

@@ -11,7 +11,7 @@ export default function App() {
     setTimeout(async() => {
        setLoading(false);
      
-    }, 4000);
+    }, 2000);
     setLoading(true);
   }, []);
   

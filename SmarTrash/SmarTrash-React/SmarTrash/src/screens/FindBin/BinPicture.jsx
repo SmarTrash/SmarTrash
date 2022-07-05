@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import CustonButton from '../../Components/CustomButton/CustonButton';
 import LottieView from 'lottie-react-native';
@@ -7,7 +7,6 @@ const BinPicture = ({ route, navigation }) => {
   const getImageUrl = () => {
     if (route.params.binName == "פח כתום") {
       return require('../../../assets/OrangeCan.json');
-
     } else if (route.params.binName == "פח סגול") {
       return require("../../../assets/PurpleCan.json");
     } else {
@@ -17,18 +16,15 @@ const BinPicture = ({ route, navigation }) => {
   }
 
   const img = getImageUrl();
-  console.log("img")
-  console.log(route.params.binName)
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-      <Text style={styles.title}>{route.params.binName == 'err' ? "מחזר\n לפח כתום" :"מחזר \nל"+route.params.binName}</Text>
+        <Text style={styles.title}>{route.params.binName == 'err' ? "מחזר\n לפח כתום" : "מחזר \nל" + route.params.binName}</Text>
         <LottieView style={{ width: 10, aspectRatio: 400 / 200, flexGrow: 1, alignSelf: 'center' }}
           resizeMode="center"
           source={img}
           autoPlay
         />
-        
         <CustonButton
           text='חזרה לדף הבית'
           onPress={() => navigation.navigate('Home')} />
@@ -48,11 +44,10 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 16,
-
     fontSize: 20,
   },
   title: {
-marginTop:120,
+    marginTop: 120,
     fontSize: 50,
     fontWeight: 'bold',
     color: COLORS.black,
