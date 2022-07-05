@@ -281,6 +281,64 @@ namespace SmarTrash.Controllers
                 });
             return task;
         }
+
+
+        // מעלה תמונה לשרת של רופין
+
+        [Route("api/HomePage/ImageFindBin")]
+        [HttpPost]
+        public Task<HttpResponseMessage> PostBin()
+        {
+            string outputForNir = "";
+            List<string> savedFilePath = new List<string>();
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+           
+            string rootPath = HttpContext.Current.Server.MapPath("~/FindBin");
+            var provider = new MultipartFileStreamProvider(rootPath);
+            var task = Request.Content.ReadAsMultipartAsync(provider).
+                ContinueWith<HttpResponseMessage>(t =>
+                {
+                    if (t.IsCanceled || t.IsFaulted)
+                    {
+                        Request.CreateErrorResponse(HttpStatusCode.InternalServerError, t.Exception);
+                    }
+                    foreach (MultipartFileData item in provider.FileData)
+                    {
+                        try
+                        {
+                            string name = item.Headers.ContentDisposition.FileName.Replace("\"", "");
+                            string newFileName = Path.GetFileNameWithoutExtension(name) + "_" + CreateDateTimeWithValidChars() + Path.GetExtension(name);
+                            string[] names = Directory.GetFiles(rootPath);
+                            foreach (var fileName in names)
+                            {
+                                if (Path.GetFileNameWithoutExtension(fileName).IndexOf(Path.GetFileNameWithoutExtension(name)) != -1)
+                                {
+                                    File.Delete(fileName);
+                                }
+                            }
+                            File.Copy(item.LocalFileName, Path.Combine(rootPath, newFileName), true);
+                            File.Delete(item.LocalFileName);
+                            Uri baseuri = new Uri(Request.RequestUri.AbsoluteUri.Replace(Request.RequestUri.PathAndQuery, string.Empty));
+                            string fileRelativePath = "~/FindBin/" + newFileName;
+                            Uri fileFullPath = new Uri(baseuri, VirtualPathUtility.ToAbsolute(fileRelativePath));
+                            outputForNir += fileFullPath.ToString();
+                            savedFilePath.Add(fileFullPath.ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            outputForNir += " ---excption=" + ex.Message;
+                            string message = ex.Message;
+                        }
+                    }
+
+                    return Request.CreateResponse(HttpStatusCode.Created, outputForNir);
+                });
+            return task;
+        }
         //מקבל מייל ומעדכן את התמונה שלו
 
         private string CreateDateTimeWithValidChars()

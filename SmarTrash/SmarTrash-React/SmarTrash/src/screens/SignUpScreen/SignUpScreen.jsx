@@ -219,7 +219,7 @@ return (
           />
         </View>
         <SafeAreaView style={styles.container}>
-          <View style={styles.container}>
+          <View style={styles.container}>   
             <DatePicker
               style={styles.datePickerStyle}
               date={userBirthDate}
