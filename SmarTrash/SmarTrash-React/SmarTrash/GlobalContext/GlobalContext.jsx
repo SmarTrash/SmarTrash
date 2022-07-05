@@ -5,6 +5,8 @@ const GlobalContext = createContext({});
 
 const Provider = ({ children }) => {
     const [giftData, setGiftData] = useState('');
+    const [imageBin, setImageBin] = useState('');
+    const [sendFromBin, setSendFromBin] = useState(false);
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState(0);
     const [specificAdress, setSpecificAdress] = useState('');
@@ -39,8 +41,8 @@ const Provider = ({ children }) => {
       });
     const GlobalContextOrginal = {
         cities, setCities,userCityName, setUserCityName,userState, setUserState,
-        selectedCity, setSelectedCity,userDetails, setUserDetails,
-        userImg, setUserImg,giftData, setGiftData,
+        selectedCity, setSelectedCity,userDetails, setUserDetails,sendFromBin, setSendFromBin,
+        userImg, setUserImg,giftData, setGiftData,imageBin, setImageBin,
         password, setPassword,
         userFirstName, setUserFirstName,
         userLastName, setUserLastName,

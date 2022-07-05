@@ -14,17 +14,17 @@ const { height } = Dimensions.get('screen');
 const cardWidth = width;
 const cardHeight = height;
 
-let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
+let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/ImageFindBin";
 
 const BinCameraScreen = () => {
   const [loading, setLoading] = useState(false);
  
   const navigation = useNavigation();
-  const { userImg } = useContext(GlobalContext);
+  const { imageBin, setImageBin ,sendFromBin, setSendFromBin} = useContext(GlobalContext);
 
- 
+  setSendFromBin(true)
   const uploadImage = () => {
-    imageUpload(userImg, 'userPicture.jpg')
+    imageUpload(imageBin, 'userPicture.jpg')
   }
 
   const imageUpload = (userImage, picName) => {
@@ -58,7 +58,7 @@ const BinCameraScreen = () => {
             if (responseData != "err" || responseData != null || !responseData) {
               console.log("img uploaded successfully!");
               // setUserImg(responseData)
-
+             
               // if (responseData.indexOf("http") == 0)
               // {
               console.log("sending")

@@ -1,14 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useContext } from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Keyboard,
-  ScrollView,
-  Alert,
-  StyleSheet
-} from 'react-native';
+import { View, Text,SafeAreaView, Keyboard,ScrollView, Alert, StyleSheet} from 'react-native';
 import COLORS from '../../Consts/colors'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import CustomInput from '../../Components/CustomInput/CustomInput'
@@ -21,20 +12,8 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Registration';
 
 const SignUpScreen = ({ navigation }) => {
-  const { selectedCity, setSelectedCity, userDetails, setUserDetails,
-    userImg, setUserImg,
-    password, setPassword,
-    userFirstName, setUserFirstName,
-    userLastName, setUserLastName,
-    userCompetitionPlace, setUserCompetitionPlace,
-    userLastThrow, setUserLastThrow,
-    userPoints, setUserPoints,
-    userGender, setUserGender,
-    userPhone, setUserPhone,
-    userBirthDate, setUserBirthDate,
-    userCityId, setUserCityId,
-    userStreetNameAndNumber, setUserStreetNameAndNumber,
-    userEmail, setUserEmail } = useContext(GlobalContext);
+  const { selectedCity,
+    userImg,userGender, setUserGender, userBirthDate, setUserBirthDate} = useContext(GlobalContext);
   const options = [
     { label: '  נקבה', value: 'F' },
     { label: '  זכר', value: 'M' },
@@ -128,10 +107,7 @@ const SignUpScreen = ({ navigation }) => {
             'Accept': 'application/json; charset-UTF-8'
           })
         }).then(response => { return response.json() })
-          .then(data => {
-            data.map(st => console.log("bvvvvv", st))
-            console.log("bvvvvv", data)
-          });
+      
         navigation.navigate('SignInScreen');
      
     } catch (error) {
@@ -241,7 +217,7 @@ return (
                 },
               }}
               onDateChange={(date) => {
-                setUserBirthDate(date);
+                setUserBirthDate(date); 
               }}
             />
           </View>
@@ -269,19 +245,7 @@ return (
 
 export default SignUpScreen;
 const styles = StyleSheet.create({
-  root: {
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: COLORS.white,
 
-  },
-  title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 20,
-    marginTop: 20,
-  },
   datePickerStyle: {
     marginRight: 10,
 
@@ -293,16 +257,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     alignItems: "center"
   },
-  profileImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 100,
-    overflow: 'hidden',
-  },
-  image: {
-    flex: 1,
-    width: undefined,
-    height: undefined,
-  },
+  
 
 })

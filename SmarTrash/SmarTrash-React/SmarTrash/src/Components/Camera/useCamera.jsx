@@ -5,20 +5,26 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
 import Loader from '../../Components/Loader/Loader';
+import { log } from 'react-native-reanimated';
 
 
 const useCamera = () => {
     const navigation = useNavigation();
 
-    const { setUserImg, userImg } = useContext(GlobalContext);
+    const { setUserImg, userImg,setImageBin,sendFromBin } = useContext(GlobalContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [camera, setCamera] = useState(null);
     const [picUri, setPicUri] = useState(userImg);
     const [loading, setLoading] = useState(false);
 
-
+    if(sendFromBin){
+            setImageBin(picUri)
+    }else{
+        
     setUserImg(picUri);
+    }
+
     useEffect(() => {
         (async () => {
             const { status } = await Camera.requestCameraPermissionsAsync();

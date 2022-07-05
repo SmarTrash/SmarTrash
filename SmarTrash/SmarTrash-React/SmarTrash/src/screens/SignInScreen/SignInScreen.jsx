@@ -16,7 +16,7 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/HomePageDeta
 const SignInScreen = ({ navigation }) => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const { userEmail, setUserEmail,
+  const { setUserEmail,
     checked, setChecked,
     setUserFirstName,
     setUserLastName,
@@ -24,12 +24,11 @@ const SignInScreen = ({ navigation }) => {
     setUserLastThrow,
     setUserPoints,
     setUserGender,
-    setUserPhone, userPhone,
+    setUserPhone,
     setUserBirthDate,
-    selectedCity, setSelectedCity,
+     setSelectedCity,
     setUserStreetNameAndNumber,
-    setUserImg, userImg,
-    password, setPassword } = useContext(GlobalContext);
+    setUserImg, setPassword } = useContext(GlobalContext);
 
   useEffect(() => {
 
@@ -38,7 +37,6 @@ const SignInScreen = ({ navigation }) => {
         AsyncStorage.getItem('@storage_Key')
           .then(value => {
             if (value != null) {
-              console.log("gjhjhjh:", value)
               let jsonValue = JSON.parse(value);
               setUserEmail(jsonValue.userEmail)
               setUserFirstName(jsonValue.FirstName),
@@ -54,7 +52,7 @@ const SignInScreen = ({ navigation }) => {
                 setSelectedCity(jsonValue.CityId),
                 setUserGender(jsonValue.Gender),
                 setUserStreetNameAndNumber(jsonValue.StreetNameAndNumber)
-              console.log("ddddddddddddddddddddddddd", userPhone);
+      
               navigation.navigate('Home', jsonValue);
             }
           })
@@ -96,7 +94,6 @@ const SignInScreen = ({ navigation }) => {
   const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
-      console.log("dataaaaaa:", value);
       await AsyncStorage.setItem('@storage_Key', jsonValue)
       navigation.navigate('Home');
     } catch (e) {
@@ -124,7 +121,6 @@ const SignInScreen = ({ navigation }) => {
     setTimeout(() => {
       try {
         setLoading(false);
-        console.log("11111111111", newUser);
         fetch(apiUrl, {
           method: 'POST',
           body: JSON.stringify(newUser),
@@ -151,7 +147,7 @@ const SignInScreen = ({ navigation }) => {
                 setSelectedCity(data[0].cityId),
                 setUserStreetNameAndNumber(data[0].streetNum),
                 setUserImg(data[0].Img)
-              console.log("data[0]:", data[0])
+     
               newUser.UserEmail = inputs.email,
                 newUser.Password = inputs.password,
                 newUser.Img = data[0].Img,
@@ -164,8 +160,8 @@ const SignInScreen = ({ navigation }) => {
                 newUser.BirthDate = data[0].birthDate,
                 newUser.CityId = data[0].cityId,
                 newUser.Gender = data[0].gender,
-                newUser.StreetNameAndNumber = data[0].streetNum,
-                console.log("newUser:", newUser)
+                newUser.StreetNameAndNumber = data[0].streetNum
+                
 
               if (checked) {
                 storeData(newUser)
@@ -281,10 +277,6 @@ const styles = StyleSheet.create({
   logo: {
     height: Dimensions.get('window').height / 2.5
   },
-  icon: {
-    color: '#ffffff',
-    fontSize: 100
-  },
   brandView: {
     justifyContent: 'center',
     flex: 1,
@@ -308,23 +300,6 @@ const styles = StyleSheet.create({
     marginTop: 0,
     flexDirection: 'row',
    
-  },
-  shadowProp: {
-    shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-  },
-  loginBtn: {
-    alignSelf: 'center',
-    backgroundColor: '#4632A1',
-    width: Dimensions.get('window').width / 2,
-    justifyContent: 'center'
-  },
-  error: {
-    fontSize: 14,
-    color: 'red',
-
   },
   container: {
     flex: 1,
