@@ -68,6 +68,7 @@ const BinCameraScreen = () => {
                   console.log("type in component")
                   console.log(type)
                   setLoading(false);
+                  
                   navigation.navigate("BinPicture", { binName: type })
                   // alert(type);
 

@@ -11,15 +11,17 @@ import { log } from 'react-native-reanimated';
 const useCamera = () => {
     const navigation = useNavigation();
 
-    const { setUserImg, userImg,setImageBin,sendFromBin } = useContext(GlobalContext);
+    const { setUserImg, userImg,setImageBin,sendFromBin,setSendFromBin } = useContext(GlobalContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [camera, setCamera] = useState(null);
     const [picUri, setPicUri] = useState(userImg);
     const [loading, setLoading] = useState(false);
 
+
     if(sendFromBin){
             setImageBin(picUri)
+        console.log("sendFromBin",sendFromBin); 
     }else{
         
     setUserImg(picUri);
@@ -60,6 +62,7 @@ const useCamera = () => {
                             if (camera) {
                                 const data = await camera.takePictureAsync(null);
                                 setPicUri(data.uri);
+                                setSendFromBin(false)
                             }
                         }}>
                         <View >
