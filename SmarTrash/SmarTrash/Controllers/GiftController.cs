@@ -20,7 +20,11 @@ namespace SmarTrash.Controllers
             try
             {
                 SmarTrashDBContext db = new SmarTrashDBContext();
-                var listOfCategory = db.tblCategory.Select(x => x.CategoryName).ToList();
+                var listOfCategory = db.tblCategory.Select(x => new
+                {
+                    CategoryName = x.CategoryName,
+                    CategoryId = x.CategoryId
+                }).ToList();
                 return Ok(listOfCategory);
             }
             catch (Exception ex)
