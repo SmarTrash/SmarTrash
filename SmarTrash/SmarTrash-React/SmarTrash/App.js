@@ -4,7 +4,7 @@ import Navigation from './src/Components/Navigation';
 import {Provider} from './GlobalContext/GlobalContext';
 import LoginLoader from './src/Components/Loader/LoginLoader';
 
-{/* setLoading(false) */}
+
 export default function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function App() {
     <Provider>
   
     <View style={styles.root} > 
-       {/* {loading?<LoginLoader visible={loading}/>:null} */}
+       {loading?<LoginLoader visible={loading}/>:null}
       <Navigation/>
     </View>
     

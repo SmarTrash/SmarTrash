@@ -4,6 +4,7 @@ import React,{ createContext,useState } from "react"
 const GlobalContext = createContext({});
 
 const Provider = ({ children }) => {
+    const [giftData, setGiftData] = useState('');
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState(0);
     const [specificAdress, setSpecificAdress] = useState('');
@@ -39,7 +40,7 @@ const Provider = ({ children }) => {
     const GlobalContextOrginal = {
         cities, setCities,userCityName, setUserCityName,userState, setUserState,
         selectedCity, setSelectedCity,userDetails, setUserDetails,
-        userImg, setUserImg,
+        userImg, setUserImg,giftData, setGiftData,
         password, setPassword,
         userFirstName, setUserFirstName,
         userLastName, setUserLastName,

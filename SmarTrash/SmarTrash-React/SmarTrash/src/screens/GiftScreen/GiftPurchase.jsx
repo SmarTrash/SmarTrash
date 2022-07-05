@@ -21,20 +21,6 @@ const GiftPurchase = ({ navigation, route }) => {
     ShippingDetails();
   }, []);
 
-  // useEffect(() => {
-  //     setSpecificAdress(specificAdress);
-  //     console.log('specificAdressUPDATE', specificAdress);
-  // }, [specificAdress]);
-
-  // const balbla = (item) => {
-  //   setSpecificAdress(item);
-  //   console.log('specificAdressUPDATE=', specificAdress);
-  // }
-
-  // useEffect(() => {
-  //   console.log('selectedCityUPDATE', selectedCity);
-  // }, [selectedCity]);
-
   const ShippingDetails = () => {
     fetch(apiUrl + giftId, {
       method: 'POST',
@@ -82,7 +68,6 @@ const GiftPurchase = ({ navigation, route }) => {
         })
       }).then(response => { return response.json() })
         .then(data => {
-          // console.log("cataaaaaaaaaaaaaaa", data)
           setUserPoints(data)
 
         });
@@ -121,18 +106,18 @@ const GiftPurchase = ({ navigation, route }) => {
           </View>
         </ScrollView>
 
-        <View>
-          <FAB style={styles.fab}
-            icon='plus'
-            label='הוסף כתובת'
-            onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
-          />
-        </View>
 
 
 
         <View style={styles.txtContainer}>
 
+     
+          <FAB style={styles.fab}
+            label='הוסף כתובת'
+            onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
+            size="small"
+          />
+      
           <Text style={styles.txtPrice}>
             סה"כ נקודות: {userShippingDetails.points} <CoinIcon />
           </Text>
@@ -142,7 +127,7 @@ const GiftPurchase = ({ navigation, route }) => {
           </Text>
 
         </View>
-        <View style={{ marginBottom: 50 }}>
+        <View style={{ marginBottom: 20 }}>
           <CustonButton
             text='רכישה'
             onPress={() => onPurchase()}
@@ -160,11 +145,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   fab: {
-    backgroundColor: COLORS.white,
-    width: '90%',
-    marginTop: 150,
-    alignSelf: 'center'
-
+    position: 'absolute',
+    backgroundColor:COLORS.green,
+    fontSize:10,
+    right: 0,
+    bottom: 90,
   },
   listTitle: {
     fontSize: 20,
@@ -201,13 +186,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 30,
-    marginBottom: 50,
+    marginTop:60
+   
   },
   txtPrice: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: COLORS.primary,
-    margin: 5,
+    color: COLORS.black,
+    margin:10,
   },
 
 

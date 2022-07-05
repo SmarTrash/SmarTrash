@@ -8,8 +8,8 @@ const url = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetUserOrders';
 
 const OrderListScreen = () => {
 
-  const { userEmail } = useContext(GlobalContext);
-  const { userImg } = useContext(GlobalContext);
+  const { userEmail,userImg } = useContext(GlobalContext);
+ 
   const [orders, setOrders] = useState('');
   useEffect(() => {
 

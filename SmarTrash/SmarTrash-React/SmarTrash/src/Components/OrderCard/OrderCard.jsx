@@ -1,8 +1,8 @@
 import { Dimensions, StyleSheet, Text, View, } from 'react-native';
-import React from 'react'
+import React, { useContext,useState } from 'react'
 import COLORS from '../../Consts/colors';
 import moment from 'moment';
-
+import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
@@ -10,19 +10,19 @@ const OrderCard = ({ index, orders }) => {
 
   return (
     <View style={style.container}>
-        <View style={style.orderCard}>
-          <View style={style.orderCardContent}>
-            <Text style={style.txtGiftName}>
-            {orders["giftName"]+'- '+orders["brand"]}
-            </Text>
-            <View style={{ flex: 1, }}>
-              <Text style={style.txtOrderDate}>
+      <View style={style.orderCard}>
+        <View style={style.orderCardContent}>
+          <Text style={style.txtGiftName}>
+            {orders["giftName"] + '\n' + orders["brand"]}
+          </Text>
+          <View style={{ flex: 1, }}>
+            <Text style={style.txtOrderDate}>
               {moment(new Date(orders["orderDate"])).format('DD/MM/YYYY')}
               {'  '}
-              </Text>
-            </View>
+            </Text>
           </View>
         </View>
+      </View>
     </View>
   );
 };
@@ -32,7 +32,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   orderCard: {
-    height: 70,
+    height: 80,
     width: cardWidth,
     backgroundColor: COLORS.white,
     margin: 15,
@@ -46,12 +46,14 @@ const style = StyleSheet.create({
   },
   orderCardContent: {
     flexDirection: 'row',
+    justifyContent: 'center'
   },
   txtGiftName: {
     fontSize: 15,
     fontWeight: 'bold',
     color: COLORS.dark,
     alignSelf: 'flex-start',
+    textAlign: 'left',
     margin: 20,
   },
   txtOrderDate: {
@@ -60,7 +62,8 @@ const style = StyleSheet.create({
     color: COLORS.dark,
     alignSelf: 'flex-end',
     textAlign: 'left',
-    margin: 20,
+    marginTop: 20,
+    marginRight: 15
   },
 
 });

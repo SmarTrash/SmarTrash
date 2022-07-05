@@ -172,6 +172,7 @@ namespace SmarTrash.Controllers
                                            city = order.City,
                                            Phone = order.OrderPhone,
                                            giftName = gifts.GiftName,
+                                           GiftCode=gifts.GiftId,
                                            orderDate = order.OrderDate,
                                            brand= gifts.Brand
                                        }).ToList();
