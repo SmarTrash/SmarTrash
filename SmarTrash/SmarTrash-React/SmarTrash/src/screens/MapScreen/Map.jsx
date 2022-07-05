@@ -89,9 +89,9 @@ const MapScreen = () => {
         {/* <View style={styles.back}>
           <Ionicons name="ios-chevron-back" size={30} color="black" onPress={() => navigation.navigate('Home')} />
         </View> */}
-        <View style={styles.Listbtn}>
+        {/* <View style={styles.Listbtn}>
           <Feather name="list" size={40} color="black" onPress={() => navigation.navigate('BinListScreen')} />
-        </View>
+        </View> */}
       {/* </View> */}
 
 
@@ -184,6 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.green,
     marginTop:20,
     marginLeft:10,
+
   },
 
 

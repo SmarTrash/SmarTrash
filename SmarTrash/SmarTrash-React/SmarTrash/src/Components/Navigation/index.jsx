@@ -27,6 +27,7 @@ import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import BinCameraScreen from '../../screens/FindBin/BinCameraScreen'
 import BinPicture from '../../screens/FindBin/BinPicture';
 import OrderListScreen from '../../screens/OrderList/OrderListScreen';
+import SelectBinsOption from '../../screens/SelectBinsOption/SelectBinsOption';
 
 const Stack = createNativeStackNavigator();
 
@@ -62,6 +63,7 @@ const Navigation = () => {
         <Stack.Screen name="QRScanner" component={QRScanner} />
         <Stack.Screen name="BinCameraScreen" component={BinCameraScreen} />
         <Stack.Screen name="BinPicture" component={BinPicture} />
+        <Stack.Screen name="SelectBinsOption" component={SelectBinsOption} />
       </Stack.Navigator>
     </NavigationContainer>
   )

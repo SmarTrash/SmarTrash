@@ -219,7 +219,6 @@ const EditProfile = ({ navigation }) => {
               <Image
                 style={styles.image}
                 source={{ uri: userImg }} />
-              
             </View><EditImage />
           </View>
         </View>
@@ -353,7 +352,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: "#051C60",
+    color: COLORS.green,
     margin: 10,
     textAlign: 'center',
     fontSize: 20,

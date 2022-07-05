@@ -125,8 +125,8 @@ const EditImage = () => {
   return (
     <SafeAreaView>
           <Loader visible={loading} />
-      <TouchableOpacity style={{ backgroundColor: 'green' }} onPress={showActionSheet}>
-        <MaterialCommunityIcons name="circle-edit-outline" size={20} color='white' style={{ marginTop: 2, marginLeft: 2 }} />
+      <TouchableOpacity  onPress={showActionSheet}>
+        <MaterialCommunityIcons name="circle-edit-outline" size={23} color={COLORS.grey} />
       </TouchableOpacity>
       <ActionSheet
         ref={actionSheet}
