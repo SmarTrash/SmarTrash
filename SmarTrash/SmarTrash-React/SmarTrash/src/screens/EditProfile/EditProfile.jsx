@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image, TouchableOpacity, Keyboard } from 'react-native'
-import React, { useState, useContext, useEffect } from 'react'
+import { View, Text, StyleSheet, ScrollView, SafeAreaView, Dimensions, Image, Keyboard } from 'react-native'
+import React, { useState, useContext } from 'react'
 import CustomInput from '../../Components/CustomInput/CustomInput'
 import CustonButton from '../../Components/CustomButton/CustonButton'
 import DatePicker from 'react-native-datepicker';
@@ -9,7 +9,6 @@ import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import { Provider } from 'react-native-paper';
 import COLORS from '../../Consts/colors';
 import EditImage from '../EditImage/EditImage';
-import Loader from '../../Components/Loader/Loader';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
@@ -18,18 +17,15 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
 
 const EditProfile = ({ navigation }) => {
-  const { userEmail, selectedCity, setSelectedCity,setUserEmail,
+  const { userEmail, selectedCity, setSelectedCity,
     setUserFirstName, userFirstName,
     setUserLastName, userLastName,
     setUserGender, userGender,
     setUserPhone, userPhone,
     setUserBirthDate, userBirthDate,
     setUserStreetNameAndNumber, userStreetNameAndNumber,
-    userImg, setUserImg,
+    userImg, password, setPassword } = useContext(GlobalContext);
 
-    password, setPassword,
-
-  } = useContext(GlobalContext);
   const options = [
     { label: ' אישה   ', value: 'F' },
     { label: ' גבר', value: 'M' },
@@ -37,17 +33,17 @@ const EditProfile = ({ navigation }) => {
 
   const date = new Date();
   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
+
   const [inputs, setInputs] = useState({
     email: userEmail,
     firstName: userFirstName,
-    lastName:userLastName,
+    lastName: userLastName,
     phone: userPhone,
     password: password,
-    streetNameAndNumber:userStreetNameAndNumber
+    streetNameAndNumber: userStreetNameAndNumber
   });
   const [errors, setErrors] = React.useState({});
-  const [loading, setLoading] = React.useState(false);
-
+  
   const validate = () => {
     Keyboard.dismiss();
     let isValid = true;
@@ -100,16 +96,16 @@ const EditProfile = ({ navigation }) => {
     }
   };
   const newUser = {
-  UserEmail: inputs.email,
-  FirstName :inputs.firstName,
-  LastName : inputs.lastName,
-  Phone:inputs.phone,
-  Gender: userGender,
-  BirthDate: userBirthDate,
-  Password : inputs.password,
-  StreetNameAndNumber: inputs.streetNameAndNumber,
-  CityId : selectedCity,
-  UserImg: userImg,
+    UserEmail: inputs.email,
+    FirstName: inputs.firstName,
+    LastName: inputs.lastName,
+    Phone: inputs.phone,
+    Gender: userGender,
+    BirthDate: userBirthDate,
+    Password: inputs.password,
+    StreetNameAndNumber: inputs.streetNameAndNumber,
+    CityId: selectedCity,
+    UserImg: userImg,
   }
 
   const userChangeSave = () => {
@@ -123,16 +119,14 @@ const EditProfile = ({ navigation }) => {
     }).then(response => { return response.json() })
       .then(data => {
         console.log("דאטה", data)
-        if (data.isSuccess) { 
+        if (data.isSuccess) {
           updateData(newUser);
           alert(data.message);
           navigation.navigate('Home')
         } else {
           alert(data.message);
         }
-
       });
-    
   }
   const DeleteUser = () => {
     removeData()
@@ -169,16 +163,10 @@ const EditProfile = ({ navigation }) => {
   const updateData = async (u) => {
     AsyncStorage.getItem('@storage_Key')
       .then(data => {
-
-        // the string value read from AsyncStorage has been assigned to data
-        
-        console.log("eeeeeeeeeeeeeeeeeeeeee", u);
-        // transform it back to an object
         data = JSON.parse(data);
         console.log(data);
 
-        // Decrement
-       data.StreetNameAndNumber=u.StreetNameAndNumber,
+        data.StreetNameAndNumber = u.StreetNameAndNumber,
           data.BirthDate = u.BirthDate,
           data.CityId = u.CityId,
           data.FirstName = u.FirstName,
@@ -194,11 +182,8 @@ const EditProfile = ({ navigation }) => {
           setSelectedCity(u.CityId),
           setUserGender(u.Gender),
           setUserStreetNameAndNumber(u.StreetNameAndNumber)
-        console.log("hhhhhhhhhhhh", data);
- 
-        //save the value to AsyncStorage again
-        AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
 
+        AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
       }).done();
   }
   const handleOnchange = (text, input) => {
@@ -219,121 +204,122 @@ const EditProfile = ({ navigation }) => {
               <Image
                 style={styles.image}
                 source={{ uri: userImg }} />
-            </View><EditImage />
+            </View>
+            <EditImage />
           </View>
         </View>
-        <View style={{ marginVertical: 20,margin:15,marginTop:0 }}>
-        <CustomInput
-          onChangeText={text => handleOnchange(text, 'email')}
-          onFocus={() => handleError(null, 'email')}
-          iconName="email"
-          label="אימייל"
-          defaultValue={inputs.email}
-          error={errors.email}
-        />
-        <CustomInput
-          onChangeText={text => handleOnchange(text, 'password')}
-          onFocus={() => handleError(null, 'password')}
-          iconName="lock-outline"
-          label="סיסמה"
-          defaultValue={inputs.password}
-          placeholder="הכנס סיסמה"
-          error={errors.password}
-          password
-        />
-        <CustomInput
-          onChangeText={text => handleOnchange(text, 'firstName')}
-          onFocus={() => handleError(null, 'firstName')}
-          iconName="person"
-          label="שם פרטי"
-          defaultValue={inputs.firstName}
-          placeholder="הכנס שם פרטי"
-          error={errors.firstName}
-        />
-        <CustomInput
-          onChangeText={text => handleOnchange(text, 'lastName')}
-          onFocus={() => handleError(null, 'lastName')}
-          iconName="person"
-          label="שם משפחה"
-          defaultValue={inputs.lastName}
-          placeholder="הכנס שם משפחה"
-          error={errors.lastName}
-        />
-
-        <CustomInput
-          keyboardType="numeric"
-          onChangeText={text => handleOnchange(text, 'phone')}
-          onFocus={() => handleError(null, 'phone')}
-          iconName="phone-android"
-          label="טלפון"
-          defaultValue={inputs.phone}
-          placeholder="הכנס מספר טלפון"
-          error={errors.phone}
-        />
-        <CustomInput
-          onChangeText={text => handleOnchange(text, 'streetNameAndNumber')}
-          onFocus={() => handleError(null, 'streetNameAndNumber')}
-          iconName="home"
-          label="רחוב ומספר בית"
-          defaultValue={inputs.streetNameAndNumber}
-          placeholder="הכנס רחוב ומספר בית"
-          error={errors.streetNameAndNumber}
-        />
-        <View style={{ alignSelf: 'center', margin: 5 }}>
-          <RadioForm style={{ flexDirection: 'row' }}
-            radio_props={options}
-            initial={0}
-            selectedButtonColor={COLORS.green}
-            buttonColor={COLORS.green}
-            onPress={(value) => {
-              setUserGender(value);
-            }}
+        <View style={{ marginVertical: 20, margin: 15, marginTop: 0 }}>
+          <CustomInput
+            onChangeText={text => handleOnchange(text, 'email')}
+            onFocus={() => handleError(null, 'email')}
+            iconName="email"
+            label="אימייל"
+            defaultValue={inputs.email}
+            error={errors.email}
           />
-        </View>
-        <SafeAreaView style={styles.container}>
-          <View style={styles.container}>
-            <DatePicker
-              style={styles.datePickerStyle}
-              date={userBirthDate}
-              mode="date"
-              placeholder="הכנס תאריך לידה"
-              format="DD-MM-YYYY"
-              maxDate={d}
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0,
-                },
-                dateInput: {
-                  marginLeft: 36,
-                },
-              }}
-              onDateChange={(date) => {
-                setUserBirthDate(date);
+          <CustomInput
+            onChangeText={text => handleOnchange(text, 'password')}
+            onFocus={() => handleError(null, 'password')}
+            iconName="lock-outline"
+            label="סיסמה"
+            defaultValue={inputs.password}
+            placeholder="הכנס סיסמה"
+            error={errors.password}
+            password
+          />
+          <CustomInput
+            onChangeText={text => handleOnchange(text, 'firstName')}
+            onFocus={() => handleError(null, 'firstName')}
+            iconName="person"
+            label="שם פרטי"
+            defaultValue={inputs.firstName}
+            placeholder="הכנס שם פרטי"
+            error={errors.firstName}
+          />
+          <CustomInput
+            onChangeText={text => handleOnchange(text, 'lastName')}
+            onFocus={() => handleError(null, 'lastName')}
+            iconName="person"
+            label="שם משפחה"
+            defaultValue={inputs.lastName}
+            placeholder="הכנס שם משפחה"
+            error={errors.lastName}
+          />
+
+          <CustomInput
+            keyboardType="numeric"
+            onChangeText={text => handleOnchange(text, 'phone')}
+            onFocus={() => handleError(null, 'phone')}
+            iconName="phone-android"
+            label="טלפון"
+            defaultValue={inputs.phone}
+            placeholder="הכנס מספר טלפון"
+            error={errors.phone}
+          />
+          <CustomInput
+            onChangeText={text => handleOnchange(text, 'streetNameAndNumber')}
+            onFocus={() => handleError(null, 'streetNameAndNumber')}
+            iconName="home"
+            label="רחוב ומספר בית"
+            defaultValue={inputs.streetNameAndNumber}
+            placeholder="הכנס רחוב ומספר בית"
+            error={errors.streetNameAndNumber}
+          />
+          <View style={{ alignSelf: 'center', margin: 5 }}>
+            <RadioForm style={{ flexDirection: 'row' }}
+              radio_props={options}
+              initial={0}
+              selectedButtonColor={COLORS.green}
+              buttonColor={COLORS.green}
+              onPress={(value) => {
+                setUserGender(value);
               }}
             />
           </View>
-        </SafeAreaView>
-        <View style={{ alignSelf: 'center' }}>
-          <CityList />
-        </View>
-        <View >
-          <CustonButton
-            text='שמירה'
-            onPress={validate}
-          />
-        </View>
-        <View >
-          <CustonButton
-            bgColor={COLORS.red}
-            text='מחיקת משתמש'
-            onPress={DeleteUser}
-          />
-        </View>
+          <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
+              <DatePicker
+                style={styles.datePickerStyle}
+                date={userBirthDate}
+                mode="date"
+                placeholder="הכנס תאריך לידה"
+                format="DD-MM-YYYY"
+                maxDate={d}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0,
+                  },
+                  dateInput: {
+                    marginLeft: 36,
+                  },
+                }}
+                onDateChange={(date) => {
+                  setUserBirthDate(date);
+                }}
+              />
+            </View>
+          </SafeAreaView>
+          <View style={{ alignSelf: 'center' }}>
+            <CityList />
+          </View>
+          <View >
+            <CustonButton
+              text='שמירה'
+              onPress={validate}
+            />
+          </View>
+          <View >
+            <CustonButton
+              bgColor={COLORS.red}
+              text='מחיקת משתמש'
+              onPress={DeleteUser}
+            />
+          </View>
         </View>
       </ScrollView>
     </Provider>
@@ -382,12 +368,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: undefined,
     height: undefined,
-  },
-  radioBtn: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    padding: 13,
-    paddingBottom: 3
-
-  },
-})
+  }
+ })

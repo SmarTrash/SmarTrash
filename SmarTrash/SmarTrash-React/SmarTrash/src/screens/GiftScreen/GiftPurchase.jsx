@@ -1,5 +1,5 @@
-import { FAB, Text} from 'react-native-paper'
-import { View, FlatList, StyleSheet, Image,ScrollView } from 'react-native'
+import { FAB, Text } from 'react-native-paper'
+import { View, FlatList, StyleSheet, Image, ScrollView } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
@@ -12,7 +12,7 @@ const apiUrlGiftOrder = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GiftOrd
 
 const GiftPurchase = ({ navigation, route }) => {
 
-  const { userEmail, userImg, selectedCity, setUserPoints,  specificAdress, setSpecificAdress } = useContext(GlobalContext);
+  const { userEmail, userImg, selectedCity, setUserPoints, specificAdress } = useContext(GlobalContext);
   const [userShippingDetails, setUserShippingDetails] = useState({});
   const giftId = route.params;
   const [notes, setNotes] = useState([]);
@@ -43,41 +43,27 @@ const GiftPurchase = ({ navigation, route }) => {
 
   const addAdress = note => {
     note.id = notes.length + 1;
-    console.log({ note });
     setNotes([...notes, note])
   }
 
   const onPurchase = () => {
-    console.log('specificAdress.Phone', specificAdress.P);
-    console.log('specificAdress.StreetNameAndNumber', specificAdress.userCityName);
-    console.log('specificAdress.userCityName', specificAdress.S);
-    // console.log('CITY', selectedCity);
-    console.log('specificAdress.userCityName != null && specificAdress.P != null', specificAdress.userCityName != null && specificAdress.P != null);
-    if (specificAdress.userCityName != null && specificAdress.P != null) {
-      fetch(apiUrlGiftOrder + giftId, {
-        method: 'POST',
-        body: JSON.stringify({
-          UserEmail: userEmail,
-          Phone: specificAdress.P,
-          StreetNameAndNumber: specificAdress.S,
-          CityId: selectedCity
-        }),
-        headers: new Headers({
-          'Content-type': 'application/json; charset=UTF-8',
-          'Accept': 'application/json; charset-UTF-8'
-        })
-      }).then(response => { return response.json() })
-        .then(data => {
-          setUserPoints(data)
-
-        });
-
-      navigation.navigate('ApprovedPurchase')
-    }
-    else {
-      alert("אנא מלא פרטים")
-    }
-
+    fetch(apiUrlGiftOrder + giftId, {
+      method: 'POST',
+      body: JSON.stringify({
+        UserEmail: userEmail,
+        Phone: specificAdress.P,
+        StreetNameAndNumber: specificAdress.S,
+        CityId: selectedCity
+      }),
+      headers: new Headers({
+        'Content-type': 'application/json; charset=UTF-8',
+        'Accept': 'application/json; charset-UTF-8'
+      })
+    }).then(response => { return response.json() })
+      .then(data => {
+        setUserPoints(data)
+      });
+    navigation.navigate('ApprovedPurchase')
   }
 
   return (
@@ -92,40 +78,29 @@ const GiftPurchase = ({ navigation, route }) => {
             </View>
           </View>
         </View>
-
         <ScrollView showsVerticalScrollIndicator={false} horizontal={false} >
           <View>
             <FlatList
               data={notes}
-              renderItem={({ item }) => (  
-                  <AddressItem specificAdres={item}/>
+              renderItem={({ item }) => (
+                <AddressItem specificAdres={item} />
               )}
               keyExtractor={item => item.id}
             />
-
           </View>
         </ScrollView>
-
-
-
-
         <View style={styles.txtContainer}>
-
-     
           <FAB style={styles.fab}
             label='הוסף כתובת'
             onPress={() => navigation.navigate('AddNewAdress', { addAdress })}
             size="small"
           />
-      
           <Text style={styles.txtPrice}>
             סה"כ נקודות: {userShippingDetails.points} <CoinIcon />
           </Text>
-
           <Text style={styles.txtPrice}>
             מחיר ההטבה: {userShippingDetails.price} <CoinIcon />
           </Text>
-
         </View>
         <View style={{ marginBottom: 20 }}>
           <CustonButton
@@ -146,29 +121,11 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    backgroundColor:COLORS.green,
-    fontSize:10,
+    backgroundColor: COLORS.green,
+    fontSize: 10,
     right: 0,
     bottom: 90,
   },
-  listTitle: {
-    fontSize: 20,
-  },
-  itemStyle: {
-    backgroundColor: COLORS.white,
-    borderRadius: 10,
-    margin: 10,
-    shadowColor: '#171717',
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 5,
-    marginTop: 20,
-  },
-  icon: {
-    marginLeft: 350,
-    marginTop: 55,
-  },
-
   profileImage: {
     width: 80,
     height: 80,
@@ -186,15 +143,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 30,
-    marginTop:60
-   
+    marginTop: 60
   },
   txtPrice: {
     fontSize: 20,
     fontWeight: 'bold',
     color: COLORS.black,
-    margin:10,
+    margin: 10,
   },
-
-
 })
