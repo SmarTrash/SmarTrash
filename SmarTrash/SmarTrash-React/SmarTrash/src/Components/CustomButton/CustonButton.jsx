@@ -1,10 +1,8 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { Text, StyleSheet, Pressable } from 'react-native'
 import React from 'react'
 import COLORS from '../../Consts/colors';
 
-
-
-const CustonButton = ({ onPress, text, type = "Primary", bgColor, fgColor,disabled }) => {
+const CustonButton = ({ onPress, text, type = "Primary", bgColor, fgColor, disabled }) => {
   return (
     <Pressable
       onPress={onPress}
@@ -19,7 +17,7 @@ const CustonButton = ({ onPress, text, type = "Primary", bgColor, fgColor,disabl
         style={[
           styles.text,
           styles[`text_${type}`],
-          fgColor ? { color: fgColor}:{}
+          fgColor ? { color: fgColor } : {}
         ]}>{text}</Text>
     </Pressable>
   );
@@ -34,12 +32,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: 'center',
     borderRadius: 15,
-    
+
   },
   container_Primary: {
     backgroundColor: COLORS.green,
-    width:250,
-    alignSelf:'center'
+    width: 250,
+    alignSelf: 'center'
   },
   container_TERTIARY: {
 

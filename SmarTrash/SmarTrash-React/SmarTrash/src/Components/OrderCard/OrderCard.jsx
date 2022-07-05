@@ -1,8 +1,7 @@
 import { Dimensions, StyleSheet, Text, View, } from 'react-native';
-import React, { useContext,useState } from 'react'
 import COLORS from '../../Consts/colors';
+import React from 'react'
 import moment from 'moment';
-import { GlobalContext } from '../../../GlobalContext/GlobalContext'
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
@@ -65,6 +64,5 @@ const style = StyleSheet.create({
     marginTop: 20,
     marginRight: 15
   },
-
 });
 export default OrderCard;

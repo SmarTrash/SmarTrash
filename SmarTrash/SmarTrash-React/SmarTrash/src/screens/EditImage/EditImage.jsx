@@ -101,7 +101,7 @@ const EditImage = () => {
 
 
       })
-      .catch(err => { alert('err upload= ' + err); });
+      .catch(err => { alert('העלאת התמונה נכשלה, נסה שנית'); });
   }
 
   const ChangeImage = (u) => {

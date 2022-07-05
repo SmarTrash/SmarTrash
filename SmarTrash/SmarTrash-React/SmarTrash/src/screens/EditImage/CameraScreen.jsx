@@ -63,7 +63,7 @@ const CameraScreen = () => {
 
 
       })
-      .catch(err => { alert('err upload= ' + err); });
+      .catch(err => { alert('העלאת התמונה נכשלה, נסה שנית'); });
   }
 
 

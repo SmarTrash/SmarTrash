@@ -1,61 +1,44 @@
-import { ColorPropType, Dimensions, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import React, { useContext, useState } from 'react'
 import COLORS from '../../Consts/colors';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext'
-import { Feather } from '@expo/vector-icons';
-
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
 
-
 const AdressItem = ({ specificAdres }) => {
   const [pressed, setPressed] = useState(specificAdres);
-  const [color, setColor] = useState('#C4DFAA' );
-  const { userEmail, userImg, selectedCity, setUserPoints, specificAdress, setSpecificAdress } = useContext(GlobalContext);
-
-  setSpecificAdress(specificAdres) 
+  const { specificAdress, setSpecificAdress } = useContext(GlobalContext);
+  setSpecificAdress(specificAdres)
   const setAdress = () => {
-    console.log("pressed", pressed);
     if (pressed) {
       setPressed(false),
         setSpecificAdress("")
     } else {
       setSpecificAdress(specificAdres),
         setPressed(specificAdres.id)
-
     }
-
   }
 
-
- 
-  console.log('list order', specificAdres);
   return (
     <TouchableOpacity onPress={() => { setAdress() }}>
       <View style={style.container}>
-        <View style={[style.orderCard, { backgroundColor: pressed==specificAdress ?  '#C4DFAA': COLORS.white  }]} >
+        <View style={[style.orderCard, { backgroundColor: pressed == specificAdress ? '#C4DFAA' : COLORS.white }]} >
           <Text style={style.txtGiftName}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginRight: 30 }}>
               {specificAdres.id == "0" ? "כתובת ברירת מחדל" : "כתובת: " + specificAdres.id}
-
             </Text>
             {'\n' + specificAdres.S + '\n' + specificAdres.P + '\n' + specificAdres.userCityName}
-
           </Text>
         </View>
       </View>
     </TouchableOpacity>
-
   );
 };
-
-
 
 const style = StyleSheet.create({
   container: {
     alignItems: 'center',
-
   },
   orderCard: {
     height: 120,
@@ -69,9 +52,7 @@ const style = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 5,
     marginRight: 20,
-
   },
-
   txtGiftName: {
     fontSize: 15,
     fontWeight: 'bold',
@@ -79,16 +60,6 @@ const style = StyleSheet.create({
     textAlign: 'left',
     marginLeft: 10,
     margin: 15
-
   },
-  txtOrderDate: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: COLORS.dark,
-    alignSelf: 'flex-end',
-    textAlign: 'left',
-
-  },
-
 });
 export default AdressItem;

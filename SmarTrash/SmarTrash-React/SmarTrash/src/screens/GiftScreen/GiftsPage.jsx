@@ -1,5 +1,5 @@
 import { Dimensions, SafeAreaView, ScrollView, StyleSheet, Text, View, Animated, } from 'react-native';
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import CategoryList from '../../screens/CategoryList/CategoryList';
 import COLORS from '../../Consts/colors';
 import Card from '../../Components/Card/Card';
@@ -54,7 +54,6 @@ const GiftsPage = () => {
             [{ nativeEvent: { contentOffset: { x: scrollX } } }],
             { useNativeDriver: true },
           )}
-
           data={giftData}
           contentContainerStyle={{
             paddingVertical: 10,
@@ -69,7 +68,6 @@ const GiftsPage = () => {
     </SafeAreaView>
   );
 };
-
 
 const style = StyleSheet.create({
   header: {
@@ -91,76 +89,11 @@ const style = StyleSheet.create({
     color: COLORS.primary,
     marginRight: 150,
   },
-  Icon: {
-    margin: 1,
-  },
   categoryListContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: 20,
     marginTop: 30,
   },
-  categoryListText: {
-    fontSize: 17,
-    fontWeight: 'bold',
-  },
-  card: {
-    height: 280,
-    width: cardWidth,
-    elevation: 15,
-    marginRight: 20,
-    borderRadius: 15,
-    backgroundColor: COLORS.white,
-  },
-  cardImage: {
-    height: 200,
-    width: '100%',
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-  },
-  priceTag: {
-    height: 60,
-    width: 80,
-    backgroundColor: COLORS.primary,
-    position: 'absolute',
-    zIndex: 1,
-    right: 0,
-    borderTopRightRadius: 15,
-    borderBottomLeftRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardDetails: {
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: COLORS.white,
-    position: 'absolute',
-    bottom: 0,
-    padding: 20,
-    width: cardWidth,
-  },
-  cardOverLay: {
-    height: 280,
-    backgroundColor: COLORS.white,
-    position: 'absolute',
-    zIndex: 100,
-    width: cardWidth,
-    borderRadius: 15,
-  },
-  topHotelCard: {
-    height: 120,
-    width: cardWidth,
-    backgroundColor: COLORS.white,
-    elevation: 15,
-    marginHorizontal: 10,
-    borderRadius: 10,
-  },
-  topHotelCardImage: {
-    height: 80,
-    width: cardWidth,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
-
 });
 export default GiftsPage

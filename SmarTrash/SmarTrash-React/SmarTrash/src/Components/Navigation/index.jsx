@@ -23,7 +23,6 @@ import Start from '../../screens/GameScreen/Start'
 import Game from '../../screens/GameScreen/Game'
 import GameOver from '../../screens/GameScreen/GameOver'
 import EditImage from '../../screens/EditImage/EditImage';
-import BottomSheet from '../../Components/BottomSheet/BottomSheet';
 import BinCameraScreen from '../../screens/FindBin/BinCameraScreen'
 import BinPicture from '../../screens/FindBin/BinPicture';
 import OrderListScreen from '../../screens/OrderList/OrderListScreen';
@@ -52,7 +51,6 @@ const Navigation = () => {
         <Stack.Screen name="CompetitionList" component={CompetitionList} />
         <Stack.Screen name="CameraScreen" component={CameraScreen} />
         <Stack.Screen name="Map" component={Map} />
-        <Stack.Screen name="BottomSheet" component={BottomSheet} />
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="Game" component={Game} />
         <Stack.Screen name="EditImage" component={EditImage} />

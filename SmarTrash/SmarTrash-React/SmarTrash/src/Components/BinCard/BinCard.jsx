@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet, Text, View, } from 'react-native';
 import React from 'react'
 import COLORS from '../../Consts/colors';
-import { Entypo  } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.06;
@@ -12,23 +12,22 @@ const BinCard = ({ index, bins }) => {
 
   return (
     <View style={style.container}>
-        <View style={style.binCard}>
-          <View style={style.binCardContent}>
-            <Text style={style.txtName}>
+      <View style={style.binCard}>
+        <View style={style.binCardContent}>
+          <Text style={style.txtName}>
             {bins["Address"]}
+          </Text>
+          <View style={{ flex: 1, }}>
+            <Text style={style.txtPoint}>
+              <Entypo name="trash" size={25} color={color} />
+              {'  '}
             </Text>
-            <View style={{ flex: 1, }}>
-              <Text style={style.txtPoint}>
-              <Entypo name="trash" size={25} color={color}  /> 
-                {'  '}
-              </Text>
-            </View>
           </View>
         </View>
+      </View>
     </View>
   );
 };
-
 
 
 const style = StyleSheet.create({

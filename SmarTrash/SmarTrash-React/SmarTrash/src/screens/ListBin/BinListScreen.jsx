@@ -7,22 +7,21 @@ import BinCard from '../../Components/BinCard/BinCard';
 const url = 'http://proj.ruppin.ac.il/bgroup91/prod/api/BinSearch/GetBin';
 
 const BinListScreen = () => {
-  
+
   const { userEmail } = useContext(GlobalContext);
   const { userImg } = useContext(GlobalContext);
-  const [bins, setBins]=useState('');
-  useEffect(() => {   
-    
+  const [bins, setBins] = useState('');
+  useEffect(() => {
+
     fetch(url, {
       method: 'POST',
-      body:JSON.stringify({UserEmail: userEmail}),
+      body: JSON.stringify({ UserEmail: userEmail }),
       headers: new Headers({
         'Content-type': 'application/json; charset=UTF-8',
         'Accept': 'application/json; charset-UTF-8'
       })
-    }).then(response => {return response.json()})
+    }).then(response => { return response.json() })
       .then(data => {
-        console.log("רשימת פחים", {data} )
         setBins(data)
       });
   }, []);
@@ -40,7 +39,7 @@ const BinListScreen = () => {
         </Text>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{marginTop:80}} >
+      <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={{ marginTop: 80 }} >
         <FlatList
           data={bins}
           showsHorizontalScrollIndicator={false}
@@ -51,7 +50,7 @@ const BinListScreen = () => {
           }}
           renderItem={({ item, i }) =>
             <BinCard bins={item} index={i} />}
-        /> 
+        />
       </ScrollView>
     </View>
   )
