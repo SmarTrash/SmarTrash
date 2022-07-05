@@ -33,8 +33,8 @@ const CardMonthGift = () => {
   }
 
   return (
-    <TouchableOpacity  onPress={() => navigation.navigate('CompetitionList')}>
-      <View style={style.topHotelCard}>
+    <TouchableOpacity onPress={() => navigation.navigate('CompetitionList')}>
+      <View style={style.Card}>
         <View
           style={{
             position: 'absolute',
@@ -44,7 +44,7 @@ const CardMonthGift = () => {
             flexDirection: 'row',
           }}>
         </View>
-        <Image style={style.topHotelCardImage} source={{ uri: giftData["GiftImage"] }} />
+        <Image style={style.CardImage} source={{ uri: giftData["GiftImage"] }} />
         <View style={{ paddingVertical: 3, paddingHorizontal: 10 }}>
           <Text style={{ fontSize: 20, fontWeight: 'bold', color: COLORS.primary, alignSelf: 'flex-start' }}>
             {'הטבה חודשית'}
@@ -61,7 +61,7 @@ const CardMonthGift = () => {
 
 const style = StyleSheet.create({
 
-  topHotelCard: {
+  Card: {
     height: 345,
     width: cardWidth,
     backgroundColor: COLORS.white,
@@ -74,7 +74,7 @@ const style = StyleSheet.create({
     shadowRadius: 5,
 
   },
-  topHotelCardImage: {
+  CardImage: {
     height: 250,
     width: cardWidth,
     borderTopRightRadius: 10,
