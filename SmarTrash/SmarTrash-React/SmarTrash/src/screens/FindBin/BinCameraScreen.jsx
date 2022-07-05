@@ -37,6 +37,33 @@ const BinCameraScreen = () => {
       body: dataI,
     }
     setLoading(true);
+    
+      try {
+        
+        fetch(urlAPI, config)
+          .then((res) => {
+            console.log({ res });
+            return res.json()
+            // else { return "err"; }
+          })
+          .then((responseData) => {
+            console.log("responseData=", responseData)
+            if (responseData != "err" || responseData != null || !responseData) {
+              console.log("img uploaded successfully!");
+              // setUserImg(responseData)
+             
+              // if (responseData.indexOf("http") == 0)
+              // {
+              console.log("sending")
+              sendToAzure(responseData)
+                .then(type => {
+                
+                  console.log("type in component")
+                  console.log(type)
+                  setLoading(false);
+                  
+                  navigation.navigate("BinPicture", { binName: type })
+                  // alert(type);
 
     try {
 
