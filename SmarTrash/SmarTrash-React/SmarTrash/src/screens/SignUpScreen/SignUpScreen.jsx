@@ -26,7 +26,8 @@ const SignUpScreen = ({ navigation }) => {
     lastName: '',
     phone: '',
     password: '',
-    streetNameAndNumber: ''
+    streetNameAndNumber: '',
+    userImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png'
   });
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
@@ -92,7 +93,7 @@ const SignUpScreen = ({ navigation }) => {
   Password : inputs.password,
   StreetNameAndNumber: inputs.streetNameAndNumber,
   CityId : selectedCity,
-  UserImg: userImg,
+  UserImg: inputs.userImage,
   }
   const register = () => {
     setLoading(true);

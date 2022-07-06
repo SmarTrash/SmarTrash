@@ -76,10 +76,10 @@ class Bin extends PureComponent {
       img = require('../../assets/bin_organic.png');
     else if (c == "plastic")
       img = require('../../assets/bin_plastic.png');
-    else if (c == "cloud") {
-      img = require('../../assets/cloud.png');
-      styleComponent = styles.cloud;
-    }
+    // else if (c == "cloud") {
+    //   img = require('../../assets/cloud.png');
+    //   styleComponent = styles.cloud;
+    // }
     else if (c == "mountain") {
       img = require('../../assets/mountain.png');
       styleComponent = styles.mountain;
@@ -153,7 +153,7 @@ class Floor extends PureComponent {
     const y = this.props.position[1] - RADIUS / 2;
     let c = this.props.category;
     let img;
-    img = require('../../assets/floor2.png');
+    // img = require('../../assets/floor2.png');
     return (
       <Image source={img} style={[styles.floor, { left: x, top: y }]} />
     );
