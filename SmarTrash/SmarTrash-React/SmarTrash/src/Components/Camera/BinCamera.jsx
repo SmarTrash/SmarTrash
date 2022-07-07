@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity,Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import Loader from '../../Components/Loader/Loader';
 import { sendToAzure } from '../../Utils/CameraUtils';
 import COLORS from '../../Consts/colors';
 import { useNavigation } from '@react-navigation/native';
+import { Entypo, Ionicons } from '@expo/vector-icons';
+
 
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/ImageFindBin";
 
@@ -40,7 +42,7 @@ const BinCamera = () => {
 
     const imageUpload = (productImage, picName) => {
         let dataI = new FormData();
-        console.log('config',config);
+        console.log('config', config);
         dataI.append('product', {
             uri: productImage,
             name: picName,
@@ -53,7 +55,7 @@ const BinCamera = () => {
         }
         setLoading(true);
 
-        console.log('imageBin',imageBin);
+        console.log('imageBin', imageBin);
 
         try {
             fetch(urlAPI, config)
@@ -84,39 +86,45 @@ const BinCamera = () => {
         }
     }
     return (
-        <View style={styles.container}>
-        <Loader visible={loading} />
-      <Camera style={styles.camera} type={type} ref={ref => setCamera(ref)}>
-          <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => {
-                      setType(
-                          type === Camera.Constants.Type.back
-                              ? Camera.Constants.Type.front
-                              : Camera.Constants.Type.back
-                      );
-                  }}>
-                  <Text style={styles.text}>  החלף צד </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                  style={styles.button}
-                  onPress={async () => {
-                      if (camera) {
-                          const data = await camera.takePictureAsync(null);
-                          setPicUri(data.uri);
-                          console.log('change',picUri);
-                          uploadImage(data.uri);
-                          setImageBin(data.uri);
-                      }
-                  }}>
-                  <View >
-                      <Text style={styles.text}> צלם </Text>
-                  </View>
-              </TouchableOpacity>
-          </View>
-      </Camera>
-  </View>
+
+
+        <View style={styles.container}>   
+            <Loader  visible={loading} />
+            <Camera style={styles.camera} type={type} ref={ref => setCamera(ref)}>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                            setType(
+                                type === Camera.Constants.Type.back
+                                    ? Camera.Constants.Type.front
+                                    : Camera.Constants.Type.back
+                            );
+                        }}>
+                        {/* החלף צד */}
+                        <View style={{ left: 20 }} >
+                            <Ionicons style={styles.text} name="ios-camera-reverse-outline" size={24} color="black" />
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonCamera}
+                        onPress={async () => {
+                            if (camera) {
+                                const data = await camera.takePictureAsync(null);
+                                setPicUri(data.uri);
+                                console.log('change', picUri);
+                                uploadImage(data.uri);
+                                setImageBin(data.uri);
+                            }
+                        }}>
+                        <View >
+                            {/* צלם */}
+                            <Entypo style={styles.text} name="circle" size={50} />
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </Camera>
+        </View>
     );
 }
 
@@ -126,7 +134,7 @@ const styles = StyleSheet.create({
     },
     camera: {
         //הפלקס בוחר את הגודל של המצלמה
-        flex: 0.95,
+        flex: 1,
         width: 415,
     },
     buttonContainer: {
@@ -140,8 +148,13 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         alignItems: 'center',
     },
+    buttonCamera: {
+        flex: 0.2,
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        left: 73
+    },
     text: {
-        fontSize: 18,
         color: 'white',
     },
     picture: {
@@ -155,6 +168,10 @@ const styles = StyleSheet.create({
         borderRadius: 150,
 
     },
+    loader:{
+        width:50,
+        height:60
+    }
 });
 
 export default BinCamera

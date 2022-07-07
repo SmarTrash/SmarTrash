@@ -76,10 +76,14 @@ class Bin extends PureComponent {
       img = require('../../assets/bin_organic.png');
     else if (c == "plastic")
       img = require('../../assets/bin_plastic.png');
-    // else if (c == "cloud") {
-    //   img = require('../../assets/cloud.png');
-    //   styleComponent = styles.cloud;
-    // }
+    else if (c == "cloud") {
+      img = require('../../assets/cloud.png');
+      styleComponent = styles.cloud;
+    }
+    else if (c == "sun") {
+      img = require('../../assets/sun.png');
+      styleComponent = styles.sun;
+    }
     else if (c == "mountain") {
       img = require('../../assets/mountain.png');
       styleComponent = styles.mountain;
@@ -201,10 +205,14 @@ const styles = StyleSheet.create({
     width: null,
     resizeMode: 'contain',
     height: 60
-
   },
   mountain: {
     opacity: 50,
+    width: null,
+    resizeMode: 'contain',
+    height: 60
+  },
+  sun:{
     width: null,
     resizeMode: 'contain',
     height: 60

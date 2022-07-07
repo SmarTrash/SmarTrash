@@ -15,7 +15,7 @@ const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Throw/ThrowGarbage/';
 export default function ThrowPoints({ navigation }) {
   const { userEmail, userImg, binQRId,
     setUserLastThrow, setUserCompetitionPlace,
-    setUserPoints } = useContext(GlobalContext);
+    setUserPoints, setBinQRId } = useContext(GlobalContext);
   const [throwInfo, setThrowInfo] = useState('');
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function ThrowPoints({ navigation }) {
       <View >
         <CustonButton
           text="חזרה לדף הבית "
-          onPress={() => navigation.navigate('Home')}
+          onPress={() =>{  setBinQRId('Not yet scanned'), navigation.navigate('Home')}}
         />
       </View>
     </View>
