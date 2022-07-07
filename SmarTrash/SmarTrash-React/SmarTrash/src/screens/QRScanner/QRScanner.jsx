@@ -66,7 +66,7 @@ const QRScanner = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={{ marginTop: 2 }}>
-        <Text style={styles.header}>אנא סרוק את הQR</Text>
+        <Text style={styles.header}>אנא סרוק את ה QR</Text>
       </View>
 
       <View style={styles.barcodebox}>

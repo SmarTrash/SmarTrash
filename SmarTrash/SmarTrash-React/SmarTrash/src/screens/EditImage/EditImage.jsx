@@ -6,7 +6,6 @@ import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import * as ImagePicker from 'expo-image-picker';
-import Loader from '../../Components/Loader/Loader';
 let urlUpdateImage = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/updateUserImage";
 let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture";
 
@@ -57,7 +56,7 @@ const EditImage = () => {
       body: dataI,
     }
 
-    setLoading(true)
+   
     fetch(urlAPI, config)
       .then((res) => {return res.json() })
       .then((responseData) => {
@@ -90,7 +89,7 @@ const EditImage = () => {
 
   return (
     <SafeAreaView>
-      <Loader visible={loading} />
+      
       <TouchableOpacity onPress={showActionSheet} style={styles.sortBtn}>
         <MaterialCommunityIcons name="circle-edit-outline" size={23} color={COLORS.secondary} />
       </TouchableOpacity>
@@ -107,6 +106,7 @@ const EditImage = () => {
             navigation.navigate('CameraScreen')
           }
           else if (optionArray[index] == 'גלריה') {
+            
             btnOpenGalery()
           }
           else if (optionArray[index] == 'יציאה') {

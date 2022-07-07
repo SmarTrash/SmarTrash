@@ -1,5 +1,5 @@
-import {View, Dimensions, StyleSheet} from 'react-native'
-import React, {useState} from 'react'
+import { View, Dimensions, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
 import Camera from '../../Components/Camera/BinCamera'
 import Loader from '../../Components/Loader/Loader';
 
@@ -15,9 +15,9 @@ const BinCameraScreen = () => {
 
   return (
     <View>
-       <Loader visible={loading} />
+      <Loader visible={loading} />
       <View style={styles.root}>
-        <Camera /> 
+        <Camera />
       </View>
     </View>
   )
