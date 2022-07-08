@@ -1,95 +1,34 @@
-import { View, Dimensions, StyleSheet, Alert } from 'react-native'
-import React, { useContext, useState } from 'react'
-import Camera from '../../Components/Camera/useCamera'
-import CustonButton from '../../Components/CustomButton/CustonButton'
-import { GlobalContext } from '../../../GlobalContext/GlobalContext';
-import { useNavigation } from '@react-navigation/native';
-import Loader from '../../Components/Loader/Loader';
-import { sendToAzure } from '../../Utils/CameraUtils';
+import { View, Dimensions, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import Camera from '../../Components/Camera/BinCamera'
+
+
 
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
 const cardWidth = width;
 const cardHeight = height;
 
-let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/ImageFindBin";
-
 const BinCameraScreen = () => {
-  const [loading, setLoading] = useState(false);
 
-  const navigation = useNavigation();
-  const { imageBin, setSendFromBin } = useContext(GlobalContext);
-
-
-  const uploadImage = () => {
-    setSendFromBin(true)
-    imageUpload(imageBin, 'userPicture.jpg')
-  }
-
-  const imageUpload = (userImage, picName) => {
-    let dataI = new FormData();
-    dataI.append('picture', {
-      uri: userImage,
-      name: picName,
-      type: 'image/jpg'
-    });
-    const config = {
-      method: 'POST',
-      body: dataI,
-    }
-    setLoading(true);
-
-    try {
-
-      fetch(urlAPI, config)
-        .then((res) => {
-          return res.json()
-        })
-        .then((responseData) => {
-          console.log("responseData=", responseData)
-          if (responseData != "err" || responseData != null || !responseData) {
-            console.log("img uploaded successfully!");
-            sendToAzure(responseData)
-              .then(type => {
-                setLoading(false);
-                navigation.navigate("BinPicture", { binName: type });
-              })
-              .catch(err => {
-                console.log("err in component")
-                console.log(err)
-              })
-          }
-          else { alert('error uploding ...'); }
-        })
-        .catch(err => { alert('העלאת התמונה נכשלה, נסה שנית');  setLoading(false); });
-    } catch (error) {
-      Alert.alert('Error', 'Something went wrong');
-    }
-  }
   return (
-    <View>
-      <Loader visible={loading} />
-      <View style={styles.root}>
+   
+        <View style={styles.root}>
         <Camera />
-        <View style={styles.savePic}>
-          <CustonButton
-            text='שמירה'
-            onPress={uploadImage} />
-        </View>
       </View>
-    </View>
-
+    
   )
 }
 
 export default BinCameraScreen
 
 const styles = StyleSheet.create({
+
   root: {
-    alignItems: 'center',
+  
+       alignItems: 'center',
     backgroundColor: 'white',
-    width: cardWidth,
+     width: cardWidth,
     height: cardHeight,
   },
-
 })

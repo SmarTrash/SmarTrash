@@ -74,12 +74,20 @@ const Home = ({ navigation }) => {
 
   const removeData = async () => {
     try {
+      const value = await AsyncStorage.getItem('@storage_Key');
+      console.log("befor",value)
       await AsyncStorage.removeItem('@storage_Key');
+      console.log("after", AsyncStorage.getItem('value'))
+ 
       navigation.navigate('SignInScreen');
     } catch (error) {
       console.log(error);
     }
   }
+//   clearAsyncStorage = async() => {
+//     AsyncStorage.clear();
+//     navigation.navigate('SignInScreen');
+// }
 
   const onScreenLoad = () => {
     fetch(apiUrl, {

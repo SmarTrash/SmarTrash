@@ -8,22 +8,13 @@ import Loader from '../../Components/Loader/Loader';
 const useCamera = () => {
 
 
-    const { setUserImg, userImg,setImageBin,sendFromBin,setSendFromBin } = useContext(GlobalContext);
+    const { setUserImg, userImg} = useContext(GlobalContext);
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
     const [camera, setCamera] = useState(null);
     const [picUri, setPicUri] = useState(userImg);
     const [loading, setLoading] = useState(false);
 
-
-    if(sendFromBin){
-            setImageBin(picUri)
-            setSendFromBin(false)
-        console.log("sendFromBin",sendFromBin); 
-    }else{
-        
-    setUserImg(picUri);
-  }
 
   useEffect(() => {
     (async () => {
@@ -60,7 +51,7 @@ const useCamera = () => {
               if (camera) {
                 const data = await camera.takePictureAsync(null);
                 setPicUri(data.uri);
-                setSendFromBin(false)
+                setUserImg(data.uri);
               }
             }}>
             <View >

@@ -5,7 +5,6 @@ const GlobalContext = createContext({});
 const Provider = ({ children }) => {
     const [giftData, setGiftData] = useState('');
     const [imageBin, setImageBin] = useState('');
-    const [sendFromBin, setSendFromBin] = useState(false);
     const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState(0);
     const [specificAdress, setSpecificAdress] = useState('');
@@ -40,7 +39,7 @@ const Provider = ({ children }) => {
       });
     const GlobalContextOrginal = {
         cities, setCities,userCityName, setUserCityName,userState, setUserState,
-        selectedCity, setSelectedCity,userDetails, setUserDetails,sendFromBin, setSendFromBin,
+        selectedCity, setSelectedCity,userDetails, setUserDetails,
         userImg, setUserImg,giftData, setGiftData,imageBin, setImageBin,
         password, setPassword,
         userFirstName, setUserFirstName,
@@ -56,7 +55,8 @@ const Provider = ({ children }) => {
         userEmail, setUserEmail,checked, setChecked,
         userToken, setUserToken,userOrderPhone, setuserOrderPhone,userOrderStreetNameAndNumber, setuserOrderStreetNameAndNumber,
         binQRId, setBinQRId,
-        specificAdress, setSpecificAdress}
+        specificAdress, setSpecificAdress,
+       }
         
     return (
         <GlobalContext.Provider value={GlobalContextOrginal}>

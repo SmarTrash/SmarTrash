@@ -10,8 +10,10 @@ import { Provider } from 'react-native-paper';
 import COLORS from '../../Consts/colors';
 import EditImage from '../EditImage/EditImage';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import moment from 'moment';
 const { width } = Dimensions.get('screen');
 const cardWidth = width / 1.2;
+
 
 const apiUrl = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/DeleteUser';
 const apiUrlSaveChanges = 'http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/UpdateDetails';
@@ -32,8 +34,9 @@ const EditProfile = ({ navigation }) => {
   ];
 
   const date = new Date();
-  const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
-
+//   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
+// // console.log('vvvv',moment(new Date(userBirthDate)).format('DD/MM/YYYY'));
+// console.log('ddd',d);
   const [inputs, setInputs] = useState({
     email: userEmail,
     firstName: userFirstName,
@@ -109,6 +112,7 @@ const EditProfile = ({ navigation }) => {
   }
 
   const userChangeSave = () => {
+    console.log('newUser',newUser);
     fetch(apiUrlSaveChanges, {
       method: 'PUT',
       body: JSON.stringify(newUser),
@@ -192,6 +196,8 @@ const EditProfile = ({ navigation }) => {
   const handleError = (error, input) => {
     setErrors(prevState => ({ ...prevState, [input]: error }));
   };
+  const now=new Date();
+  const today = new Date(now.getFullYear() - 6, now.getMonth(), now.getDate())
   return (
 
     <Provider>
@@ -283,10 +289,10 @@ const EditProfile = ({ navigation }) => {
               <DatePicker
                 style={styles.datePickerStyle}
                 date={userBirthDate}
+                format="YYYY/MM/DD"
                 mode="date"
                 placeholder="הכנס תאריך לידה"
-                format="DD-MM-YYYY"
-                maxDate={d}
+                maxDate={today}
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
                 customStyles={{
@@ -301,6 +307,7 @@ const EditProfile = ({ navigation }) => {
                   },
                 }}
                 onDateChange={(date) => {
+                  console.log(date);
                   setUserBirthDate(date);
                 }}
               />

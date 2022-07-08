@@ -53,7 +53,7 @@ class OurItem extends PureComponent {
     //img = require('../../assets/'+item+'.png'); -> should get rid of the long switch!
 
     return (
-      <Image source={img} key={this.props.item} style={[styles.item, { left: x, top: y }]}/>
+      <Image  source={img} key={this.props.item} style={[styles.item, { left: x, top: y }]}/>
     );
   }
 }
@@ -79,6 +79,10 @@ class Bin extends PureComponent {
     else if (c == "cloud") {
       img = require('../../assets/cloud.png');
       styleComponent = styles.cloud;
+    }
+    else if (c == "sun") {
+      img = require('../../assets/sun.png');
+      styleComponent = styles.sun;
     }
     else if (c == "mountain") {
       img = require('../../assets/mountain.png');
@@ -153,7 +157,7 @@ class Floor extends PureComponent {
     const y = this.props.position[1] - RADIUS / 2;
     let c = this.props.category;
     let img;
-    img = require('../../assets/floor2.png');
+    // img = require('../../assets/floor2.png');
     return (
       <Image source={img} style={[styles.floor, { left: x, top: y }]} />
     );
@@ -201,10 +205,14 @@ const styles = StyleSheet.create({
     width: null,
     resizeMode: 'contain',
     height: 60
-
   },
   mountain: {
     opacity: 50,
+    width: null,
+    resizeMode: 'contain',
+    height: 60
+  },
+  sun:{
     width: null,
     resizeMode: 'contain',
     height: 60

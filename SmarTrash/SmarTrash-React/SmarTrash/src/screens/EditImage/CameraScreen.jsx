@@ -18,7 +18,7 @@ let urlAPI = "http://proj.ruppin.ac.il/bgroup91/prod/api/HomePage/uploadpicture"
 const CameraScreen = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-  const { userImg, setUserImg, userEmail, userFirstName, userLastName } = useContext(GlobalContext);
+  const { userImg, setUserImg, userEmail, userFirstName, userLastName} = useContext(GlobalContext);
 
   const uploadImage = () => {
     imageUpload(userImg, 'userPicture.jpg')
@@ -26,6 +26,8 @@ const CameraScreen = () => {
 
   const imageUpload = (userImage, picName) => {
 
+    
+    
     let dataI = new FormData();
     dataI.append('picture', {
       uri: userImage,
@@ -91,9 +93,10 @@ const CameraScreen = () => {
     AsyncStorage.getItem('@storage_Key')
       .then(data => {
         data = JSON.parse(data);
-        data.Img = userImg;
+        data.Img = u;
         AsyncStorage.setItem('@storage_Key', JSON.stringify(data));
       }).done();
+
   }
 
   return (

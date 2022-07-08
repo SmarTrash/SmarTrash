@@ -1,21 +1,23 @@
 import React from 'react';
 import {
   useWindowDimensions,
-  View,
+  View,Dimensions,
   Text,
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
 import COLORS from '../../Consts/colors'
-
+ const { width } = Dimensions.get('screen');
+const { height } = Dimensions.get('screen');
+const cardWidth = width;
+const cardHeight = height; 
 const Loader = ({visible = false}) => {
-  const {width, height} = useWindowDimensions();
-  
+ 
   return (
     visible && (
-      <View style={[style.container, {height, width}]}>
+      <View style={[style.container]}>
         <View style={style.loader}>
-          <ActivityIndicator size="large" color={COLORS.blue} />
+          <ActivityIndicator size="large" color={COLORS.green} />
           <Text style={{marginLeft: 10, fontSize: 16}}>Loading...</Text>
         </View>
       </View>
@@ -25,6 +27,8 @@ const Loader = ({visible = false}) => {
 
 const style = StyleSheet.create({
   container: {
+    height:cardHeight,
+    width:cardWidth,
     flex:1,
     position: 'absolute',
     zIndex: 10,

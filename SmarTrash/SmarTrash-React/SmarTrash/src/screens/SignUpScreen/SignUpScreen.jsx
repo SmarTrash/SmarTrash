@@ -26,7 +26,8 @@ const SignUpScreen = ({ navigation }) => {
     lastName: '',
     phone: '',
     password: '',
-    streetNameAndNumber: ''
+    streetNameAndNumber: '',
+    userImage:'https://cdn-icons-png.flaticon.com/512/149/149071.png'
   });
   const [errors, setErrors] = React.useState({});
   const [loading, setLoading] = React.useState(false);
@@ -92,7 +93,7 @@ const SignUpScreen = ({ navigation }) => {
   Password : inputs.password,
   StreetNameAndNumber: inputs.streetNameAndNumber,
   CityId : selectedCity,
-  UserImg: userImg,
+  UserImg: inputs.userImage,
   }
   const register = () => {
     setLoading(true);
@@ -122,6 +123,8 @@ const handleOnchange = (text, input) => {
 const handleError = (error, input) => {
   setErrors(prevState => ({ ...prevState, [input]: error }));
 };
+const now=new Date();
+const today = new Date(now.getFullYear() - 6, now.getMonth(), now.getDate())
 return (
   <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
     <Loader visible={loading} />
@@ -195,31 +198,32 @@ return (
           />
         </View>
         <SafeAreaView style={styles.container}>
-          <View style={styles.container}>   
-            <DatePicker
-              style={styles.datePickerStyle}
-              date={userBirthDate}
-              mode="date"
-              placeholder="הכנס תאריך לידה"
-              format="DD-MM-YYYY"
-              maxDate={d}
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0,
-                },
-                dateInput: {
-                  marginLeft: 36,
-                },
-              }}
-              onDateChange={(date) => {
-                setUserBirthDate(date); 
-              }}
-            />
+            <View style={styles.container}>
+              <DatePicker
+                style={styles.datePickerStyle}
+                date={userBirthDate}
+                format="YYYY/MM/DD"
+                mode="date"
+                placeholder="הכנס תאריך לידה"
+                maxDate={today}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0,
+                  },
+                  dateInput: {
+                    marginLeft: 36,
+                  },
+                }}
+                onDateChange={(date) => {
+                  console.log(date);
+                  setUserBirthDate(date);
+                }}
+              />
           </View>
         </SafeAreaView>
         <View style={{ alignSelf: 'center' }}>
