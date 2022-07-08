@@ -87,8 +87,10 @@ namespace SmarTrash.Controllers
             double range = max - min;
             double sample = rand.NextDouble();
             double scaled = (sample * range) + min;
-            float f = (float)scaled;
+            float f = (float)System.Math.Round(scaled, 2);
             return f;
+
+    
         }
 
 
