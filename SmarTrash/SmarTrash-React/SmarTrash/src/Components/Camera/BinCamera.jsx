@@ -87,43 +87,46 @@ const BinCamera = () => {
     }
     return (
 
+        <View style={{width:'100%',height:'100%'}} >
+                <Loader visible={loading} />
+            <View style={styles.container}>
+                <Camera style={styles.camera} type={type} ref={ref => setCamera(ref)}>
+                    <View style={styles.buttonContainer}>
 
-        <View style={styles.container}>   
-            <Loader  visible={loading} />
-            <Camera style={styles.camera} type={type} ref={ref => setCamera(ref)}>
-                <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => {
-                            setType(
-                                type === Camera.Constants.Type.back
-                                    ? Camera.Constants.Type.front
-                                    : Camera.Constants.Type.back
-                            );
-                        }}>
-                        {/* החלף צד */}
-                        <View style={{ left: 20 }} >
-                            <Ionicons style={styles.text} name="ios-camera-reverse-outline" size={24} color="black" />
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.buttonCamera}
-                        onPress={async () => {
-                            if (camera) {
-                                const data = await camera.takePictureAsync(null);
-                                setPicUri(data.uri);
-                                console.log('change', picUri);
-                                uploadImage(data.uri);
-                                setImageBin(data.uri);
-                            }
-                        }}>
-                        <View >
-                            {/* צלם */}
-                            <Entypo style={styles.text} name="circle" size={50} />
-                        </View>
-                    </TouchableOpacity>
-                </View>
-            </Camera>
+
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => {
+                                setType(
+                                    type === Camera.Constants.Type.back
+                                        ? Camera.Constants.Type.front
+                                        : Camera.Constants.Type.back
+                                );
+                            }}>
+                            {/* החלף צד */}
+                            <View style={{ marginRight: 50, bottom: 40 }} >
+                                <Ionicons style={styles.text} name="ios-camera-reverse-outline" size={35} color="black" />
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.buttonCamera}
+                            onPress={async () => {
+                                if (camera) {
+                                    const data = await camera.takePictureAsync(null);
+                                    setPicUri(data.uri);
+                                    console.log('change', picUri);
+                                    uploadImage(data.uri);
+                                    setImageBin(data.uri);
+                                }
+                            }}>
+                            <View >
+                                {/* צלם */}
+                                <Entypo style={styles.text} name="circle" size={70} />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </Camera>
+            </View>
         </View>
     );
 }
@@ -134,14 +137,15 @@ const styles = StyleSheet.create({
     },
     camera: {
         //הפלקס בוחר את הגודל של המצלמה
-        flex: 1,
-        width: 415,
+        flex: 0.95,
+        width: 550,
     },
     buttonContainer: {
         flex: 1,
         backgroundColor: 'transparent',
         flexDirection: 'row',
         margin: 20,
+
     },
     button: {
         flex: 0.2,
@@ -152,14 +156,15 @@ const styles = StyleSheet.create({
         flex: 0.2,
         alignSelf: 'flex-end',
         alignItems: 'center',
-        left: 73
+       marginLeft:13,
+        bottom: 30
     },
     text: {
         color: 'white',
     },
     picture: {
         width: 200,
-        bottom: 0,
+
         height: 200,
         borderWidth: 1,
         borderColor: COLORS.primary,
@@ -168,9 +173,9 @@ const styles = StyleSheet.create({
         borderRadius: 150,
 
     },
-    loader:{
-        width:50,
-        height:60
+    loader: {
+        width: 50,
+        height: 60
     }
 });
 

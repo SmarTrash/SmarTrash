@@ -14,7 +14,7 @@ const cardWidth = width ;
 
 const SelectedGift = ({ navigation, route }) => {
   const [isAbleToOrder, setIsAbleToOrder] = useState(false);
-  const { userEmail } = useContext(GlobalContext);
+  const { userEmail, userPoints, } = useContext(GlobalContext);
   const item = route.params;
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const SelectedGift = ({ navigation, route }) => {
       .then(data => {
         setIsAbleToOrder(data)
       });
-  }, []);
+  }, [ userPoints]);
 
   return (
     <View style={style.container}>

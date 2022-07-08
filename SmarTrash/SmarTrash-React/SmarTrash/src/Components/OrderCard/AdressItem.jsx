@@ -23,7 +23,7 @@ const AdressItem = ({ specificAdres }) => {
   return (
     <TouchableOpacity onPress={() => { setAdress() }}>
       <View style={style.container}>
-        <View style={[style.orderCard, { backgroundColor: pressed == specificAdress ? '#C4DFAA' : COLORS.white }]} >
+        <View style={[style.orderCard, { borderColor: pressed == specificAdress ? COLORS.green : COLORS.white }]} >
           <Text style={style.txtGiftName}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'left', marginRight: 30 }}>
               {specificAdres.id == "0" ? "כתובת ברירת מחדל" : "כתובת: " + specificAdres.id}
@@ -41,6 +41,7 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   orderCard: {
+    borderWidth:3,
     height: 120,
     width: cardWidth,
     backgroundColor: COLORS.white,

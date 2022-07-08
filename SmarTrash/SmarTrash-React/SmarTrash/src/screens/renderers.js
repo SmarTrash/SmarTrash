@@ -53,7 +53,7 @@ class OurItem extends PureComponent {
     //img = require('../../assets/'+item+'.png'); -> should get rid of the long switch!
 
     return (
-      <Image source={img} key={this.props.item} style={[styles.item, { left: x, top: y }]}/>
+      <Image  source={img} key={this.props.item} style={[styles.item, { left: x, top: y }]}/>
     );
   }
 }

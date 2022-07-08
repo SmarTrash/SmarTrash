@@ -3,7 +3,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { GlobalContext } from '../../../GlobalContext/GlobalContext';
 import COLORS from '../../Consts/colors';
 import OrderCard from '../../Components/OrderCard/OrderCard';
-
 const url = 'http://proj.ruppin.ac.il/bgroup91/prod/api/Gift/GetUserOrders';
 
 const OrderListScreen = () => {

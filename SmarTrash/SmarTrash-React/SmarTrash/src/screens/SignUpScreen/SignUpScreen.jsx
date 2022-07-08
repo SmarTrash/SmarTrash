@@ -123,6 +123,8 @@ const handleOnchange = (text, input) => {
 const handleError = (error, input) => {
   setErrors(prevState => ({ ...prevState, [input]: error }));
 };
+const now=new Date();
+const today = new Date(now.getFullYear() - 6, now.getMonth(), now.getDate())
 return (
   <SafeAreaView style={{ backgroundColor: COLORS.white, flex: 1 }}>
     <Loader visible={loading} />
@@ -196,31 +198,32 @@ return (
           />
         </View>
         <SafeAreaView style={styles.container}>
-          <View style={styles.container}>   
-            <DatePicker
-              style={styles.datePickerStyle}
-              date={userBirthDate}
-              mode="date"
-              placeholder="הכנס תאריך לידה"
-              format="DD-MM-YYYY"
-              maxDate={d}
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0,
-                },
-                dateInput: {
-                  marginLeft: 36,
-                },
-              }}
-              onDateChange={(date) => {
-                setUserBirthDate(date); 
-              }}
-            />
+            <View style={styles.container}>
+              <DatePicker
+                style={styles.datePickerStyle}
+                date={userBirthDate}
+                format="YYYY/MM/DD"
+                mode="date"
+                placeholder="הכנס תאריך לידה"
+                maxDate={today}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                  dateIcon: {
+                    position: 'absolute',
+                    left: 0,
+                    top: 4,
+                    marginLeft: 0,
+                  },
+                  dateInput: {
+                    marginLeft: 36,
+                  },
+                }}
+                onDateChange={(date) => {
+                  console.log(date);
+                  setUserBirthDate(date);
+                }}
+              />
           </View>
         </SafeAreaView>
         <View style={{ alignSelf: 'center' }}>

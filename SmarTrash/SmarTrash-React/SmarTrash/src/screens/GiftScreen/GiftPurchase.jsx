@@ -123,8 +123,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: COLORS.green,
     fontSize: 10,
-    right: 0,
-    bottom: 90,
+    right: 95,
+    bottom: 100,
   },
   profileImage: {
     width: 80,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     margin: 30,
-    marginTop: 60
+    marginTop: 80
   },
   txtPrice: {
     fontSize: 20,
