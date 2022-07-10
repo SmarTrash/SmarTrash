@@ -34,9 +34,9 @@ const EditProfile = ({ navigation }) => {
   ];
 
   const date = new Date();
-//   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
-// // console.log('vvvv',moment(new Date(userBirthDate)).format('DD/MM/YYYY'));
-// console.log('ddd',d);
+  //   const d = '${date.getDate()}/${date.getMonth()}/${date.getFullYear() - 6}';
+  // // console.log('vvvv',moment(new Date(userBirthDate)).format('DD/MM/YYYY'));
+  // console.log('ddd',d);
   const [inputs, setInputs] = useState({
     email: userEmail,
     firstName: userFirstName,
@@ -46,7 +46,7 @@ const EditProfile = ({ navigation }) => {
     streetNameAndNumber: userStreetNameAndNumber
   });
   const [errors, setErrors] = React.useState({});
-  
+
   const validate = () => {
     Keyboard.dismiss();
     let isValid = true;
@@ -112,7 +112,7 @@ const EditProfile = ({ navigation }) => {
   }
 
   const userChangeSave = () => {
-    console.log('newUser',newUser);
+    console.log('newUser', newUser);
     fetch(apiUrlSaveChanges, {
       method: 'PUT',
       body: JSON.stringify(newUser),
@@ -196,8 +196,8 @@ const EditProfile = ({ navigation }) => {
   const handleError = (error, input) => {
     setErrors(prevState => ({ ...prevState, [input]: error }));
   };
-  const now=new Date();
-  const today = new Date(now.getFullYear() - 6, now.getMonth(), now.getDate())
+  const now = new Date();
+  const today = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate())
   return (
 
     <Provider>
@@ -211,30 +211,12 @@ const EditProfile = ({ navigation }) => {
                 style={styles.image}
                 source={{ uri: userImg }} />
             </View>
-            <View style={{left:10, bottom:70}}>
+            <View style={{ left: 10, bottom: 70 }}>
               <EditImage />
             </View>
           </View>
         </View>
-        <View style={{ marginVertical: 20, margin: 15, marginTop: 0 }}>
-          <CustomInput
-            onChangeText={text => handleOnchange(text, 'email')}
-            onFocus={() => handleError(null, 'email')}
-            iconName="email"
-            label="אימייל"
-            defaultValue={inputs.email}
-            error={errors.email}
-          />
-          <CustomInput
-            onChangeText={text => handleOnchange(text, 'password')}
-            onFocus={() => handleError(null, 'password')}
-            iconName="lock-outline"
-            label="סיסמה"
-            defaultValue={inputs.password}
-            placeholder="הכנס סיסמה"
-            error={errors.password}
-            password
-          />
+        <View style={{ marginVertical: 20, margin: 15,marginTop:0 }}>
           <CustomInput
             onChangeText={text => handleOnchange(text, 'firstName')}
             onFocus={() => handleError(null, 'firstName')}
@@ -253,7 +235,16 @@ const EditProfile = ({ navigation }) => {
             placeholder="הכנס שם משפחה"
             error={errors.lastName}
           />
-
+          <CustomInput
+            onChangeText={text => handleOnchange(text, 'password')}
+            onFocus={() => handleError(null, 'password')}
+            iconName="lock-outline"
+            label="סיסמה"
+            defaultValue={inputs.password}
+            placeholder="הכנס סיסמה"
+            error={errors.password}
+            password
+          />
           <CustomInput
             keyboardType="numeric"
             onChangeText={text => handleOnchange(text, 'phone')}
@@ -378,4 +369,4 @@ const styles = StyleSheet.create({
     width: undefined,
     height: undefined,
   }
- })
+})

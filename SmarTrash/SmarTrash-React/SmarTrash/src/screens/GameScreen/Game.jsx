@@ -9,8 +9,6 @@ import { OurItem, Bin, Timer, Floor } from "../../screens/renderers";
 import { MoveItem, Collision } from "../../screens/systems";
 import COLORS from '../../Consts/colors';
 import { Audio } from 'expo-av';
-// import Constants from './../Constants';
-// import { Octicons } from '@expo/vector-icons';
 import Constants from '../../screens/Constants';
 const WIDTH = Constants.WIDTH;
 const HEIGHT = Constants.HEIGHT;
@@ -23,8 +21,7 @@ const Game = ({ navigation }) => {
   const [engine, setEngine] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   let iconURL = userImg;
-  // soundState = "sound";
-  // soundObject = new Audio.Sound();
+ 
 
   useEffect(() => {
     setUserState({
@@ -33,7 +30,7 @@ const Game = ({ navigation }) => {
       username: userFirstName + " " + userLastName,
       userEmail: userEmail,
       visibleModal: true,
-      item: "can" //random
+      item: "can" 
     })
     Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
@@ -45,21 +42,7 @@ const Game = ({ navigation }) => {
       playThroughEarpieceAndroid: true,
     });
 
-    // try {
-    //   soundObject.loadAsync(require('./assets/gamesound.mp3'));
-    //   soundObject.playAsync();
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // return () => {
-
-    //   try {
-    //     soundObject.unloadAsync();
-    //     soundObject.stopAsync();
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+ 
   }, []);
 
 
@@ -77,27 +60,19 @@ const Game = ({ navigation }) => {
     console.log('userEmail', userEmail);
     AsyncStorage.getItem('points', (err, result) => {
       if (result !== null) {
-        //console.log('Data found', result);
+     
         var arr = JSON.parse(result) || [];
         var newPoints = arr.concat(v);
         AsyncStorage.setItem('points', JSON.stringify(newPoints));
       }
       else {
-        //console.log("data not found");
+        
         AsyncStorage.setItem('points', JSON.stringify(v));
       }
     })
   } 
 
-  // const toggleSound = () => {
-  //   if (soundState === "sound") {
-  //     soundState = "nosound";
-  //     soundObject.pauseAsync();
-  //   } else if (soundState === "nosound") {
-  //     soundState = "sound";
-  //     soundObject.playAsync();
-  //   }
-  // };
+
 
   const onEvent = (e) => {
     if (e.type == 'correct') {
@@ -137,11 +112,9 @@ const Game = ({ navigation }) => {
         <Text style={styles.score}>סה"כ נקודות</Text>
         <Text style={styles.points}>{userState.points}</Text>
         <Timer key={userState.updateTimer} onChange={() => onChangeTimer()} />
-        {/* <Pressable onPress={toggleSound}>
-          <Octicons style={styles.muteIcon} name={soundState === "sound" ? "unmute" : "mute"} size={24} color="black" />
-        </Pressable> */}
+    
         <GameEngine
-          // ref={(ref) => { this.engine = ref; }}
+          
           ref={(ref) => { setEngine(ref) }}
           style={styles.container}
           running={userState.running}
@@ -269,7 +242,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginHorizontal: 20
   },
-  ////
+  
   textView:{
     margin:10
 
